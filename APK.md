@@ -1,5 +1,8 @@
 # Generar el APK — Reloadex
 
+**Descarga pública:** [Reloadex-1.0.apk (34,5 MB)](https://github.com/nelsonjpr/Reloadex/releases/download/v1.0/Reloadex-1.0.apk)
+· [Página del release](https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0)
+
 La app se distribuye como **APK firmado** y funciona **100% offline desde el primer arranque**:
 dataset, guía, sprites, shiny, fuentes y gritos van dentro del paquete. No usa PokeAPI ni
 Google Fonts en runtime.
@@ -59,12 +62,21 @@ keyPassword=TU_PASSWORD
 npm run apk:release    # assemblyRelease firmado
 ```
 
-Salida: `android/app/build/outputs/apk/release/app-release.apk` (~30 MB).
+Salida: `android/app/build/outputs/apk/release/app-release.apk` (~34,5 MB).
 Para probar sin firmar: `npm run apk:debug`.
+
+### Si Google Maven está bloqueado
+
+AGP 8.13 intenta descargar `intellij-core`/`kotlin-compiler` para las tareas de anotaciones y
+lint. `npm run apk:release` ya omite esas tareas (no afectan al APK) y
+`scripts/prepareApkBuild.mjs` crea los `typedefs.txt` vacíos que AGP exige como entrada.
+Los JARs descargados como respaldo viven en `android/local-jars/` (ignorado por git).
 
 ## Publicar para todo el mundo
 
-1. Sube `app-release.apk` a un **GitHub Release** de este repo (tag `v1.0`, por ejemplo).
+El release **v1.0 ya está publicado**: https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0
+
+1. Sube `app-release.apk` como asset de un **GitHub Release** para versiones nuevas.
 2. Quien descarga el APK desde el móvil lo instala habilitando "Instalar apps desconocidas".
 3. No necesita internet para usar la Pokédex: todo viene dentro del APK.
 

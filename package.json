@@ -11,9 +11,9 @@
     "build:data": "node scripts/buildReloadexData.mjs",
     "build:guia": "node scripts/buildGuideData.mjs",
     "build:all": "node scripts/buildReloadexData.mjs && node scripts/buildGuideData.mjs && vite build",
-    "apk:prepare": "npm run build && npx cap sync android",
+    "apk:prepare": "npm run build && npx cap sync android && node scripts/prepareApkBuild.mjs",
     "apk:debug": "npm run apk:prepare && cd android && gradlew.bat assembleDebug",
-    "apk:release": "npm run apk:prepare && cd android && gradlew.bat assembleRelease"
+    "apk:release": "npm run apk:prepare && cd android && gradlew.bat assembleRelease --no-daemon -x :capacitor-android:extractReleaseAnnotations -x :capacitor-cordova-android-plugins:extractReleaseAnnotations -x :capacitor-android:lintVitalAnalyzeRelease -x :capacitor-cordova-android-plugins:lintVitalAnalyzeRelease -x :app:lintVitalAnalyzeRelease -x :app:lintVitalReportRelease -x :app:lintVitalRelease"
   },
   "dependencies": {
     "@capacitor/android": "^8.6.3",
