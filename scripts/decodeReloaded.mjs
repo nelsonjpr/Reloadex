@@ -1,34 +1,54 @@
 import fs from 'node:fs';
 
-// Descifrador de los archivos de texto de Pokémon Reloaded.
-// Sustitución monoalfabética fija; las vocales acentuadas van como 39 4F <vocal> 7C.
-const SIMPLE = {
-  '21':'f','22':'b','24':'P','26':'y','28':'N','2a':'v','2b':'S','31':'n','33':'c','34':' ','36':'i','37':'p',
-  '3b':'I','3d':'l','3e':'E','3f':'z','40':'A','41':'t','43':'x','44':'W','46':'k','47':'s','48':'J','49':'g',
-  '4c':'C','4d':'r','52':'R','57':'o','59':'d','5a':'w','5c':'u','5d':'V','67':'M','69':'m','6a':'K','74':'F',
-  '75':'e','76':'B','7a':'h','7b':'q','7d':'a','79':'H','73':'L','2f':'D','6c':'.','5e':'j','3a':'T','56':'O',
-  '55':'G','38':'C','6b':'U','68':'4','64':'0','77':'2','25':'6','51':'9','5f':'8','65':'7','4b':'1','4a':'.',
-  '66':'3','4e':'5','3c':'-','27':',','2d':'?','20':'!','45':'Y','54':'D','23':'?','6d':'?','5b':'X','78':'-',
+// Descifrador de los textos de Pokémon Reloaded.
+// La tabla se extrajo del propio juego (script interno `ValuesAdjustment6`) y
+// las secuencias &{...} del script `SpecialChars`; no es una tabla aproximada.
+const BYTE = {
+  '20':'$','21':'f','22':'b','23':'?','24':'P','25':'6','26':'y','27':"'",'28':'N','29':'^',
+  '2a':'v','2b':'S','2c':'%','2d':':','2e':']','2f':'D','30':'`','31':'n','32':'*','33':'c',
+  '34':' ','35':'>','36':'i','37':'p','38':'Z','39':'&','3a':'T','3b':'I','3c':'=','3d':'l',
+  '3e':'E','3f':'z','40':'A','41':'t','42':'_','43':'x','44':'W','45':'Y','46':'k','47':'s',
+  '48':'J','49':'g','4a':',','4b':'1','4c':'C','4d':'r','4e':'4','4f':'{','50':'/','51':'9',
+  '52':'R','53':'|','54':'!','55':'G','56':'O','57':'o','58':'[','59':'d','5a':'w','5b':'X',
+  '5c':'u','5d':'V','5e':'j','5f':'8','60':')','61':';','62':'+','63':'<','64':'0','65':'7',
+  '66':'3','67':'M','68':'5','69':'m','6a':'K','6b':'U','6c':'.','6d':'Q','6e':'"','6f':'\\',
+  '70':'(','71':'@','72':'~','73':'L','74':'F','75':'e','76':'B','77':'2','78':'-','79':'H',
+  '7a':'h','7b':'q','7c':'}','7d':'a','7e':'#',
 };
-const VOWELS = { '7d':'á', '75':'é', '36':'í', '57':'ó', '5c':'ú', '31':'ñ' };
-const map = new Map(Object.entries(SIMPLE).map(([k, v]) => [parseInt(k, 16), v]));
+
+const SPECIAL = {
+  n:'ñ', N:'Ñ', a:'á', e:'é', i:'í', o:'ó', u:'ú', A:'Á', E:'É', I:'Í', O:'Ó', U:'Ú',
+  aa:'à', AA:'À', ee:'è', EE:'È', e2:'ê', E2:'Ê', uu:'ü', UU:'Ü',
+  C:'Ç', c:'ç', '?':'¿', '!':'¡', E1:'€', o1:'º', a1:'ª',
+  c1:'’', c2:'´', '.':'…', i1:'¬', u2:'¨', ss:'§',
+};
 
 export function decodeReloaded(buf) {
   let out = '';
   for (let i = 0; i < buf.length; i++) {
     const x = buf[i];
-    if (x === 0x39 && buf[i + 1] === 0x4f && buf[i + 3] === 0x7c && VOWELS[buf[i + 2].toString(16)]) {
-      out += VOWELS[buf[i + 2].toString(16)]; i += 3; continue;
+    if (x === 0x39 && buf[i + 1] === 0x4f) { // &{
+      let j = i + 2;
+      while (j < buf.length && buf[j] !== 0x7c) j++;
+      if (j < buf.length && j - i <= 8) {
+        let tag = '';
+        for (let k = i + 2; k < j; k++) tag += BYTE[buf[k].toString(16)] ?? `<${buf[k].toString(16)}>`;
+        out += SPECIAL[tag] ?? `{${tag}}`;
+        i = j;
+        continue;
+      }
     }
     if (x === 13) continue;
     if (x === 10) { out += '\n'; continue; }
-    out += map.get(x) ?? `\u0001${x.toString(16)}\u0002`;
+    out += BYTE[x.toString(16)] ?? `<${x.toString(16)}>`;
   }
   return out;
 }
 
 export function decodeFile(file) {
-  return decodeReloaded(fs.readFileSync(file)).split('\n').filter((l, i, a) => l !== '' || i < a.length - 1);
+  return decodeReloaded(fs.readFileSync(file))
+    .split('\n')
+    .filter((l, i, a) => l !== '' || i < a.length - 1);
 }
 
 if (process.argv[1] && process.argv[1].endsWith('decodeReloaded.mjs')) {

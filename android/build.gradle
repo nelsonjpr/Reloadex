@@ -19,6 +19,10 @@ apply from: "variables.gradle"
 
 allprojects {
     repositories {
+        // Espejo local de los JARs de anotaciones que Google Maven no sirve en esta red.
+        flatDir {
+            dirs rootProject.file('local-jars')
+        }
         google()
         mavenCentral()
     }

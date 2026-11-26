@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Search, Users, Zap, Sparkles, BookOpen, Crown, Map } from 'lucide-react';
+import { APP_VERSION } from '../data/appInfo';
 
 const Home = ({ onNavigate }) => {
   const menuItems = [
@@ -165,8 +166,11 @@ const Home = ({ onNavigate }) => {
           <p className="text-sm font-normal tracking-[0.01em] text-white/60">
             <span className="font-semibold text-white">Reloadex</span> · Pokédex de Pokémon Reloaded
           </p>
-          <p className="mt-2 text-xs font-normal tracking-[0.12em] text-white/40">
-            {new Date().getFullYear()} - Hecho con ❤️ para entrenadores
+          <p className="mt-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs font-normal tracking-[0.06em] text-white/40">
+            <span className="pill bg-white/10 px-2 py-0.5 font-semibold tracking-normal text-white/75">
+              Versión {APP_VERSION}
+            </span>
+            <span>{new Date().getFullYear()} · Hecho con ❤️ para entrenadores</span>
           </p>
         </div>
       </div>

@@ -68,4 +68,4 @@ React 18 · Vite 5 · Tailwind CSS · Framer Motion · Lucide React · PWA/Servi
 
 ---
 
-**Versión:** 2.1.0 · **Pokémon Reloaded:** Beta 1.9.2.2
+**Versión:** 1.0 · **Pokémon Reloaded:** Beta 1.9.2.2

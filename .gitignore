@@ -47,3 +47,6 @@ android/app/*.keystore
 android/app/*.jks
 *.jks
 *.keystore
+
+# Espejo local de dependencias Gradle (solo para esta máquina)
+android/local-jars/
