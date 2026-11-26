@@ -1,56 +1,41 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { typeColors, typeTranslations } from '../data/pokemon';
-
-// Iconos de tipos simulados con emojis/símbolos
-const typeIcons = {
-  normal: '⚪',
-  fire: '🔥',
-  water: '💧',
-  grass: '🌿',
-  electric: '⚡',
-  ice: '❄️',
-  fighting: '🥊',
-  poison: '☠️',
-  ground: '⛰️',
-  flying: '🦅',
-  psychic: '🔮',
-  bug: '🐛',
-  rock: '🪨',
-  ghost: '👻',
-  dragon: '🐉',
-  dark: '🌙',
-  steel: '⚙️',
-  fairy: '✨'
-};
+import { typeIcon } from '../utils/sprites';
 
 const TypeFilter = ({ selectedType, onSelectType }) => {
   const types = Object.keys(typeColors);
 
   return (
-    <div className="grid grid-cols-4 gap-2 sm:gap-3">
+    <div className="grid grid-cols-6 gap-1.5 sm:gap-2">
       {types.map((type) => {
         const isSelected = selectedType === type;
+        const label = typeTranslations[type] || type;
         return (
           <motion.button
             key={type}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 0.94 }}
             onClick={() => onSelectType(type)}
-            className={`aspect-square rounded-2xl sm:rounded-3xl flex flex-col items-center justify-center p-2 sm:p-4 transition-all ${
-              isSelected 
-                ? 'ring-4 ring-white ring-offset-2 ring-offset-slate-900 scale-105' 
-                : 'hover:scale-105'
+            aria-label={`Filtrar por ${label}`}
+            aria-pressed={isSelected}
+            title={label}
+            className={`relative flex aspect-square items-center justify-center rounded-xl p-1 transition-all sm:rounded-2xl sm:p-1.5 ${
+              isSelected
+                ? 'z-10 scale-105 ring-2 ring-white ring-offset-2 ring-offset-slate-900'
+                : 'hover:scale-105 hover:brightness-110'
             }`}
             style={{
-              backgroundColor: isSelected ? typeColors[type] : `${typeColors[type]}40`,
+              backgroundColor: isSelected ? typeColors[type] : `${typeColors[type]}66`,
+              boxShadow: isSelected ? `0 8px 18px -10px ${typeColors[type]}` : 'none',
             }}
           >
-            <div className="text-2xl sm:text-3xl mb-1">{typeIcons[type]}</div>
-            <div className={`text-[10px] sm:text-xs font-bold uppercase tracking-tight ${
-              isSelected ? 'text-white' : 'text-white/80'
-            }`}>
-              {typeTranslations[type] || type}
-            </div>
+            <img
+              src={typeIcon(type, true)}
+              alt=""
+              aria-hidden="true"
+              className="h-7 w-7 object-contain pixelated drop-shadow-[0_2px_4px_rgba(0,0,0,0.45)] sm:h-8 sm:w-8"
+            />
+            <span className="sr-only">{label}</span>
           </motion.button>
         );
       })}

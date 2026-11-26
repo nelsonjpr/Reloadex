@@ -5,12 +5,12 @@ import PokemonDetail from './components/PokemonDetail';
 import MovesView from './components/MovesView';
 import AbilitiesView from './components/AbilitiesView';
 import LegendariesView from './components/LegendariesView';
-import { StoryView } from './components/StoryView';
+import GuiaView from './components/GuiaView';
 import { TeamBuilder } from './components/TeamBuilder';
 import Pokedex from './components/Pokedex';
 import { pokemonData } from './data/pokemon';
 
-const VIEWS = ['home', 'pokedex', 'team', 'moves', 'abilities', 'story', 'legendaries'];
+const VIEWS = ['home', 'pokedex', 'team', 'moves', 'abilities', 'story', 'guia', 'legendaries'];
 
 // =============================================================
 // Reloadex — Pokédex profesional de Pokémon Reloaded
@@ -54,7 +54,8 @@ function App() {
   if (currentView === 'team') return <TeamBuilder onBack={handleBackToHome} onOpen={(p) => setSelectedPokemon(p)} />;
   if (currentView === 'moves') return <MovesView onBack={handleBackToHome} />;
   if (currentView === 'abilities') return <AbilitiesView onBack={handleBackToHome} />;
-  if (currentView === 'story') return <StoryView onBack={handleBackToHome} />;
+  if (currentView === 'story') return <GuiaView onBack={handleBackToHome} variant="historia" />;
+  if (currentView === 'guia') return <GuiaView onBack={handleBackToHome} variant="guia" />;
   if (currentView === 'legendaries') return <LegendariesView onBack={handleBackToHome} />;
 
   // Pokédex (vista actual)

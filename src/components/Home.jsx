@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, Users, Zap, Sparkles, BookOpen, Crown } from 'lucide-react';
+import { Search, Users, Zap, Sparkles, BookOpen, Crown, Map } from 'lucide-react';
 
 const Home = ({ onNavigate }) => {
   const menuItems = [
@@ -48,6 +48,15 @@ const Home = ({ onNavigate }) => {
       gradient: 'from-red-500 to-rose-500',
       bgPattern: 'bg-red-500/10',
       accent: '#fb7185'
+    },
+    {
+      id: 'guia',
+      title: 'Guía',
+      description: 'Recorrido completo por regiones',
+      icon: Map,
+      gradient: 'from-teal-500 to-emerald-500',
+      bgPattern: 'bg-teal-500/10',
+      accent: '#2dd4bf'
     },
     {
       id: 'legendaries',

@@ -9,7 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "build:data": "node scripts/buildReloadexData.mjs",
-    "build:all": "node scripts/buildReloadexData.mjs && vite build"
+    "build:guia": "node scripts/buildGuideData.mjs",
+    "build:all": "node scripts/buildReloadexData.mjs && node scripts/buildGuideData.mjs && vite build"
   },
   "dependencies": {
     "react": "^18.3.1",

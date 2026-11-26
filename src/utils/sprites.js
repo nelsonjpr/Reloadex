@@ -53,6 +53,34 @@ export const cryFallbacks = (id) => {
   return out;
 };
 
+// Iconos originales extraídos del gamedata de Pokémon Reloaded (spr_gotype /
+// spr_gobigtype). El nombre de archivo conserva el orden real del juego.
+const TYPE_ICON_FILE = {
+  normal: '01_normal',
+  fire: '02_fuego',
+  water: '03_agua',
+  grass: '04_planta',
+  electric: '05_electrico',
+  rock: '06_roca',
+  fighting: '07_lucha',
+  ground: '08_tierra',
+  psychic: '09_psiquico',
+  poison: '10_veneno',
+  bug: '11_bicho',
+  ice: '12_hielo',
+  dark: '13_siniestro',
+  steel: '14_acero',
+  flying: '15_volador',
+  ghost: '16_fantasma',
+  dragon: '17_dragon',
+  fairy: '18_hada',
+};
+
+export const typeIcon = (type, big = false) => {
+  const file = TYPE_ICON_FILE[type];
+  return file ? `/icons/types/${big ? 'big' : 'small'}_${file}.png` : null;
+};
+
 export const typeColor = (type) => typeColors[type] || '#777777';
 export const typeName = (type) => typeTranslations[type] || type || '?';
 

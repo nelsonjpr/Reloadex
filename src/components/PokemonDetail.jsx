@@ -6,7 +6,7 @@ import {
   TrendingDown, Activity,
 } from 'lucide-react';
 import {
-  typeColor, typeName, spriteUrl, spriteFallbacks,
+  typeColor, typeName, typeIcon, spriteUrl, spriteFallbacks,
   formatId, baseFormId, safeStats,
 } from '../utils/sprites';
 import { pokemonData } from '../data/pokemon';
@@ -220,13 +220,14 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
                   return (
                     <span
                       key={type}
-                      className="pill px-4 py-1.5 text-xs font-semibold uppercase tracking-wider ring-1 ring-white/25"
+                      className="pill inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider ring-1 ring-white/25"
                       style={{
                         background: `linear-gradient(135deg, ${adjustColor(color, 0.16)}, ${color})`,
                         color: readableText(color),
                         boxShadow: `0 12px 26px -12px ${color}bb, inset 0 1px 0 rgba(255,255,255,0.18)`,
                       }}
                     >
+                      <img src={typeIcon(type)} alt="" aria-hidden="true" className="h-4 w-4 object-contain pixelated" />
                       {typeName(type)}
                     </span>
                   );

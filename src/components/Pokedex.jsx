@@ -7,7 +7,7 @@ import {
 import { pokemonData, typeColors, typeTranslations } from '../data/pokemon';
 import {
   spriteUrl, spriteFallbacks, cryUrl, cryFallbacks,
-  formatId, typeColor, typeName,
+  formatId, typeColor, typeName, typeIcon,
 } from '../utils/sprites';
 import TypeFilter from './TypeFilter';
 import GenerationFilter from './GenerationFilter';
@@ -238,7 +238,7 @@ export default function Pokedex({ onBack, onSelect }) {
         {/* Filtros (hojas) */}
         <AnimatePresence>
           {showTypeFilter && (
-            <Sheet title="Filtrar por tipo" onClose={() => setShowTypeFilter(false)}>
+            <Sheet title="Filtrar por tipo" onClose={() => setShowTypeFilter(false)} compact>
               <TypeFilter selectedType={selectedType} onSelectType={(t) => { setSelectedType(t); setShowTypeFilter(false); }} />
             </Sheet>
           )}
@@ -378,8 +378,9 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
             {(pokemon.types || []).map((t) => (
               <span
                 key={t}
-                className="pill bg-black/25 px-2.5 py-1 text-[10px] uppercase text-white ring-1 ring-white/20 backdrop-blur-sm"
+                className="pill inline-flex items-center gap-1 bg-black/25 px-2.5 py-1 text-[10px] uppercase text-white ring-1 ring-white/20 backdrop-blur-sm"
               >
+                <img src={typeIcon(t)} alt="" aria-hidden="true" className="h-3.5 w-3.5 object-contain pixelated" />
                 {typeName(t)}
               </span>
             ))}
@@ -434,14 +435,14 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
   );
 }
 
-function Sheet({ title, children, onClose }) {
+function Sheet({ title, children, onClose, compact = false }) {
   return (
     <motion.div className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center"
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}>
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-      <motion.div className="relative w-full sm:max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-slate-900 p-5 border border-white/10"
+      <motion.div className={`relative w-full sm:max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-slate-900 border border-white/10 ${compact ? 'p-4' : 'p-5'}`}
         initial={{ y: 40 }} animate={{ y: 0 }} exit={{ y: 40 }} onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between mb-4">
+        <div className={`flex items-center justify-between ${compact ? 'mb-3' : 'mb-4'}`}>
           <h3 className="font-bold">{title}</h3>
           <button onClick={onClose} className="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center" aria-label="Cerrar"><X size={18} /></button>
         </div>

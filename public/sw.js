@@ -1,5 +1,5 @@
 /* Reloadex service worker — offline + assets cache (APK/PWA ready) */
-const VERSION = 'reloadex-v2';
+const VERSION = 'reloadex-v3';
 const CORE = [
   '/',
   '/index.html',

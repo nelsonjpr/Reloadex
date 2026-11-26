@@ -15,7 +15,20 @@ La app **no usa datos de Pokémon oficiales como fuente**. El dataset se constru
 
 - **IDs verificados** desde los sprites del juego (`data\pkmn`): `1-1000`, propios `2001-2425`, megas `+100000`, mega2 `+150000`, formas `+200000`.
 - **Todos los Pokémon registrados** en el juego, **con megas y formas**, y sprite/shiny/grito reales.
-- Lo que **no se puede verificar** se marca (`nameSource`, `typesSource`, `statsSource`, …) en vez de inventarse.
+- Los campos se generan desde el juego y sus fuentes internas (`nameSource`, `typesSource`, `statsSource`, …); la interfaz nunca muestra avisos técnicos.
+
+### Guía e historia
+
+`Historia` y `Guía` salen de la wiki oficial de Pokémon Reloaded y funcionan **100 % offline**:
+el wikitext cacheado se convierte en `src/data/guide.json` con `npm run build:guia`.
+Los capítulos siguen el orden argumental (Oak → 8 medallas de Star → ligas → Volcán Tormento),
+con índice, búsqueda, filtros por región/fase y colores para medallas, ligas y eventos.
+
+### Iconos de tipos originales
+
+`public/icons/types/` contiene los iconos reales extraídos del `gamedata` de GameMaker
+(`spr_gotype` / `spr_gobigtype`), con transparencia y colores contrastados contra el propio
+`TipoColor` del juego. Se usan en la lista, la ficha y el filtro de tipos.
 
 ### Regenerar el dataset
 
@@ -33,7 +46,8 @@ Genera `src/data/reloadex.json` + `src/data/reloadex.provenance.json`.
 npm install
 npm run dev        # http://localhost:5173
 npm run build      # producción -> dist/
-npm run build:all  # regenera datos + build
+npm run build:guia # regenera guía/historia desde la caché de la wiki
+npm run build:all  # regenera datos + guía + build
 npm run preview
 ```
 

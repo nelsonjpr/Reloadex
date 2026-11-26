@@ -19,6 +19,11 @@ Documento interno. **La interfaz no muestra esta información.**
   El dataset guarda el nombre exacto en `sprite.shinyFile`; la app también conserva copias renombradas a ID plano.
 - **Gritos:** carpeta mantenida por el usuario `D:\reloaded\Proyecto Reloaded The Last Beta 1.9.2.2 Full\data\audio\grito` (sincronizada a `public\cries` por `npm run build:data`). Se usa el nombre de archivo exacto por ID; los archivos nuevos tienen prioridad sobre los empaquetados antes.
 - **Variantes:** nombres Mega/Gigamax del propio juego; el método mostrado sale del nombre registrado.
+- **Iconos de tipos:** extraídos sin modificar los EXE del `gamedata` cifrado de GameMaker 8.0
+  (`spr_gotype` 12×12 y `spr_gobigtype` 44×44). El orden de frames se contrastó con `TipoName`
+  y los colores con `TipoColor`; se guardan en `public/icons/types/`.
+- **Guía/historia:** wikitext de la wiki oficial guardado en `scripts/wiki-cache.json` y
+  convertido por `scripts/buildGuideData.mjs` en `src/data/guide.json` (sin peticiones en runtime).
 
 ### Datos heredados (no verificables en los archivos legibles)
 
@@ -43,7 +48,8 @@ No se asignan a ningún Pokémon para no atribuir un grito equivocado.
 ## Regeneración
 
 `npm run build:data` actualiza `src/data/reloadex.json` y `src/data/reloadex.provenance.json`.
-`npm run build:all` regenera datos y compila la PWA.
+`npm run build:guia` actualiza `src/data/guide.json` desde `scripts/wiki-cache.json`.
+`npm run build:all` regenera datos y guía, y compila la PWA.
 
 ## Límites del entorno
 

@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, MapPin, Search, Sparkles, X } from 'lucide-react';
 import { legendaries } from '../data/legendaries';
-import { spriteUrl, typeColor, typeName } from '../utils/sprites';
+import { spriteUrl, typeColor, typeName, typeIcon } from '../utils/sprites';
 
 const gradientFor = (types = []) => {
   const primary = typeColor(types[0]);
@@ -18,9 +18,10 @@ const TypePills = ({ types }) => {
       {types.map((type) => (
         <span
           key={type}
-          className="pill px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white ring-1 ring-white/25"
+          className="pill inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white ring-1 ring-white/25"
           style={{ backgroundColor: typeColor(type) }}
         >
+          <img src={typeIcon(type)} alt="" aria-hidden="true" className="h-3.5 w-3.5 object-contain pixelated" />
           {typeName(type)}
         </span>
       ))}
