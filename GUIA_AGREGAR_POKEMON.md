@@ -57,10 +57,8 @@ Abre `src/data/pokemon.js` y agrega la información:
 4. Pégalo en `Reloadex/public/sprites/shiny/`
 
 ### Paso 3: Copiar gritos
-1. Ve a `D:\Juegos\Reloaded\data\audio\grito\`
-2. Copia el archivo `004.wav`
-3. Renómbralo a `4.wav`
-4. Pégalo en `Reloadex/public/cries/`
+Los gritos se sincronizan automáticamente desde `D:\reloaded\Proyecto Reloaded The Last Beta 1.9.2.2 Full\data\audio\grito\` al ejecutar `npm run build:data` o `npm run build:all`.
+Si haces una copia manual, conserva el nombre exacto del archivo (por ejemplo `004.wav`) y pégalo en `Reloadex/public/cries/`.
 
 ### Paso 4: Agregar datos
 Igual que el Método 1, Paso 3.
@@ -109,7 +107,7 @@ copy "D:\Juegos\Reloaded\data\pkmn\25.gif" "public\sprites\normal\25.gif"
 copy "D:\Juegos\Reloaded\data\pkmn_shiny\1025.gif" "public\sprites\shiny\25.gif"
 
 # Grito
-copy "D:\Juegos\Reloaded\data\audio\grito\025.wav" "public\cries\25.wav"
+copy "D:\reloaded\Proyecto Reloaded The Last Beta 1.9.2.2 Full\data\audio\grito\025.wav" "public\cries\025.wav"
 ```
 
 ### 2. Agregar a pokemon.js

@@ -17,7 +17,7 @@ Documento interno. **La interfaz no muestra esta información.**
   - `data\text\zz\dex_height_m.dll` / `dex_weight_kg.dll` → altura y peso.
 - **Shiny:** el juego nombra los sprites como `<ID+1000>.gif` (por ejemplo, `1 -> 1001.gif`, `892 -> 1892.gif`).
   El dataset guarda el nombre exacto en `sprite.shinyFile`; la app también conserva copias renombradas a ID plano.
-- **Gritos:** `data\audio\grito` (copiados a `public\cries`). Se usa el nombre de archivo exacto por ID.
+- **Gritos:** carpeta mantenida por el usuario `D:\reloaded\Proyecto Reloaded The Last Beta 1.9.2.2 Full\data\audio\grito` (sincronizada a `public\cries` por `npm run build:data`). Se usa el nombre de archivo exacto por ID; los archivos nuevos tienen prioridad sobre los empaquetados antes.
 - **Variantes:** nombres Mega/Gigamax del propio juego; el método mostrado sale del nombre registrado.
 
 ### Datos heredados (no verificables en los archivos legibles)
@@ -36,7 +36,7 @@ Documento interno. **La interfaz no muestra esta información.**
 
 Estos IDs tienen `.wav` en el juego pero **no sprite ni entrada**:
 
-`10168, 10321, 10600, 10950, 100952, 102356, 102398, 102399`
+`10168, 10321, 10600, 10950, 100330, 100496, 100509, 100516, 100517, 100900, 100952, 102356, 102398, 102399, 152356, 202356, 300026`
 
 No se asignan a ningún Pokémon para no atribuir un grito equivocado.
 

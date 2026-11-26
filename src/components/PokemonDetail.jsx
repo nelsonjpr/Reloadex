@@ -188,6 +188,7 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
                   shiny={isShiny}
                   name={pokemon.name}
                   shinyFile={pokemon.sprite?.shinyFile}
+                  glow={primary}
                   className="relative h-48 w-48 sm:h-56 sm:w-56"
                 />
                 {isShiny && (
@@ -202,7 +203,7 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
                 )}
               </div>
 
-              <h1 className="mt-2 text-[2rem] font-extrabold leading-tight text-white text-shadow sm:text-5xl">
+              <h1 className="mt-2 text-[2rem] font-semibold leading-tight tracking-[-0.04em] text-white text-shadow sm:text-5xl">
                 {pokemon.name}
               </h1>
 
@@ -219,10 +220,11 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
                   return (
                     <span
                       key={type}
-                      className="pill px-4 py-1.5 text-xs uppercase tracking-wider shadow-lg ring-1 ring-white/25"
+                      className="pill px-4 py-1.5 text-xs font-semibold uppercase tracking-wider ring-1 ring-white/25"
                       style={{
                         background: `linear-gradient(135deg, ${adjustColor(color, 0.16)}, ${color})`,
                         color: readableText(color),
+                        boxShadow: `0 12px 26px -12px ${color}bb, inset 0 1px 0 rgba(255,255,255,0.18)`,
                       }}
                     >
                       {typeName(type)}
@@ -354,7 +356,7 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
                   <div className="text-xs font-semibold uppercase tracking-wider text-white/55">Total</div>
                   <div className="text-[11px] text-white/40">Suma de estadísticas base</div>
                 </div>
-                <span className="text-3xl font-extrabold tabular-nums" style={{ color: primary }}>
+                <span className="text-3xl font-semibold tracking-[-0.04em] tabular-nums" style={{ color: primary }}>
                   {totalStats}
                 </span>
               </div>
@@ -366,7 +368,7 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
                     <div key={key}>
                       <div className="mb-1.5 flex items-center justify-between">
                         <span className="text-sm font-semibold text-white/75">{label}</span>
-                        <span className="text-sm font-extrabold tabular-nums" style={{ color: primary }}>{value}</span>
+                        <span className="text-sm font-semibold tabular-nums" style={{ color: primary }}>{value}</span>
                       </div>
                       <div className="h-2.5 w-full overflow-hidden rounded-full bg-white/[0.07]">
                         <motion.div
@@ -508,25 +510,32 @@ function SectionTitle({ icon: Icon, children, color = '#7dd3fc' }) {
     <div className="flex items-center gap-2.5">
       {Icon && (
         <span
-          className="flex h-9 w-9 items-center justify-center rounded-2xl"
-          style={{ background: `${color}22`, color }}
+          className="flex h-9 w-9 items-center justify-center rounded-2xl ring-1 ring-white/10"
+          style={{
+            background: `radial-gradient(circle at 30% 25%, ${color}55 0%, ${color}22 52%, ${color}0d 100%)`,
+            color,
+            boxShadow: `0 10px 22px -12px ${color}aa`,
+          }}
         >
           <Icon size={18} />
         </span>
       )}
-      <h3 className="text-base font-bold text-white sm:text-lg">{children}</h3>
+      <h3 className="text-base font-semibold tracking-[-0.03em] text-white sm:text-lg">{children}</h3>
     </div>
   );
 }
 
 function Info({ icon: Icon, label, value, color }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-3.5">
-      <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.12em] text-white/50">
+    <div
+      className="premium-card rounded-2xl border border-white/10 bg-white/[0.045] p-3.5"
+      style={{ '--card-shadow': '0 14px 30px -18px rgba(3, 10, 26, 0.85)' }}
+    >
+      <div className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.16em] text-white/50">
         {Icon && <Icon size={14} style={{ color: color || undefined }} />}
         <span>{label}</span>
       </div>
-      <div className="mt-1 text-sm font-bold sm:text-base" style={{ color: color || undefined }}>
+      <div className="mt-1 text-sm font-normal tracking-[0.01em] sm:text-base" style={{ color: color || undefined }}>
         {value ?? '—'}
       </div>
     </div>
@@ -541,7 +550,7 @@ function MultiplierChip({ type, multiplier }) {
       style={{ background: `${color}33`, borderColor: `${color}aa` }}
     >
       <span>{typeName(type)}</span>
-      <span className="rounded-full bg-black/35 px-2 py-0.5 font-extrabold tabular-nums">
+      <span className="rounded-full bg-black/35 px-2 py-0.5 font-semibold tabular-nums">
         {formatMultiplier(multiplier)}
       </span>
     </span>
@@ -551,34 +560,44 @@ function MultiplierChip({ type, multiplier }) {
 function VariantCard({ variant, active, color, onClick }) {
   return (
     <motion.button
-      whileTap={{ scale: 0.97 }}
+      whileHover={{ y: -4, transition: { duration: 0.3, delay: 0 } }}
+      whileTap={{ scale: 0.97, transition: { duration: 0.18, delay: 0 } }}
       onClick={onClick}
-      className="rounded-2xl border p-3 text-left transition"
+      className="premium-card rounded-2xl border p-3 text-left"
       style={{
         borderColor: active ? color : 'rgba(255,255,255,0.12)',
         background: active ? `${color}26` : 'rgba(255,255,255,0.04)',
-        boxShadow: active ? `0 0 0 1px ${color}66` : undefined,
+        '--card-shadow': active
+          ? `0 16px 34px -18px ${color}bb`
+          : '0 14px 30px -18px rgba(3, 10, 26, 0.85)',
+        '--card-shadow-hover': active
+          ? `0 22px 44px -18px ${color}dd`
+          : `0 20px 40px -18px ${color}66`,
       }}
     >
-      <div className="truncate text-sm font-bold text-white">{variant.name}</div>
-      <div className="mt-1 text-[11px] text-white/60">{variant.label || 'Forma'}</div>
+      <div className="truncate text-sm font-semibold tracking-[-0.02em] text-white">{variant.name}</div>
+      <div className="mt-1 text-[11px] font-normal tracking-[0.05em] text-white/60">{variant.label || 'Forma'}</div>
       {variant.method && variant.method !== variant.label && (
-        <div className="mt-0.5 text-[11px] text-white/45">{variant.method}</div>
+        <div className="mt-0.5 text-[11px] font-normal text-white/45">{variant.method}</div>
       )}
     </motion.button>
   );
 }
 
-function SpriteImage({ id, shiny = false, name, className = '', small = false, shinyFile = null }) {
+function SpriteImage({ id, shiny = false, name, className = '', small = false, shinyFile = null, glow = null }) {
   const [src, setSrc] = useState(() => spriteUrl(id, shiny, shinyFile));
   React.useEffect(() => { setSrc(spriteUrl(id, shiny, shinyFile)); }, [id, shiny, shinyFile]);
   const fallbacks = spriteFallbacks(id, shiny, shinyFile);
+  const spriteFilter = glow
+    ? `drop-shadow(0 14px 18px rgba(2, 6, 18, 0.5)) drop-shadow(0 0 14px ${glow}66)`
+    : 'drop-shadow(0 14px 18px rgba(2, 6, 18, 0.5))';
   return (
     <img
       key={`${id}-${shiny}-${shinyFile || ''}`}
       src={src}
       alt={name}
-      className={`object-contain pixelated drop-shadow-2xl ${className}`}
+      className={`object-contain pixelated ${className}`}
+      style={{ filter: spriteFilter }}
       onError={(e) => {
         const next = fallbacks.find((f) => !e.target.src.endsWith(f.split('/').pop()));
         if (next && !e.target.dataset.tried) {

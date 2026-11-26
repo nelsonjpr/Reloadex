@@ -1,280 +1,221 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, MapPin, Award, Lightbulb, ChevronDown, Search } from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowLeft, MapPin, Search, Sparkles, X } from 'lucide-react';
 import { legendaries } from '../data/legendaries';
-import { typeColors } from '../data/pokemon';
+import { spriteUrl, typeColor, typeName } from '../utils/sprites';
+
+const gradientFor = (types = []) => {
+  const primary = typeColor(types[0]);
+  const secondary = typeColor(types[1] || types[0]);
+  if (!types.length) return 'linear-gradient(135deg, #d97706 0%, #4f46e5 100%)';
+  return `linear-gradient(135deg, ${primary} 0%, ${secondary} 100%)`;
+};
+
+const TypePills = ({ types }) => {
+  if (!types?.length) return null;
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {types.map((type) => (
+        <span
+          key={type}
+          className="pill px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white ring-1 ring-white/25"
+          style={{ backgroundColor: typeColor(type) }}
+        >
+          {typeName(type)}
+        </span>
+      ))}
+    </div>
+  );
+};
 
 const LegendariesView = ({ onBack }) => {
-  const [selectedLegendary, setSelectedLegendary] = useState(null);
+  const [selected, setSelected] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filtered = legendaries.filter(leg => 
-    leg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    leg.location.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filtered = useMemo(() => {
+    const q = searchTerm.trim().toLowerCase();
+    if (!q) return legendaries;
+    return legendaries.filter((item) =>
+      item.name.toLowerCase().includes(q) ||
+      item.dex.toLowerCase().includes(q) ||
+      item.location.toLowerCase().includes(q),
+    );
+  }, [searchTerm]);
 
   return (
-    <div className="min-h-screen bg-[#080d1a]">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <button
-            onClick={onBack}
-            className="w-10 h-10 rounded-full glass-effect flex items-center justify-center text-white hover:bg-white/10 transition-colors"
-          >
-            <ArrowLeft size={20} />
-          </button>
-          <div className="flex-1">
-            <h1 className="text-4xl font-bold text-white mb-2">
-              Pokémon Legendarios
-            </h1>
-            <p className="text-white/60">Ubicaciones y guías de captura</p>
+    <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
+        <header className="mb-7">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onBack}
+              aria-label="Volver"
+              className="h-11 w-11 shrink-0 rounded-2xl glass-effect flex items-center justify-center hover:bg-white/10 active:scale-95 transition"
+            >
+              <ArrowLeft size={20} />
+            </button>
+            <div className="min-w-0">
+              <h1 className="text-2xl font-semibold tracking-[-0.035em] text-white sm:text-4xl">
+                Legendarios y singulares
+              </h1>
+              <p className="mt-0.5 text-xs font-normal tracking-[0.08em] text-white/50 sm:text-sm">
+                Guía de localización de Pokémon Reloaded
+              </p>
+            </div>
           </div>
-        </div>
+        </header>
 
-        {/* Search */}
-        <div className="relative mb-8">
-          <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-white/40" size={20} />
+        <div className="relative mb-5">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50" size={18} />
           <input
-            type="text"
-            placeholder="Buscar legendario o ubicación..."
+            type="search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-14 pr-4 py-4 rounded-2xl glass-dark text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+            placeholder="Buscar por nombre, número o ubicación…"
+            className="w-full h-12 pl-11 pr-4 rounded-2xl border border-white/10 bg-[#0d1528]/90 text-sm text-white placeholder-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-300/40 transition"
           />
         </div>
 
-        {/* Count */}
-        <div className="text-center mb-8">
-          <span className="glass-dark px-6 py-3 rounded-full text-sm font-semibold inline-block">
-            <span className="text-white/60">Mostrando </span>
-            <span className="text-amber-400 font-bold">{filtered.length}</span>
-            <span className="text-white/60"> de {legendaries.length} legendarios</span>
-          </span>
+        <div className="mb-6 text-center text-[11px] text-white/45 tabular-nums">
+          Mostrando <span className="font-semibold text-amber-300">{filtered.length}</span> de {legendaries.length} en el orden de la guía
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((legendary, index) => (
-            <motion.div
-              key={legendary.id}
-              initial={{ opacity: 0, y: 20 }}
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 sm:gap-4">
+          {filtered.map((item, index) => (
+            <motion.button
+              key={`${item.dex}-${item.name}`}
+              type="button"
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-              className="glass-dark rounded-3xl overflow-hidden hover:ring-2 hover:ring-amber-500/50 transition-all cursor-pointer group"
-              onClick={() => setSelectedLegendary(legendary)}
+              transition={{ duration: 0.3, delay: Math.min(index * 0.012, 0.35) }}
+              whileHover={{ y: -4, transition: { duration: 0.3 } }}
+              whileTap={{ scale: 0.98, transition: { duration: 0.15 } }}
+              onClick={() => setSelected(item)}
+              className="premium-card group relative overflow-hidden rounded-[24px] border border-white/[0.07] text-left"
+              style={{
+                '--card-shadow': '0 18px 44px -24px rgba(245,158,11,0.35), 0 12px 30px -18px rgba(3,8,20,0.85)',
+                '--card-shadow-hover': '0 26px 58px -22px rgba(245,158,11,0.5), 0 16px 34px -16px rgba(3,8,20,0.9)',
+              }}
             >
-              {/* Card Header */}
-              <div
-                className="relative h-48 overflow-hidden"
-                style={{
-                  background: `linear-gradient(135deg, ${typeColors[legendary.types[0]]} 0%, ${typeColors[legendary.types[1] || legendary.types[0]]} 100%)`
-                }}
-              >
-                {/* Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: `radial-gradient(circle at 20px 20px, white 2px, transparent 0)`,
-                    backgroundSize: '40px 40px'
-                  }} />
-                </div>
-
-                {/* Sprite */}
+              <div className="relative h-36 overflow-hidden sm:h-40" style={{ background: gradientFor(item.types) }}>
+                <div className="absolute inset-0 opacity-10" style={{
+                  backgroundImage: 'radial-gradient(circle at 18px 18px, white 2px, transparent 0)',
+                  backgroundSize: '36px 36px',
+                }} />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.img
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    src={`/sprites/normal/${legendary.id}.gif`}
-                    alt={legendary.name}
-                    className="w-32 h-32 object-contain pixelated drop-shadow-2xl"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
+                  <img
+                    src={spriteUrl(item.spriteId)}
+                    alt={item.name}
+                    loading="lazy"
+                    className="h-28 w-28 object-contain pixelated drop-shadow-[0_14px_16px_rgba(0,0,0,0.45)] transition-transform duration-300 group-hover:scale-105 sm:h-32 sm:w-32"
+                    onError={(e) => { e.currentTarget.style.opacity = '0'; }}
                   />
                 </div>
-
-                {/* Level Badge */}
-                <div className="absolute top-3 right-3 glass-effect px-3 py-1 rounded-full text-xs font-bold text-white">
-                  Nv. {legendary.level}
-                </div>
-              </div>
-
-              {/* Card Content */}
-              <div className="p-5">
-                {/* Name */}
-                <h3 className="text-xl font-bold text-white mb-2">{legendary.name}</h3>
-
-                {/* Types */}
-                <div className="flex gap-2 mb-3">
-                  {legendary.types.map(type => (
-                    <span
-                      key={type}
-                      className="px-3 py-1 rounded-full text-xs font-bold text-white uppercase"
-                      style={{ backgroundColor: typeColors[type] }}
-                    >
-                      {type}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Location */}
-                <div className="flex items-start gap-2 text-sm mb-3">
-                  <MapPin size={16} className="text-amber-400 mt-0.5 flex-shrink-0" />
-                  <span className="text-white/80">{legendary.location}</span>
-                </div>
-
-                {/* Quick Info */}
-                <div className="glass-effect rounded-xl p-3 text-xs text-white/70">
-                  {legendary.description.substring(0, 80)}...
-                </div>
-
-                {/* CTA */}
-                <div className="mt-4 text-center">
-                  <span className="text-xs text-amber-400 font-semibold group-hover:text-amber-300 transition-colors">
-                    Toca para ver guía completa →
+                <span className="pill absolute left-3 top-3 bg-black/30 px-2.5 py-1 font-mono text-[11px] font-bold text-white/90 ring-1 ring-white/25 backdrop-blur-md">
+                  #{item.dex}
+                </span>
+                {item.level != null && (
+                  <span className="pill absolute right-3 top-3 bg-black/30 px-2.5 py-1 text-[11px] font-bold text-white ring-1 ring-white/25 backdrop-blur-md">
+                    Nv. {item.level}
                   </span>
-                </div>
+                )}
               </div>
-            </motion.div>
+
+              <div className="relative space-y-2.5 bg-[#0b1120] p-4 sm:p-5">
+                <h2 className="text-lg font-semibold tracking-[-0.03em] text-white sm:text-xl">{item.name}</h2>
+                <TypePills types={item.types} />
+                <div className="flex items-start gap-2">
+                  <MapPin size={15} className="mt-0.5 shrink-0 text-amber-300" />
+                  <p className="line-clamp-3 text-xs font-normal leading-relaxed text-white/65">{item.location}</p>
+                </div>
+                <span className="block pt-1 text-[11px] font-semibold tracking-[0.08em] text-amber-300/90">
+                  VER GUÍA COMPLETA →
+                </span>
+              </div>
+            </motion.button>
           ))}
         </div>
 
         {filtered.length === 0 && (
-          <div className="text-center py-20">
-            <div className="text-6xl mb-4">🔍</div>
-            <div className="text-white/60">No se encontraron legendarios</div>
+          <div className="py-20 text-center">
+            <div className="mb-4 text-5xl">🔍</div>
+            <div className="text-sm text-white/60">No se encontraron legendarios</div>
           </div>
         )}
       </div>
 
-      {/* Detail Modal */}
       <AnimatePresence>
-        {selectedLegendary && (
+        {selected && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedLegendary(null)}
+            onClick={() => setSelected(null)}
+            className="fixed inset-0 z-[70] flex items-end justify-center bg-black/70 p-0 backdrop-blur-md sm:items-center sm:p-4"
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              initial={{ opacity: 0, y: 28, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.98 }}
+              transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-slate-900 rounded-3xl shadow-2xl"
-              style={{ scrollbarWidth: 'thin' }}
+              className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-t-[28px] border border-white/10 bg-[#0b1120] shadow-2xl sm:rounded-[28px]"
             >
-              {/* Modal Header */}
-              <div
-                className="relative h-64 overflow-hidden"
-                style={{
-                  background: `linear-gradient(135deg, ${typeColors[selectedLegendary.types[0]]} 0%, ${typeColors[selectedLegendary.types[1] || selectedLegendary.types[0]]} 100%)`
-                }}
-              >
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: `radial-gradient(circle at 20px 20px, white 2px, transparent 0)`,
-                    backgroundSize: '40px 40px'
-                  }} />
-                </div>
-
+              <div className="relative h-56 overflow-hidden sm:h-64" style={{ background: gradientFor(selected.types) }}>
+                <div className="absolute inset-0 opacity-10" style={{
+                  backgroundImage: 'radial-gradient(circle at 18px 18px, white 2px, transparent 0)',
+                  backgroundSize: '36px 36px',
+                }} />
                 <button
-                  onClick={() => setSelectedLegendary(null)}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center hover:bg-black/30 transition-colors"
+                  onClick={() => setSelected(null)}
+                  aria-label="Cerrar"
+                  className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/25 text-white ring-1 ring-white/20 backdrop-blur-md transition hover:bg-black/40 active:scale-95"
                 >
-                  <ArrowLeft size={20} className="text-white" />
+                  <X size={20} />
                 </button>
-
-                <div className="relative z-10 h-full flex flex-col items-center justify-center p-6">
+                <div className="relative z-[1] flex h-full flex-col items-center justify-center px-6 pt-4">
+                  <span className="pill mb-2 bg-black/25 px-3 py-1 font-mono text-xs font-bold text-white/90 ring-1 ring-white/25">
+                    #{selected.dex}
+                  </span>
                   <img
-                    src={`/sprites/normal/${selectedLegendary.id}.gif`}
-                    alt={selectedLegendary.name}
-                    className="w-40 h-40 object-contain pixelated drop-shadow-2xl mb-4"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
+                    src={spriteUrl(selected.spriteId)}
+                    alt={selected.name}
+                    className="h-36 w-36 object-contain pixelated drop-shadow-[0_18px_20px_rgba(0,0,0,0.5)] sm:h-40 sm:w-40"
                   />
-                  <h2 className="text-4xl font-bold text-white mb-2">{selectedLegendary.name}</h2>
-                  <div className="flex gap-2">
-                    {selectedLegendary.types.map(type => (
-                      <span
-                        key={type}
-                        className="px-4 py-2 rounded-full text-sm font-bold text-white uppercase bg-black/30 backdrop-blur-sm"
-                      >
-                        {type}
-                      </span>
-                    ))}
-                  </div>
+                  <h2 className="mt-3 text-center text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">
+                    {selected.name}
+                  </h2>
                 </div>
               </div>
 
-              {/* Modal Content */}
-              <div className="p-6 space-y-6">
-                {/* Description */}
-                <div className="glass-dark rounded-2xl p-5">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Award size={20} className="text-amber-400" />
-                    <h3 className="text-sm font-bold text-white/60 uppercase tracking-wide">
-                      Descripción
-                    </h3>
-                  </div>
-                  <p className="text-white/90 leading-relaxed">{selectedLegendary.description}</p>
+              <div className="space-y-4 p-5 sm:p-6">
+                <div className="flex flex-wrap items-center gap-2">
+                  <TypePills types={selected.types} />
+                  {selected.level != null && (
+                    <span className="pill bg-white/10 px-3 py-1.5 text-xs font-semibold text-white/85 ring-1 ring-white/15">
+                      Nivel {selected.level}
+                    </span>
+                  )}
                 </div>
 
-                {/* Location */}
-                <div className="glass-dark rounded-2xl p-5">
-                  <div className="flex items-center gap-2 mb-3">
-                    <MapPin size={20} className="text-purple-400" />
-                    <h3 className="text-sm font-bold text-white/60 uppercase tracking-wide">
-                      Ubicación
-                    </h3>
+                <section className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
+                  <div className="mb-2 flex items-center gap-2">
+                    <MapPin size={17} className="text-amber-300" />
+                    <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/55">Localización</h3>
                   </div>
-                  <div className="text-lg font-semibold text-white mb-2">{selectedLegendary.location}</div>
-                  <div className="text-sm text-white/70">Nivel: {selectedLegendary.level}</div>
-                </div>
+                  <p className="text-sm font-normal leading-relaxed text-white/90">{selected.location}</p>
+                </section>
 
-                {/* Requirements */}
-                <div className="glass-dark rounded-2xl p-5">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Award size={20} className="text-green-400" />
-                    <h3 className="text-sm font-bold text-white/60 uppercase tracking-wide">
-                      Requisitos
-                    </h3>
-                  </div>
-                  <div className="space-y-2">
-                    {selectedLegendary.requirements.map((req, index) => (
-                      <div key={index} className="flex items-center gap-2 text-white/80">
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-400"></div>
-                        <span>{req}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <section className="flex items-center gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4 text-xs text-white/55">
+                  <Sparkles size={15} className="shrink-0 text-amber-300" />
+                  <span>Sigue los pasos de la guía; algunos legendarios requieren condiciones especiales antes de aparecer.</span>
+                </section>
 
-                {/* Tips */}
-                <div className="glass-dark rounded-2xl p-5">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Lightbulb size={20} className="text-yellow-400" />
-                    <h3 className="text-sm font-bold text-white/60 uppercase tracking-wide">
-                      Consejos de Captura
-                    </h3>
-                  </div>
-                  <div className="space-y-2">
-                    {selectedLegendary.tips.map((tip, index) => (
-                      <div key={index} className="flex items-start gap-2 text-sm text-white/80">
-                        <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 mt-1.5 flex-shrink-0"></div>
-                        <span>{tip}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Close Button */}
                 <button
-                  onClick={() => setSelectedLegendary(null)}
-                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:from-purple-600 hover:to-pink-600 transition-all"
+                  onClick={() => setSelected(null)}
+                  className="w-full rounded-2xl bg-gradient-to-r from-amber-300 to-orange-400 py-3.5 text-sm font-semibold text-slate-900 transition hover:brightness-110 active:scale-[0.98]"
                 >
-                  Cerrar
+                  Cerrar guía
                 </button>
               </div>
             </motion.div>

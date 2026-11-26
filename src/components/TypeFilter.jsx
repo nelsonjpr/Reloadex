@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { typeColors } from '../data/pokemon';
+import { typeColors, typeTranslations } from '../data/pokemon';
 
 // Iconos de tipos simulados con emojis/símbolos
 const typeIcons = {
@@ -49,7 +49,7 @@ const TypeFilter = ({ selectedType, onSelectType }) => {
             <div className={`text-[10px] sm:text-xs font-bold uppercase tracking-tight ${
               isSelected ? 'text-white' : 'text-white/80'
             }`}>
-              {type.slice(0, 5)}
+              {typeTranslations[type] || type}
             </div>
           </motion.button>
         );

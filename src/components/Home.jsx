@@ -10,7 +10,8 @@ const Home = ({ onNavigate }) => {
       description: 'Explora todos los Pokémon',
       icon: Search,
       gradient: 'from-blue-500 to-cyan-500',
-      bgPattern: 'bg-blue-500/10'
+      bgPattern: 'bg-blue-500/10',
+      accent: '#38bdf8'
     },
     {
       id: 'team',
@@ -18,7 +19,8 @@ const Home = ({ onNavigate }) => {
       description: 'Crea tu equipo perfecto',
       icon: Users,
       gradient: 'from-purple-500 to-pink-500',
-      bgPattern: 'bg-purple-500/10'
+      bgPattern: 'bg-purple-500/10',
+      accent: '#c084fc'
     },
     {
       id: 'moves',
@@ -26,7 +28,8 @@ const Home = ({ onNavigate }) => {
       description: 'MTs, MOs, DTs y Tutores',
       icon: Zap,
       gradient: 'from-yellow-500 to-orange-500',
-      bgPattern: 'bg-yellow-500/10'
+      bgPattern: 'bg-yellow-500/10',
+      accent: '#fbbf24'
     },
     {
       id: 'abilities',
@@ -34,7 +37,8 @@ const Home = ({ onNavigate }) => {
       description: 'Todas las habilidades',
       icon: Sparkles,
       gradient: 'from-green-500 to-emerald-500',
-      bgPattern: 'bg-green-500/10'
+      bgPattern: 'bg-green-500/10',
+      accent: '#34d399'
     },
     {
       id: 'story',
@@ -42,7 +46,8 @@ const Home = ({ onNavigate }) => {
       description: 'Guía de la historia principal',
       icon: BookOpen,
       gradient: 'from-red-500 to-rose-500',
-      bgPattern: 'bg-red-500/10'
+      bgPattern: 'bg-red-500/10',
+      accent: '#fb7185'
     },
     {
       id: 'legendaries',
@@ -50,7 +55,8 @@ const Home = ({ onNavigate }) => {
       description: 'Ubicaciones y capturas',
       icon: Crown,
       gradient: 'from-amber-500 to-yellow-500',
-      bgPattern: 'bg-amber-500/10'
+      bgPattern: 'bg-amber-500/10',
+      accent: '#fcd34d'
     }
   ];
 
@@ -66,12 +72,17 @@ const Home = ({ onNavigate }) => {
             className="text-center"
           >
             <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
-              <img src="/logo.png" alt="Reloadex" className="h-14 w-14 sm:h-20 sm:w-20 rounded-2xl object-cover ring-2 ring-white/15 shadow-xl" />
-              <h1 className="text-3xl sm:text-5xl font-bold text-white">
+              <img
+                src="/logo.png"
+                alt="Reloadex"
+                className="h-14 w-14 rounded-2xl object-cover ring-2 ring-white/20 sm:h-20 sm:w-20"
+                style={{ boxShadow: '0 18px 38px -18px rgba(56, 189, 248, 0.8), inset 0 1px 0 rgba(255,255,255,0.2)' }}
+              />
+              <h1 className="text-3xl sm:text-5xl font-semibold tracking-[-0.04em] text-white">
                 <span className="bg-gradient-to-r from-sky-300 via-cyan-300 to-indigo-300 bg-clip-text text-transparent">Reloadex</span>
               </h1>
             </div>
-            <p className="text-sm sm:text-lg text-white/70">
+            <p className="text-sm sm:text-lg font-normal tracking-[0.01em] text-white/70">
               Tu Pokédex definitiva de <span className="font-semibold text-white">Pokémon Reloaded</span>
             </p>
           </motion.div>
@@ -89,10 +100,14 @@ const Home = ({ onNavigate }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ y: -4, transition: { duration: 0.25, delay: 0 } }}
+                whileTap={{ scale: 0.98, transition: { duration: 0.15, delay: 0 } }}
                 onClick={() => onNavigate(item.id)}
-                className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-left"
+                className="premium-card group relative overflow-hidden rounded-2xl border border-white/[0.06] sm:rounded-3xl p-4 text-left sm:p-6"
+                style={{
+                  '--card-shadow': `0 18px 44px -22px ${item.accent}66, 0 12px 30px -18px rgba(3, 8, 20, 0.85)`,
+                  '--card-shadow-hover': `0 26px 58px -20px ${item.accent}99, 0 16px 34px -16px rgba(3, 8, 20, 0.9)`,
+                }}
               >
                 {/* Background con glass effect */}
                 <div className="absolute inset-0 bg-white/5 backdrop-blur-xl" />
@@ -108,13 +123,19 @@ const Home = ({ onNavigate }) => {
 
                 {/* Contenido */}
                 <div className="relative z-10">
-                  <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon size={24} className="sm:w-8 sm:h-8 text-white" />
+                  <div
+                    className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 sm:mb-4 sm:h-16 sm:w-16 sm:rounded-2xl"
+                    style={{
+                      background: `radial-gradient(circle at 30% 24%, ${item.accent}f2 0%, ${item.accent}99 42%, ${item.accent}1f 100%)`,
+                      boxShadow: `inset 0 0 0 1px rgba(255,255,255,0.16), inset 0 1px 0 rgba(255,255,255,0.2), 0 12px 26px -12px ${item.accent}aa`,
+                    }}
+                  >
+                    <Icon size={24} className="text-white sm:h-8 sm:w-8" />
                   </div>
-                  <h2 className="text-lg sm:text-2xl font-bold text-white mb-1 sm:mb-2">
+                  <h2 className="mb-1 text-lg font-semibold tracking-[-0.03em] text-white sm:mb-2 sm:text-2xl">
                     {item.title}
                   </h2>
-                  <p className="text-white/60 text-xs sm:text-sm line-clamp-2">
+                  <p className="text-xs font-normal tracking-[0.01em] text-white/60 sm:text-sm line-clamp-2">
                     {item.description}
                   </p>
                 </div>
@@ -132,10 +153,10 @@ const Home = ({ onNavigate }) => {
       {/* Footer info */}
       <div className="px-4 pb-8 text-center">
         <div className="glass-effect rounded-2xl p-6 max-w-2xl mx-auto">
-          <p className="text-white/60 text-sm">
+          <p className="text-sm font-normal tracking-[0.01em] text-white/60">
             <span className="font-semibold text-white">Reloadex</span> · Pokédex de Pokémon Reloaded
           </p>
-          <p className="text-white/40 text-xs mt-2">
+          <p className="mt-2 text-xs font-normal tracking-[0.12em] text-white/40">
             {new Date().getFullYear()} - Hecho con ❤️ para entrenadores
           </p>
         </div>

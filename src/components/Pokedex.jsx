@@ -111,9 +111,9 @@ export default function Pokedex({ onBack, onSelect }) {
       className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]"
       style={{ backgroundImage: 'radial-gradient(circle at 50% -10%, rgba(56,189,248,0.08), transparent 45%)' }}
     >
-      <div className="mx-auto max-w-3xl px-4 py-5 sm:py-8">
-        {/* Header sticky */}
-        <div className="sticky top-0 z-20 -mx-4 px-4 pt-3 pb-4 mb-4 bg-gradient-to-b from-[#080d1a] via-[#080d1a]/95 to-[#080d1a]/0 backdrop-blur-md border-b border-white/[0.06]">
+      {/* Header sticky: capa superior, fondo sólido con glass para que nada se vea a través */}
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#080d1a]/95 shadow-[0_16px_36px_-24px_rgba(3,10,26,0.95)] backdrop-blur-xl">
+        <div className="mx-auto max-w-3xl px-4 pt-3 pb-4">
           <div className="flex items-center gap-3 mb-4">
             {onBack && (
               <button onClick={onBack} aria-label="Volver"
@@ -124,8 +124,8 @@ export default function Pokedex({ onBack, onSelect }) {
             <div className="flex items-center gap-3 flex-1 min-w-0">
               <img src="/logo.png" alt="Reloadex" className="h-9 w-9 rounded-xl object-cover ring-1 ring-white/15" />
               <div className="min-w-0">
-                <h1 className="text-xl sm:text-2xl font-bold tracking-tight truncate">Reloadex</h1>
-                <p className="text-[11px] text-white/50 truncate">Pokédex de Pokémon Reloaded</p>
+                <h1 className="truncate text-xl font-semibold tracking-[-0.035em] sm:text-2xl">Reloadex</h1>
+                <p className="truncate text-[11px] font-normal tracking-[0.08em] text-white/50">Pokédex de Pokémon Reloaded</p>
               </div>
             </div>
             <span className="text-xs text-white/50 tabular-nums hidden sm:inline">{filtered.length} Pokémon</span>
@@ -163,19 +163,19 @@ export default function Pokedex({ onBack, onSelect }) {
               {selectedGeneration || 'Generación'}
             </button>
             <select value={formFilter} onChange={(e) => setFormFilter(e.target.value)} aria-label="Forma"
-              className="shrink-0 h-10 px-3.5 rounded-2xl border border-white/10 bg-[#0d1528]/80 text-xs font-semibold text-white focus:outline-none focus:ring-2 focus:ring-sky-400/50">
-              <option value="all" className="text-black">Todas las formas</option>
-              <option value="base" className="text-black">Base</option>
-              <option value="mega" className="text-black">Mega</option>
-              <option value="forme" className="text-black">Formas</option>
+              className="shrink-0 h-10 px-3.5 rounded-2xl border border-white/10 bg-[#0d1528]/80 text-xs font-semibold text-white [color-scheme:dark] focus:outline-none focus:ring-2 focus:ring-sky-400/50">
+              <option value="all" className="bg-[#0d1528] text-white">Todas las formas</option>
+              <option value="base" className="bg-[#0d1528] text-white">Base</option>
+              <option value="mega" className="bg-[#0d1528] text-white">Mega</option>
+              <option value="forme" className="bg-[#0d1528] text-white">Formas</option>
             </select>
             <select value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Ordenar"
-              className="shrink-0 h-10 px-3.5 rounded-2xl border border-white/10 bg-[#0d1528]/80 text-xs font-semibold text-white focus:outline-none focus:ring-2 focus:ring-sky-400/50">
-              <option value="id-asc" className="text-black">ID ↑</option>
-              <option value="id-desc" className="text-black">ID ↓</option>
-              <option value="name-asc" className="text-black">Nombre A-Z</option>
-              <option value="name-desc" className="text-black">Nombre Z-A</option>
-              <option value="bst-desc" className="text-black">Estadisticas ↓</option>
+              className="shrink-0 h-10 px-3.5 rounded-2xl border border-white/10 bg-[#0d1528]/80 text-xs font-semibold text-white [color-scheme:dark] focus:outline-none focus:ring-2 focus:ring-sky-400/50">
+              <option value="id-asc" className="bg-[#0d1528] text-white">ID ↑</option>
+              <option value="id-desc" className="bg-[#0d1528] text-white">ID ↓</option>
+              <option value="name-asc" className="bg-[#0d1528] text-white">Nombre A-Z</option>
+              <option value="name-desc" className="bg-[#0d1528] text-white">Nombre Z-A</option>
+              <option value="bst-desc" className="bg-[#0d1528] text-white">Estadisticas ↓</option>
             </select>
           </div>
 
@@ -188,9 +188,11 @@ export default function Pokedex({ onBack, onSelect }) {
             Mostrando <span className="text-sky-300 font-semibold">{filtered.length}</span> de {pokemonData.length}
           </div>
         </div>
+      </header>
 
-        {/* Lista */}
-        <div className="space-y-3">
+      {/* Lista: se separa del header sticky para que la primera tarjeta quede visible */}
+      <main className="mx-auto max-w-3xl px-4 pt-5 pb-5 sm:pt-6 sm:pb-8">
+        <div className="space-y-3 pt-1">
           <AnimatePresence initial={false}>
             {pageItems.map((pokemon, index) => (
               <PokemonRow
@@ -228,7 +230,7 @@ export default function Pokedex({ onBack, onSelect }) {
             </div>
             <select value={String(pageSize)} onChange={(e) => setPageSize(Number(e.target.value))} aria-label="Por página"
               className="h-9 px-3 rounded-2xl text-xs glass-effect text-white bg-transparent focus:outline-none">
-              {PAGE_SIZES.map((n) => <option key={n} value={n} className="text-black">{n >= 1000000 ? 'Todos' : `${n} por página`}</option>)}
+              {PAGE_SIZES.map((n) => <option key={n} value={n} className="bg-[#0d1528] text-white">{n >= 1000000 ? 'Todos' : `${n} por página`}</option>)}
             </select>
           </div>
         )}
@@ -246,15 +248,16 @@ export default function Pokedex({ onBack, onSelect }) {
             </Sheet>
           )}
         </AnimatePresence>
-      </div>
+      </main>
 
       {/* Scroll top */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-6 right-6 z-30 h-13 w-13 rounded-2xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center shadow-lg active:scale-90"
-            style={{ height: 52, width: 52 }} aria-label="Subir">
+            className="fixed bottom-6 right-6 z-[60] h-[52px] w-[52px] rounded-2xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center active:scale-90"
+            style={{ boxShadow: '0 14px 34px -12px rgba(56,189,248,0.75), inset 0 1px 0 rgba(255,255,255,0.25)' }}
+            aria-label="Subir">
             <ChevronUp size={26} />
           </motion.button>
         )}
@@ -315,10 +318,13 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.15, delay: Math.min(index * 0.01, 0.12) }}
-      className="group relative w-full min-h-[112px] overflow-hidden rounded-[28px] border border-white/[0.16]"
+      whileHover={{ y: -4, transition: { duration: 0.3, delay: 0 } }}
+      whileTap={{ scale: 0.98, transition: { duration: 0.18, delay: 0 } }}
+      className="premium-card group relative w-full min-h-[112px] overflow-hidden rounded-[28px] border border-white/[0.16]"
       style={{
         background: `linear-gradient(115deg, ${deep} 0%, ${vivid} 54%, ${light} 100%)`,
-        boxShadow: '0 14px 32px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.22)',
+        '--card-shadow': `0 18px 44px -22px ${deep}ee, 0 10px 28px -18px rgba(3, 8, 20, 0.85)`,
+        '--card-shadow-hover': `0 26px 58px -20px ${vivid}bb, 0 14px 32px -16px rgba(3, 8, 20, 0.9)`,
       }}
     >
       <div
@@ -346,7 +352,8 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
               key={`${pokemon.id}-${shiny}`}
               src={imgSrc}
               alt={pokemon.name}
-              className="h-full w-full origin-center scale-[1.28] transform-gpu object-contain pixelated drop-shadow-[0_4px_6px_rgba(0,0,0,0.38)]"
+              className="h-full w-full origin-center scale-[1.28] transform-gpu object-contain pixelated"
+              style={{ filter: `drop-shadow(0 4px 6px rgba(0,0,0,0.38)) drop-shadow(0 0 7px ${light}88)` }}
               loading="lazy"
               onError={onImgError}
             />
@@ -354,15 +361,15 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
         </div>
 
         <div className="min-w-0 flex-1">
-          <div className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-white/60">
+          <div className="eyebrow font-mono text-white/60">
             {formatId(pokemon.id)}
           </div>
           <div className="mt-0.5 flex items-center gap-2">
-            <h2 className="truncate text-lg font-extrabold leading-tight text-white drop-shadow-sm sm:text-xl">
+            <h2 className="truncate text-lg font-semibold leading-tight tracking-[-0.03em] text-white drop-shadow-sm sm:text-xl">
               {pokemon.name}
             </h2>
             {(pokemon.form === 'mega' || pokemon.form === 'forme') && (
-              <span className="pill shrink-0 bg-white/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white ring-1 ring-white/25">
+              <span className="pill shrink-0 bg-white/20 px-2 py-0.5 text-[9px] uppercase text-white ring-1 ring-white/25">
                 {pokemon.form === 'mega' ? 'Mega' : 'Forma'}
               </span>
             )}
@@ -371,7 +378,7 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
             {(pokemon.types || []).map((t) => (
               <span
                 key={t}
-                className="pill bg-black/25 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white ring-1 ring-white/20 backdrop-blur-sm"
+                className="pill bg-black/25 px-2.5 py-1 text-[10px] uppercase text-white ring-1 ring-white/20 backdrop-blur-sm"
               >
                 {typeName(t)}
               </span>
@@ -429,7 +436,7 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
 
 function Sheet({ title, children, onClose }) {
   return (
-    <motion.div className="fixed inset-0 z-40 flex items-end sm:items-center justify-center"
+    <motion.div className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center"
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}>
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
       <motion.div className="relative w-full sm:max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-slate-900 p-5 border border-white/10"

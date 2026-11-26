@@ -7,7 +7,8 @@
  * Fuente de verdad (ground truth), en orden:
  *   1. Carpeta de sprites del juego:  <GAME>/data/pkmn            -> qué Pokémon EXISTEN y sus IDs
  *      Carpeta shiny:                  <GAME>/data/pkmn_shiny
- *      Carpeta de gritos:              <GAME>/data/audio/grito
+ *      Carpeta de gritos (fuente actualizada por el usuario):
+ *        D:\\reloaded\\Proyecto Reloaded The Last Beta 1.9.2.2 Full\\data\\audio\\grito
  *   2. Sprites/gritos ya empaquetados en la app: public/sprites/*, public/cries
  *   3. Datos base ya presentes en la app (src/data/pokemon.js) para nombre/tipos/stats,
  *      SIEMPRE marcados con su procedencia (no se disfraza de "verificado Reloaded").
@@ -20,6 +21,7 @@
  * Uso:
  *   node scripts/buildReloadexData.mjs
  *   RELOADEX_GAME_DATA="D:\\Juegos\\Reloaded\\data" node scripts/buildReloadexData.mjs
+ *   RELOADEX_CRIES_DATA="D:\\...\\data\\audio\\grito" node scripts/buildReloadexData.mjs
  */
 
 import fs from 'node:fs';
@@ -30,6 +32,10 @@ import { decodeFile } from './decodeReloaded.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT = path.resolve(__dirname, '..');
 const GAME_DATA = process.env.RELOADEX_GAME_DATA || 'D:\\Juegos\\Reloaded\\data';
+// Los gritos de la serie extraídos por fans se mantienen en esta carpeta, que el
+// usuario actualiza. Se sincroniza a public/cries en cada build de datos.
+const CRIES_SOURCE = process.env.RELOADEX_CRIES_DATA
+  || 'D:\\reloaded\\Proyecto Reloaded The Last Beta 1.9.2.2 Full\\data\\audio\\grito';
 const PUBLIC = path.join(PROJECT, 'public');
 const SRC_DATA = path.join(PROJECT, 'src', 'data');
 
@@ -55,6 +61,30 @@ const numericIdsFromDir = (dir, exts = ['.gif', '.png', '.wav']) => {
 };
 
 const idSetHas = (set, id) => set.has(Number(id));
+
+// Copia los gritos de la carpeta que mantiene el usuario a public/cries.
+// Se conservan los archivos ya empaquetados (formas especiales antiguas) y se
+// sobrescriben solo los nombres que existen en la fuente nueva.
+const syncCries = () => {
+  const dest = path.join(PUBLIC, 'cries');
+  if (!fs.existsSync(CRIES_SOURCE)) {
+    console.warn(`[gritos] No se encontró la carpeta fuente: ${CRIES_SOURCE}`);
+    return 0;
+  }
+  fs.mkdirSync(dest, { recursive: true });
+  let copied = 0;
+  for (const name of fs.readdirSync(CRIES_SOURCE)) {
+    const ext = path.extname(name).toLowerCase();
+    if (!['.wav', '.mp3', '.ogg'].includes(ext)) continue;
+    const src = path.join(CRIES_SOURCE, name);
+    if (!fs.statSync(src).isFile()) continue;
+    fs.copyFileSync(src, path.join(dest, name));
+    copied++;
+  }
+  return copied;
+};
+
+const syncedCries = syncCries();
 
 const isPlaceholderName = (name, id) => {
   if (!name) return true;
@@ -215,7 +245,7 @@ const infoLineForName = (name, nameLine) => {
 // nombre de archivo EXACTO de cada grito (los base van con ceros: 001.wav).
 // Se prefiere el nombre del juego; si la app empaquetó otro nombre, se añade como respaldo.
 const cryFileById = new Map();
-for (const dir of [path.join(GAME_DATA, 'audio', 'grito'), path.join(PUBLIC, 'cries')]) {
+for (const dir of [CRIES_SOURCE, path.join(PUBLIC, 'cries')]) {
   if (!fs.existsSync(dir)) continue;
   for (const n of fs.readdirSync(dir)) {
     const m = /^(\d+)\.(wav|mp3|ogg)$/i.exec(n);
@@ -345,7 +375,7 @@ for (const p of existing) {
 // ---------- 2. ground truth de IDs desde el juego + lo empaquetado ----------
 const gameNormal = numericIdsFromDir(path.join(GAME_DATA, 'pkmn'));
 const gameShiny = numericIdsFromDir(path.join(GAME_DATA, 'pkmn_shiny'));
-const gameCries = numericIdsFromDir(path.join(GAME_DATA, 'audio', 'grito'), ['.wav', '.mp3', '.ogg']);
+const gameCries = numericIdsFromDir(CRIES_SOURCE, ['.wav', '.mp3', '.ogg']);
 
 const appNormal = numericIdsFromDir(path.join(PUBLIC, 'sprites', 'normal'));
 const appShiny = numericIdsFromDir(path.join(PUBLIC, 'sprites', 'shiny'));
@@ -661,9 +691,12 @@ fs.writeFileSync(OUT_JSON, JSON.stringify(entries, null, 2));
 const provenance = {
   generatedAt: new Date().toISOString(),
   gameDataDir: GAME_DATA,
+  criesSourceDir: CRIES_SOURCE,
+  syncedCries,
   note:
-    'IDs, sprites, shiny (nombre real <ID+1000>.gif), gritos, baseForm, nombres, descripciones, categoría, altura y peso son verificables en disco ' +
-    '(textos del juego descifrados). types/stats siguen siendo datos heredados; el juego no expone esa tabla en archivos legibles. ' +
+    'IDs, sprites, shiny (nombre real <ID+1000>.gif), baseForm, nombres, descripciones, categoría, altura y peso son verificables en disco ' +
+    '(textos del juego descifrados). Los gritos se toman de la carpeta de audio que mantiene el usuario y se sincronizan a public/cries. ' +
+    'types/stats siguen siendo datos heredados; el juego no expone esa tabla en archivos legibles. ' +
     'Los tipos se resuelven por NOMBRE del juego: cuando Reloaded reutiliza un ID con otro nombre no se copia el tipo del hueco, y las criaturas exclusivas sin ficha oficial se dejan sin tipo. ' +
     'El enlace Primeape -> Annihilape se corrigió al ID real 2357 (979 es Tapu Fini en Reloaded). ' +
     'Los gritos huérfanos no se asignan a ningún Pokémon porque no tienen sprite/entrada en el juego.',

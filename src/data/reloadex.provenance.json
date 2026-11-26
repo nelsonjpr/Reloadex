@@ -1,7 +1,9 @@
 {
-  "generatedAt": "2026-11-26T21:21:53.588Z",
+  "generatedAt": "2026-11-26T22:43:23.260Z",
   "gameDataDir": "D:\\Juegos\\Reloaded\\data",
-  "note": "IDs, sprites, shiny (nombre real <ID+1000>.gif), gritos, baseForm, nombres, descripciones, categoría, altura y peso son verificables en disco (textos del juego descifrados). types/stats siguen siendo datos heredados; el juego no expone esa tabla en archivos legibles. Los tipos se resuelven por NOMBRE del juego: cuando Reloaded reutiliza un ID con otro nombre no se copia el tipo del hueco, y las criaturas exclusivas sin ficha oficial se dejan sin tipo. El enlace Primeape -> Annihilape se corrigió al ID real 2357 (979 es Tapu Fini en Reloaded). Los gritos huérfanos no se asignan a ningún Pokémon porque no tienen sprite/entrada en el juego.",
+  "criesSourceDir": "D:\\reloaded\\Proyecto Reloaded The Last Beta 1.9.2.2 Full\\data\\audio\\grito",
+  "syncedCries": 1284,
+  "note": "IDs, sprites, shiny (nombre real <ID+1000>.gif), baseForm, nombres, descripciones, categoría, altura y peso son verificables en disco (textos del juego descifrados). Los gritos se toman de la carpeta de audio que mantiene el usuario y se sincronizan a public/cries. types/stats siguen siendo datos heredados; el juego no expone esa tabla en archivos legibles. Los tipos se resuelven por NOMBRE del juego: cuando Reloaded reutiliza un ID con otro nombre no se copia el tipo del hueco, y las criaturas exclusivas sin ficha oficial se dejan sin tipo. El enlace Primeape -> Annihilape se corrigió al ID real 2357 (979 es Tapu Fini en Reloaded). Los gritos huérfanos no se asignan a ningún Pokémon porque no tienen sprite/entrada en el juego.",
   "counts": {
     "total": 1561,
     "base": 1000,
@@ -10,15 +12,15 @@
     "unknownNames": 0,
     "withStats": 1502,
     "withShiny": 1505,
-    "withCry": 1206
+    "withCry": 1264
   },
   "sources": {
     "gameNormalSprites": 1562,
     "gameShinySprites": 1507,
-    "gameCries": 1214,
+    "gameCries": 1281,
     "appNormalSprites": 1562,
     "appShinySprites": 1607,
-    "appCries": 1214,
+    "appCries": 1281,
     "existingEntries": 1136,
     "gameTextNames": 1557,
     "gameTextDescriptions": 1238,
@@ -27,10 +29,19 @@
       10321,
       10600,
       10950,
+      100330,
+      100496,
+      100509,
+      100516,
+      100517,
+      100900,
       100952,
       102356,
       102398,
-      102399
+      102399,
+      152356,
+      202356,
+      300026
     ]
   }
 }

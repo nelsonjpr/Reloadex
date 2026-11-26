@@ -218,13 +218,14 @@ function buildGroups(current, prevEvolution, activeId) {
   return { rootId, root: rootNode, groups };
 }
 
-const Sprite = ({ id, name, className = '' }) => {
+const Sprite = ({ id, name, className = '', style }) => {
   const fallbacks = spriteFallbacks(id, false);
   return (
     <img
       src={spriteUrl(id, false)}
       alt={name}
       className={`object-contain pixelated ${className}`}
+      style={style}
       onError={(e) => {
         const next = fallbacks.find((f) => !e.target.src.endsWith(f.split('/').pop()));
         if (next && !e.target.dataset.tried) {
@@ -280,7 +281,7 @@ export default function EvolutionTree({ pokemon, prevEvolution, onNavigate }) {
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
             {formatId(line.root.id)}
           </p>
-          <h4 className="truncate text-sm font-extrabold text-white">{line.root.name}</h4>
+          <h4 className="truncate text-sm font-semibold tracking-[-0.03em] text-white">{line.root.name}</h4>
           <p className="text-[11px] text-white/45">Base de esta línea</p>
         </div>
       </header>
@@ -290,16 +291,27 @@ export default function EvolutionTree({ pokemon, prevEvolution, onNavigate }) {
       <div className="evo-groups grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {line.groups.map((group) => {
           const Icon = group.icon;
+          const groupColor = group.items[0]?.color || '#38bdf8';
           const singleMethod = group.items.every(
             (item) => item.method === group.items[0]?.method,
           );
           return (
-            <article key={group.key} className="evo-group rounded-[24px] border border-white/10 bg-white/[0.04] p-4 shadow-[0_10px_30px_rgba(0,0,0,0.25)]">
+            <article
+              key={group.key}
+              className="evo-group premium-card rounded-[24px] border border-white/10 bg-white/[0.04] p-4"
+              style={{ '--card-shadow': `0 18px 40px -22px ${groupColor}77, 0 12px 26px -16px rgba(3, 10, 26, 0.85)` }}
+            >
               <header className="evo-group__header mb-3 flex items-center gap-2">
-                <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-400/15 text-sky-300">
+                <span
+                  className="flex h-8 w-8 items-center justify-center rounded-xl text-sky-200 ring-1 ring-white/10"
+                  style={{
+                    color: groupColor,
+                    background: `radial-gradient(circle at 30% 25%, ${groupColor}55 0%, ${groupColor}1f 55%, ${groupColor}0d 100%)`,
+                  }}
+                >
                   <Icon size={16} />
                 </span>
-                <h5 className="min-w-0 flex-1 truncate text-xs font-bold text-white">{group.title}</h5>
+                <h5 className="min-w-0 flex-1 truncate text-xs font-semibold tracking-[-0.02em] text-white">{group.title}</h5>
                 <span className="pill bg-white/10 px-2 py-0.5 text-[10px] text-white/60 ring-1 ring-white/10">
                   {group.items.length}
                 </span>
@@ -318,14 +330,18 @@ export default function EvolutionTree({ pokemon, prevEvolution, onNavigate }) {
                     <motion.button
                       key={item.id}
                       type="button"
-                      whileTap={{ scale: 0.97 }}
+                      whileHover={{ y: -4, transition: { duration: 0.3, delay: 0 } }}
+                      whileTap={{ scale: 0.97, transition: { duration: 0.18, delay: 0 } }}
                       onClick={() => onNavigate(item.id)}
                       title={`${item.name} · ${formatId(item.id)} · ${item.method || 'Evolución'}`}
-                      className="evo-item group flex flex-col items-center gap-1 rounded-2xl border border-white/10 bg-black/25 p-3 text-center transition hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/10"
+                      className="evo-item premium-card group flex flex-col items-center gap-1 rounded-2xl border border-white/10 bg-black/25 p-3 text-center"
                       style={{
                         borderColor: item.active ? `${item.color}aa` : undefined,
                         background: item.active ? `${item.color}22` : undefined,
-                        boxShadow: item.active ? `0 0 18px ${item.color}44` : undefined,
+                        '--card-shadow': item.active
+                          ? `0 16px 34px -18px ${item.color}bb`
+                          : `0 14px 30px -18px ${item.color}55`,
+                        '--card-shadow-hover': `0 22px 44px -18px ${item.color}aa`,
                       }}
                     >
                       <span
@@ -335,10 +351,11 @@ export default function EvolutionTree({ pokemon, prevEvolution, onNavigate }) {
                         <Sprite
                           id={item.id}
                           name={item.name}
-                          className="h-full w-full scale-[1.25] transform-gpu drop-shadow-[0_3px_5px_rgba(0,0,0,0.38)]"
+                          className="h-full w-full scale-[1.25] transform-gpu"
+                          style={{ filter: `drop-shadow(0 3px 5px rgba(2,6,18,0.42)) drop-shadow(0 0 7px ${item.color}66)` }}
                         />
                       </span>
-                      <span className="evo-item__name mt-1 text-[11px] font-bold leading-tight text-white">
+                      <span className="evo-item__name mt-1 text-[11px] font-semibold leading-tight tracking-[-0.02em] text-white">
                         {item.name}
                       </span>
                       <span className="evo-item__id font-mono text-[10px] text-white/45">
@@ -349,7 +366,7 @@ export default function EvolutionTree({ pokemon, prevEvolution, onNavigate }) {
                           desde {item.parentName}
                         </span>
                       )}
-                      <span className="evo-method-pill pill mt-1 inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white/80 ring-1 ring-white/15">
+                      <span className="evo-method-pill pill mt-1 inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 text-[9px] font-semibold uppercase text-white/80 ring-1 ring-white/15">
                         <MethodIcon size={10} style={{ color: item.color }} className="shrink-0" />
                         <span className="truncate">{item.method || 'Evolución'}</span>
                       </span>

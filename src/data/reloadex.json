@@ -371,8 +371,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "6.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "006.wav"
     },
     "source": "reloaded-game-text",
     "megaEvolutions": [
@@ -1607,8 +1607,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "25.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "025.wav"
     },
     "source": "reloaded-game-text",
     "megaEvolutions": [
@@ -8300,8 +8300,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1133.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "133.wav"
     },
     "source": "reloaded-game-text",
     "megaEvolutions": [
@@ -25731,8 +25731,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1447.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "447.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -25787,8 +25787,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1448.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "448.wav"
     },
     "source": "reloaded-game-text",
     "megaEvolutions": [
@@ -31042,8 +31042,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1550.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "550.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -36865,8 +36865,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1660.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "660.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -37142,8 +37142,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1665.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "665.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -39037,8 +39037,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1700.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "700.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -41060,8 +41060,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1741.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "741.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -45375,8 +45375,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1820.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "820.wav"
     },
     "source": "reloaded-game-text",
     "megaEvolutions": [
@@ -48506,8 +48506,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1879.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "879.wav"
     },
     "source": "reloaded-game-text",
     "megaEvolutions": [
@@ -54451,8 +54451,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1993.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "993.wav"
     },
     "source": "reloaded-game-text",
     "megaEvolutions": [
@@ -54685,8 +54685,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "1997.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "997.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -75245,8 +75245,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "3393.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "2393.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -75300,8 +75300,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "3394.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "2394.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -75355,8 +75355,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "3395.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "2395.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -76144,8 +76144,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "3416.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "2416.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -76177,8 +76177,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "3417.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "2417.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -76210,8 +76210,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "3418.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "2418.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -76276,8 +76276,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "3420.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "2420.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -76309,8 +76309,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "3421.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "2421.wav"
     },
     "source": "reloaded-game-text"
   },
@@ -76771,8 +76771,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "101012.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "100012.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Butterfree",
@@ -76962,8 +76962,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "101025.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "100025.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Pikachu",
@@ -77165,8 +77165,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "101052.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "100052.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Meowth",
@@ -77291,8 +77291,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "101068.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "100068.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Machamp",
@@ -77553,8 +77553,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "101099.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "100099.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Kingler",
@@ -77871,8 +77871,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "101131.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "100131.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Lapras",
@@ -77934,8 +77934,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "101133.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "100133.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Eevee",
@@ -78061,8 +78061,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "101143.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "100143.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Snorlax",
@@ -81080,8 +81080,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "101581.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "100581.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Garbodor",
@@ -82037,8 +82037,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "101820.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "100820.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Butterfree",
@@ -82164,8 +82164,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "101879.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "100879.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Meowstic",
@@ -82727,8 +82727,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103061.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102061.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Melmetal",
@@ -82790,8 +82790,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103069.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102069.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Rillaboom",
@@ -82853,8 +82853,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103072.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102072.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Cinderace",
@@ -82916,8 +82916,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103075.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102075.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Inteleon",
@@ -82980,8 +82980,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103080.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102080.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Corviknight",
@@ -83044,8 +83044,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103083.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102083.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Orbeetle",
@@ -83108,8 +83108,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103091.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102091.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Drednaw",
@@ -83172,8 +83172,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103096.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102096.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Coalossal",
@@ -83236,8 +83236,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103099.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102099.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Appletun",
@@ -83299,8 +83299,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103101.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102101.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Sandaconda",
@@ -83363,8 +83363,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103106.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102106.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Toxtricity",
@@ -83427,8 +83427,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103108.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102108.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Centiskorch",
@@ -83491,8 +83491,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103115.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102115.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Hatterene",
@@ -83555,8 +83555,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103118.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102118.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Grimmsnarl",
@@ -83618,8 +83618,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103139.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102139.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Alcremie",
@@ -83744,8 +83744,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103149.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102149.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Copperajah",
@@ -83808,8 +83808,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103154.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102154.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Duraludon",
@@ -83872,8 +83872,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103160.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102160.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Eternatus",
@@ -83936,8 +83936,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103236.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102236.wav"
     },
     "source": "reloaded-structure",
     "baseFormName": "Urshifu",
@@ -84000,8 +84000,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103237.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102237.wav"
     },
     "source": "reloaded-structure",
     "baseFormName": "Urshifu",
@@ -84063,8 +84063,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "103246.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "102246.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Snorlax",
@@ -84507,8 +84507,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "151003.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "150003.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Venusaur",
@@ -84578,8 +84578,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "151006.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "150006.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Charizard",
@@ -84655,8 +84655,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "151009.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "150009.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Blastoise",
@@ -84803,8 +84803,8 @@
       "normal": true,
       "shiny": true,
       "shinyFile": "151094.gif",
-      "cry": false,
-      "cryFile": null
+      "cry": true,
+      "cryFile": "150094.wav"
     },
     "source": "reloaded-game-text",
     "baseFormName": "Gengar",
