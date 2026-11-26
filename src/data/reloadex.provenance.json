@@ -1,0 +1,36 @@
+{
+  "generatedAt": "2026-11-26T21:21:53.588Z",
+  "gameDataDir": "D:\\Juegos\\Reloaded\\data",
+  "note": "IDs, sprites, shiny (nombre real <ID+1000>.gif), gritos, baseForm, nombres, descripciones, categoría, altura y peso son verificables en disco (textos del juego descifrados). types/stats siguen siendo datos heredados; el juego no expone esa tabla en archivos legibles. Los tipos se resuelven por NOMBRE del juego: cuando Reloaded reutiliza un ID con otro nombre no se copia el tipo del hueco, y las criaturas exclusivas sin ficha oficial se dejan sin tipo. El enlace Primeape -> Annihilape se corrigió al ID real 2357 (979 es Tapu Fini en Reloaded). Los gritos huérfanos no se asignan a ningún Pokémon porque no tienen sprite/entrada en el juego.",
+  "counts": {
+    "total": 1561,
+    "base": 1000,
+    "mega": 129,
+    "forme": 432,
+    "unknownNames": 0,
+    "withStats": 1502,
+    "withShiny": 1505,
+    "withCry": 1206
+  },
+  "sources": {
+    "gameNormalSprites": 1562,
+    "gameShinySprites": 1507,
+    "gameCries": 1214,
+    "appNormalSprites": 1562,
+    "appShinySprites": 1607,
+    "appCries": 1214,
+    "existingEntries": 1136,
+    "gameTextNames": 1557,
+    "gameTextDescriptions": 1238,
+    "orphanCryIds": [
+      10168,
+      10321,
+      10600,
+      10950,
+      100952,
+      102356,
+      102398,
+      102399
+    ]
+  }
+}

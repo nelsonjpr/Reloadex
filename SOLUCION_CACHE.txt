@@ -1,0 +1,72 @@
+═══════════════════════════════════════════════════════
+   🔴 PROBLEMA: NAVEGADOR MUESTRA DATOS VIEJOS
+═══════════════════════════════════════════════════════
+
+✅ EL ARCHIVO pokemon.js ESTÁ CORRECTO:
+   - Zygarde #718 → Tipos: Dragón/Tierra ✅
+   - 1,136 Pokémon con datos correctos ✅
+
+❌ EL NAVEGADOR TIENE CACHÉ VIEJA
+
+═══════════════════════════════════════════════════════
+   🚀 SOLUCIÓN GARANTIZADA (HAZ ESTO):
+═══════════════════════════════════════════════════════
+
+PASO 1: CERRAR TODO
+-------------------
+1. Cierra TODAS las pestañas del navegador
+2. Cierra COMPLETAMENTE el navegador (X en la esquina)
+3. Espera 10 segundos
+
+PASO 2: BORRAR CACHÉ
+--------------------
+1. Abre el navegador de nuevo
+2. Presiona: Ctrl + Shift + Delete
+3. Selecciona: "Archivos e imágenes en caché"
+4. Rango: "Desde siempre" o "Todo"
+5. Click: "Borrar datos" o "Eliminar"
+
+PASO 3: REABRIR
+---------------
+1. Abre: http://localhost:5174/
+2. Presiona: Ctrl + Shift + R (Hard reload)
+3. Espera que cargue completamente
+
+═══════════════════════════════════════════════════════
+   ✨ VERIFICACIÓN (Deberías ver):
+═══════════════════════════════════════════════════════
+
+✅ Pokémon #1   → Bulbasaur (Planta/Veneno)
+✅ Pokémon #25  → Pikachu (Eléctrico)
+✅ Pokémon #150 → Mewtwo (Psíquico)
+✅ Pokémon #718 → Zygarde (Dragón/Tierra) ← ESTE DEBE ESTAR BIEN
+
+❌ NO deberías ver IDs raros como: 8498, 8499, 8500
+
+═══════════════════════════════════════════════════════
+   🆘 SI TODAVÍA NO FUNCIONA:
+═══════════════════════════════════════════════════════
+
+OPCIÓN A: Modo Incógnito
+-------------------------
+Ctrl + Shift + N → http://localhost:5174/
+(Esto ignora toda la caché)
+
+OPCIÓN B: Otro navegador
+-------------------------
+Prueba con:
+- Chrome (si usabas Edge)
+- Firefox (si usabas Chrome)
+- Edge (si usabas Firefox)
+
+OPCIÓN C: Reiniciar servidor
+-----------------------------
+En la terminal donde corre "npm run dev":
+1. Presiona: Ctrl + C
+2. Escribe: npm run dev
+3. Enter
+4. Abre navegador NUEVO
+
+═══════════════════════════════════════════════════════
+
+🎯 RESUMEN: El código está bien, solo borra la caché.

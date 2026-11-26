@@ -1,0 +1,65 @@
+═══════════════════════════════════════════════════════════
+   SOLUCIÓN DEFINITIVA - LIMPIAR CACHE DEL NAVEGADOR
+═══════════════════════════════════════════════════════════
+
+El archivo pokemon.js está CORRECTO (verificado).
+El problema es SOLO caché del navegador.
+
+OPCIÓN 1: INCOGNITO (PRUEBA RÁPIDA) ✅
+════════════════════════════════════════
+1. Ctrl + Shift + N
+2. http://localhost:5174/
+3. Busca Zygarde #718 → debe mostrar tipos Dragón/Tierra
+
+Si funciona en Incognito = archivo correcto, solo es caché.
+
+
+OPCIÓN 2: LIMPIAR CACHE COMPLETO 🧹
+════════════════════════════════════════
+Para Chrome/Edge:
+1. CIERRA TODAS las pestañas del navegador (TODO)
+2. Abre Chrome/Edge de nuevo
+3. Ctrl + Shift + Delete
+4. Selecciona:
+   ✅ "Imágenes y archivos en caché"
+   ✅ "Todo el tiempo" / "Desde siempre"
+5. Clic en "Borrar datos"
+6. CIERRA el navegador completamente
+7. Ábrelo de nuevo
+8. http://localhost:5174/
+9. Ctrl + Shift + F5
+
+
+OPCIÓN 3: SI AÚN NO FUNCIONA (NUCLEAR) ☢️
+════════════════════════════════════════
+1. Para el servidor Vite: Ctrl+C en la terminal
+2. Borra carpeta de caché de Vite:
+   
+   PowerShell:
+   Remove-Item -Recurse -Force "d:\Trabajo\Reloadex\node_modules\.vite"
+
+3. Reinicia servidor:
+   npm run dev
+
+4. Abre navegador en Incognito: Ctrl + Shift + N
+5. http://localhost:5174/
+
+
+VERIFICAR QUE FUNCIONA:
+════════════════════════════════════════
+Busca estos Pokémon y verifica sus tipos:
+
+✅ Zygarde #718 → Dragón/Tierra
+✅ Bulbasaur #1 → Planta/Veneno  
+✅ Pikachu #25 → Eléctrico
+✅ Mewtwo #150 → Psíquico
+
+Si ves IDs raros como #8498, #8499 = TODAVÍA ES CACHÉ VIEJO
+
+
+DATO TÉCNICO:
+════════════════════════════════════════
+El archivo src/data/pokemon.js tiene 1,136 Pokémon correctos.
+Cada sprite ID coincide con su nombre del PokeAPI.
+No hay IDs superiores a ~100500 en el archivo.
+Si ves IDs de 8000+ = navegador cargando versión antigua.

@@ -1,0 +1,19 @@
+{
+  "appId": "com.reloadex.pokedex",
+  "appName": "Reloadex",
+  "webDir": "dist",
+  "backgroundColor": "#0b0f1a",
+  "android": {
+    "backgroundColor": "#0b0f1a",
+    "allowMixedContent": false
+  },
+  "ios": {
+    "backgroundColor": "#0b0f1a"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "backgroundColor": "#0b0f1a",
+      "showSpinner": false
+    }
+  }
+}
