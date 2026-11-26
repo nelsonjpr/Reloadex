@@ -60,7 +60,7 @@ const cryCandidates = (p) => {
   const ids = id >= 100000 ? [id, base] : [id];
   const names = p?.sprite?.cryFile ? [String(p.sprite.cryFile)] : [];
   for (const n of ids) {
-    names.push(`${n}.wav`, `${String(n).padStart(3, '0')}.wav`);
+    names.push(`${n}.mp3`, `${String(n).padStart(3, '0')}.mp3`);
   }
   return [...new Set(names)];
 };

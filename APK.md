@@ -1,50 +1,72 @@
 # Generar el APK — Reloadex
 
-La app está **APK-ready**: build de producción, **PWA**, **logo/iconos**, `viewport-fit=cover`,
-safe-area, `capacitor.config.json`. **No se puede generar el `.apk` en este entorno** (no hay
-**Java**, **Android SDK**, ni **red** para instalar Capacitor). Hazlo en tu máquina:
+La app se distribuye como **APK firmado** y funciona **100% offline desde el primer arranque**:
+dataset, guía, sprites, shiny, fuentes y gritos van dentro del paquete. No usa PokeAPI ni
+Google Fonts en runtime.
 
-## 1. Requisitos
+## Requisitos
 
-- **Node 18+**
-- **Java 17** (JDK)
-- **Android SDK** (Android Studio) + `ANDROID_HOME`
-- **Gradle** (viene con el proyecto Android de Capacitor)
+- Node 22+
+- **JDK 21** (Temurin recomendado)
+- Android SDK con **platform 36** y `ANDROID_HOME` apuntando al SDK
+- `ffmpeg` en el PATH (solo si vas a regenerar los gritos desde el juego)
 
-## 2. Build web
+## Build web (offline)
 
 ```bash
 npm install
-npm run build            # genera dist/
+npm run build          # dist/ (~31 MB: 1.381 gritos MP3, sprites, JSON, fuentes)
 ```
 
-## 3. Capacitor → Android
+`npm run build:all` regenera además `reloadex.json` desde el juego. Los gritos WAV del juego se
+convierten automáticamente a **MP3 mono 96 kbps sin carátula** (`scripts/buildReloadexData.mjs`);
+el WAV original ocupaba ~230 MB y el MP3 ~21 MB.
+
+## Capacitor → Android
 
 ```bash
-npm install @capacitor/core @capacitor/cli @capacitor/android
-npx cap add android                 # crea android/
-npx cap sync android                # copia dist/ + plugins
-npx cap open android                # abre Android Studio
+npm run apk:prepare    # build + cap sync android
+npx @capacitor/assets generate --android \
+  --iconBackgroundColor '#0b0f1a' --splashBackgroundColor '#0b0f1a'
 ```
 
-En Android Studio: **Build → Build Bundle(s) / APK → Build APK(s)**.
-Salida típica: `android/app/build/outputs/apk/debug/app-debug.apk`
-(release firmado en `.../release/`).
+Los iconos y el splash se generan desde `assets/logo.png` (tu `logo.png`). El `appId` es
+`com.reloadex.pokedex` y el `webDir` es `dist`.
 
-> `capacitor.config.json` ya define `appId: com.reloadex.pokedex`, `appName: Reloadex`, `webDir: dist`.
-> El **icono** usa tu `logo.png`; para regenerar assets Android puedes usar `@capacitor/assets`
-> (`npx capacitor-assets generate --android`) o poner `icon`/`splash` en `android/app/src/main/res`.
-
-## 4. CLI pura (sin Android Studio)
+## Firma release (una sola vez)
 
 ```bash
-cd android
-./gradlew assembleDebug      # APK debug
-./gradlew assembleRelease    # APK release (necesita keystore de firma)
+keytool -genkeypair -v -storetype PKCS12 \
+  -keystore android/app/reloadex-release.jks \
+  -alias reloadex -keyalg RSA -keysize 2048 -validity 10000
 ```
 
-## Notas
+Crea `android/keystore.properties` (ignorado por git):
 
-- La app es **offline-friendly**: sprites, shiny, gritos, dataset y service worker van empaquetados.
-- No requiere conexión a internet ni a PokeAPI; todo sale de **Pokémon Reloaded**.
-- Si sirves la app también como PWA, `manifest.webmanifest` + `sw.js` permiten "Añadir a pantalla de inicio".
+```properties
+storeFile=reloadex-release.jks
+storePassword=TU_PASSWORD
+keyAlias=reloadex
+keyPassword=TU_PASSWORD
+```
+
+> **Guarda el `.jks` y esas contraseñas fuera del repo.** Sin ellos no podrás firmar futuras
+> versiones con la misma identidad.
+
+## Compilar
+
+```bash
+npm run apk:release    # assemblyRelease firmado
+```
+
+Salida: `android/app/build/outputs/apk/release/app-release.apk` (~30 MB).
+Para probar sin firmar: `npm run apk:debug`.
+
+## Publicar para todo el mundo
+
+1. Sube `app-release.apk` a un **GitHub Release** de este repo (tag `v1.0`, por ejemplo).
+2. Quien descarga el APK desde el móvil lo instala habilitando "Instalar apps desconocidas".
+3. No necesita internet para usar la Pokédex: todo viene dentro del APK.
+
+Si luego quieres Play Store, usa el mismo keystore y sube el **AAB** (`bundleRelease`) en vez
+del APK; la cuenta de desarrollador tiene un costo único.

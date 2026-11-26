@@ -26,6 +26,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { decodeFile } from './decodeReloaded.mjs';
 
@@ -62,24 +63,56 @@ const numericIdsFromDir = (dir, exts = ['.gif', '.png', '.wav']) => {
 
 const idSetHas = (set, id) => set.has(Number(id));
 
-// Copia los gritos de la carpeta que mantiene el usuario a public/cries.
+// Convierte un grito del juego (WAV estéreo con carátula) a MP3 mono 96 kbps.
+// El MP3 es ~10 veces más liviano y es lo que se empaqueta en el APK.
+const toMp3 = (src, dst) => {
+  const ext = path.extname(src).toLowerCase();
+  if (ext === '.mp3') {
+    fs.copyFileSync(src, dst);
+    return true;
+  }
+  const ffmpeg = process.env.RELOADEX_FFMPEG || 'ffmpeg';
+  const result = spawnSync(ffmpeg, [
+    '-nostdin', '-loglevel', 'error', '-y',
+    '-i', src, '-vn', '-ac', '1', '-b:a', '96k', dst,
+  ], { encoding: 'utf8' });
+  if (result.status !== 0) {
+    console.warn(`[gritos] No se pudo convertir ${path.basename(src)}: ${result.stderr || result.error}`);
+    return false;
+  }
+  return true;
+};
+
+// Sincroniza los gritos de la carpeta del usuario a public/cries, siempre como MP3.
 // Se conservan los archivos ya empaquetados (formas especiales antiguas) y se
 // sobrescriben solo los nombres que existen en la fuente nueva.
 const syncCries = () => {
   const dest = path.join(PUBLIC, 'cries');
   if (!fs.existsSync(CRIES_SOURCE)) {
     console.warn(`[gritos] No se encontró la carpeta fuente: ${CRIES_SOURCE}`);
-    return 0;
+  } else {
+    fs.mkdirSync(dest, { recursive: true });
   }
-  fs.mkdirSync(dest, { recursive: true });
   let copied = 0;
-  for (const name of fs.readdirSync(CRIES_SOURCE)) {
-    const ext = path.extname(name).toLowerCase();
-    if (!['.wav', '.mp3', '.ogg'].includes(ext)) continue;
-    const src = path.join(CRIES_SOURCE, name);
-    if (!fs.statSync(src).isFile()) continue;
-    fs.copyFileSync(src, path.join(dest, name));
-    copied++;
+  if (fs.existsSync(CRIES_SOURCE)) {
+    for (const name of fs.readdirSync(CRIES_SOURCE)) {
+      const ext = path.extname(name).toLowerCase();
+      if (!['.wav', '.mp3', '.ogg'].includes(ext)) continue;
+      const src = path.join(CRIES_SOURCE, name);
+      if (!fs.statSync(src).isFile()) continue;
+      const dst = path.join(dest, `${path.basename(name, ext)}.mp3`);
+      if (toMp3(src, dst)) copied++;
+    }
+  }
+  // Los WAV/OGG que ya estuvieran en public también pasan a MP3 y se eliminan.
+  if (fs.existsSync(dest)) {
+    for (const name of fs.readdirSync(dest)) {
+      const ext = path.extname(name).toLowerCase();
+      if (ext !== '.wav' && ext !== '.ogg') continue;
+      const src = path.join(dest, name);
+      const dst = path.join(dest, `${path.basename(name, ext)}.mp3`);
+      if (toMp3(src, dst)) fs.unlinkSync(src);
+    }
   }
   return copied;
 };
@@ -242,7 +275,7 @@ const infoLineForName = (name, nameLine) => {
   return nameLine >= 0 && nameLine < gameInfo.length ? nameLine : -1;
 };
 
-// nombre de archivo EXACTO de cada grito (los base van con ceros: 001.wav).
+// nombre de archivo EXACTO de cada grito (los base van con ceros: 001.mp3).
 // Se prefiere el nombre del juego; si la app empaquetó otro nombre, se añade como respaldo.
 const cryFileById = new Map();
 for (const dir of [CRIES_SOURCE, path.join(PUBLIC, 'cries')]) {
@@ -601,7 +634,9 @@ for (const id of [...allIds].sort((a, b) => a - b)) {
   const height = ti >= 0 ? measurement(gameHeights[ti]) : null;
   const weight = ti >= 0 ? measurement(gameWeights[ti]) : null;
   const species = ti >= 0 ? (gameSpecies[ti] || null) : null;
-  const cryFile = cryFileById.get(id) || null;
+  const cryRaw = cryFileById.get(id);
+  // Los gritos se empaquetan como MP3 (mucho más livianos que el WAV del juego).
+  const cryFile = cryRaw ? cryRaw.replace(/\.(wav|ogg)$/i, '.mp3') : null;
 
   const entry = {
     id,

@@ -37,17 +37,17 @@ export const spriteFallbacks = (id, shiny = false, shinyFile = null) => {
   return list;
 };
 
-// grito. Los gritos pueden ir con relleno (001.wav) o sin él (1.wav); megas -> base.
+// grito. MP3 mono empaquetado: los nombres pueden ir con relleno (001.mp3) o sin él (1.mp3); megas -> base.
 export const cryUrl = (id) => {
   const n = Number(id);
   if (!Number.isFinite(n)) return null;
-  return `/cries/${n}.wav`;
+  return `/cries/${n}.mp3`;
 };
 
 export const cryFallbacks = (id) => {
   const n = Number(id);
   if (!Number.isFinite(n)) return [];
-  const padded = `/cries/${String(n).padStart(3, '0')}.wav`;
+  const padded = `/cries/${String(n).padStart(3, '0')}.mp3`;
   const out = [padded];
   if (n >= 100000) { out.push(cryUrl(baseFormId(n)), `/cries/${String(baseFormId(n)).padStart(3, '0')}.wav`); }
   return out;

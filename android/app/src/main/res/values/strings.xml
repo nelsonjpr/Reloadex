@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Reloadex</string>
+    <string name="title_activity_main">Reloadex</string>
+    <string name="package_name">com.reloadex.pokedex</string>
+    <string name="custom_url_scheme">com.reloadex.pokedex</string>
+</resources>

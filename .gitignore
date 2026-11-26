@@ -36,6 +36,14 @@ android/local.properties
 android/.gradle/
 android/build/
 android/app/build/
+android/app/src/main/assets/public/
 android/captures/
 *.apk
 *.aab
+
+# Firma del APK (NUNCA versionar)
+android/keystore.properties
+android/app/*.keystore
+android/app/*.jks
+*.jks
+*.keystore

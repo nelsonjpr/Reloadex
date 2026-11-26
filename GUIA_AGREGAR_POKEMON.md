@@ -57,8 +57,13 @@ Abre `src/data/pokemon.js` y agrega la información:
 4. Pégalo en `Reloadex/public/sprites/shiny/`
 
 ### Paso 3: Copiar gritos
-Los gritos se sincronizan automáticamente desde `D:\reloaded\Proyecto Reloaded The Last Beta 1.9.2.2 Full\data\audio\grito\` al ejecutar `npm run build:data` o `npm run build:all`.
-Si haces una copia manual, conserva el nombre exacto del archivo (por ejemplo `004.wav`) y pégalo en `Reloadex/public/cries/`.
+Los gritos del juego son WAV, pero la app empaqueta **MP3 mono a 96 kbps sin carátula** para que el APK pese mucho menos. Si haces una copia manual, conviértelo antes:
+
+```bash
+ffmpeg -i 004.wav -vn -ac 1 -b:a 96k public/cries/004.mp3
+```
+
+Conserva el nombre exacto del ID (por ejemplo `004.mp3`) y pégalo en `Reloadex/public/cries/`. `buildReloadexData.mjs` acepta `.wav`, `.mp3` y `.ogg` como origen, pero siempre genera referencias `.mp3`.
 
 ### Paso 4: Agregar datos
 Igual que el Método 1, Paso 3.
@@ -68,7 +73,7 @@ Igual que el Método 1, Paso 3.
 ### Pokémon Base (1-2425)
 - **Archivo normal**: `1.gif`, `2.gif`, `3.gif`, etc.
 - **Archivo shiny**: `1001.gif`, `1002.gif`, `1003.gif`, etc.
-- **Grito**: `001.wav`, `002.wav`, `003.wav`, etc.
+- **Grito en la app**: `001.mp3`, `002.mp3`, `003.mp3`, etc.
 
 ### Formas Alternativas (6 dígitos)
 - **Ejemplo**: Raichu de Alola = `100026.gif`
