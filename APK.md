@@ -1,6 +1,6 @@
 # Generar el APK — Reloadex
 
-**Descarga pública:** [Reloadex-1.0.apk (32,8 MB)](https://github.com/nelsonjpr/Reloadex/releases/download/v1.0/Reloadex-1.0.apk)
+**Descarga pública:** [Reloadex-1.0.apk (32,9 MB)](https://github.com/nelsonjpr/Reloadex/releases/download/v1.0/Reloadex-1.0.apk)
 · [Página del release](https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0)
 
 La app se distribuye como **APK firmado** y funciona **100% offline desde el primer arranque**:
@@ -63,7 +63,7 @@ keyPassword=TU_PASSWORD
 npm run apk:release    # build web + cap sync + APK firmado, en un solo comando
 ```
 
-Salida: `android/app/build/outputs/apk/release/app-release.apk` (~32,8 MB).
+Salida: `android/app/build/outputs/apk/release/app-release.apk` (~32,9 MB).
 Firmado con los esquemas v1 (JAR), v2 y v3; verifica con
 `apksigner verify --verbose --min-sdk-version 18 <apk>`.
 Para probar sin firmar: `npm run apk:debug`.
