@@ -1,0 +1,3251 @@
+[
+  {
+    "n": 0,
+    "sub": null,
+    "tipo": "principal",
+    "nombre": "Ash",
+    "id": 1000,
+    "sprite": "/caras/p1000.gif",
+    "codigo": "CARA 0"
+  },
+  {
+    "n": 1,
+    "sub": null,
+    "tipo": "principal",
+    "nombre": "Gary",
+    "id": 1001,
+    "sprite": "/caras/p1001.gif",
+    "codigo": "CARA 1"
+  },
+  {
+    "n": 2,
+    "sub": null,
+    "tipo": "principal",
+    "nombre": "Oro",
+    "id": 1002,
+    "sprite": "/caras/p1002.gif",
+    "codigo": "CARA 2"
+  },
+  {
+    "n": 3,
+    "sub": null,
+    "tipo": "principal",
+    "nombre": "Cristal",
+    "id": 1003,
+    "sprite": "/caras/p1003.gif",
+    "codigo": "CARA 3"
+  },
+  {
+    "n": 4,
+    "sub": null,
+    "tipo": "principal",
+    "nombre": "Aura",
+    "id": 1004,
+    "sprite": "/caras/p1004.gif",
+    "codigo": "CARA 4"
+  },
+  {
+    "n": 5,
+    "sub": null,
+    "tipo": "principal",
+    "nombre": "Bruno",
+    "id": 1005,
+    "sprite": "/caras/p1005.gif",
+    "codigo": "CARA 5"
+  },
+  {
+    "n": 6,
+    "sub": null,
+    "tipo": "principal",
+    "nombre": "Maya",
+    "id": 1006,
+    "sprite": "/caras/p1006.gif",
+    "codigo": "CARA 6"
+  },
+  {
+    "n": 7,
+    "sub": null,
+    "tipo": "principal",
+    "nombre": "Leon",
+    "id": 1007,
+    "sprite": "/caras/p1007.gif",
+    "codigo": "CARA 7"
+  },
+  {
+    "n": 8,
+    "sub": null,
+    "tipo": "principal",
+    "nombre": "Kate",
+    "id": 1008,
+    "sprite": "/caras/p1008.gif",
+    "codigo": "CARA 8"
+  },
+  {
+    "n": 9,
+    "sub": null,
+    "tipo": "principal",
+    "nombre": "Mark",
+    "id": 1009,
+    "sprite": "/caras/p1009.gif",
+    "codigo": "CARA 9"
+  },
+  {
+    "n": 10,
+    "sub": 1,
+    "tipo": "adicional",
+    "nombre": "Rojo",
+    "id": 20,
+    "sprite": "/caras/e20.gif",
+    "codigo": "CARA 10 1"
+  },
+  {
+    "n": 10,
+    "sub": 2,
+    "tipo": "adicional",
+    "nombre": "Azul",
+    "id": 1,
+    "sprite": "/caras/e1.gif",
+    "codigo": "CARA 10 2"
+  },
+  {
+    "n": 10,
+    "sub": 3,
+    "tipo": "adicional",
+    "nombre": "Hoja",
+    "id": 85,
+    "sprite": "/caras/e85.gif",
+    "codigo": "CARA 10 3"
+  },
+  {
+    "n": 10,
+    "sub": 4,
+    "tipo": "adicional",
+    "nombre": "Yellow",
+    "id": 192,
+    "sprite": "/caras/e192.gif",
+    "codigo": "CARA 10 4"
+  },
+  {
+    "n": 10,
+    "sub": 5,
+    "tipo": "adicional",
+    "nombre": "Ritchie",
+    "id": 3017,
+    "sprite": "/caras/e3017.gif",
+    "codigo": "CARA 10 5"
+  },
+  {
+    "n": 10,
+    "sub": 6,
+    "tipo": "adicional",
+    "nombre": "Plata",
+    "id": 3018,
+    "sprite": "/caras/e3018.gif",
+    "codigo": "CARA 10 6"
+  },
+  {
+    "n": 10,
+    "sub": 7,
+    "tipo": "adicional",
+    "nombre": "Blasco",
+    "id": 70,
+    "sprite": "/caras/e70.gif",
+    "codigo": "CARA 10 7"
+  },
+  {
+    "n": 10,
+    "sub": 8,
+    "tipo": "adicional",
+    "nombre": "Benito",
+    "id": 77,
+    "sprite": "/caras/e77.gif",
+    "codigo": "CARA 10 8"
+  },
+  {
+    "n": 10,
+    "sub": 9,
+    "tipo": "adicional",
+    "nombre": "Polo",
+    "id": 109,
+    "sprite": "/caras/e109.gif",
+    "codigo": "CARA 10 9"
+  },
+  {
+    "n": 10,
+    "sub": 10,
+    "tipo": "adicional",
+    "nombre": "Tobias",
+    "id": 200,
+    "sprite": "/caras/e200.gif",
+    "codigo": "CARA 10 10"
+  },
+  {
+    "n": 10,
+    "sub": 11,
+    "tipo": "adicional",
+    "nombre": "Liza",
+    "id": 107,
+    "sprite": "/caras/e107.gif",
+    "codigo": "CARA 10 11"
+  },
+  {
+    "n": 10,
+    "sub": 12,
+    "tipo": "adicional",
+    "nombre": "Lucho",
+    "id": 108,
+    "sprite": "/caras/e108.gif",
+    "codigo": "CARA 10 12"
+  },
+  {
+    "n": 10,
+    "sub": 13,
+    "tipo": "adicional",
+    "nombre": "Bel",
+    "id": 114,
+    "sprite": "/caras/e114.gif",
+    "codigo": "CARA 10 13"
+  },
+  {
+    "n": 10,
+    "sub": 14,
+    "tipo": "adicional",
+    "nombre": "Cheren",
+    "id": 115,
+    "sprite": "/caras/e115.gif",
+    "codigo": "CARA 10 14"
+  },
+  {
+    "n": 10,
+    "sub": 15,
+    "tipo": "adicional",
+    "nombre": "Rizzo",
+    "id": 111,
+    "sprite": "/caras/e111.gif",
+    "codigo": "CARA 10 15"
+  },
+  {
+    "n": 10,
+    "sub": 16,
+    "tipo": "adicional",
+    "nombre": "Nanci",
+    "id": 112,
+    "sprite": "/caras/e112.gif",
+    "codigo": "CARA 10 16"
+  },
+  {
+    "n": 10,
+    "sub": 17,
+    "tipo": "adicional",
+    "nombre": "Matís",
+    "id": 136,
+    "sprite": "/caras/e136.gif",
+    "codigo": "CARA 10 17"
+  },
+  {
+    "n": 10,
+    "sub": 18,
+    "tipo": "adicional",
+    "nombre": "Kalm",
+    "id": 131,
+    "sprite": "/caras/e131.gif",
+    "codigo": "CARA 10 18"
+  },
+  {
+    "n": 10,
+    "sub": 19,
+    "tipo": "adicional",
+    "nombre": "Serena",
+    "id": 132,
+    "sprite": "/caras/e132.gif",
+    "codigo": "CARA 10 19"
+  },
+  {
+    "n": 10,
+    "sub": 20,
+    "tipo": "adicional",
+    "nombre": "Alain",
+    "id": 144,
+    "sprite": "/caras/e144.gif",
+    "codigo": "CARA 10 20"
+  },
+  {
+    "n": 10,
+    "sub": 21,
+    "tipo": "adicional",
+    "nombre": "Selene",
+    "id": 145,
+    "sprite": "/caras/e145.gif",
+    "codigo": "CARA 10 21"
+  },
+  {
+    "n": 10,
+    "sub": 22,
+    "tipo": "adicional",
+    "nombre": "Elio",
+    "id": 146,
+    "sprite": "/caras/e146.gif",
+    "codigo": "CARA 10 22"
+  },
+  {
+    "n": 10,
+    "sub": 23,
+    "tipo": "adicional",
+    "nombre": "Tilo",
+    "id": 147,
+    "sprite": "/caras/e147.gif",
+    "codigo": "CARA 10 23"
+  },
+  {
+    "n": 10,
+    "sub": 24,
+    "tipo": "adicional",
+    "nombre": "Lylia",
+    "id": 173,
+    "sprite": "/caras/e173.gif",
+    "codigo": "CARA 10 24"
+  },
+  {
+    "n": 10,
+    "sub": 25,
+    "tipo": "adicional",
+    "nombre": "Gladio",
+    "id": 149,
+    "sprite": "/caras/e149.gif",
+    "codigo": "CARA 10 25"
+  },
+  {
+    "n": 10,
+    "sub": 26,
+    "tipo": "adicional",
+    "nombre": "Chase",
+    "id": 183,
+    "sprite": "/caras/e183.gif",
+    "codigo": "CARA 10 26"
+  },
+  {
+    "n": 10,
+    "sub": 27,
+    "tipo": "adicional",
+    "nombre": "Elaine",
+    "id": 184,
+    "sprite": "/caras/e184.gif",
+    "codigo": "CARA 10 27"
+  },
+  {
+    "n": 10,
+    "sub": 28,
+    "tipo": "adicional",
+    "nombre": "Gloria",
+    "id": 185,
+    "sprite": "/caras/e185.gif",
+    "codigo": "CARA 10 28"
+  },
+  {
+    "n": 10,
+    "sub": 29,
+    "tipo": "adicional",
+    "nombre": "Víctor",
+    "id": 186,
+    "sprite": "/caras/e186.gif",
+    "codigo": "CARA 10 29"
+  },
+  {
+    "n": 10,
+    "sub": 30,
+    "tipo": "adicional",
+    "nombre": "Roxy",
+    "id": 189,
+    "sprite": "/caras/e189.gif",
+    "codigo": "CARA 10 30"
+  },
+  {
+    "n": 10,
+    "sub": 31,
+    "tipo": "adicional",
+    "nombre": "Paul",
+    "id": 190,
+    "sprite": "/caras/e190.gif",
+    "codigo": "CARA 10 31"
+  },
+  {
+    "n": 10,
+    "sub": 32,
+    "tipo": "adicional",
+    "nombre": "Berto",
+    "id": 191,
+    "sprite": "/caras/e191.gif",
+    "codigo": "CARA 10 32"
+  },
+  {
+    "n": 10,
+    "sub": 33,
+    "tipo": "adicional",
+    "nombre": "Chico",
+    "id": 2,
+    "sprite": "/caras/e2.gif",
+    "codigo": "CARA 10 33"
+  },
+  {
+    "n": 10,
+    "sub": 34,
+    "tipo": "adicional",
+    "nombre": "Chica",
+    "id": 3,
+    "sprite": "/caras/e3.gif",
+    "codigo": "CARA 10 34"
+  },
+  {
+    "n": 10,
+    "sub": 35,
+    "tipo": "adicional",
+    "nombre": "Chico",
+    "id": 8,
+    "sprite": "/caras/e8.gif",
+    "codigo": "CARA 10 35"
+  },
+  {
+    "n": 10,
+    "sub": 36,
+    "tipo": "adicional",
+    "nombre": "Chica",
+    "id": 7,
+    "sprite": "/caras/e7.gif",
+    "codigo": "CARA 10 36"
+  },
+  {
+    "n": 10,
+    "sub": 37,
+    "tipo": "adicional",
+    "nombre": "Campista",
+    "id": 12,
+    "sprite": "/caras/e12.gif",
+    "codigo": "CARA 10 37"
+  },
+  {
+    "n": 10,
+    "sub": 38,
+    "tipo": "adicional",
+    "nombre": "Dominguera",
+    "id": 13,
+    "sprite": "/caras/e13.gif",
+    "codigo": "CARA 10 38"
+  },
+  {
+    "n": 10,
+    "sub": 39,
+    "tipo": "adicional",
+    "nombre": "CazaBichos",
+    "id": 9,
+    "sprite": "/caras/e9.gif",
+    "codigo": "CARA 10 39"
+  },
+  {
+    "n": 10,
+    "sub": 40,
+    "tipo": "adicional",
+    "nombre": "CazaBichos",
+    "id": 177,
+    "sprite": "/caras/e177.gif",
+    "codigo": "CARA 10 40"
+  },
+  {
+    "n": 10,
+    "sub": 41,
+    "tipo": "adicional",
+    "nombre": "Aromaflor",
+    "id": 29,
+    "sprite": "/caras/e29.gif",
+    "codigo": "CARA 10 41"
+  },
+  {
+    "n": 10,
+    "sub": 42,
+    "tipo": "adicional",
+    "nombre": "Entr. Guay",
+    "id": 4,
+    "sprite": "/caras/e4.gif",
+    "codigo": "CARA 10 42"
+  },
+  {
+    "n": 10,
+    "sub": 43,
+    "tipo": "adicional",
+    "nombre": "Entr. Guay",
+    "id": 5,
+    "sprite": "/caras/e5.gif",
+    "codigo": "CARA 10 43"
+  },
+  {
+    "n": 10,
+    "sub": 44,
+    "tipo": "adicional",
+    "nombre": "Entr. Guay",
+    "id": 118,
+    "sprite": "/caras/e118.gif",
+    "codigo": "CARA 10 44"
+  },
+  {
+    "n": 10,
+    "sub": 45,
+    "tipo": "adicional",
+    "nombre": "Entr. Guay",
+    "id": 30,
+    "sprite": "/caras/e30.gif",
+    "codigo": "CARA 10 45"
+  },
+  {
+    "n": 10,
+    "sub": 46,
+    "tipo": "adicional",
+    "nombre": "Entr. Guay",
+    "id": 116,
+    "sprite": "/caras/e116.gif",
+    "codigo": "CARA 10 46"
+  },
+  {
+    "n": 10,
+    "sub": 47,
+    "tipo": "adicional",
+    "nombre": "Entr. Guay",
+    "id": 117,
+    "sprite": "/caras/e117.gif",
+    "codigo": "CARA 10 47"
+  },
+  {
+    "n": 10,
+    "sub": 48,
+    "tipo": "adicional",
+    "nombre": "Niño Bien",
+    "id": 119,
+    "sprite": "/caras/e119.gif",
+    "codigo": "CARA 10 48"
+  },
+  {
+    "n": 10,
+    "sub": 49,
+    "tipo": "adicional",
+    "nombre": "Niño Mísero",
+    "id": 178,
+    "sprite": "/caras/e178.gif",
+    "codigo": "CARA 10 49"
+  },
+  {
+    "n": 10,
+    "sub": 50,
+    "tipo": "adicional",
+    "nombre": "Dama",
+    "id": 63,
+    "sprite": "/caras/e63.gif",
+    "codigo": "CARA 10 50"
+  },
+  {
+    "n": 10,
+    "sub": 51,
+    "tipo": "adicional",
+    "nombre": "Marinero",
+    "id": 59,
+    "sprite": "/caras/e59.gif",
+    "codigo": "CARA 10 51"
+  },
+  {
+    "n": 10,
+    "sub": 52,
+    "tipo": "adicional",
+    "nombre": "Bella",
+    "id": 55,
+    "sprite": "/caras/e55.gif",
+    "codigo": "CARA 10 52"
+  },
+  {
+    "n": 10,
+    "sub": 53,
+    "tipo": "adicional",
+    "nombre": "Ornitólogo",
+    "id": 6,
+    "sprite": "/caras/e6.gif",
+    "codigo": "CARA 10 53"
+  },
+  {
+    "n": 10,
+    "sub": 54,
+    "tipo": "adicional",
+    "nombre": "Ornitóloga",
+    "id": 126,
+    "sprite": "/caras/e126.gif",
+    "codigo": "CARA 10 54"
+  },
+  {
+    "n": 10,
+    "sub": 55,
+    "tipo": "adicional",
+    "nombre": "Montañero",
+    "id": 14,
+    "sprite": "/caras/e14.gif",
+    "codigo": "CARA 10 55"
+  },
+  {
+    "n": 10,
+    "sub": 56,
+    "tipo": "adicional",
+    "nombre": "Montañero",
+    "id": 15,
+    "sprite": "/caras/e15.gif",
+    "codigo": "CARA 10 56"
+  },
+  {
+    "n": 10,
+    "sub": 57,
+    "tipo": "adicional",
+    "nombre": "Pescador",
+    "id": 38,
+    "sprite": "/caras/e38.gif",
+    "codigo": "CARA 10 57"
+  },
+  {
+    "n": 10,
+    "sub": 58,
+    "tipo": "adicional",
+    "nombre": "Pescador",
+    "id": 39,
+    "sprite": "/caras/e39.gif",
+    "codigo": "CARA 10 58"
+  },
+  {
+    "n": 10,
+    "sub": 59,
+    "tipo": "adicional",
+    "nombre": "Médium",
+    "id": 40,
+    "sprite": "/caras/e40.gif",
+    "codigo": "CARA 10 59"
+  },
+  {
+    "n": 10,
+    "sub": 60,
+    "tipo": "adicional",
+    "nombre": "Médium",
+    "id": 41,
+    "sprite": "/caras/e41.gif",
+    "codigo": "CARA 10 60"
+  },
+  {
+    "n": 10,
+    "sub": 61,
+    "tipo": "adicional",
+    "nombre": "Criador",
+    "id": 37,
+    "sprite": "/caras/e37.gif",
+    "codigo": "CARA 10 61"
+  },
+  {
+    "n": 10,
+    "sub": 62,
+    "tipo": "adicional",
+    "nombre": "Criadora",
+    "id": 31,
+    "sprite": "/caras/e31.gif",
+    "codigo": "CARA 10 62"
+  },
+  {
+    "n": 10,
+    "sub": 63,
+    "tipo": "adicional",
+    "nombre": "Pokéfan",
+    "id": 32,
+    "sprite": "/caras/e32.gif",
+    "codigo": "CARA 10 63"
+  },
+  {
+    "n": 10,
+    "sub": 64,
+    "tipo": "adicional",
+    "nombre": "Pokéfan",
+    "id": 33,
+    "sprite": "/caras/e33.gif",
+    "codigo": "CARA 10 64"
+  },
+  {
+    "n": 10,
+    "sub": 65,
+    "tipo": "adicional",
+    "nombre": "Nadador",
+    "id": 17,
+    "sprite": "/caras/e17.gif",
+    "codigo": "CARA 10 65"
+  },
+  {
+    "n": 10,
+    "sub": 66,
+    "tipo": "adicional",
+    "nombre": "Nadadora",
+    "id": 18,
+    "sprite": "/caras/e18.gif",
+    "codigo": "CARA 10 66"
+  },
+  {
+    "n": 10,
+    "sub": 67,
+    "tipo": "adicional",
+    "nombre": "Nadador",
+    "id": 65,
+    "sprite": "/caras/e65.gif",
+    "codigo": "CARA 10 67"
+  },
+  {
+    "n": 10,
+    "sub": 68,
+    "tipo": "adicional",
+    "nombre": "Nadadora",
+    "id": 56,
+    "sprite": "/caras/e56.gif",
+    "codigo": "CARA 10 68"
+  },
+  {
+    "n": 10,
+    "sub": 69,
+    "tipo": "adicional",
+    "nombre": "Playero",
+    "id": 58,
+    "sprite": "/caras/e58.gif",
+    "codigo": "CARA 10 69"
+  },
+  {
+    "n": 10,
+    "sub": 70,
+    "tipo": "adicional",
+    "nombre": "Playera",
+    "id": 57,
+    "sprite": "/caras/e57.gif",
+    "codigo": "CARA 10 70"
+  },
+  {
+    "n": 10,
+    "sub": 71,
+    "tipo": "adicional",
+    "nombre": "Caballero",
+    "id": 16,
+    "sprite": "/caras/e16.gif",
+    "codigo": "CARA 10 71"
+  },
+  {
+    "n": 10,
+    "sub": 72,
+    "tipo": "adicional",
+    "nombre": "Profe",
+    "id": 76,
+    "sprite": "/caras/e76.gif",
+    "codigo": "CARA 10 72"
+  },
+  {
+    "n": 10,
+    "sub": 73,
+    "tipo": "adicional",
+    "nombre": "Estudiante",
+    "id": 73,
+    "sprite": "/caras/e73.gif",
+    "codigo": "CARA 10 73"
+  },
+  {
+    "n": 10,
+    "sub": 74,
+    "tipo": "adicional",
+    "nombre": "Estudiante",
+    "id": 74,
+    "sprite": "/caras/e74.gif",
+    "codigo": "CARA 10 74"
+  },
+  {
+    "n": 10,
+    "sub": 75,
+    "tipo": "adicional",
+    "nombre": "Estudiante",
+    "id": 72,
+    "sprite": "/caras/e72.gif",
+    "codigo": "CARA 10 75"
+  },
+  {
+    "n": 10,
+    "sub": 76,
+    "tipo": "adicional",
+    "nombre": "Estudiante",
+    "id": 75,
+    "sprite": "/caras/e75.gif",
+    "codigo": "CARA 10 76"
+  },
+  {
+    "n": 10,
+    "sub": 77,
+    "tipo": "adicional",
+    "nombre": "Anciano",
+    "id": 54,
+    "sprite": "/caras/e54.gif",
+    "codigo": "CARA 10 77"
+  },
+  {
+    "n": 10,
+    "sub": 78,
+    "tipo": "adicional",
+    "nombre": "Veterano",
+    "id": 52,
+    "sprite": "/caras/e52.gif",
+    "codigo": "CARA 10 78"
+  },
+  {
+    "n": 10,
+    "sub": 79,
+    "tipo": "adicional",
+    "nombre": "Veterana",
+    "id": 53,
+    "sprite": "/caras/e53.gif",
+    "codigo": "CARA 10 79"
+  },
+  {
+    "n": 10,
+    "sub": 80,
+    "tipo": "adicional",
+    "nombre": "Veterano",
+    "id": 127,
+    "sprite": "/caras/e127.gif",
+    "codigo": "CARA 10 80"
+  },
+  {
+    "n": 10,
+    "sub": 81,
+    "tipo": "adicional",
+    "nombre": "Veterana",
+    "id": 128,
+    "sprite": "/caras/e128.gif",
+    "codigo": "CARA 10 81"
+  },
+  {
+    "n": 10,
+    "sub": 82,
+    "tipo": "adicional",
+    "nombre": "Enfermero",
+    "id": 139,
+    "sprite": "/caras/e139.gif",
+    "codigo": "CARA 10 82"
+  },
+  {
+    "n": 10,
+    "sub": 83,
+    "tipo": "adicional",
+    "nombre": "Enfermera",
+    "id": 19,
+    "sprite": "/caras/e19.gif",
+    "codigo": "CARA 10 83"
+  },
+  {
+    "n": 10,
+    "sub": 84,
+    "tipo": "adicional",
+    "nombre": "Señor",
+    "id": 69,
+    "sprite": "/caras/e69.gif",
+    "codigo": "CARA 10 84"
+  },
+  {
+    "n": 10,
+    "sub": 85,
+    "tipo": "adicional",
+    "nombre": "Profesora Juno",
+    "id": 403,
+    "sprite": "/caras/e403.gif",
+    "codigo": "CARA 10 85"
+  },
+  {
+    "n": 10,
+    "sub": 86,
+    "tipo": "adicional",
+    "nombre": "Pokemaníaco",
+    "id": 35,
+    "sprite": "/caras/e35.gif",
+    "codigo": "CARA 10 86"
+  },
+  {
+    "n": 10,
+    "sub": 87,
+    "tipo": "adicional",
+    "nombre": "Coleccionista",
+    "id": 60,
+    "sprite": "/caras/e60.gif",
+    "codigo": "CARA 10 87"
+  },
+  {
+    "n": 10,
+    "sub": 88,
+    "tipo": "adicional",
+    "nombre": "Friki",
+    "id": 48,
+    "sprite": "/caras/e48.gif",
+    "codigo": "CARA 10 88"
+  },
+  {
+    "n": 10,
+    "sub": 89,
+    "tipo": "adicional",
+    "nombre": "Señorita",
+    "id": 36,
+    "sprite": "/caras/e36.gif",
+    "codigo": "CARA 10 89"
+  },
+  {
+    "n": 10,
+    "sub": 90,
+    "tipo": "adicional",
+    "nombre": "Rockero",
+    "id": 42,
+    "sprite": "/caras/e42.gif",
+    "codigo": "CARA 10 90"
+  },
+  {
+    "n": 10,
+    "sub": 91,
+    "tipo": "adicional",
+    "nombre": "Rockera",
+    "id": 124,
+    "sprite": "/caras/e124.gif",
+    "codigo": "CARA 10 91"
+  },
+  {
+    "n": 10,
+    "sub": 92,
+    "tipo": "adicional",
+    "nombre": "Operario",
+    "id": 43,
+    "sprite": "/caras/e43.gif",
+    "codigo": "CARA 10 92"
+  },
+  {
+    "n": 10,
+    "sub": 93,
+    "tipo": "adicional",
+    "nombre": "Modelo",
+    "id": 125,
+    "sprite": "/caras/e125.gif",
+    "codigo": "CARA 10 93"
+  },
+  {
+    "n": 10,
+    "sub": 94,
+    "tipo": "adicional",
+    "nombre": "Electricista",
+    "id": 64,
+    "sprite": "/caras/e64.gif",
+    "codigo": "CARA 10 94"
+  },
+  {
+    "n": 10,
+    "sub": 95,
+    "tipo": "adicional",
+    "nombre": "Ladrón",
+    "id": 66,
+    "sprite": "/caras/e66.gif",
+    "codigo": "CARA 10 95"
+  },
+  {
+    "n": 10,
+    "sub": 96,
+    "tipo": "adicional",
+    "nombre": "Exorcista",
+    "id": 47,
+    "sprite": "/caras/e47.gif",
+    "codigo": "CARA 10 96"
+  },
+  {
+    "n": 10,
+    "sub": 97,
+    "tipo": "adicional",
+    "nombre": "Brujita",
+    "id": 129,
+    "sprite": "/caras/e129.gif",
+    "codigo": "CARA 10 97"
+  },
+  {
+    "n": 10,
+    "sub": 98,
+    "tipo": "adicional",
+    "nombre": "Fogonero",
+    "id": 130,
+    "sprite": "/caras/e130.gif",
+    "codigo": "CARA 10 98"
+  },
+  {
+    "n": 10,
+    "sub": 99,
+    "tipo": "adicional",
+    "nombre": "Pirómano",
+    "id": 34,
+    "sprite": "/caras/e34.gif",
+    "codigo": "CARA 10 99"
+  },
+  {
+    "n": 10,
+    "sub": 100,
+    "tipo": "adicional",
+    "nombre": "Chica Kimono",
+    "id": 187,
+    "sprite": "/caras/e187.gif",
+    "codigo": "CARA 10 100"
+  },
+  {
+    "n": 10,
+    "sub": 101,
+    "tipo": "adicional",
+    "nombre": "Ciclista",
+    "id": 44,
+    "sprite": "/caras/e44.gif",
+    "codigo": "CARA 10 101"
+  },
+  {
+    "n": 10,
+    "sub": 102,
+    "tipo": "adicional",
+    "nombre": "Ciclista",
+    "id": 45,
+    "sprite": "/caras/e45.gif",
+    "codigo": "CARA 10 102"
+  },
+  {
+    "n": 10,
+    "sub": 103,
+    "tipo": "adicional",
+    "nombre": "Motorista",
+    "id": 46,
+    "sprite": "/caras/e46.gif",
+    "codigo": "CARA 10 103"
+  },
+  {
+    "n": 10,
+    "sub": 104,
+    "tipo": "adicional",
+    "nombre": "Motorista",
+    "id": 61,
+    "sprite": "/caras/e61.gif",
+    "codigo": "CARA 10 104"
+  },
+  {
+    "n": 10,
+    "sub": 105,
+    "tipo": "adicional",
+    "nombre": "Pandillero",
+    "id": 123,
+    "sprite": "/caras/e123.gif",
+    "codigo": "CARA 10 105"
+  },
+  {
+    "n": 10,
+    "sub": 106,
+    "tipo": "adicional",
+    "nombre": "Agente",
+    "id": 400,
+    "sprite": "/caras/e400.gif",
+    "codigo": "CARA 10 106"
+  },
+  {
+    "n": 10,
+    "sub": 107,
+    "tipo": "adicional",
+    "nombre": "Agente",
+    "id": 401,
+    "sprite": "/caras/e401.gif",
+    "codigo": "CARA 10 107"
+  },
+  {
+    "n": 10,
+    "sub": 108,
+    "tipo": "adicional",
+    "nombre": "Comisario Amando",
+    "id": 402,
+    "sprite": "/caras/e402.gif",
+    "codigo": "CARA 10 108"
+  },
+  {
+    "n": 10,
+    "sub": 109,
+    "tipo": "adicional",
+    "nombre": "Handsome",
+    "id": 412,
+    "sprite": "/caras/e412.gif",
+    "codigo": "CARA 10 109"
+  },
+  {
+    "n": 10,
+    "sub": 110,
+    "tipo": "adicional",
+    "nombre": "Empresario",
+    "id": 140,
+    "sprite": "/caras/e140.gif",
+    "codigo": "CARA 10 110"
+  },
+  {
+    "n": 10,
+    "sub": 111,
+    "tipo": "adicional",
+    "nombre": "Oficinista",
+    "id": 141,
+    "sprite": "/caras/e141.gif",
+    "codigo": "CARA 10 111"
+  },
+  {
+    "n": 10,
+    "sub": 112,
+    "tipo": "adicional",
+    "nombre": "Oficinista",
+    "id": 142,
+    "sprite": "/caras/e142.gif",
+    "codigo": "CARA 10 112"
+  },
+  {
+    "n": 10,
+    "sub": 113,
+    "tipo": "adicional",
+    "nombre": "PokéRanger",
+    "id": 120,
+    "sprite": "/caras/e120.gif",
+    "codigo": "CARA 10 113"
+  },
+  {
+    "n": 10,
+    "sub": 114,
+    "tipo": "adicional",
+    "nombre": "PokéRanger",
+    "id": 121,
+    "sprite": "/caras/e121.gif",
+    "codigo": "CARA 10 114"
+  },
+  {
+    "n": 10,
+    "sub": 115,
+    "tipo": "adicional",
+    "nombre": "Científico",
+    "id": 71,
+    "sprite": "/caras/e71.gif",
+    "codigo": "CARA 10 115"
+  },
+  {
+    "n": 10,
+    "sub": 116,
+    "tipo": "adicional",
+    "nombre": "Científica",
+    "id": 86,
+    "sprite": "/caras/e86.gif",
+    "codigo": "CARA 10 116"
+  },
+  {
+    "n": 10,
+    "sub": 117,
+    "tipo": "adicional",
+    "nombre": "Karateca",
+    "id": 50,
+    "sprite": "/caras/e50.gif",
+    "codigo": "CARA 10 117"
+  },
+  {
+    "n": 10,
+    "sub": 118,
+    "tipo": "adicional",
+    "nombre": "Karateca",
+    "id": 49,
+    "sprite": "/caras/e49.gif",
+    "codigo": "CARA 10 118"
+  },
+  {
+    "n": 10,
+    "sub": 119,
+    "tipo": "adicional",
+    "nombre": "Ninja",
+    "id": 51,
+    "sprite": "/caras/e51.gif",
+    "codigo": "CARA 10 119"
+  },
+  {
+    "n": 10,
+    "sub": 120,
+    "tipo": "adicional",
+    "nombre": "Artista",
+    "id": 122,
+    "sprite": "/caras/e122.gif",
+    "codigo": "CARA 10 120"
+  },
+  {
+    "n": 10,
+    "sub": 121,
+    "tipo": "adicional",
+    "nombre": "Artista",
+    "id": 67,
+    "sprite": "/caras/e67.gif",
+    "codigo": "CARA 10 121"
+  },
+  {
+    "n": 10,
+    "sub": 122,
+    "tipo": "adicional",
+    "nombre": "RuinaManíaco",
+    "id": 62,
+    "sprite": "/caras/e62.gif",
+    "codigo": "CARA 10 122"
+  },
+  {
+    "n": 10,
+    "sub": 123,
+    "tipo": "adicional",
+    "nombre": "Domadragones",
+    "id": 68,
+    "sprite": "/caras/e68.gif",
+    "codigo": "CARA 10 123"
+  },
+  {
+    "n": 10,
+    "sub": 124,
+    "tipo": "adicional",
+    "nombre": "Bulgur",
+    "id": 133,
+    "sprite": "/caras/e133.gif",
+    "codigo": "CARA 10 124"
+  },
+  {
+    "n": 10,
+    "sub": 125,
+    "tipo": "adicional",
+    "nombre": "Maiza",
+    "id": 134,
+    "sprite": "/caras/e134.gif",
+    "codigo": "CARA 10 125"
+  },
+  {
+    "n": 10,
+    "sub": 126,
+    "tipo": "adicional",
+    "nombre": "Malta",
+    "id": 135,
+    "sprite": "/caras/e135.gif",
+    "codigo": "CARA 10 126"
+  },
+  {
+    "n": 10,
+    "sub": 127,
+    "tipo": "adicional",
+    "nombre": "Quinoa",
+    "id": 137,
+    "sprite": "/caras/e137.gif",
+    "codigo": "CARA 10 127"
+  },
+  {
+    "n": 10,
+    "sub": 128,
+    "tipo": "adicional",
+    "nombre": "Sémola",
+    "id": 138,
+    "sprite": "/caras/e138.gif",
+    "codigo": "CARA 10 128"
+  },
+  {
+    "n": 10,
+    "sub": 129,
+    "tipo": "adicional",
+    "nombre": "Lario",
+    "id": 150,
+    "sprite": "/caras/e150.gif",
+    "codigo": "CARA 10 129"
+  },
+  {
+    "n": 10,
+    "sub": 130,
+    "tipo": "adicional",
+    "nombre": "Olano",
+    "id": 151,
+    "sprite": "/caras/e151.gif",
+    "codigo": "CARA 10 130"
+  },
+  {
+    "n": 10,
+    "sub": 131,
+    "tipo": "adicional",
+    "nombre": "Tristana",
+    "id": 176,
+    "sprite": "/caras/e176.gif",
+    "codigo": "CARA 10 131"
+  },
+  {
+    "n": 10,
+    "sub": 132,
+    "tipo": "adicional",
+    "nombre": "Soldado Rocket",
+    "id": 21,
+    "sprite": "/caras/e21.gif",
+    "codigo": "CARA 10 132"
+  },
+  {
+    "n": 10,
+    "sub": 133,
+    "tipo": "adicional",
+    "nombre": "Soldado Rocket",
+    "id": 22,
+    "sprite": "/caras/e22.gif",
+    "codigo": "CARA 10 133"
+  },
+  {
+    "n": 10,
+    "sub": 134,
+    "tipo": "adicional",
+    "nombre": "Jessie",
+    "id": 27,
+    "sprite": "/caras/e27.gif",
+    "codigo": "CARA 10 134"
+  },
+  {
+    "n": 10,
+    "sub": 135,
+    "tipo": "adicional",
+    "nombre": "James",
+    "id": 28,
+    "sprite": "/caras/e28.gif",
+    "codigo": "CARA 10 135"
+  },
+  {
+    "n": 10,
+    "sub": 136,
+    "tipo": "adicional",
+    "nombre": "Meowth",
+    "id": 3052,
+    "sprite": "/caras/e3052.gif",
+    "codigo": "CARA 10 136"
+  },
+  {
+    "n": 10,
+    "sub": 137,
+    "tipo": "adicional",
+    "nombre": "Lady Boss",
+    "id": 84,
+    "sprite": "/caras/e84.gif",
+    "codigo": "CARA 10 137"
+  },
+  {
+    "n": 10,
+    "sub": 138,
+    "tipo": "adicional",
+    "nombre": "Giovanni",
+    "id": 2108,
+    "sprite": "/caras/e2108.gif",
+    "codigo": "CARA 10 138"
+  },
+  {
+    "n": 10,
+    "sub": 139,
+    "tipo": "adicional",
+    "nombre": "Soldado Aqua",
+    "id": 10,
+    "sprite": "/caras/e10.gif",
+    "codigo": "CARA 10 139"
+  },
+  {
+    "n": 10,
+    "sub": 140,
+    "tipo": "adicional",
+    "nombre": "Soldado Aqua",
+    "id": 11,
+    "sprite": "/caras/e11.gif",
+    "codigo": "CARA 10 140"
+  },
+  {
+    "n": 10,
+    "sub": 141,
+    "tipo": "adicional",
+    "nombre": "Silvina",
+    "id": 104,
+    "sprite": "/caras/e104.gif",
+    "codigo": "CARA 10 141"
+  },
+  {
+    "n": 10,
+    "sub": 142,
+    "tipo": "adicional",
+    "nombre": "Aquiles",
+    "id": 82,
+    "sprite": "/caras/e82.gif",
+    "codigo": "CARA 10 142"
+  },
+  {
+    "n": 10,
+    "sub": 143,
+    "tipo": "adicional",
+    "nombre": "Soldado Magma",
+    "id": 23,
+    "sprite": "/caras/e23.gif",
+    "codigo": "CARA 10 143"
+  },
+  {
+    "n": 10,
+    "sub": 144,
+    "tipo": "adicional",
+    "nombre": "Soldado Magma",
+    "id": 24,
+    "sprite": "/caras/e24.gif",
+    "codigo": "CARA 10 144"
+  },
+  {
+    "n": 10,
+    "sub": 145,
+    "tipo": "adicional",
+    "nombre": "Tatiano",
+    "id": 105,
+    "sprite": "/caras/e105.gif",
+    "codigo": "CARA 10 145"
+  },
+  {
+    "n": 10,
+    "sub": 146,
+    "tipo": "adicional",
+    "nombre": "Magno",
+    "id": 83,
+    "sprite": "/caras/e83.gif",
+    "codigo": "CARA 10 146"
+  },
+  {
+    "n": 10,
+    "sub": 147,
+    "tipo": "adicional",
+    "nombre": "Recluta Galaxia",
+    "id": 25,
+    "sprite": "/caras/e25.gif",
+    "codigo": "CARA 10 147"
+  },
+  {
+    "n": 10,
+    "sub": 148,
+    "tipo": "adicional",
+    "nombre": "Recluta Galaxia",
+    "id": 26,
+    "sprite": "/caras/e26.gif",
+    "codigo": "CARA 10 148"
+  },
+  {
+    "n": 10,
+    "sub": 149,
+    "tipo": "adicional",
+    "nombre": "Venus",
+    "id": 78,
+    "sprite": "/caras/e78.gif",
+    "codigo": "CARA 10 149"
+  },
+  {
+    "n": 10,
+    "sub": 150,
+    "tipo": "adicional",
+    "nombre": "Ceres",
+    "id": 79,
+    "sprite": "/caras/e79.gif",
+    "codigo": "CARA 10 150"
+  },
+  {
+    "n": 10,
+    "sub": 151,
+    "tipo": "adicional",
+    "nombre": "Saturno",
+    "id": 80,
+    "sprite": "/caras/e80.gif",
+    "codigo": "CARA 10 151"
+  },
+  {
+    "n": 10,
+    "sub": 152,
+    "tipo": "adicional",
+    "nombre": "Helio",
+    "id": 81,
+    "sprite": "/caras/e81.gif",
+    "codigo": "CARA 10 152"
+  },
+  {
+    "n": 10,
+    "sub": 153,
+    "tipo": "adicional",
+    "nombre": "Recluta Plasma",
+    "id": 155,
+    "sprite": "/caras/e155.gif",
+    "codigo": "CARA 10 153"
+  },
+  {
+    "n": 10,
+    "sub": 154,
+    "tipo": "adicional",
+    "nombre": "Recluta Plasma",
+    "id": 156,
+    "sprite": "/caras/e156.gif",
+    "codigo": "CARA 10 154"
+  },
+  {
+    "n": 10,
+    "sub": 155,
+    "tipo": "adicional",
+    "nombre": "Acromo",
+    "id": 160,
+    "sprite": "/caras/e160.gif",
+    "codigo": "CARA 10 155"
+  },
+  {
+    "n": 10,
+    "sub": 156,
+    "tipo": "adicional",
+    "nombre": "Recluta Neo Plasma",
+    "id": 157,
+    "sprite": "/caras/e157.gif",
+    "codigo": "CARA 10 156"
+  },
+  {
+    "n": 10,
+    "sub": 157,
+    "tipo": "adicional",
+    "nombre": "Recluta Neo Plasma",
+    "id": 158,
+    "sprite": "/caras/e158.gif",
+    "codigo": "CARA 10 157"
+  },
+  {
+    "n": 10,
+    "sub": 158,
+    "tipo": "adicional",
+    "nombre": "Ghechis",
+    "id": 159,
+    "sprite": "/caras/e159.gif",
+    "codigo": "CARA 10 158"
+  },
+  {
+    "n": 10,
+    "sub": 159,
+    "tipo": "adicional",
+    "nombre": "Recluta Flare",
+    "id": 161,
+    "sprite": "/caras/e161.gif",
+    "codigo": "CARA 10 159"
+  },
+  {
+    "n": 10,
+    "sub": 160,
+    "tipo": "adicional",
+    "nombre": "Recluta Flare",
+    "id": 162,
+    "sprite": "/caras/e162.gif",
+    "codigo": "CARA 10 160"
+  },
+  {
+    "n": 10,
+    "sub": 161,
+    "tipo": "adicional",
+    "nombre": "Melia",
+    "id": 163,
+    "sprite": "/caras/e163.gif",
+    "codigo": "CARA 10 161"
+  },
+  {
+    "n": 10,
+    "sub": 162,
+    "tipo": "adicional",
+    "nombre": "Begonia",
+    "id": 164,
+    "sprite": "/caras/e164.gif",
+    "codigo": "CARA 10 162"
+  },
+  {
+    "n": 10,
+    "sub": 163,
+    "tipo": "adicional",
+    "nombre": "Amapola",
+    "id": 165,
+    "sprite": "/caras/e165.gif",
+    "codigo": "CARA 10 163"
+  },
+  {
+    "n": 10,
+    "sub": 164,
+    "tipo": "adicional",
+    "nombre": "Calendula",
+    "id": 166,
+    "sprite": "/caras/e166.gif",
+    "codigo": "CARA 10 164"
+  },
+  {
+    "n": 10,
+    "sub": 165,
+    "tipo": "adicional",
+    "nombre": "Xero",
+    "id": 167,
+    "sprite": "/caras/e167.gif",
+    "codigo": "CARA 10 165"
+  },
+  {
+    "n": 10,
+    "sub": 166,
+    "tipo": "adicional",
+    "nombre": "Lysson",
+    "id": 168,
+    "sprite": "/caras/e168.gif",
+    "codigo": "CARA 10 166"
+  },
+  {
+    "n": 10,
+    "sub": 167,
+    "tipo": "adicional",
+    "nombre": "Recluta Skull",
+    "id": 174,
+    "sprite": "/caras/e174.gif",
+    "codigo": "CARA 10 167"
+  },
+  {
+    "n": 10,
+    "sub": 168,
+    "tipo": "adicional",
+    "nombre": "Recluta Skull",
+    "id": 175,
+    "sprite": "/caras/e175.gif",
+    "codigo": "CARA 10 168"
+  },
+  {
+    "n": 10,
+    "sub": 169,
+    "tipo": "adicional",
+    "nombre": "Francine",
+    "id": 152,
+    "sprite": "/caras/e152.gif",
+    "codigo": "CARA 10 169"
+  },
+  {
+    "n": 10,
+    "sub": 170,
+    "tipo": "adicional",
+    "nombre": "Guzmán",
+    "id": 153,
+    "sprite": "/caras/e153.gif",
+    "codigo": "CARA 10 170"
+  },
+  {
+    "n": 10,
+    "sub": 171,
+    "tipo": "adicional",
+    "nombre": "Empleado Aether",
+    "id": 169,
+    "sprite": "/caras/e169.gif",
+    "codigo": "CARA 10 171"
+  },
+  {
+    "n": 10,
+    "sub": 172,
+    "tipo": "adicional",
+    "nombre": "Empleada Aether",
+    "id": 170,
+    "sprite": "/caras/e170.gif",
+    "codigo": "CARA 10 172"
+  },
+  {
+    "n": 10,
+    "sub": 173,
+    "tipo": "adicional",
+    "nombre": "Fabio",
+    "id": 154,
+    "sprite": "/caras/e154.gif",
+    "codigo": "CARA 10 173"
+  },
+  {
+    "n": 10,
+    "sub": 174,
+    "tipo": "adicional",
+    "nombre": "Zyra",
+    "id": 171,
+    "sprite": "/caras/e171.gif",
+    "codigo": "CARA 10 174"
+  },
+  {
+    "n": 10,
+    "sub": 175,
+    "tipo": "adicional",
+    "nombre": "Samina",
+    "id": 172,
+    "sprite": "/caras/e172.gif",
+    "codigo": "CARA 10 175"
+  },
+  {
+    "n": 10,
+    "sub": 176,
+    "tipo": "adicional",
+    "nombre": "Cuervo Negro",
+    "id": 90,
+    "sprite": "/caras/e90.gif",
+    "codigo": "CARA 10 176"
+  },
+  {
+    "n": 10,
+    "sub": 177,
+    "tipo": "adicional",
+    "nombre": "Vex",
+    "id": 95,
+    "sprite": "/caras/e95.gif",
+    "codigo": "CARA 10 177"
+  },
+  {
+    "n": 10,
+    "sub": 178,
+    "tipo": "adicional",
+    "nombre": "Edupoke",
+    "id": 91,
+    "sprite": "/caras/e91.gif",
+    "codigo": "CARA 10 178"
+  },
+  {
+    "n": 10,
+    "sub": 179,
+    "tipo": "adicional",
+    "nombre": "Qaxx",
+    "id": 94,
+    "sprite": "/caras/e94.gif",
+    "codigo": "CARA 10 179"
+  },
+  {
+    "n": 10,
+    "sub": 180,
+    "tipo": "adicional",
+    "nombre": "Master",
+    "id": 93,
+    "sprite": "/caras/e93.gif",
+    "codigo": "CARA 10 180"
+  },
+  {
+    "n": 10,
+    "sub": 181,
+    "tipo": "adicional",
+    "nombre": "TomasRB",
+    "id": 102,
+    "sprite": "/caras/e102.gif",
+    "codigo": "CARA 10 181"
+  },
+  {
+    "n": 10,
+    "sub": 182,
+    "tipo": "adicional",
+    "nombre": "Furuno",
+    "id": 92,
+    "sprite": "/caras/e92.gif",
+    "codigo": "CARA 10 182"
+  },
+  {
+    "n": 10,
+    "sub": 183,
+    "tipo": "adicional",
+    "nombre": "Kairo",
+    "id": 88,
+    "sprite": "/caras/e88.gif",
+    "codigo": "CARA 10 183"
+  },
+  {
+    "n": 10,
+    "sub": 184,
+    "tipo": "adicional",
+    "nombre": "Josefitha",
+    "id": 89,
+    "sprite": "/caras/e89.gif",
+    "codigo": "CARA 10 184"
+  },
+  {
+    "n": 10,
+    "sub": 185,
+    "tipo": "adicional",
+    "nombre": "KevinXDE",
+    "id": 100,
+    "sprite": "/caras/e100.gif",
+    "codigo": "CARA 10 185"
+  },
+  {
+    "n": 10,
+    "sub": 186,
+    "tipo": "adicional",
+    "nombre": "Erickox",
+    "id": 98,
+    "sprite": "/caras/e98.gif",
+    "codigo": "CARA 10 186"
+  },
+  {
+    "n": 10,
+    "sub": 187,
+    "tipo": "adicional",
+    "nombre": "TurcoFeran",
+    "id": 96,
+    "sprite": "/caras/e96.gif",
+    "codigo": "CARA 10 187"
+  },
+  {
+    "n": 10,
+    "sub": 188,
+    "tipo": "adicional",
+    "nombre": "Issy",
+    "id": 97,
+    "sprite": "/caras/e97.gif",
+    "codigo": "CARA 10 188"
+  },
+  {
+    "n": 10,
+    "sub": 189,
+    "tipo": "adicional",
+    "nombre": "Senkii",
+    "id": 101,
+    "sprite": "/caras/e101.gif",
+    "codigo": "CARA 10 189"
+  },
+  {
+    "n": 10,
+    "sub": 190,
+    "tipo": "adicional",
+    "nombre": "Xpokemaster",
+    "id": 103,
+    "sprite": "/caras/e103.gif",
+    "codigo": "CARA 10 190"
+  },
+  {
+    "n": 10,
+    "sub": 191,
+    "tipo": "adicional",
+    "nombre": "Kalerio",
+    "id": 99,
+    "sprite": "/caras/e99.gif",
+    "codigo": "CARA 10 191"
+  },
+  {
+    "n": 10,
+    "sub": 192,
+    "tipo": "adicional",
+    "nombre": "Alany",
+    "id": 113,
+    "sprite": "/caras/e113.gif",
+    "codigo": "CARA 10 192"
+  },
+  {
+    "n": 10,
+    "sub": 193,
+    "tipo": "adicional",
+    "nombre": "Kustem",
+    "id": 87,
+    "sprite": "/caras/e87.gif",
+    "codigo": "CARA 10 193"
+  },
+  {
+    "n": 10,
+    "sub": 194,
+    "tipo": "adicional",
+    "nombre": "Rex",
+    "id": 106,
+    "sprite": "/caras/e106.gif",
+    "codigo": "CARA 10 194"
+  },
+  {
+    "n": 10,
+    "sub": 195,
+    "tipo": "adicional",
+    "nombre": "Jhony Ryu",
+    "id": 143,
+    "sprite": "/caras/e143.gif",
+    "codigo": "CARA 10 195"
+  },
+  {
+    "n": 10,
+    "sub": 196,
+    "tipo": "adicional",
+    "nombre": "Maxs",
+    "id": 148,
+    "sprite": "/caras/e148.gif",
+    "codigo": "CARA 10 196"
+  },
+  {
+    "n": 10,
+    "sub": 197,
+    "tipo": "adicional",
+    "nombre": "Henrry",
+    "id": 188,
+    "sprite": "/caras/e188.gif",
+    "codigo": "CARA 10 197"
+  },
+  {
+    "n": 10,
+    "sub": 198,
+    "tipo": "adicional",
+    "nombre": "Dr. Metaguel",
+    "id": 193,
+    "sprite": "/caras/e193.gif",
+    "codigo": "CARA 10 198"
+  },
+  {
+    "n": 10,
+    "sub": 199,
+    "tipo": "adicional",
+    "nombre": "Mafer",
+    "id": 194,
+    "sprite": "/caras/e194.gif",
+    "codigo": "CARA 10 199"
+  },
+  {
+    "n": 10,
+    "sub": 200,
+    "tipo": "adicional",
+    "nombre": "Michael",
+    "id": 195,
+    "sprite": "/caras/e195.gif",
+    "codigo": "CARA 10 200"
+  },
+  {
+    "n": 10,
+    "sub": 201,
+    "tipo": "adicional",
+    "nombre": "DavKriz",
+    "id": 196,
+    "sprite": "/caras/e196.gif",
+    "codigo": "CARA 10 201"
+  },
+  {
+    "n": 10,
+    "sub": 202,
+    "tipo": "adicional",
+    "nombre": "Sfpm",
+    "id": 197,
+    "sprite": "/caras/e197.gif",
+    "codigo": "CARA 10 202"
+  },
+  {
+    "n": 10,
+    "sub": 203,
+    "tipo": "adicional",
+    "nombre": "Inv3rse",
+    "id": 198,
+    "sprite": "/caras/e198.gif",
+    "codigo": "CARA 10 203"
+  },
+  {
+    "n": 10,
+    "sub": 204,
+    "tipo": "adicional",
+    "nombre": "Ultra",
+    "id": 199,
+    "sprite": "/caras/e199.gif",
+    "codigo": "CARA 10 204"
+  },
+  {
+    "n": 10,
+    "sub": 205,
+    "tipo": "adicional",
+    "nombre": "Ani",
+    "id": 201,
+    "sprite": "/caras/e201.gif",
+    "codigo": "CARA 10 205"
+  },
+  {
+    "n": 10,
+    "sub": 206,
+    "tipo": "adicional",
+    "nombre": "Cesare",
+    "id": 202,
+    "sprite": "/caras/e202.gif",
+    "codigo": "CARA 10 206"
+  },
+  {
+    "n": 10,
+    "sub": 207,
+    "tipo": "adicional",
+    "nombre": "Liliana",
+    "id": 203,
+    "sprite": "/caras/e203.gif",
+    "codigo": "CARA 10 207"
+  },
+  {
+    "n": 10,
+    "sub": 208,
+    "tipo": "adicional",
+    "nombre": "Silva",
+    "id": 204,
+    "sprite": "/caras/e204.gif",
+    "codigo": "CARA 10 208"
+  },
+  {
+    "n": 10,
+    "sub": 209,
+    "tipo": "adicional",
+    "nombre": "Mika",
+    "id": 205,
+    "sprite": "/caras/e205.gif",
+    "codigo": "CARA 10 209"
+  },
+  {
+    "n": 10,
+    "sub": 210,
+    "tipo": "adicional",
+    "nombre": "Teron",
+    "id": 110,
+    "sprite": "/caras/e110.gif",
+    "codigo": "CARA 10 210"
+  },
+  {
+    "n": 10,
+    "sub": 211,
+    "tipo": "adicional",
+    "nombre": "Siracusa",
+    "id": 206,
+    "sprite": "/caras/e206.gif",
+    "codigo": "CARA 10 211"
+  },
+  {
+    "n": 10,
+    "sub": 212,
+    "tipo": "adicional",
+    "nombre": "Llanos",
+    "id": 179,
+    "sprite": "/caras/e179.gif",
+    "codigo": "CARA 10 212"
+  },
+  {
+    "n": 10,
+    "sub": 213,
+    "tipo": "adicional",
+    "nombre": "Nébulo",
+    "id": 180,
+    "sprite": "/caras/e180.gif",
+    "codigo": "CARA 10 213"
+  },
+  {
+    "n": 10,
+    "sub": 214,
+    "tipo": "adicional",
+    "nombre": "Nova",
+    "id": 181,
+    "sprite": "/caras/e181.gif",
+    "codigo": "CARA 10 214"
+  },
+  {
+    "n": 10,
+    "sub": 215,
+    "tipo": "adicional",
+    "nombre": "Hole",
+    "id": 182,
+    "sprite": "/caras/e182.gif",
+    "codigo": "CARA 10 215"
+  },
+  {
+    "n": 10,
+    "sub": 216,
+    "tipo": "adicional",
+    "nombre": "Mino",
+    "id": 2001,
+    "sprite": "/caras/e2001.gif",
+    "codigo": "CARA 10 216"
+  },
+  {
+    "n": 10,
+    "sub": 217,
+    "tipo": "adicional",
+    "nombre": "Willy",
+    "id": 2002,
+    "sprite": "/caras/e2002.gif",
+    "codigo": "CARA 10 217"
+  },
+  {
+    "n": 10,
+    "sub": 218,
+    "tipo": "adicional",
+    "nombre": "Helia",
+    "id": 2003,
+    "sprite": "/caras/e2003.gif",
+    "codigo": "CARA 10 218"
+  },
+  {
+    "n": 10,
+    "sub": 219,
+    "tipo": "adicional",
+    "nombre": "Bobby",
+    "id": 2004,
+    "sprite": "/caras/e2004.gif",
+    "codigo": "CARA 10 219"
+  },
+  {
+    "n": 10,
+    "sub": 220,
+    "tipo": "adicional",
+    "nombre": "Rosama",
+    "id": 2005,
+    "sprite": "/caras/e2005.gif",
+    "codigo": "CARA 10 220"
+  },
+  {
+    "n": 10,
+    "sub": 221,
+    "tipo": "adicional",
+    "nombre": "Adalia",
+    "id": 2006,
+    "sprite": "/caras/e2006.gif",
+    "codigo": "CARA 10 221"
+  },
+  {
+    "n": 10,
+    "sub": 222,
+    "tipo": "adicional",
+    "nombre": "Locke",
+    "id": 2007,
+    "sprite": "/caras/e2007.gif",
+    "codigo": "CARA 10 222"
+  },
+  {
+    "n": 10,
+    "sub": 223,
+    "tipo": "adicional",
+    "nombre": "Fer",
+    "id": 2008,
+    "sprite": "/caras/e2008.gif",
+    "codigo": "CARA 10 223"
+  },
+  {
+    "n": 10,
+    "sub": 224,
+    "tipo": "adicional",
+    "nombre": "Noelia",
+    "id": 2009,
+    "sprite": "/caras/e2009.gif",
+    "codigo": "CARA 10 224"
+  },
+  {
+    "n": 10,
+    "sub": 225,
+    "tipo": "adicional",
+    "nombre": "Brock",
+    "id": 2101,
+    "sprite": "/caras/e2101.gif",
+    "codigo": "CARA 10 225"
+  },
+  {
+    "n": 10,
+    "sub": 226,
+    "tipo": "adicional",
+    "nombre": "Misty",
+    "id": 2102,
+    "sprite": "/caras/e2102.gif",
+    "codigo": "CARA 10 226"
+  },
+  {
+    "n": 10,
+    "sub": 227,
+    "tipo": "adicional",
+    "nombre": "LT. Surge",
+    "id": 2103,
+    "sprite": "/caras/e2103.gif",
+    "codigo": "CARA 10 227"
+  },
+  {
+    "n": 10,
+    "sub": 228,
+    "tipo": "adicional",
+    "nombre": "Érika",
+    "id": 2104,
+    "sprite": "/caras/e2104.gif",
+    "codigo": "CARA 10 228"
+  },
+  {
+    "n": 10,
+    "sub": 229,
+    "tipo": "adicional",
+    "nombre": "Sachiko",
+    "id": 2105,
+    "sprite": "/caras/e2105.gif",
+    "codigo": "CARA 10 229"
+  },
+  {
+    "n": 10,
+    "sub": 230,
+    "tipo": "adicional",
+    "nombre": "Sabrina",
+    "id": 2106,
+    "sprite": "/caras/e2106.gif",
+    "codigo": "CARA 10 230"
+  },
+  {
+    "n": 10,
+    "sub": 231,
+    "tipo": "adicional",
+    "nombre": "Blaine",
+    "id": 2107,
+    "sprite": "/caras/e2107.gif",
+    "codigo": "CARA 10 231"
+  },
+  {
+    "n": 10,
+    "sub": 232,
+    "tipo": "adicional",
+    "nombre": "Pegaso",
+    "id": 2201,
+    "sprite": "/caras/e2201.gif",
+    "codigo": "CARA 10 232"
+  },
+  {
+    "n": 10,
+    "sub": 233,
+    "tipo": "adicional",
+    "nombre": "Antón",
+    "id": 2202,
+    "sprite": "/caras/e2202.gif",
+    "codigo": "CARA 10 233"
+  },
+  {
+    "n": 10,
+    "sub": 234,
+    "tipo": "adicional",
+    "nombre": "Blanca",
+    "id": 2203,
+    "sprite": "/caras/e2203.gif",
+    "codigo": "CARA 10 234"
+  },
+  {
+    "n": 10,
+    "sub": 235,
+    "tipo": "adicional",
+    "nombre": "Morti",
+    "id": 2204,
+    "sprite": "/caras/e2204.gif",
+    "codigo": "CARA 10 235"
+  },
+  {
+    "n": 10,
+    "sub": 236,
+    "tipo": "adicional",
+    "nombre": "Anibal",
+    "id": 2205,
+    "sprite": "/caras/e2205.gif",
+    "codigo": "CARA 10 236"
+  },
+  {
+    "n": 10,
+    "sub": 237,
+    "tipo": "adicional",
+    "nombre": "Yasmina",
+    "id": 2206,
+    "sprite": "/caras/e2206.gif",
+    "codigo": "CARA 10 237"
+  },
+  {
+    "n": 10,
+    "sub": 238,
+    "tipo": "adicional",
+    "nombre": "Fredo",
+    "id": 2207,
+    "sprite": "/caras/e2207.gif",
+    "codigo": "CARA 10 238"
+  },
+  {
+    "n": 10,
+    "sub": 239,
+    "tipo": "adicional",
+    "nombre": "Débora",
+    "id": 2208,
+    "sprite": "/caras/e2208.gif",
+    "codigo": "CARA 10 239"
+  },
+  {
+    "n": 10,
+    "sub": 240,
+    "tipo": "adicional",
+    "nombre": "Petra",
+    "id": 2301,
+    "sprite": "/caras/e2301.gif",
+    "codigo": "CARA 10 240"
+  },
+  {
+    "n": 10,
+    "sub": 241,
+    "tipo": "adicional",
+    "nombre": "Marcial",
+    "id": 2302,
+    "sprite": "/caras/e2302.gif",
+    "codigo": "CARA 10 241"
+  },
+  {
+    "n": 10,
+    "sub": 242,
+    "tipo": "adicional",
+    "nombre": "Erico",
+    "id": 2303,
+    "sprite": "/caras/e2303.gif",
+    "codigo": "CARA 10 242"
+  },
+  {
+    "n": 10,
+    "sub": 243,
+    "tipo": "adicional",
+    "nombre": "Candela",
+    "id": 2304,
+    "sprite": "/caras/e2304.gif",
+    "codigo": "CARA 10 243"
+  },
+  {
+    "n": 10,
+    "sub": 244,
+    "tipo": "adicional",
+    "nombre": "Norman",
+    "id": 2305,
+    "sprite": "/caras/e2305.gif",
+    "codigo": "CARA 10 244"
+  },
+  {
+    "n": 10,
+    "sub": 245,
+    "tipo": "adicional",
+    "nombre": "Alana",
+    "id": 2306,
+    "sprite": "/caras/e2306.gif",
+    "codigo": "CARA 10 245"
+  },
+  {
+    "n": 10,
+    "sub": 246,
+    "tipo": "adicional",
+    "nombre": "Vito",
+    "id": 2307,
+    "sprite": "/caras/e2307.gif",
+    "codigo": "CARA 10 246"
+  },
+  {
+    "n": 10,
+    "sub": 247,
+    "tipo": "adicional",
+    "nombre": "Galano",
+    "id": 2308,
+    "sprite": "/caras/e2308.gif",
+    "codigo": "CARA 10 247"
+  },
+  {
+    "n": 10,
+    "sub": 248,
+    "tipo": "adicional",
+    "nombre": "Leti",
+    "id": 2309,
+    "sprite": "/caras/e2309.gif",
+    "codigo": "CARA 10 248"
+  },
+  {
+    "n": 10,
+    "sub": 249,
+    "tipo": "adicional",
+    "nombre": "Roco",
+    "id": 2401,
+    "sprite": "/caras/e2401.gif",
+    "codigo": "CARA 10 249"
+  },
+  {
+    "n": 10,
+    "sub": 250,
+    "tipo": "adicional",
+    "nombre": "Gardenia",
+    "id": 2402,
+    "sprite": "/caras/e2402.gif",
+    "codigo": "CARA 10 250"
+  },
+  {
+    "n": 10,
+    "sub": 251,
+    "tipo": "adicional",
+    "nombre": "Brega",
+    "id": 2403,
+    "sprite": "/caras/e2403.gif",
+    "codigo": "CARA 10 251"
+  },
+  {
+    "n": 10,
+    "sub": 252,
+    "tipo": "adicional",
+    "nombre": "Mananti",
+    "id": 2404,
+    "sprite": "/caras/e2404.gif",
+    "codigo": "CARA 10 252"
+  },
+  {
+    "n": 10,
+    "sub": 253,
+    "tipo": "adicional",
+    "nombre": "Fantina",
+    "id": 2405,
+    "sprite": "/caras/e2405.gif",
+    "codigo": "CARA 10 253"
+  },
+  {
+    "n": 10,
+    "sub": 254,
+    "tipo": "adicional",
+    "nombre": "Acerón",
+    "id": 2406,
+    "sprite": "/caras/e2406.gif",
+    "codigo": "CARA 10 254"
+  },
+  {
+    "n": 10,
+    "sub": 255,
+    "tipo": "adicional",
+    "nombre": "Inverna",
+    "id": 2407,
+    "sprite": "/caras/e2407.gif",
+    "codigo": "CARA 10 255"
+  },
+  {
+    "n": 10,
+    "sub": 256,
+    "tipo": "adicional",
+    "nombre": "Lectro",
+    "id": 2408,
+    "sprite": "/caras/e2408.gif",
+    "codigo": "CARA 10 256"
+  },
+  {
+    "n": 10,
+    "sub": 257,
+    "tipo": "adicional",
+    "nombre": "Millo",
+    "id": 2501,
+    "sprite": "/caras/e2501.gif",
+    "codigo": "CARA 10 257"
+  },
+  {
+    "n": 10,
+    "sub": 258,
+    "tipo": "adicional",
+    "nombre": "Aloe",
+    "id": 2502,
+    "sprite": "/caras/e2502.gif",
+    "codigo": "CARA 10 258"
+  },
+  {
+    "n": 10,
+    "sub": 259,
+    "tipo": "adicional",
+    "nombre": "Camus",
+    "id": 2503,
+    "sprite": "/caras/e2503.gif",
+    "codigo": "CARA 10 259"
+  },
+  {
+    "n": 10,
+    "sub": 260,
+    "tipo": "adicional",
+    "nombre": "Camila",
+    "id": 2504,
+    "sprite": "/caras/e2504.gif",
+    "codigo": "CARA 10 260"
+  },
+  {
+    "n": 10,
+    "sub": 261,
+    "tipo": "adicional",
+    "nombre": "Yakón",
+    "id": 2505,
+    "sprite": "/caras/e2505.gif",
+    "codigo": "CARA 10 261"
+  },
+  {
+    "n": 10,
+    "sub": 262,
+    "tipo": "adicional",
+    "nombre": "Gerania",
+    "id": 2506,
+    "sprite": "/caras/e2506.gif",
+    "codigo": "CARA 10 262"
+  },
+  {
+    "n": 10,
+    "sub": 263,
+    "tipo": "adicional",
+    "nombre": "Junco",
+    "id": 2507,
+    "sprite": "/caras/e2507.gif",
+    "codigo": "CARA 10 263"
+  },
+  {
+    "n": 10,
+    "sub": 264,
+    "tipo": "adicional",
+    "nombre": "Lirio",
+    "id": 2508,
+    "sprite": "/caras/e2508.gif",
+    "codigo": "CARA 10 264"
+  },
+  {
+    "n": 10,
+    "sub": 265,
+    "tipo": "adicional",
+    "nombre": "Zeo",
+    "id": 2509,
+    "sprite": "/caras/e2509.gif",
+    "codigo": "CARA 10 265"
+  },
+  {
+    "n": 10,
+    "sub": 266,
+    "tipo": "adicional",
+    "nombre": "Maiz",
+    "id": 2510,
+    "sprite": "/caras/e2510.gif",
+    "codigo": "CARA 10 266"
+  },
+  {
+    "n": 10,
+    "sub": 267,
+    "tipo": "adicional",
+    "nombre": "Ciprian",
+    "id": 2511,
+    "sprite": "/caras/e2511.gif",
+    "codigo": "CARA 10 267"
+  },
+  {
+    "n": 10,
+    "sub": 268,
+    "tipo": "adicional",
+    "nombre": "Hiedra",
+    "id": 2512,
+    "sprite": "/caras/e2512.gif",
+    "codigo": "CARA 10 268"
+  },
+  {
+    "n": 10,
+    "sub": 269,
+    "tipo": "adicional",
+    "nombre": "Violeta",
+    "id": 2601,
+    "sprite": "/caras/e2601.gif",
+    "codigo": "CARA 10 269"
+  },
+  {
+    "n": 10,
+    "sub": 270,
+    "tipo": "adicional",
+    "nombre": "Lino",
+    "id": 2602,
+    "sprite": "/caras/e2602.gif",
+    "codigo": "CARA 10 270"
+  },
+  {
+    "n": 10,
+    "sub": 271,
+    "tipo": "adicional",
+    "nombre": "Corelia",
+    "id": 2603,
+    "sprite": "/caras/e2603.gif",
+    "codigo": "CARA 10 271"
+  },
+  {
+    "n": 10,
+    "sub": 272,
+    "tipo": "adicional",
+    "nombre": "Amaro",
+    "id": 2604,
+    "sprite": "/caras/e2604.gif",
+    "codigo": "CARA 10 272"
+  },
+  {
+    "n": 10,
+    "sub": 273,
+    "tipo": "adicional",
+    "nombre": "Lem",
+    "id": 2605,
+    "sprite": "/caras/e2605.gif",
+    "codigo": "CARA 10 273"
+  },
+  {
+    "n": 10,
+    "sub": 274,
+    "tipo": "adicional",
+    "nombre": "Valeria",
+    "id": 2606,
+    "sprite": "/caras/e2606.gif",
+    "codigo": "CARA 10 274"
+  },
+  {
+    "n": 10,
+    "sub": 275,
+    "tipo": "adicional",
+    "nombre": "Ástrid",
+    "id": 2607,
+    "sprite": "/caras/e2607.gif",
+    "codigo": "CARA 10 275"
+  },
+  {
+    "n": 10,
+    "sub": 276,
+    "tipo": "adicional",
+    "nombre": "Édel",
+    "id": 2608,
+    "sprite": "/caras/e2608.gif",
+    "codigo": "CARA 10 276"
+  },
+  {
+    "n": 10,
+    "sub": 277,
+    "tipo": "adicional",
+    "nombre": "Clem",
+    "id": 2609,
+    "sprite": "/caras/e2609.gif",
+    "codigo": "CARA 10 277"
+  },
+  {
+    "n": 10,
+    "sub": 278,
+    "tipo": "adicional",
+    "nombre": "Liam",
+    "id": 2701,
+    "sprite": "/caras/e2701.gif",
+    "codigo": "CARA 10 278"
+  },
+  {
+    "n": 10,
+    "sub": 279,
+    "tipo": "adicional",
+    "nombre": "Nereida",
+    "id": 2702,
+    "sprite": "/caras/e2702.gif",
+    "codigo": "CARA 10 279"
+  },
+  {
+    "n": 10,
+    "sub": 280,
+    "tipo": "adicional",
+    "nombre": "Kiawe",
+    "id": 2703,
+    "sprite": "/caras/e2703.gif",
+    "codigo": "CARA 10 280"
+  },
+  {
+    "n": 10,
+    "sub": 281,
+    "tipo": "adicional",
+    "nombre": "Lulú",
+    "id": 2704,
+    "sprite": "/caras/e2704.gif",
+    "codigo": "CARA 10 281"
+  },
+  {
+    "n": 10,
+    "sub": 282,
+    "tipo": "adicional",
+    "nombre": "Chris",
+    "id": 2705,
+    "sprite": "/caras/e2705.gif",
+    "codigo": "CARA 10 282"
+  },
+  {
+    "n": 10,
+    "sub": 283,
+    "tipo": "adicional",
+    "nombre": "Rika",
+    "id": 2706,
+    "sprite": "/caras/e2706.gif",
+    "codigo": "CARA 10 283"
+  },
+  {
+    "n": 10,
+    "sub": 284,
+    "tipo": "adicional",
+    "nombre": "Denio",
+    "id": 2707,
+    "sprite": "/caras/e2707.gif",
+    "codigo": "CARA 10 284"
+  },
+  {
+    "n": 10,
+    "sub": 285,
+    "tipo": "adicional",
+    "nombre": "Hela",
+    "id": 2708,
+    "sprite": "/caras/e2708.gif",
+    "codigo": "CARA 10 285"
+  },
+  {
+    "n": 10,
+    "sub": 286,
+    "tipo": "adicional",
+    "nombre": "Tina",
+    "id": 3021,
+    "sprite": "/caras/e3021.gif",
+    "codigo": "CARA 10 286"
+  },
+  {
+    "n": 10,
+    "sub": 287,
+    "tipo": "adicional",
+    "nombre": "Liu",
+    "id": 3022,
+    "sprite": "/caras/e3022.gif",
+    "codigo": "CARA 10 287"
+  },
+  {
+    "n": 10,
+    "sub": 288,
+    "tipo": "adicional",
+    "nombre": "Morfeo",
+    "id": 3023,
+    "sprite": "/caras/e3023.gif",
+    "codigo": "CARA 10 288"
+  },
+  {
+    "n": 10,
+    "sub": 289,
+    "tipo": "adicional",
+    "nombre": "Vulcano",
+    "id": 3024,
+    "sprite": "/caras/e3024.gif",
+    "codigo": "CARA 10 289"
+  },
+  {
+    "n": 10,
+    "sub": 290,
+    "tipo": "adicional",
+    "nombre": "Lorelei",
+    "id": 3001,
+    "sprite": "/caras/e3001.gif",
+    "codigo": "CARA 10 290"
+  },
+  {
+    "n": 10,
+    "sub": 291,
+    "tipo": "adicional",
+    "nombre": "Bruno",
+    "id": 3002,
+    "sprite": "/caras/e3002.gif",
+    "codigo": "CARA 10 291"
+  },
+  {
+    "n": 10,
+    "sub": 292,
+    "tipo": "adicional",
+    "nombre": "Agatha",
+    "id": 3003,
+    "sprite": "/caras/e3003.gif",
+    "codigo": "CARA 10 292"
+  },
+  {
+    "n": 10,
+    "sub": 293,
+    "tipo": "adicional",
+    "nombre": "Lance",
+    "id": 3004,
+    "sprite": "/caras/e3004.gif",
+    "codigo": "CARA 10 293"
+  },
+  {
+    "n": 10,
+    "sub": 294,
+    "tipo": "adicional",
+    "nombre": "Mento",
+    "id": 3005,
+    "sprite": "/caras/e3005.gif",
+    "codigo": "CARA 10 294"
+  },
+  {
+    "n": 10,
+    "sub": 295,
+    "tipo": "adicional",
+    "nombre": "Koga",
+    "id": 3006,
+    "sprite": "/caras/e3006.gif",
+    "codigo": "CARA 10 295"
+  },
+  {
+    "n": 10,
+    "sub": 296,
+    "tipo": "adicional",
+    "nombre": "Karen",
+    "id": 3007,
+    "sprite": "/caras/e3007.gif",
+    "codigo": "CARA 10 296"
+  },
+  {
+    "n": 10,
+    "sub": 297,
+    "tipo": "adicional",
+    "nombre": "Plubio",
+    "id": 3008,
+    "sprite": "/caras/e3008.gif",
+    "codigo": "CARA 10 297"
+  },
+  {
+    "n": 10,
+    "sub": 298,
+    "tipo": "adicional",
+    "nombre": "Sixto",
+    "id": 3009,
+    "sprite": "/caras/e3009.gif",
+    "codigo": "CARA 10 298"
+  },
+  {
+    "n": 10,
+    "sub": 299,
+    "tipo": "adicional",
+    "nombre": "Fatima",
+    "id": 3010,
+    "sprite": "/caras/e3010.gif",
+    "codigo": "CARA 10 299"
+  },
+  {
+    "n": 10,
+    "sub": 300,
+    "tipo": "adicional",
+    "nombre": "Nivea",
+    "id": 3011,
+    "sprite": "/caras/e3011.gif",
+    "codigo": "CARA 10 300"
+  },
+  {
+    "n": 10,
+    "sub": 301,
+    "tipo": "adicional",
+    "nombre": "Dracon",
+    "id": 3012,
+    "sprite": "/caras/e3012.gif",
+    "codigo": "CARA 10 301"
+  },
+  {
+    "n": 10,
+    "sub": 302,
+    "tipo": "adicional",
+    "nombre": "Alecrán",
+    "id": 3013,
+    "sprite": "/caras/e3013.gif",
+    "codigo": "CARA 10 302"
+  },
+  {
+    "n": 10,
+    "sub": 303,
+    "tipo": "adicional",
+    "nombre": "Gaia",
+    "id": 3014,
+    "sprite": "/caras/e3014.gif",
+    "codigo": "CARA 10 303"
+  },
+  {
+    "n": 10,
+    "sub": 304,
+    "tipo": "adicional",
+    "nombre": "Fausto",
+    "id": 3015,
+    "sprite": "/caras/e3015.gif",
+    "codigo": "CARA 10 304"
+  },
+  {
+    "n": 10,
+    "sub": 305,
+    "tipo": "adicional",
+    "nombre": "Delos",
+    "id": 3016,
+    "sprite": "/caras/e3016.gif",
+    "codigo": "CARA 10 305"
+  },
+  {
+    "n": 10,
+    "sub": 306,
+    "tipo": "adicional",
+    "nombre": "Máximo",
+    "id": 3019,
+    "sprite": "/caras/e3019.gif",
+    "codigo": "CARA 10 306"
+  },
+  {
+    "n": 10,
+    "sub": 307,
+    "tipo": "adicional",
+    "nombre": "Cintia",
+    "id": 3020,
+    "sprite": "/caras/e3020.gif",
+    "codigo": "CARA 10 307"
+  },
+  {
+    "n": 10,
+    "sub": 308,
+    "tipo": "adicional",
+    "nombre": "Mirto",
+    "id": 3025,
+    "sprite": "/caras/e3025.gif",
+    "codigo": "CARA 10 308"
+  },
+  {
+    "n": 10,
+    "sub": 309,
+    "tipo": "adicional",
+    "nombre": "Iris",
+    "id": 3026,
+    "sprite": "/caras/e3026.gif",
+    "codigo": "CARA 10 309"
+  },
+  {
+    "n": 10,
+    "sub": 310,
+    "tipo": "adicional",
+    "nombre": "N",
+    "id": 3027,
+    "sprite": "/caras/e3027.gif",
+    "codigo": "CARA 10 310"
+  },
+  {
+    "n": 10,
+    "sub": 311,
+    "tipo": "adicional",
+    "nombre": "Anís",
+    "id": 3028,
+    "sprite": "/caras/e3028.gif",
+    "codigo": "CARA 10 311"
+  },
+  {
+    "n": 10,
+    "sub": 312,
+    "tipo": "adicional",
+    "nombre": "Aza",
+    "id": 3029,
+    "sprite": "/caras/e3029.gif",
+    "codigo": "CARA 10 312"
+  },
+  {
+    "n": 10,
+    "sub": 313,
+    "tipo": "adicional",
+    "nombre": "Lotto",
+    "id": 3030,
+    "sprite": "/caras/e3030.gif",
+    "codigo": "CARA 10 313"
+  },
+  {
+    "n": 10,
+    "sub": 314,
+    "tipo": "adicional",
+    "nombre": "Catleya",
+    "id": 3031,
+    "sprite": "/caras/e3031.gif",
+    "codigo": "CARA 10 314"
+  },
+  {
+    "n": 10,
+    "sub": 315,
+    "tipo": "adicional",
+    "nombre": "Tileo",
+    "id": 3032,
+    "sprite": "/caras/e3032.gif",
+    "codigo": "CARA 10 315"
+  },
+  {
+    "n": 10,
+    "sub": 316,
+    "tipo": "adicional",
+    "nombre": "Malva",
+    "id": 3033,
+    "sprite": "/caras/e3033.gif",
+    "codigo": "CARA 10 316"
+  },
+  {
+    "n": 10,
+    "sub": 317,
+    "tipo": "adicional",
+    "nombre": "Drácena",
+    "id": 3034,
+    "sprite": "/caras/e3034.gif",
+    "codigo": "CARA 10 317"
+  },
+  {
+    "n": 10,
+    "sub": 318,
+    "tipo": "adicional",
+    "nombre": "Narciso",
+    "id": 3035,
+    "sprite": "/caras/e3035.gif",
+    "codigo": "CARA 10 318"
+  },
+  {
+    "n": 10,
+    "sub": 319,
+    "tipo": "adicional",
+    "nombre": "Dianta",
+    "id": 3036,
+    "sprite": "/caras/e3036.gif",
+    "codigo": "CARA 10 319"
+  },
+  {
+    "n": 10,
+    "sub": 320,
+    "tipo": "adicional",
+    "nombre": "Kaudan",
+    "id": 3037,
+    "sprite": "/caras/e3037.gif",
+    "codigo": "CARA 10 320"
+  },
+  {
+    "n": 10,
+    "sub": 321,
+    "tipo": "adicional",
+    "nombre": "Mayla",
+    "id": 3038,
+    "sprite": "/caras/e3038.gif",
+    "codigo": "CARA 10 321"
+  },
+  {
+    "n": 10,
+    "sub": 322,
+    "tipo": "adicional",
+    "nombre": "Zarala",
+    "id": 3039,
+    "sprite": "/caras/e3039.gif",
+    "codigo": "CARA 10 322"
+  },
+  {
+    "n": 10,
+    "sub": 323,
+    "tipo": "adicional",
+    "nombre": "Kahili",
+    "id": 3040,
+    "sprite": "/caras/e3040.gif",
+    "codigo": "CARA 10 323"
+  },
+  {
+    "n": 10,
+    "sub": 324,
+    "tipo": "adicional",
+    "nombre": "Kukui",
+    "id": 3041,
+    "sprite": "/caras/e3041.gif",
+    "codigo": "CARA 10 324"
+  },
+  {
+    "n": 10,
+    "sub": 325,
+    "tipo": "adicional",
+    "nombre": "Lionel",
+    "id": 3042,
+    "sprite": "/caras/e3042.gif",
+    "codigo": "CARA 10 325"
+  },
+  {
+    "n": 10,
+    "sub": 326,
+    "tipo": "adicional",
+    "nombre": "Destra",
+    "id": 4001,
+    "sprite": "/caras/e4001.gif",
+    "codigo": "CARA 10 326"
+  },
+  {
+    "n": 10,
+    "sub": 327,
+    "tipo": "adicional",
+    "nombre": "Sabino",
+    "id": 4002,
+    "sprite": "/caras/e4002.gif",
+    "codigo": "CARA 10 327"
+  },
+  {
+    "n": 10,
+    "sub": 328,
+    "tipo": "adicional",
+    "nombre": "Coro",
+    "id": 4003,
+    "sprite": "/caras/e4003.gif",
+    "codigo": "CARA 10 328"
+  },
+  {
+    "n": 10,
+    "sub": 329,
+    "tipo": "adicional",
+    "nombre": "Aniceto",
+    "id": 4004,
+    "sprite": "/caras/e4004.gif",
+    "codigo": "CARA 10 329"
+  },
+  {
+    "n": 10,
+    "sub": 330,
+    "tipo": "adicional",
+    "nombre": "Fortunia",
+    "id": 4005,
+    "sprite": "/caras/e4005.gif",
+    "codigo": "CARA 10 330"
+  },
+  {
+    "n": 10,
+    "sub": 331,
+    "tipo": "adicional",
+    "nombre": "Tactio",
+    "id": 4006,
+    "sprite": "/caras/e4006.gif",
+    "codigo": "CARA 10 331"
+  },
+  {
+    "n": 10,
+    "sub": 332,
+    "tipo": "adicional",
+    "nombre": "Valente",
+    "id": 4007,
+    "sprite": "/caras/e4007.gif",
+    "codigo": "CARA 10 332"
+  },
+  {
+    "n": 10,
+    "sub": 333,
+    "tipo": "adicional",
+    "nombre": "Jericor",
+    "id": 4008,
+    "sprite": "/caras/e4008.gif",
+    "codigo": "CARA 10 333"
+  },
+  {
+    "n": 10,
+    "sub": 334,
+    "tipo": "adicional",
+    "nombre": "Espinal",
+    "id": 4009,
+    "sprite": "/caras/e4009.gif",
+    "codigo": "CARA 10 334"
+  },
+  {
+    "n": 10,
+    "sub": 335,
+    "tipo": "adicional",
+    "nombre": "Argenta",
+    "id": 4010,
+    "sprite": "/caras/e4010.gif",
+    "codigo": "CARA 10 335"
+  },
+  {
+    "n": 10,
+    "sub": 336,
+    "tipo": "adicional",
+    "nombre": "Delila",
+    "id": 4011,
+    "sprite": "/caras/e4011.gif",
+    "codigo": "CARA 10 336"
+  },
+  {
+    "n": 10,
+    "sub": 337,
+    "tipo": "adicional",
+    "nombre": "Kokuran",
+    "id": 4012,
+    "sprite": "/caras/e4012.gif",
+    "codigo": "CARA 10 337"
+  },
+  {
+    "n": 10,
+    "sub": 338,
+    "tipo": "adicional",
+    "nombre": "Grey",
+    "id": 601,
+    "sprite": "/caras/e338.png",
+    "codigo": "CARA 10 338"
+  },
+  {
+    "n": 10,
+    "sub": 339,
+    "tipo": "adicional",
+    "nombre": "Violette",
+    "id": 701,
+    "sprite": "/caras/e339.png",
+    "codigo": "CARA 10 339"
+  },
+  {
+    "n": 10,
+    "sub": 340,
+    "tipo": "adicional",
+    "nombre": "Alfred",
+    "id": 602,
+    "sprite": "/caras/e340.png",
+    "codigo": "CARA 10 340"
+  },
+  {
+    "n": 10,
+    "sub": 341,
+    "tipo": "adicional",
+    "nombre": "Lucero",
+    "id": 702,
+    "sprite": "/caras/e341.png",
+    "codigo": "CARA 10 341"
+  },
+  {
+    "n": 10,
+    "sub": 342,
+    "tipo": "adicional",
+    "nombre": "Kim",
+    "id": 603,
+    "sprite": "/caras/e342.png",
+    "codigo": "CARA 10 342"
+  },
+  {
+    "n": 10,
+    "sub": 343,
+    "tipo": "adicional",
+    "nombre": "Sasha",
+    "id": 703,
+    "sprite": "/caras/e343.png",
+    "codigo": "CARA 10 343"
+  },
+  {
+    "n": 10,
+    "sub": 344,
+    "tipo": "adicional",
+    "nombre": "Nadia",
+    "id": 604,
+    "sprite": "/caras/e344.png",
+    "codigo": "CARA 10 344"
+  },
+  {
+    "n": 10,
+    "sub": 345,
+    "tipo": "adicional",
+    "nombre": "Peter",
+    "id": 704,
+    "sprite": "/caras/e345.png",
+    "codigo": "CARA 10 345"
+  },
+  {
+    "n": 10,
+    "sub": 346,
+    "tipo": "adicional",
+    "nombre": "Lilith",
+    "id": 605,
+    "sprite": "/caras/e346.png",
+    "codigo": "CARA 10 346"
+  },
+  {
+    "n": 10,
+    "sub": 347,
+    "tipo": "adicional",
+    "nombre": "Reig",
+    "id": 705,
+    "sprite": "/caras/e347.png",
+    "codigo": "CARA 10 347"
+  },
+  {
+    "n": 10,
+    "sub": 348,
+    "tipo": "adicional",
+    "nombre": "Monty",
+    "id": 606,
+    "sprite": "/caras/e348.png",
+    "codigo": "CARA 10 348"
+  },
+  {
+    "n": 10,
+    "sub": 349,
+    "tipo": "adicional",
+    "nombre": "Mellinas",
+    "id": 706,
+    "sprite": "/caras/e349.png",
+    "codigo": "CARA 10 349"
+  },
+  {
+    "n": 10,
+    "sub": 350,
+    "tipo": "adicional",
+    "nombre": "Moisés",
+    "id": 607,
+    "sprite": "/caras/e350.png",
+    "codigo": "CARA 10 350"
+  },
+  {
+    "n": 10,
+    "sub": 351,
+    "tipo": "adicional",
+    "nombre": "Segovien",
+    "id": 707,
+    "sprite": "/caras/e351.png",
+    "codigo": "CARA 10 351"
+  }
+]

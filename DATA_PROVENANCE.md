@@ -61,6 +61,19 @@ Documento interno. **La interfaz no muestra esta información.**
   restricción «Información confidencial». Los marcadores `$parN$` del juego (contadores y
   nombres que se calculan en ejecución) se sustituyen por una lectura en español; el juego no
   guarda recompensas por misión, así que no se inventa ninguna.
+- **Caras (truco F3 → `CARA`):** `scripts/buildFaces.mjs` genera `src/data/faces.json` a partir de
+  la tabla verificada en `scripts/data/faces.csv`. El flujo del juego se leyó del GML
+  `ExecuteCheat` (ID 7579): `0..9` son los 10 protagonistas (`txt_character.dll`, líneas 1-10)
+  y `10` pide un segundo número `0..351` que `ValorTrainerTrucado` (ID 10003) convierte en ID
+  de entrenador; `NameTrainer` (ID 8740) da el nombre y `ImportTrainer` (ID 8020) carga
+  `data\trainer\<ID>.gif`. Los diálogos se confirmaron en `txt_menu.dll` (líneas 1194-1195).
+  Hay 361 entradas: 10 protagonistas (`1000.gif`…`1009.gif`) y 351 adicionales. El changelog
+  del juego dice «10 + 350», pero el script tiene 351 IDs reales (el último es Segovien).
+  347 sprites son GIF sueltos copiados tal cual a `public/caras/`. Los 14 restantes
+  (`char2` 338-351: Grey, Violette, Alfred, Lucero, Kim, Sasha, Nadia, Peter, Lilith, Reig,
+  Monty, Mellinas, Moisés y Segovien) no tienen GIF suelto: se exportaron de los recursos
+  embebidos del EXE (`spr_GreyBig` … `spr_SegovienBig`, índices 1348-1367) y se guardaron como
+  PNG en `public/caras/eNNN.png`. No se inventa ningún nombre ni sprite.
 
 ### Datos heredados (no verificables en los archivos legibles)
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, Users, Zap, Sparkles, Crown, Map, MapPin, ScrollText } from 'lucide-react';
+import { Search, Users, Zap, Sparkles, Crown, Map, MapPin, ScrollText, Smile, Terminal } from 'lucide-react';
 import { APP_VERSION } from '../data/appInfo';
 import { safeTop } from '../utils/safeArea';
 import UpdateButton from './UpdateButton';
 
-const Home = ({ onNavigate }) => {
+const Home = ({ onNavigate, onOpenPalette }) => {
   const menuItems = [
     {
       id: 'pokedex',
@@ -62,6 +62,15 @@ const Home = ({ onNavigate }) => {
       accent: '#e879f9'
     },
     {
+      id: 'caras',
+      title: 'Caras',
+      description: '361 personajes y sus sprites',
+      icon: Smile,
+      gradient: 'from-rose-500 to-orange-500',
+      bgPattern: 'bg-rose-500/10',
+      accent: '#fb7185'
+    },
+    {
       id: 'legendaries',
       title: 'Legendarios',
       description: 'Ubicaciones y capturas',
@@ -112,6 +121,14 @@ const Home = ({ onNavigate }) => {
 
       {/* Menu Grid */}
       <div className="px-4 pb-12 max-w-6xl mx-auto">
+        <button
+          type="button"
+          onClick={onOpenPalette}
+          className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-[11px] font-semibold tracking-[0.02em] text-white/55 transition hover:border-rose-300/20 hover:text-white/85"
+        >
+          <Terminal size={14} className="text-rose-200/80" />
+          Comandos: pulsa <kbd className="rounded border border-white/10 bg-black/30 px-1 font-mono text-[10px]">Ctrl+K</kbd> o <kbd className="rounded border border-white/10 bg-black/30 px-1 font-mono text-[10px]">/</kbd> y escribe <span className="font-mono text-rose-200/90">cambio cara</span>
+        </button>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {menuItems.map((item, index) => {
             const Icon = item.icon;

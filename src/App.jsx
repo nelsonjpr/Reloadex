@@ -14,8 +14,42 @@ const GuiaView = lazy(() => import('./components/GuiaView'));
 const TeamBuilder = lazy(() => import('./components/TeamBuilder')
   .then((m) => ({ default: m.TeamBuilder })));
 const Pokedex = lazy(() => import('./components/Pokedex'));
+const CarasView = lazy(() => import('./components/CarasView'));
+const CommandPalette = lazy(() => import('./components/CommandPalette'));
 
-const VIEWS = ['home', 'pokedex', 'team', 'moves', 'abilities', 'guia', 'legendaries', 'objetos', 'misiones'];
+const VIEWS = ['home', 'pokedex', 'team', 'moves', 'abilities', 'guia', 'legendaries', 'objetos', 'misiones', 'caras'];
+
+// Paleta de comandos: atajo para abrir cualquier vista escribiendo su nombre.
+const COMMANDS = [
+  {
+    id: 'caras', text: 'cambio cara', label: 'Caras',
+    description: 'Los 361 personajes del truco CARA',
+    aliases: ['cambio cara', 'cambiar cara', 'cambio de cara', 'cara', 'caras'],
+  },
+  { id: 'pokedex', text: 'pokedex', label: 'Pokédex', description: 'Explora todos los Pokémon', aliases: ['pokedex', 'pokemon'] },
+  { id: 'abilities', text: 'habilidades', label: 'Habilidades', description: 'Todas las habilidades', aliases: ['habilidades', 'abilities'] },
+  { id: 'moves', text: 'movimientos', label: 'Movimientos', description: 'MTs, MOs, DTs y tutores', aliases: ['movimientos', 'moves'] },
+  { id: 'misiones', text: 'misiones', label: 'Misiones', description: 'Las misiones del juego', aliases: ['misiones', 'quests'] },
+  { id: 'objetos', text: 'objetos', label: 'Localización de objetos', description: 'Objetos y sus rutas', aliases: ['objetos', 'items'] },
+  { id: 'legendaries', text: 'legendarios', label: 'Legendarios', description: 'Ubicaciones y capturas', aliases: ['legendarios', 'legendaries'] },
+  { id: 'guia', text: 'guia', label: 'Guía', description: 'Recorrido por regiones', aliases: ['guia', 'guía', 'guide'] },
+  { id: 'team', text: 'equipo', label: 'Equipo', description: 'Crea tu equipo perfecto', aliases: ['equipo', 'team'] },
+];
+
+const normalizeCommand = (text) => String(text || '')
+  .toLowerCase()
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .trim();
+
+const resolveCommand = (text) => {
+  const q = normalizeCommand(text);
+  if (!q) return null;
+  return COMMANDS.find((command) => command.aliases.some((alias) => {
+    const a = normalizeCommand(alias);
+    return q === a || q.startsWith(`${a} `);
+  })) || null;
+};
 
 const createEntry = (view, selectedPokemon = null) => ({ view, selectedPokemon });
 
@@ -72,6 +106,7 @@ function App() {
   const currentView = currentEntry.view;
   const selectedPokemon = currentEntry.selectedPokemon;
   const overlayBackRef = useRef(null);
+  const [paletteOpen, setPaletteOpen] = useState(false);
 
   useEffect(() => {
     try { localStorage.removeItem('reloadex.view'); } catch { /* noop */ }
@@ -124,9 +159,47 @@ function App() {
     };
   }, [handleSystemBack]);
 
+  // Paleta de comandos: Ctrl/Cmd+K o "/" cuando no se está escribiendo.
+  useEffect(() => {
+    const onKey = (event) => {
+      const tag = document.activeElement?.tagName || '';
+      const typing = /INPUT|TEXTAREA|SELECT/.test(tag);
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setPaletteOpen((open) => !open);
+      } else if (event.key === '/' && !typing && !paletteOpen) {
+        event.preventDefault();
+        setPaletteOpen(true);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [paletteOpen]);
+
+  // Mientras la paleta está abierta, el back físico la cierra primero.
+  useEffect(() => {
+    if (!paletteOpen) return undefined;
+    const previous = overlayBackRef.current;
+    registerOverlayBack(() => {
+      setPaletteOpen(false);
+      return true;
+    });
+    return () => registerOverlayBack(previous);
+  }, [paletteOpen, registerOverlayBack]);
+
   const navigate = useCallback((view) => {
     pushEntry(createEntry(view));
   }, [pushEntry]);
+
+  const runCommand = useCallback((text) => {
+    const command = resolveCommand(text);
+    if (!command) return false;
+    setPaletteOpen(false);
+    navigate(command.id);
+    return true;
+  }, [navigate]);
+
+  const closePalette = useCallback(() => setPaletteOpen(false), []);
 
   // La lista usa el índice ligero; al abrir una ficha se hidrata con el
   // objeto completo (descripción, habilidades, altura, peso, etc.).
@@ -164,7 +237,7 @@ function App() {
       </AnimatePresence>
     );
   } else if (currentView === 'home') {
-    content = <Home onNavigate={navigate} />;
+    content = <Home onNavigate={navigate} onOpenPalette={() => setPaletteOpen(true)} />;
   } else if (currentView === 'team') {
     content = (
       <TeamBuilder
@@ -185,11 +258,26 @@ function App() {
     content = <ObjectLocationsView onBack={handleBack} />;
   } else if (currentView === 'misiones') {
     content = <QuestsView onBack={handleBack} />;
+  } else if (currentView === 'caras') {
+    content = <CarasView onBack={handleBack} />;
   } else {
     content = <Pokedex onBack={handleBack} onSelect={openFromList} />;
   }
 
-  return <Suspense fallback={<Loading />}>{content}</Suspense>;
+  return (
+    <>
+      <Suspense fallback={<Loading />}>{content}</Suspense>
+      <Suspense fallback={null}>
+        {paletteOpen && (
+          <CommandPalette
+            commands={COMMANDS}
+            onRun={runCommand}
+            onClose={closePalette}
+          />
+        )}
+      </Suspense>
+    </>
+  );
 }
 
 export default App;

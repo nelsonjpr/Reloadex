@@ -1,5 +1,5 @@
 /* Reloadex service worker — 100% offline (APK/PWA) */
-const VERSION = 'reloadex-v5-splash';
+const VERSION = 'reloadex-v6-caras';
 // Precarga mínimo: el logo grande y los iconos pesados se descargan bajo
 // demanda (o ya están en el APK), no bloquean el primer render.
 const CORE = [

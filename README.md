@@ -48,6 +48,22 @@ npm run build:abilities  # genera gameAbilities.json, abilities.js y abilityName
 Cada entrada de `src/data/reloadex.json` guarda `abilities` como
 `{ id, key, name, hidden }`, con `name` en español del juego.
 
+### Caras y comandos
+
+La ventana **Caras** muestra los 361 personajes del truco `F3 → CARA` con su sprite
+y el número que hay que introducir en el juego debajo de cada imagen (`0..9` para los
+protagonistas y `10·N` para los adicionales, `N = 1..351`). Se abre desde el inicio o
+con la paleta de comandos: pulsa `Ctrl+K` (o `/`) y escribe **`cambio cara`**.
+
+```bash
+npm run build:faces   # copia los sprites y genera src/data/faces.json
+# o apuntando a otra copia del juego:
+GAME_DIR="D:\Juegos\Reloaded" npm run build:faces
+```
+
+Los 14 sprites sin GIF suelto están exportados del EXE en `public/caras/eNNN.png`.
+El detalle de la procedencia está en `DATA_PROVENANCE.md`.
+
 ### Regenerar el dataset
 
 ```bash

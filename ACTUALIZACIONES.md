@@ -3,7 +3,7 @@
 La app comprueba el último release de GitHub (`nelsonjpr/Reloadex`) y muestra en la
 portada un botón que dice **Actualizar ahora** cuando hay versión nueva y
 **Actualizado** cuando no la hay. El número mostrado abajo sale de `APP_VERSION` y
-del `versionName` del APK; ambos son **1.0.2**.
+del `versionName` del APK; ambos son **1.0.3** en el código fuente.
 
 Solo hay un botón de actualización. Al pulsarlo se abre una tarjeta opaca y la
 descarga empieza en el acto (no hay segundo botón de confirmación). La tarjeta muestra:
@@ -29,13 +29,15 @@ Si el ZIP o algún hash falla, se conserva la copia anterior.
 La **v1.0** no tenía el actualizador; hubo que instalar manualmente la **v1.1**
 (`versionCode 2`) una vez. La versión pública vigente es la **v1.0.2**
 (`versionCode 4`, `versionName 1.0.2`), que se puede instalar encima de la v1.0.1
-con la misma firma.
+con la misma firma. El código fuente ya apunta a la **v1.0.3** (`versionCode 5`,
+`versionName 1.0.3`: Caras y paleta de comandos); esa versión aún no está publicada,
+así que la descarga pública sigue siendo la v1.0.2.
 
 Reglas que no se pueden saltar:
 
 - Todo APK nuevo debe ir firmado con el **mismo `reloadex-release.jks`**. Si cambia la
   firma, Android rechaza la actualización ("la app no está instalada").
-- Subir `versionCode` en `android/app/build.gradle` en cada APK nuevo (ahora 4 = v1.0.2).
+- Subir `versionCode` en `android/app/build.gradle` en cada APK nuevo (ahora 5 = v1.0.3; publicada: 4 = v1.0.2).
 - Si algún día publicas en Google Play, desactiva esta vía: la política de Play exige
   usar *Play In-App Updates* y prohíbe instalar APKs descargados a mano.
 

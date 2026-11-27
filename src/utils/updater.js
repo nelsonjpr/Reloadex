@@ -56,7 +56,7 @@ async function getJson(url) {
 
 export async function getNativeInfo() {
   if (!isNative) {
-    return { versionCode: 4, versionName: '1.0.2', webVersionCode: 4, canInstallApps: true, webRoot: null };
+    return { versionCode: 5, versionName: '1.0.3', webVersionCode: 5, canInstallApps: true, webRoot: null };
   }
   return Updater.getInfo();
 }

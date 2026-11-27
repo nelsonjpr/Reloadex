@@ -5,6 +5,10 @@
 
 La v1.0.2 incluye el actualizador con un único botón, progreso real de descarga, la corrección del error `EISDIR`, el arranque siempre en Inicio y la sección de Misiones; consulta `ACTUALIZACIONES.md`.
 
+El código fuente ya está en **v1.0.3** (`versionCode 5`): añade Caras y paleta de
+comandos. Todavía no hay APK ni release pública de la v1.0.3; el enlace y el hash de
+abajo corresponden a la v1.0.2 publicada.
+
 La app se distribuye como **APK firmado** y funciona **100% offline desde el primer arranque**:
 dataset, guía, sprites, shiny, fuentes y gritos van dentro del paquete. No usa PokeAPI ni
 Google Fonts en runtime.
