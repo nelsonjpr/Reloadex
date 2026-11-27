@@ -73,6 +73,7 @@ export default function Pokedex({ onBack, onSelect }) {
   const [page, setPage] = useState(1);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [favorites, setFavorites] = useState(loadFavorites);
+  const [favoritesOnly, setFavoritesOnly] = useState(false);
   const listRef = React.useRef(null);
   const scrollFrame = React.useRef(0);
   const [range, setRange] = useState({ start: 0, end: 24 });
@@ -89,7 +90,7 @@ export default function Pokedex({ onBack, onSelect }) {
     try { localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favorites])); } catch { /* almacenamiento no disponible */ }
   }, [favorites]);
 
-  React.useEffect(() => { setPage(1); }, [deferredSearch, selectedTypes, selectedGeneration, sort, formFilter, pageSize]);
+  React.useEffect(() => { setPage(1); }, [deferredSearch, selectedTypes, selectedGeneration, sort, formFilter, pageSize, favoritesOnly]);
 
   const filtered = useMemo(() => {
     const q = deferredSearch.trim().toLowerCase();
@@ -100,6 +101,7 @@ export default function Pokedex({ onBack, onSelect }) {
       if (selectedTypes.length && !selectedTypes.every((type) => p.types.includes(type))) continue;
       if (selectedGeneration && p.generation !== selectedGeneration) continue;
       if (formFilter !== 'all' && (p.form || 'base') !== formFilter) continue;
+      if (favoritesOnly && !favorites.has(Number(p.id))) continue;
       if (q) {
         const s = SEARCH_INDEX[i];
         if (!s.name.includes(q) && !s.id.includes(qNum) && !s.displayName.includes(q) && !s.baseFormName.includes(q)) continue;
@@ -120,7 +122,7 @@ export default function Pokedex({ onBack, onSelect }) {
       }
     });
     return indices.map((i) => pokemonData[i]);
-  }, [deferredSearch, selectedTypes, selectedGeneration, sort, formFilter]);
+  }, [deferredSearch, selectedTypes, selectedGeneration, sort, formFilter, favoritesOnly, favorites]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const safePage = Math.min(page, totalPages);
@@ -158,7 +160,7 @@ export default function Pokedex({ onBack, onSelect }) {
     };
   }, [updateRange]);
 
-  const activeFilters = selectedTypes.length + (selectedGeneration ? 1 : 0) + (formFilter !== 'all' ? 1 : 0);
+  const activeFilters = selectedTypes.length + (selectedGeneration ? 1 : 0) + (formFilter !== 'all' ? 1 : 0) + (favoritesOnly ? 1 : 0);
 
   const toggleFavorite = (id) => {
     setFavorites((prev) => {
@@ -217,6 +219,14 @@ export default function Pokedex({ onBack, onSelect }) {
 
           {/* Barra de filtros/orden */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <button
+              onClick={() => setFavoritesOnly((v) => !v)}
+              aria-pressed={favoritesOnly}
+              className={`shrink-0 h-10 px-3.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition ${favoritesOnly ? 'bg-rose-500/90 border-rose-300/40 text-white shadow-[0_6px_18px_rgba(244,63,94,0.30)]' : 'bg-[#0d1528]/80 border-white/10 text-white/80 hover:bg-white/10'}`}
+            >
+              <Heart size={15} fill={favoritesOnly ? 'currentColor' : 'none'} />
+              Favoritos{favorites.size ? ` (${favorites.size})` : ''}
+            </button>
             <button onClick={() => setShowTypeFilter(true)}
               className={`shrink-0 h-10 px-3.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition ${selectedTypes.length ? 'bg-sky-500/90 border-sky-300/40 text-white shadow-[0_6px_18px_rgba(56,189,248,0.28)]' : 'bg-[#0d1528]/80 border-white/10 text-white/80 hover:bg-white/10'}`}>
               <Filter size={15} /> {selectedTypes.length ? selectedTypes.map(typeName).join(' + ') : 'Tipo'}
@@ -243,7 +253,7 @@ export default function Pokedex({ onBack, onSelect }) {
           </div>
 
           {activeFilters > 0 && (
-            <button onClick={() => { setSelectedTypes([]); setSelectedGeneration(null); setFormFilter('all'); }}
+            <button onClick={() => { setSelectedTypes([]); setSelectedGeneration(null); setFormFilter('all'); setFavoritesOnly(false); }}
               className="mt-2 text-[11px] text-sky-300 hover:text-sky-200 underline">Limpiar {activeFilters} filtro(s)</button>
           )}
 

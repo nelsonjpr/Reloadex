@@ -1,0 +1,1 @@
+var Par, sex; Par=argument0; sex=argument1; if(Par=200)Par=ceil(random(102)); if(Par>=1 && Par<=102){ if(sex=(2))return(ex(9882,"txt_adjective",102+Par)); else return(ex(9882,"txt_adjective",Par)); } return(ex(9882,"txt_adjective",205)); 

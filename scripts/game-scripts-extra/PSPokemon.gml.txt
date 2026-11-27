@@ -1,0 +1,1 @@
+var nv, base, ps, iv, ntv; if(ex(7521,argument0))argument0-=1000; if(argument0=0)return((-1)); if(argument0<0)return((-1)); nv=argument1; base=ex(9758,argument0); if(base=1)return(1); iv=ex(8672,argument2,10); ntv=ex(8672,argument3,10)+1; ps=10+( nv/100 * (2*base + ((ntv-1)*31/9)+(iv*63/9) + 100 )); if(nv>100)ps+=((nv-100)*ps*0.2); return(floor(ps)); 

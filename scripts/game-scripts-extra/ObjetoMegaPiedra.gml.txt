@@ -1,0 +1,1 @@
+if(argument0>=408 && argument0<=409)return true; if(argument0>=414 && argument0<=440)return true; if(argument0>=444 && argument0<=449)return true; if(argument0>=452 && argument0<=464)return true; if(argument0=672 || argument0=673)return true; if(argument0>=775 && argument0<=821)return true; if(argument0=100384)return true; return false; 

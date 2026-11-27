@@ -1,4 +1,4 @@
-﻿import React, { lazy, Suspense, useMemo, useState } from 'react';
+﻿import React, { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Volume2, Sparkles, ArrowLeft, ChevronDown, BookOpen,
@@ -71,7 +71,7 @@ const cryCandidates = (p) => {
 
 const canPlayCry = (p) => cryCandidates(p).some((name) => CRY_FILES.has(name));
 
-const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
+const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) => {
   const [isShiny, setIsShiny] = useState(false);
   const [showVariants, setShowVariants] = useState(false);
   const [expandedAbility, setExpandedAbility] = useState(null);
@@ -86,6 +86,20 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
     [typeKey, hasTypes],
   );
   const variants = Array.isArray(pokemon?.variants) ? pokemon.variants : [];
+
+  // Si el panel de movimientos está abierto, el back físico lo cierra primero.
+  useEffect(() => {
+    if (typeof onRegisterOverlayBack !== 'function') return undefined;
+    if (!showMoves) {
+      onRegisterOverlayBack(null);
+      return undefined;
+    }
+    onRegisterOverlayBack(() => {
+      setShowMoves(false);
+      return true;
+    });
+    return () => onRegisterOverlayBack(null);
+  }, [showMoves, onRegisterOverlayBack]);
 
   if (!pokemon) return null;
 

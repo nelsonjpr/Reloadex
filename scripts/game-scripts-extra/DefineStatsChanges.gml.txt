@@ -1,0 +1,1 @@
+stat=1; change=false; index=-100; color=c_red; stat_name=""; OBJETIVO=(-1); DIF=20; ALTURA=0; 

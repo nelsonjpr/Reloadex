@@ -1,0 +1,1 @@
+ex(7826); global.objpoke1[argument0]=0; ex(9549); ex(8480,argument0,0); 

@@ -1,0 +1,1 @@
+if((argument0>=15 && argument0<=31) || (argument0>=291 && argument0<=293) || (argument0>=547 && argument0<=550) || (argument0>=579 && argument0<=580) || argument0=582 || (argument0>=595 && argument0<=600) || argument0=681 || argument0=682)return(true); else return(false); 

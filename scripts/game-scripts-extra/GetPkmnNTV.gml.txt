@@ -1,0 +1,1 @@
+return(argument0 - (ex(7797,argument0))*1000000); 

@@ -1,0 +1,1 @@
+var aux_mask,aux; if((3).mask1+7<5000)aux_mask=(3).mask1+7+5000; else aux_mask=(3).mask1+7; aux=argument0; aux/=1000000; aux-=frac(aux); aux=aux_mask-aux; return(aux); 

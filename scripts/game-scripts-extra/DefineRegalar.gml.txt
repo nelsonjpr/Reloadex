@@ -1,0 +1,1 @@
+sprite_index=(2438); canshoot=true; str=ex(9863,2440); name=""; mira=2*ceil(random(4)); distancia=14; mirafijo=(-1); number=(-1); sprite_index=(-1); image_speed=0; sprINDEX=(-1); sprD=(-1); sprU=(-1); sprR=(-1);sprL=(-1); INDEX=(-1); index=(-1); cantidad=1; str2=""; 

@@ -3,8 +3,8 @@
 //   release/web-delta-<tag>.zip   -> SOLO archivos nuevos/cambiados desde la versión base
 //   release/web-full-<tag>.zip    -> paquete completo (cuando aún no hay base)
 //
-// La versión base se guarda en tools/update-baseline.json. Se fija en la primera
-// versión que incluye el actualizador (v1.1) para que los deltas sean acumulativos.
+// La versión base se guarda en tools/update-baseline.json. Se actualiza con
+// --set-baseline al publicar para que los deltas sean acumulativos.
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -28,8 +28,8 @@ function parseArgs(argv) {
 }
 
 const args = parseArgs(process.argv.slice(2));
-const versionCode = Number(args['version-code'] || 2);
-const versionName = args['version-name'] || '1.1';
+const versionCode = Number(args['version-code'] || 3);
+const versionName = args['version-name'] || '1.0.1';
 const tag = args.tag || `v${versionName}`;
 const notes = typeof args.notes === 'string' ? args.notes : '';
 const setBaseline = args['set-baseline'] === true;

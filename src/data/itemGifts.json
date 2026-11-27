@@ -1,0 +1,477 @@
+{
+  "version": 1,
+  "source": "src/data/guide.json ( guía real del juego )",
+  "count": 47,
+  "gifts": [
+    {
+      "itemId": 153,
+      "itemName": "Ala Arcoíris",
+      "who": "el Profesor",
+      "where": "Pueblo Alba",
+      "when": "Johto: guardianes y alto mando",
+      "region": "Johto",
+      "quote": "Despertarás en tu casa, al bajar de tu habitación, el Profesor Oak y tu mamá te felicitarán por tu nueva meta alcanzada. Tras un rato de hablar, el Prof. Oak te dará un Ala Arcoíris, la cual establecerá un vinculo contigo y el Pokémon legendario Ho-oh.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 531,
+      "itemName": "Arca de Zygarde",
+      "who": "Un personaje del juego",
+      "where": "Guarida Flare",
+      "when": "Medalla Fábula",
+      "region": "Star",
+      "quote": "Nuestra misión consistirá en derrotar al Equipo Flare para liberar al Pokémon legendario Zygarde, también desbloquearemos las células de Zygarde y las megapiedra como objetos ocultos, por último, Clem nos entregará el arca de Zygarde. Después de explorar la…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 483,
+      "itemName": "Black Ball",
+      "who": "Un personaje del juego",
+      "where": "Q058: Salvajes Supernova:",
+      "when": "Misiones de las Islas Cometa",
+      "region": "Islas Cometa",
+      "quote": "PREMIO: Al completar esta misión Aura nos entregará 10 Black Ball y se desbloquearán los datos de los Pokémon Salvajes en toda la isla.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 182,
+      "itemName": "Caña Buena",
+      "who": "Un personaje del juego",
+      "where": "Playa Vega",
+      "when": "Medalla Secuoya",
+      "region": "Star",
+      "quote": "En esta playa encontraremos al pescador profesional, quien nos preguntará si nos gusta el mar, respondiendo afirmativamente nos entregará la caña buena. Después de explorar la playa y combatir contra todos los entrenadores nos dirigiremos hacía Pokémon race…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 181,
+      "itemName": "Caña Vieja",
+      "who": "el Pescador",
+      "where": "Ruta 4",
+      "when": "Medalla Aguacero",
+      "region": "Star",
+      "quote": "Al final de la ruta encontraremos la Casa Pescador Amateur, donde reside el Pescador Amateur, quien nos preguntará si nos gusta pescar Pokémon tipo agua, respondiendo afirmativamente nos entregará la Caña vieja. Antes de continuar nuestro camino hacía la Ru…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 484,
+      "itemName": "Cuaderno",
+      "who": "Un personaje del juego",
+      "where": "Ruta 3",
+      "when": "Medalla Pedrusco",
+      "region": "Star",
+      "quote": "En esta ruta podremos capturar un Pokémon inicial, también nos dará la bienvenida Teron, director de la facultad de combate, quien nos entregará el cuaderno de misiones y nos invitará hacía la facultad. Después de hablar con todos los ciudadanos y explorar …",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 58,
+      "itemName": "Cuchara Torcida",
+      "who": "Un investigador",
+      "where": "Centro de Investigación",
+      "when": "Medalla Psíquica",
+      "region": "Star",
+      "quote": "Un investigador nos entregará una Cuchara Torcida y nos hablará sobre los poderes psíquicos de Kadabra.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 30,
+      "itemName": "Despertar",
+      "who": "la recepcionista",
+      "where": "Torre Pokémon",
+      "when": "Medalla Misterio",
+      "region": "Star",
+      "quote": "Después de la batalla contra el Equipo Rocket, la recepcionista de la torre Pokémon nos entregará como recompensa la flauta Pokémon, con esta flauta podremos despertar y capturar al Snorlax dormido. Después de explorar la zona y combatir contra todos los en…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 522,
+      "itemName": "Ente Ball",
+      "who": "Un personaje del juego",
+      "where": "Llegada a Paraíso Aether",
+      "when": "Kalos: Islas Cometa y Team Flare",
+      "region": "Kalos",
+      "quote": "Dos científicos que se encuentran ahí te entregan 20 Ente Ball para que puedas atrapar a esos Ultraentes, y se revelan que en realidad son miembros del Team Skull, que tras darte eso, se van. A partir de ahí tendremos que perseguir a los Nihilegos errantes …",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 160,
+      "itemName": "Esfera Azul",
+      "who": "Un personaje del juego",
+      "where": "Guarida Magma",
+      "when": "Hoenn: Team Magma y Team Aqua",
+      "region": "Hoenn",
+      "quote": "Una vez que le hayas dado una paliza aparecerá Maximo, actual campeón de la Liga Hoenn; con su Metagross, destruirá la máquina del Juicio Final. Magno, al verse derrotado, te entregará la Esfera Azul con la que luego podrás capturar a Groudon. Entonces Máxi…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 161,
+      "itemName": "Esfera Roja",
+      "who": "Un personaje del juego",
+      "where": "Team Aqua",
+      "when": "Hoenn: Team Magma y Team Aqua",
+      "region": "Hoenn",
+      "quote": "Además, se retracta de todo lo que hizo (aunque de todas maneras lo llevarán a prisión), no sin antes entregarte la Esfera Roja para atrapar a Kyogre.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 162,
+      "itemName": "Esfera Verde",
+      "who": "el Profesor",
+      "where": "Liga Pokémon de Sinnoh",
+      "when": "Sinnoh: Helio y el Trío del lago",
+      "region": "Sinnoh",
+      "quote": "Luego, como de costumbre, aparecerás en tu cama. Ve abajo y te encontrarás con el Profesor Abedul, quien después de una larga charla te hará entrega de la Esfera Verde, que te permitirá atrapar a Rayquaza. Además te dirá que deberías comunicarte con el Prof…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 407,
+      "itemName": "Espejo Veraz",
+      "who": "Un personaje del juego",
+      "where": "Pokémon Frontera",
+      "when": "Kalos: Islas Cometa y Team Flare",
+      "region": "Kalos",
+      "quote": "Cuando lleguemos a casa y salgamos de nuestro cuarto, como es costumbre, nos estarán esperando la Profesora Encina y nuestra mamá para felicitarnos por convertirnos en Campeones de la Liga. La Profesora nos entregará, como recompensa, el Espejo Veraz, que p…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 562,
+      "itemName": "Flauta solar",
+      "who": "Un personaje del juego",
+      "where": "Templo Scolipede (Opcional)",
+      "when": "Kalos: Islas Cometa y Team Flare",
+      "region": "Kalos",
+      "quote": "Al superar el enfrentamiento de manera exitosa, le preguntaremos al espíritu \"¿Quién eres?\", y éste sin decirnos nada nos entrega la Flauta Solar. Luego de eso se queda ahí observándonos pero no podremos interactuar con él, ya podremos irnos.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 157,
+      "itemName": "Griseosfera",
+      "who": "El Profesor",
+      "where": "Reto de Treto",
+      "when": "Teselia: Frente de Batalla y N",
+      "region": "Teselia",
+      "quote": "Como siempre apareceremos en nuestra casa. El Profesor Serbal nos felicitará por nuestra nueva hazaña y nos hace entrega de la Griseosfera.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 61,
+      "itemName": "Hechizo",
+      "who": "Un personaje del juego",
+      "where": "Campo Magnétar",
+      "when": "Kalos: Islas Cometa y Team Flare",
+      "region": "Kalos",
+      "quote": "Tras derrotarlo nos entrega la Medalla Voltaje, la DT571 Carga Parábola y nos dice que la siguiente líder de gimnasio se encuentra en el Bosque Hechizo.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 490,
+      "itemName": "Hidrostal Z",
+      "who": "Un personaje del juego",
+      "where": "Playa Naos",
+      "when": "Medalla Aguacero",
+      "region": "Star",
+      "quote": "Combate contra Wishiwashi Dominante Tras derrotar al poderoso Wishiwashi Dominante, Nereida reconocerá nuestro esfuerzo y nos entregará el Hidrostal Z como recompensa por haber completado la prueba.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 171,
+      "itemName": "Hierba Especial",
+      "who": "Un personaje del juego",
+      "where": "Ciudad Polar",
+      "when": "Medalla Llama",
+      "region": "Star",
+      "quote": "En esta ciudad, nos dará la bienvenida Acromo, quien nos pedirá observar la discusión entre N y Ghechis, líderes del Equipo Plasma y del Equipo Neo Plasma, respectivamente. En la casa al lado del centro comercial, una señora nos entregará una hierba especia…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 498,
+      "itemName": "Insectostal Z",
+      "who": "los Reclutas",
+      "where": "Ruta 5 (segunda visita)",
+      "when": "Medalla Aguacero",
+      "region": "Star",
+      "quote": "Tras derrotar al poderoso Pinsir Dominante, los Reclutas Skull reconocerán nuestro esfuerzo y nos entregarán el  Insectostal Z como recompensa por haber completado la prueba.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 520,
+      "itemName": "Lunalastal Z",
+      "who": "El Profesor",
+      "where": "Liga Pokemon",
+      "when": "Alola: guardianes y Necrozma",
+      "region": "Alola",
+      "quote": "Cuando lleguemos a casa y salgamos de nuestro cuarto, como es costumbre, nos estará esperando un profesor, en este caso el Profesor Kukui, y nuestra mamá para felicitarnos por ser Campeones de la Liga. El Profesor nos entregará como premio el Solaleostal Z …",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 186,
+      "itemName": "Mapa",
+      "who": "un hombre llamado",
+      "where": "Pueblo Wezen",
+      "when": "Kanto: islas y medallas",
+      "region": "Kanto",
+      "quote": "Al llegar, podrás hablar con un hombre llamado Fonseca, quien te entregará el Mapa de la Jungla.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 186,
+      "itemName": "Mapa",
+      "who": "Un personaje del juego",
+      "where": "Isla Urano",
+      "when": "Johto: guardianes y alto mando",
+      "region": "Johto",
+      "quote": "Resulta que el Pidgeot que te salvó pertenece a Pegaso, primer Líder de gimnasio de Johto; te dirá que te encuentras en la Isla Urano, que forma parte del Archipiélago Solar. El líder te dará un mapa de la región y un GPS, el cual sirve para poder usar Vuel…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 186,
+      "itemName": "Mapa",
+      "who": "Un personaje del juego",
+      "where": "Arrestado en Comisaría Vega",
+      "when": "Kalos: Islas Cometa y Team Flare",
+      "region": "Kalos",
+      "quote": "Finalmente, el Comisario te entrega el Mapa de las Islas y te recomienda volar directamente a Isla Halley, donde quizá puedas encontrar alguna pista.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 4,
+      "itemName": "Master Ball",
+      "who": "Un personaje del juego",
+      "where": "Centro de Investigación",
+      "when": "Medalla Psíquica",
+      "region": "Star",
+      "quote": "Tras vencer al infiltrado en combate, Javi nos recompensará con la Master Ball por nuestra ayuda.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 193,
+      "itemName": "Mega-Aro",
+      "who": "Un personaje del juego",
+      "where": "Trío del lago",
+      "when": "Medalla Psíquica",
+      "region": "Star",
+      "quote": "Cuando salgamos nos encontraremos al Profesor Oak y nos dará el Mega-Aro.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 688,
+      "itemName": "Metrónomo",
+      "who": "Un personaje del juego",
+      "where": "Ruta 17",
+      "when": "Medalla Secuoya",
+      "region": "Star",
+      "quote": "En esta ruta podremos cosechar y cultivar baya Zanama, baya Aranja, baya Higog y baya Wiki, también encontraremos la casa de Skuiro, donde Skuiro nos entregará el movimiento metrónomo. Después de explorar la ruta nos dirigiremos hacía Zona Safari ubicada en…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 169,
+      "itemName": "Monedero",
+      "who": "Un personaje del juego",
+      "where": "Saloon de Rigel",
+      "when": "Medalla Llama",
+      "region": "Star",
+      "quote": "Después del combate, un señor dentro del saloon nos entregará el monedero. Con este objeto se desbloquearán las fichas como objetos ocultos y podremos acceder al Casino Polar de Ciudad Polar.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 630,
+      "itemName": "MT103 Beso Drenaje",
+      "who": "Un personaje del juego",
+      "where": "Tras pasar la Liga Hoenn 2 veces",
+      "when": "Teselia: Frente de Batalla y N",
+      "region": "Teselia",
+      "quote": "Tras derrotar a Lady Boss, ella nos entregará la MT103 Beso Drenaje.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 631,
+      "itemName": "MT104 Joya De Luz",
+      "who": "Un personaje del juego",
+      "where": "Medalla Roca",
+      "when": "Kanto: islas y medallas",
+      "region": "Kanto",
+      "quote": "Tras derrotarle nos entregará la Medalla Roca y la MT104 Joya de luz. Después de vencer, Brock te dirá que hay otro Líder de Kanto a bordo.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 633,
+      "itemName": "MT106 Pájaro Osado",
+      "who": "Un personaje del juego",
+      "where": "Líder Alana",
+      "when": "Hoenn: Team Magma y Team Aqua",
+      "region": "Hoenn",
+      "quote": "Después de haberla derrotado, te dará la Medalla Pluma MT106 Pájaro Osado que misteriosamente es la sexta medalla en la liga de Hoenn. ¿Y la quinta?",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 230,
+      "itemName": "MT30 Bola Sombra",
+      "who": "Un personaje del juego",
+      "where": "Pueblo Wezen",
+      "when": "Kanto: islas y medallas",
+      "region": "Kanto",
+      "quote": "Si hablas con la mujer que se encuentra en una casa al lado izquierdo del Centro Pokémon, está te entregará la MT30 Bola Sombra; mientras que, al lado derecho un hombre estará dispuesto a intercambiar su Snover por un Spinda.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 240,
+      "itemName": "MT40 Hidropulso",
+      "who": "Un personaje del juego",
+      "where": "Ciudad Naos",
+      "when": "Medalla Aguacero",
+      "region": "Star",
+      "quote": "Después de ganar el combate y obtener la Medalla Aguacero podremos usar corte y dulce aroma fuera de combate, por último, Willy nos entregará como recompensa el movimiento MT40 hidropulso. Una vez abandonemos el gimnasio nos dirigiremos nuevamente hacía la …",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 262,
+      "itemName": "MT62 Roca Afilada",
+      "who": "Un personaje del juego",
+      "where": "Lider Acerón",
+      "when": "Sinnoh: Helio y el Trío del lago",
+      "region": "Sinnoh",
+      "quote": "Al derrotarlo, nos dará la medalla Mina y la MT62 Roca Afilada.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 271,
+      "itemName": "MT71 Electrocañón",
+      "who": "Un personaje del juego",
+      "where": "Medalla Trueno",
+      "when": "Kanto: islas y medallas",
+      "region": "Kanto",
+      "quote": "Debes dirigirte al Saloon Rigel, en Ciudad Rigel, ahí estará el líder Lt. Surge. Cuando lo derrotes te dará la Medalla Trueno y MT71 Electrocañón.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 274,
+      "itemName": "MT74 Levitón",
+      "who": "Un personaje del juego",
+      "where": "Centro de Investigación",
+      "when": "Medalla Psíquica",
+      "region": "Star",
+      "quote": "Acromo, un científico contratado recientemente, nos desafiará a un combate. Al derrotarlo, nos dará la MT74 Levitón.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 620,
+      "itemName": "MT93 Hierba Lazo",
+      "who": "Un personaje del juego",
+      "where": "Medalla Arcoiris",
+      "when": "Kanto: islas y medallas",
+      "region": "Kanto",
+      "quote": "Dirígete al Bosque Místico, y encontrarás a Erika. Una vez que la derrotes, te entregará la Medalla Arcoiris y MT93 Hierba Lazo",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 488,
+      "itemName": "Normastal Z",
+      "who": "el profesor",
+      "where": "Ciudad Spica",
+      "when": "Medalla Pedrusco",
+      "region": "Star",
+      "quote": "Una vez abandonemos el gimnasio nos dirigiremos hacía el laboratorio del profesor Serbal ubicado en la esquina superior izquierda de la ciudad, donde el profesor Serbal nos recompensará con la entrega de piedra eterna. \nNormastal Z\n A las afueras del museo …",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 189,
+      "itemName": "Pase Solar",
+      "who": "Un personaje del juego",
+      "where": "Isla Saturno",
+      "when": "Sinnoh: Helio y el Trío del lago",
+      "region": "Sinnoh",
+      "quote": "A continuación, debemos dirigirnos hacia la casa que se encuentra a la derecha del Centro Pokémon y hablar con el capitán que nos dará el ticket para ir a la Isla Halley (sólo nos lo dará si hemos sellado en las ochos islas nuestro Pase Solar).",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 90,
+      "itemName": "Piedra Eterna",
+      "who": "el profesor",
+      "where": "Ciudad Spica",
+      "when": "Medalla Pedrusco",
+      "region": "Star",
+      "quote": "Una vez abandonemos el gimnasio nos dirigiremos hacía el laboratorio del profesor Serbal ubicado en la esquina superior izquierda de la ciudad, donde el profesor Serbal nos recompensará con la entrega de piedra eterna. \nNormastal Z\n A las afueras del museo …",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 65,
+      "itemName": "Protector",
+      "who": "Un personaje del juego",
+      "where": "Playa Vida",
+      "when": "Kalos: Islas Cometa y Team Flare",
+      "region": "Kalos",
+      "quote": "Aquí también nos encontraremos con la Protectora de esta Isla, Llanos. Cada isla tiene un protector. Esta nos da la bienvenida a la isla y nos comenta que ha oído de nosotros y que deseaba conocernos, también que va a colaborar con nosotros y el Escuadrón É…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 176,
+      "itemName": "SmartPhone",
+      "who": "madre",
+      "where": "Pueblo Alba",
+      "when": "Medalla Pedrusco",
+      "region": "Star",
+      "quote": "Vuelve a casa para hablar con madre, quien nos entregará el smartphone y nos pedirá llamarla regularmente, finalmente abandona la casa para explorar el pueblo y hablar con todos los ciudadanos, después dirígete hacía la esquina superior derecha del pueblo p…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 13,
+      "itemName": "Star Ball",
+      "who": "Un personaje del juego",
+      "where": "Q056: Salvajes Nebulosa:",
+      "when": "Misiones de las Islas Cometa",
+      "region": "Islas Cometa",
+      "quote": "PREMIO: Tras Completar esta misión, el Asistente del Prof. Abedul te entregará 10 unidades de Star Ball.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 16,
+      "itemName": "Superpoción",
+      "who": "Un personaje del juego",
+      "where": "Pueblo Régulo",
+      "when": "Kanto: islas y medallas",
+      "region": "Kanto",
+      "quote": "Coleccionista Gordon \n Un coleccionista de objetos que nos dará una recompensa si llevamos un Pokémon en la primera posición. La primera vez que lo visites te pedirá que le muestres un Pineco y te dara una Superpoción",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 568,
+      "itemName": "Superpulsera Z",
+      "who": "Teron este nos",
+      "where": "Ruta 3",
+      "when": "Medalla Pedrusco",
+      "region": "Star",
+      "quote": "Facultad de Combate\n Una vez ingresemos en la facultad para hablar con Teron este nos recompensará con la entrega de la Superpulsera Z, por último, nos pedirá regresar cuando obtengamos las ocho (8) medalla de gimnasio. Después de hablar con todos los cient…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 578,
+      "itemName": "Talismán",
+      "who": "Un personaje del juego",
+      "where": "Ruinas Andrómeda",
+      "when": "Kalos: Islas Cometa y Team Flare",
+      "region": "Kalos",
+      "quote": "Entonces llega Nébulo y dice que hay que reactivar los dispositivos, para ello nos da el Talismán; con él en nuestra mochila, tan solo debemos pararnos sobre las plataformas de defensa y las reactivaremos. Serán 16 en total, y en paralelo deberemos derrotar…",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 3,
+      "itemName": "Ultra Ball",
+      "who": "el Profesor",
+      "where": "Q053: Salvajes Llanos:",
+      "when": "Misiones de las Islas Cometa",
+      "region": "Islas Cometa",
+      "quote": "PREMIO: Tras completar esta misión el Profesor Abedul nos entregará 20 Ultra Ball.",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 185,
+      "itemName": "xPod Star",
+      "who": "la recepcionista",
+      "where": "Isla Neptuno",
+      "when": "Sinnoh: Helio y el Trío del lago",
+      "region": "Sinnoh",
+      "quote": "Iremos al edificio que se encuentra justo a la izquierda del Centro Pokémon. Si hablamos con la recepcionista de la izquierda nos dará la xPod Star (una radio para escuchar música).",
+      "source": "Guía de Pokémon Reloaded incluida en la app"
+    }
+  ]
+}

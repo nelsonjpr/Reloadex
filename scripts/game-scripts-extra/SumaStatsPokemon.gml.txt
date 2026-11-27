@@ -1,0 +1,1 @@
+var suma; suma=(-1); suma=ex(9758,argument0) + ex(9753,argument0) + ex(9755,argument0) + ex(9754,argument0) + ex(9756,argument0) + ex(9761,argument0); return suma; 

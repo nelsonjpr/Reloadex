@@ -1,0 +1,1 @@
+if(argument0>=109 && argument0<=151)return(true); else if(argument0>=741 && argument0<=765)return(true); else return(false); 

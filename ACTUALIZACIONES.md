@@ -2,7 +2,8 @@
 
 La app comprueba el último release de GitHub (`nelsonjpr/Reloadex`) y muestra en la
 portada un botón que dice **Actualizar** cuando hay versión nueva y **Actualizado**
-cuando no la hay.
+cuando no la hay. El número mostrado abajo sale de `APP_VERSION` y del `versionName`
+del APK; ambos son **1.0.1**.
 
 Hay dos vías:
 
@@ -16,72 +17,64 @@ La actualización rápida no reinstala la app: mantiene una copia local de `dist
 y le dice al WebView de Capacitor que cargue desde esa carpeta (`WebView.setServerBasePath`).
 Si el ZIP o algún hash falla, se conserva la copia anterior.
 
-## ⚠️ Importante: la primera vez es manual
+## Versiones y firma
 
-La v1.0 que ya está instalada en los móviles **no tiene el actualizador dentro**, así que
-no puede enterarse de nada por sí sola. Hay que publicar la **v1.1** y que cada usuario
-la instale una vez desde GitHub como siempre. A partir de v1.1, todas las versiones
-siguientes se actualizan desde el botón de la app.
+La **v1.0** no tenía el actualizador; hubo que instalar manualmente la **v1.1**
+(`versionCode 2`) una vez. La versión pública vigente es la **v1.0.1**
+(`versionCode 3`, `versionName 1.0.1`): aunque el nombre parezca menor que v1.1,
+el `versionCode` mayor permite que Android la instale encima de v1.1 con la misma firma.
 
 Reglas que no se pueden saltar:
 
 - Todo APK nuevo debe ir firmado con el **mismo `reloadex-release.jks`**. Si cambia la
   firma, Android rechaza la actualización ("la app no está instalada").
-- Subir `versionCode` en `android/app/build.gradle` en cada release (ahora 2 = v1.1).
+- Subir `versionCode` en `android/app/build.gradle` en cada APK nuevo (ahora 3 = v1.0.1).
 - Si algún día publicas en Google Play, desactiva esta vía: la política de Play exige
   usar *Play In-App Updates* y prohíbe instalar APKs descargados a mano.
 
-## Publicar la v1.1 (primera vez)
+## Publicar la v1.0.1
 
 ```bash
-npm run build                      # dist/
-npm run apk:release                # APK firmado con versionCode 2
-npm run update:bundle -- --version-code 2 --version-name 1.1 --tag v1.1 \
-  --notes "Primer release con actualizador" --set-baseline
+npm run build
+npm run update:bundle -- --version-code 3 --version-name 1.0.1 --tag v1.0.1 \
+  --notes "Actualizador integrado y back físico" --set-baseline
+npm run apk:release                # APK firmado con versionCode 3
 ```
 
 Esto crea en `release/`:
 
-- `update-manifest.json`
-- `update-manifest-v1.1.json`
-- `web-full-v1.1.zip` (paquete web completo; al no haber base aún no hay delta)
+- `update-manifest.json` y `update-manifest-v1.0.1.json`
+- `web-delta-v1.0.1.zip` (solo los archivos cambiados desde v1.1, porque ya había base)
+- `Reloadex-1.0.1.apk` (copia del APK firmado)
 
-Sube a la GitHub Release **v1.1** estos tres archivos junto al APK:
+Sube a la GitHub Release **v1.0.1** el APK, `update-manifest.json` y el ZIP.
+`tools/update-baseline.json` queda fijado en v1.0.1 con `--set-baseline`.
 
-```bash
-gh release create v1.1 android/app/build/outputs/apk/release/app-release.apk#Reloadex-1.1.apk \
-  release/update-manifest.json release/web-full-v1.1.zip \
-  --title "Reloadex 1.1" --notes "Actualizador integrado"
-```
+## Publicar versiones posteriores
 
-`tools/update-baseline.json` queda fijado en v1.1. Ese es el punto de comparación
-para todos los deltas futuros (así funciona incluso si un usuario salta versiones).
-
-## Publicar versiones posteriores (v1.2, v1.3, …)
-
-**Si solo cambian datos / interfaz (lo habitual):** basta con subir `APP_VERSION`
-en `src/data/appInfo.js` y generar el bundle. No hace falta recompilar ni subir un APK
+**Si solo cambian datos / interfaz:** basta con subir `APP_VERSION` en
+`src/data/appInfo.js` y generar el bundle. No hace falta recompilar ni subir un APK
 nuevo; el `versionCode` del manifiesto debe ser mayor que el de la versión web aplicada:
 
 ```bash
 npm run build
-npm run update:bundle -- --version-code 3 --version-name 1.2 --tag v1.2 \
+npm run update:bundle -- --version-code 4 --version-name 1.0.2 --tag v1.0.2 \
   --notes $'Novedades:\n- Más Pokémon\n- Correcciones'
 ```
 
 **Si además hay cambios nativos** (Java, permisos, plugins): sube también
-`versionCode` a 3 en `android/app/build.gradle`, recompila con `npm run apk:release`
+`versionCode` a 4 en `android/app/build.gradle`, recompila con `npm run apk:release`
 y sube el APK a la release. Al instalarlo, Capacitor vuelve a usar los assets del
 paquete y la versión web se alinea automáticamente con la del APK.
 
-En ambos casos se genera `release/web-delta-v1.2.zip` con **únicamente los archivos
-que cambiaron desde v1.1**. Sube a la release:
+En ambos casos se genera `release/web-delta-v1.0.2.zip` con **únicamente los archivos
+que cambiaron desde v1.0.1**. Sube a la release:
 
 - `release/update-manifest.json`
-- `release/web-delta-v1.2.zip`
-- el APK (`Reloadex-1.2.apk`) solo si compilaste uno nuevo
+- `release/web-delta-v1.0.2.zip`
+- el APK (`Reloadex-1.0.2.apk`) solo si compilaste uno nuevo
 
-**No vuelvas a pasar `--set-baseline`**: la base debe seguir siendo v1.1 para que
+**No vuelvas a pasar `--set-baseline`**: la base debe seguir siendo v1.0.1 para que
 los deltas sigan siendo acumulativos y pequeños.
 
 ## Flujo dentro de la app

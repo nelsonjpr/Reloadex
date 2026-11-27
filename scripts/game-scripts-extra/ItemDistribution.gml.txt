@@ -1,0 +1,1 @@
+var z, primero, ultimo, contador, indexItem; z=argument0; primero=argument1; ultimo=argument2; indexItem=3; z.num_item=ultimo; for(contador=primero;contador<=ultimo;contador+=1){ z.item[contador]=argument[indexItem];indexItem+=1;} 

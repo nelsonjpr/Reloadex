@@ -1,0 +1,1 @@
+if(!ex(7508,argument0) && !ex(7504,argument0) && !ex(7503,argument0) && !ex(7502,argument0) && argument0<=(821))return(true); else return(false); 

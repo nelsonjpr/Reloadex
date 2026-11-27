@@ -15,6 +15,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>,
 )
 
+// El splash inline cubre el primer frame (incluso antes de que React arranque)
+// y se retira en cuanto la app ya tiene contenido propio.
+window.requestAnimationFrame(() => {
+  document.getElementById('app-splash')?.remove()
+})
+
 // En la APK todo ya está dentro del paquete: registrar el service worker solo
 // añadiría copias de cada asset a CacheStorage. En PWA sí lo necesitamos.
 const cap = window.Capacitor

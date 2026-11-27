@@ -1,0 +1,1 @@
+PK=argument0; EXP=argument1; for(i=2;i<=100;i+=1){ if(EXP<ex(5913,PK,i))return(i-1);} if(EXP>=ex(5913,PK,100))return(100); 

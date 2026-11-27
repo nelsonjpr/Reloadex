@@ -1,0 +1,1 @@
+if((argument0>=72 && argument0<=78) || argument0=328 || argument0=329 || argument0=468 || argument0=469 || (argument0>=666 && argument0<=669))return true; return false; 

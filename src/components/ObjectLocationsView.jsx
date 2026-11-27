@@ -10,6 +10,13 @@ const normalize = (value) => String(value || '')
   .replace(/[\u0300-\u036f]/g, '')
   .trim();
 
+// Los IDs de sala son internos del juego. Si algún dato antiguo todavía los
+// trae como detalle, no se muestran: en pantalla solo ruta/lugar + método.
+const visibleDetail = (detail) => {
+  const value = String(detail || '').trim();
+  return /^sala\s+\d+$/i.test(value) ? '' : value;
+};
+
 const ObjectLocationsView = ({ onBack }) => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('todos');
@@ -152,9 +159,9 @@ const ObjectLocationsView = ({ onBack }) => {
                               <MapPin size={14} className="mt-0.5 shrink-0 text-indigo-300" />
                               <div className="min-w-0">
                                 <p className="text-[13px] font-semibold text-white/90">{loc.zone}</p>
-                                {(loc.detail || loc.method) && (
+                                {(visibleDetail(loc.detail) || loc.method) && (
                                   <p className="mt-0.5 text-[11px] leading-relaxed text-white/55">
-                                    {[loc.detail, loc.method].filter(Boolean).join(' · ')}
+                                    {[visibleDetail(loc.detail), loc.method].filter(Boolean).join(' · ')}
                                   </p>
                                 )}
                               </div>

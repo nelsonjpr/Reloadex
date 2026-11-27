@@ -1,0 +1,1 @@
+if(argument0>200000)argument0-=200000; if(argument0>150000)argument0-=150000; if(argument0>100000)argument0-=100000; var aux_mask, aux_SN, aux_NTV; if((3).mask1+7<5000)aux_mask=(3).mask1+7+5000; else aux_mask=(3).mask1+7; aux_SN=(aux_mask-abs(argument0)) aux_SN=aux_SN * 1000000; aux_NTV=argument1; return(aux_SN + aux_NTV); 

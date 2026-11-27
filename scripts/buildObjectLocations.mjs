@@ -111,7 +111,9 @@ for (const p of placements) {
   byItem.get(p.id).push({
     zone: place ? placeName(place) : '',
     place: place || null,
-    detail: `Sala ${p.room}`,
+    // Los números de sala son internos del motor; al usuario solo le interesa
+    // la ruta/lugar y el método ("En el suelo").
+    detail: null,
     room: p.room,
     x: p.x,
     y: p.y,
