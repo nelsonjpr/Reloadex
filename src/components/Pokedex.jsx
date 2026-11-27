@@ -4,7 +4,7 @@ import {
   Search, Filter, X, ChevronUp, ChevronLeft, ChevronRight as ChevronRightIcon,
   Sparkles, Heart, Volume2,
 } from 'lucide-react';
-import { pokemonData, typeColors, typeTranslations } from '../data/pokemon';
+import { pokemonData } from '../data/pokemonIndex';
 import {
   spriteUrl, spriteFallbacks, cryUrl, cryFallbacks,
   formatId, typeColor, typeName, typeIcon,

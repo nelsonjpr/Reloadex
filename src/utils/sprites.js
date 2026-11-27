@@ -2,7 +2,7 @@
 // Helpers de sprites / gritos / IDs (Pokémon Reloaded)
 // Los sprites del juego son GIF con nombre = ID sin rellenar: 1.gif, 100003.gif
 // =============================================================
-import { typeColors, typeTranslations } from '../data/pokemon';
+import { typeColors, typeTranslations } from '../data/typeMeta';
 
 export const formatId = (id) => {
   const n = Number(id);

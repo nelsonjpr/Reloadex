@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { typeTranslations } from '../data/pokemon';
+import { typeTranslations } from '../data/typeMeta';
 import { typeIconHd } from '../utils/sprites';
 
 const MAX_TYPES = 2;

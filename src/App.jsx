@@ -40,8 +40,8 @@ function App() {
     try { localStorage.setItem('reloadex.view', currentView); } catch { /* noop */ }
   }, [currentView]);
 
-  // Precalienta la Pokédex en idle: el usuario la abre al instante y el coste
-  // de ~1,8 MB de datos no se paga en el primer render.
+  // Precalienta la Pokédex en idle: solo carga el índice ligero (~625 KB),
+  // no el dataset completo que necesita la ficha.
   useEffect(() => {
     const warm = () => { import('./components/Pokedex'); };
     if ('requestIdleCallback' in window) {
@@ -53,6 +53,14 @@ function App() {
   }, []);
 
   const navigate = (view) => { setCurrentView(view); setSelectedPokemon(null); };
+
+  // La lista usa el índice ligero; al abrir una ficha se hidrata con el
+  // objeto completo (descripción, habilidades, altura, peso, etc.).
+  const openFromList = async (p) => {
+    const { pokemonData: fullData } = await import('./data/pokemon');
+    const full = fullData.find((x) => Number(x.id) === Number(p.id));
+    setSelectedPokemon(full || p);
+  };
 
   // Navegación de evolución / mega: IDs NUMÉRICOS. El dataset se importa aquí
   // bajo demanda para no incluirlo en el chunk inicial.
@@ -89,7 +97,7 @@ function App() {
   } else if (currentView === 'legendaries') {
     content = <LegendariesView onBack={handleBackToHome} />;
   } else {
-    content = <Pokedex onBack={handleBackToHome} onSelect={(p) => setSelectedPokemon(p)} />;
+    content = <Pokedex onBack={handleBackToHome} onSelect={openFromList} />;
   }
 
   return <Suspense fallback={<Loading />}>{content}</Suspense>;

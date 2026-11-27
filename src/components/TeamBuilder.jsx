@@ -13,7 +13,8 @@ import {
   Sparkles,
   ArrowLeft
 } from 'lucide-react';
-import { pokemonData, typeColors, typeTranslations } from '../data/pokemon';
+import { pokemonData } from '../data/pokemonIndex';
+import { typeColors, typeTranslations } from '../data/typeMeta';
 import { safeTop } from '../utils/safeArea';
 
 export function TeamBuilder({ onBack }) {

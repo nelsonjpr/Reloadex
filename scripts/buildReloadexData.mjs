@@ -41,6 +41,9 @@ const PUBLIC = path.join(PROJECT, 'public');
 const SRC_DATA = path.join(PROJECT, 'src', 'data');
 
 const OUT_JSON = path.join(SRC_DATA, 'reloadex.json');
+// Índice para la lista/team/árbol: sin descripciones, habilidades ni metadatos
+// de procedencia. La ficha lazy carga el dataset completo cuando se abre.
+const OUT_INDEX = path.join(SRC_DATA, 'pokemonIndex.json');
 // El informe de procedencia es un artefacto derivado; se permite redirigirlo para
 // regenerar solo reloadex.json sin tocar otros archivos del repositorio.
 const OUT_REPORT = process.env.RELOADEX_PROVENANCE_OUT || path.join(SRC_DATA, 'reloadex.provenance.json');
@@ -838,11 +841,81 @@ for (const [baseId, forms] of variantsByBase) {
   for (const e of all) e.variants = links;
 }
 
+// ---------- 3b. campos que antes se resolvían en tiempo de ejecución ----------
+// pokemon.js rellenaba tipos/generación/región usando el backup oficial al
+// arrancar. Haciéndolo aquí el índice ligero viene completo y la lista ya no
+// necesita importar el backup (386 KB) ni el dataset completo (1,44 MB).
+const GENERATION_RANGES = [
+  { max: 151, generation: 'Gen I', region: 'Kanto' },
+  { max: 251, generation: 'Gen II', region: 'Johto' },
+  { max: 386, generation: 'Gen III', region: 'Hoenn' },
+  { max: 493, generation: 'Gen IV', region: 'Sinnoh' },
+  { max: 649, generation: 'Gen V', region: 'Teselia' },
+  { max: 721, generation: 'Gen VI', region: 'Kalos' },
+  { max: 809, generation: 'Gen VII', region: 'Alola' },
+  { max: 905, generation: 'Gen VIII', region: 'Galar' },
+  { max: 1000, generation: 'Gen IX', region: 'Paldea' },
+];
+const officialByName = new Map();
+const officialById = new Map();
+for (const e of existing) {
+  const key = gameNameKey(e.name);
+  if (key && !officialByName.has(key)) officialByName.set(key, e.types || []);
+  officialById.set(num(e.id), e);
+}
+const baseIdFor = (p) => {
+  if (p?.baseForm != null) return num(p.baseForm);
+  const id = num(p?.id);
+  if (!Number.isFinite(id) || id < 100000) return id;
+  return id - (id >= 200000 ? 200000 : id >= 150000 ? 150000 : 100000);
+};
+const groupFor = (p) => {
+  const id = baseIdFor(p);
+  if (id >= 2001) return { generation: 'Gen Star', region: 'Región Star' };
+  return GENERATION_RANGES.find((r) => id <= r.max) || { generation: null, region: null };
+};
+
+for (const e of entries) {
+  e.id = num(e.id);
+  if (!Array.isArray(e.types) || !e.types.length) {
+    const key = gameNameKey(e.name);
+    if (officialByName.has(key)) e.types = [...officialByName.get(key)];
+    else {
+      const official = officialById.get(baseIdFor(e));
+      if (official && gameNameKey(official.name) === key) e.types = [...(official.types || [])];
+    }
+  }
+  if (!e.generation || !e.region) {
+    const group = groupFor(e);
+    if (!e.generation) e.generation = group.generation;
+    if (!e.region) e.region = group.region;
+  }
+}
+
+// ---------- 3c. índice ligero para lista, equipo y árbol evolutivo ----------
+const INDEX_FIELDS = [
+  'id', 'name', 'displayName', 'baseFormName',
+  'form', 'baseForm', 'formLabel', 'types', 'generation', 'region',
+  'stats', 'evolutionKnown', 'prevEvolution', 'evolutions', 'variants',
+];
+const pokemonIndex = entries.map((p) => {
+  const slim = {};
+  for (const key of INDEX_FIELDS) if (p[key] !== undefined) slim[key] = p[key];
+  if (p.sprite) {
+    const sprite = {};
+    if (p.sprite.shinyFile) sprite.shinyFile = p.sprite.shinyFile;
+    if (p.sprite.cryFile) sprite.cryFile = p.sprite.cryFile;
+    slim.sprite = sprite;
+  }
+  return slim;
+});
+
 const knownIds = new Set(entries.map((e) => e.id));
 const orphanCryIds = [...cryIds].filter((id) => !knownIds.has(id)).sort((a, b) => a - b);
 
 // ---------- 4. escribir ----------
 fs.writeFileSync(OUT_JSON, JSON.stringify(entries, null, 2));
+fs.writeFileSync(OUT_INDEX, JSON.stringify(pokemonIndex));
 const provenance = {
   generatedAt: new Date().toISOString(),
   gameDataDir: GAME_DATA,

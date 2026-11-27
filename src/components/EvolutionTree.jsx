@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import {
   ArrowLeftRight, ArrowUp, Gem, Heart, Moon, Sparkles, Sun,
 } from 'lucide-react';
-import { pokemonData } from '../data/pokemon';
+import { pokemonData } from '../data/pokemonIndex';
 import { formatId, spriteFallbacks, spriteUrl, typeColor } from '../utils/sprites';
 
 // =============================================================
