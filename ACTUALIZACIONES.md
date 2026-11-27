@@ -37,10 +37,12 @@ existen. Al recuperar un archivo ausente creaba una carpeta con su nombre y lueg
 hash intentaba leerla como archivo. Ahora `am.open()` decide si es un archivo real; si
 no existe, se informa `Falta el archivo <ruta>` en vez de generar una carpeta falsa.
 
-La v1.0.5 cambia solo los recursos nativos del icono: `npm run icons:android` genera los
-PNG de todos los tamaños con el logo a sangre y fondo `#0b0f1a`, y añade los adaptive
-icons (`mipmap-anydpi-v26`) para que Android 8+ no caiga al robot por defecto ni al color
-blanco del template.
+La v1.0.5 cambia los recursos nativos del icono (`npm run icons:android` genera los PNG
+de todos los tamaños con el logo a sangre y fondo `#0b0f1a`, y añade los adaptive icons
+`mipmap-anydpi-v26` para que Android 8+ no caiga al robot por defecto ni al blanco del
+template) y el buscador de **Objeto equipado** en el creador de equipos: en vez de los
+76 objetos equipables según el GML, ofrece los **821 objetos** de `objectLocations.json`
+con búsqueda por nombre o ID.
 
 ## Versiones y firma
 

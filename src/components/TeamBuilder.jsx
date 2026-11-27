@@ -5,7 +5,7 @@ import {
   Search, Sparkles, Trash2, Upload, Users, X, Zap,
 } from 'lucide-react';
 import { teamPokemon } from '../data/teamData';
-import { equippableItems } from '../data/equippableItems';
+import { allItems } from '../data/allItems';
 import { typeColor, typeName, spriteUrl, spriteFallbacks } from '../utils/sprites';
 import { calculateStats, STAT_KEYS, STAT_LABELS, statsTotal } from '../utils/pokemonStats';
 import { loadTeams, saveTeams, createTeam, createSlot } from '../utils/teamStorage';
@@ -72,6 +72,9 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
   const [pending, setPending] = useState(null);
   const [search, setSearch] = useState('');
   const deferredSearch = useDeferredValue(search);
+  const [itemQuery, setItemQuery] = useState('');
+  const [itemListOpen, setItemListOpen] = useState(false);
+  const deferredItemQuery = useDeferredValue(itemQuery);
   const [typeFilter, setTypeFilter] = useState('todos');
   const [page, setPage] = useState(1);
 
@@ -113,6 +116,21 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
   const visible = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
   const types = useMemo(() => [...new Set(teamPokemon.flatMap((p) => p.types || []))].sort(), []);
 
+  // Busca en los 821 objetos del juego, no solo en los 76 equipables por regla.
+  const itemMatches = useMemo(() => {
+    const q = normalize(deferredItemQuery);
+    const matches = q
+      ? allItems.filter((item) => normalize(item.name).includes(q) || String(item.id) === q)
+      : allItems;
+    return matches.slice(0, 200);
+  }, [deferredItemQuery]);
+
+  const selectItem = (name) => {
+    setPending((p) => ({ ...p, item: name || null }));
+    setItemQuery(name || '');
+    setItemListOpen(false);
+  };
+
   const updateSlots = (slots) => {
     setStore((current) => ({
       ...current,
@@ -129,6 +147,8 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
 
   const choosePokemon = (pokemon) => {
     const slot = activeTeam.slots[selectorSlot];
+    setItemQuery(slot?.id === pokemon.id ? slot.item || '' : '');
+    setItemListOpen(false);
     setPending({
       pokemon,
       level: slot?.id === pokemon.id ? slot.level : 50,
@@ -144,6 +164,8 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
     const slot = activeTeam.slots[slotIndex];
     const pokemon = byId.get(slot.id);
     if (!pokemon) return openSelector(slotIndex);
+    setItemQuery(slot.item || '');
+    setItemListOpen(false);
     setPending({
       pokemon,
       level: slot.level,
@@ -673,21 +695,71 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
                   ))}
                 </select>
               </label>
-              <label className="block">
+              <div className="relative block">
                 <span className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.1em] text-white/50">
-                  Objeto equipado
+                  Objeto equipado · {allItems.length} objetos
                 </span>
-                <select
-                  value={pending.item || ''}
-                  onChange={(event) => setPending((p) => ({ ...p, item: event.target.value || null }))}
-                  className="h-11 w-full rounded-xl border border-white/10 bg-[#131d33] px-3 text-sm text-white outline-none focus:border-violet-300/40"
-                >
-                  <option value="">Ninguno</option>
-                  {equippableItems.map((item) => (
-                    <option key={item.id} value={item.name}>{item.name}</option>
-                  ))}
-                </select>
-              </label>
+                <div className="flex h-11 items-center gap-2 rounded-xl border border-white/10 bg-[#131d33] px-3 focus-within:border-violet-300/40">
+                  <Search size={15} className="shrink-0 text-white/40" />
+                  <input
+                    id="team-item"
+                    type="text"
+                    value={itemQuery}
+                    placeholder="Buscar objeto…"
+                    autoComplete="off"
+                    onChange={(event) => {
+                      setItemQuery(event.target.value);
+                      setItemListOpen(true);
+                    }}
+                    onFocus={() => setItemListOpen(true)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Escape') setItemListOpen(false);
+                      if (event.key === 'Enter' && itemMatches.length) {
+                        event.preventDefault();
+                        selectItem(itemMatches[0].name);
+                      }
+                    }}
+                    className="min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-white/35"
+                  />
+                  {pending.item && (
+                    <button
+                      type="button"
+                      aria-label="Quitar objeto"
+                      onClick={() => selectItem(null)}
+                      className="shrink-0 rounded-lg p-1 text-white/45 transition hover:bg-white/10 hover:text-white"
+                    >
+                      <X size={14} />
+                    </button>
+                  )}
+                </div>
+                {itemListOpen && (
+                  <div className="absolute left-0 right-0 top-full z-20 mt-1 max-h-60 overflow-y-auto rounded-xl border border-white/10 bg-[#101a30] p-1 shadow-2xl">
+                    <button
+                      type="button"
+                      onClick={() => selectItem(null)}
+                      className="w-full rounded-lg px-3 py-2 text-left text-sm text-white/55 transition hover:bg-white/10 hover:text-white"
+                    >
+                      Ninguno
+                    </button>
+                    {itemMatches.map((item) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => selectItem(item.name)}
+                        className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-violet-500/20 ${
+                          pending.item === item.name ? 'bg-violet-500/15 text-violet-100' : 'text-white/85'
+                        }`}
+                      >
+                        <span className="truncate">{item.name}</span>
+                        <span className="shrink-0 text-[10px] text-white/35">#{item.id} · {item.category}</span>
+                      </button>
+                    ))}
+                    {itemMatches.length === 0 && (
+                      <p className="px-3 py-2 text-xs text-white/45">No hay objetos con ese nombre.</p>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Estadísticas calculadas */}

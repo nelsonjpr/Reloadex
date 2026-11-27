@@ -5,9 +5,10 @@
 
 La v1.0.5 (`versionCode 7`) arregla el icono: el logo de `assets/logo.png` ocupa todo el
 icono (a sangre), sin margen transparente ni fondo blanco, y los adaptive icons usan el
-mismo logo con fondo `#0b0f1a`. Incluye además la corrección del `No se pudo calcular
-SHA-256`, las 361 caras, la paleta de comandos y el modal siempre encima; consulta
-`ACTUALIZACIONES.md`.
+mismo logo con fondo `#0b0f1a`. En el creador de equipos, **Objeto equipado** busca los
+**821 objetos** del juego con un campo de búsqueda. Incluye además la corrección del
+`No se pudo calcular SHA-256`, las 361 caras, la paleta de comandos y el modal siempre
+encima; consulta `ACTUALIZACIONES.md`.
 
 La app se distribuye como **APK firmado** y funciona **100% offline desde el primer arranque**:
 dataset, guía, sprites, shiny, fuentes y gritos van dentro del paquete. No usa PokeAPI ni
@@ -71,7 +72,7 @@ npm run apk:release    # build web + cap sync + APK firmado, en un solo comando
 ```
 
 Salida: `android/app/build/outputs/apk/release/app-release.apk`. La v1.0.5
-pesa **38.908.729 bytes** y su SHA-256 es `39ab53332492ea4261289b063ac0c77e0341a790a0c657bb0bc1f8def7442d3f`.
+pesa **38.908.984 bytes** y su SHA-256 es `892375f0b89379cefc823109f68b4c2cd6ef9bdb21cfb407cccb40014c60c3af`.
 Firmado con los esquemas v1 (JAR), v2 y v3; verifica con
 `apksigner verify --verbose --min-sdk-version 18 <apk>`.
 Para probar sin firmar: `npm run apk:debug`.
