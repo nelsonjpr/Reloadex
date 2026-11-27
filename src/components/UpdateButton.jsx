@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AlertCircle, Check, Download, RefreshCw, X } from 'lucide-react';
-import {
-  applyWebUpdate,
-  checkForUpdate,
-  getNativeInfo,
-  installFullApk,
-} from '../utils/updater';
+import { applyUpdate, checkForUpdate, getNativeInfo } from '../utils/updater';
 
 const LABELS = {
   checking: 'Comprobando…',
-  available: 'Actualizar',
+  available: 'Actualizar ahora',
   uptodate: 'Actualizado',
   working: 'Actualizando…',
   error: 'Reintentar',
+};
+
+const mb = (bytes) => {
+  if (!bytes || bytes <= 0) return '—';
+  return `${(bytes / 1024 / 1024).toFixed(1).replace('.', ',')} MB`;
 };
 
 const UpdateButton = () => {
@@ -20,6 +20,7 @@ const UpdateButton = () => {
   const [info, setInfo] = useState(null);
   const [message, setMessage] = useState('');
   const [open, setOpen] = useState(false);
+  const [progress, setProgress] = useState({ downloaded: 0, total: 0 });
   const resultRef = useRef(null);
 
   useEffect(() => {
@@ -37,21 +38,41 @@ const UpdateButton = () => {
 
   const recheck = async () => {
     setState('checking');
+    setMessage('');
     const result = await checkForUpdate({ force: true });
     resultRef.current = result;
     setState(result.available ? 'available' : 'uptodate');
   };
 
   const handleClick = () => {
-    if (state === 'available') setOpen(true);
-    else if (state === 'uptodate' || state === 'error') recheck();
+    if (state === 'available') {
+      setMessage('');
+      setProgress({ downloaded: 0, total: resultRef.current?.downloadBytes || 0 });
+      setOpen(true);
+    } else if (state === 'uptodate' || state === 'error') {
+      recheck();
+    }
   };
 
-  const handleWebUpdate = async () => {
+  const handleUpdate = async () => {
+    const result = resultRef.current;
+    if (!result) return;
     setState('working');
-    setMessage('Descargando solo los archivos cambiados…');
+    setMessage('');
+    setProgress({ downloaded: 0, total: result.downloadBytes || 0 });
     try {
-      await applyWebUpdate(resultRef.current);
+      const res = await applyUpdate(result, (event) => {
+        if (event?.phase !== 'download') return;
+        setProgress({
+          downloaded: Number(event.downloaded) || 0,
+          total: Number(event.total) > 0 ? Number(event.total) : (result.downloadBytes || 0),
+        });
+      });
+      if (res?.needSettings) {
+        setMessage('Activa "Instalar apps desconocidas" en Ajustes y vuelve a pulsar.');
+        setState('error');
+        return;
+      }
       setOpen(false);
       setState('uptodate');
     } catch (error) {
@@ -60,24 +81,16 @@ const UpdateButton = () => {
     }
   };
 
-  const handleApk = async () => {
-    setMessage('Preparando el APK completo…');
-    try {
-      const res = await installFullApk(resultRef.current);
-      if (res?.needSettings) {
-        setMessage('Activa "Instalar apps desconocidas" en Ajustes y vuelve a pulsar.');
-      } else {
-        setOpen(false);
-        setMessage('El instalador de Android se abrirá en breve.');
-      }
-    } catch (error) {
-      setMessage(error?.message || 'No se pudo abrir el instalador');
-    }
-  };
-
   const busy = state === 'checking' || state === 'working';
   const result = resultRef.current;
-  const hasBundle = Boolean(result?.deltaUrl || result?.fullUrl);
+  const total = progress.total || result?.downloadBytes || 0;
+  const percent = total > 0 ? Math.min(100, Math.round((progress.downloaded * 100) / total)) : 0;
+  const notes = String(result?.notes || '')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(0, 5)
+    .join('\n');
 
   let Icon = Check;
   if (state === 'checking' || state === 'working') Icon = RefreshCw;
@@ -101,78 +114,98 @@ const UpdateButton = () => {
       >
         <Icon size={13} className={busy ? 'animate-spin' : ''} />
         <span>{LABELS[state]}</span>
-        {state === 'available' && result?.versionName && (
-          <span className="opacity-70">v{result.versionName}</span>
-        )}
       </button>
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-end justify-center bg-[#040812]/90 p-3 sm:items-center sm:p-5"
           role="dialog"
           aria-modal="true"
           aria-label="Actualización disponible"
-          onClick={() => !busy && setOpen(false)}
+          onClick={() => state !== 'working' && setOpen(false)}
         >
           <div
-            className="glass-effect w-full max-w-md rounded-3xl border border-white/10 p-6 shadow-2xl"
+            className="w-full max-w-[430px] rounded-[28px] border border-white/10 bg-[#0d1528] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.7)]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mb-4 flex items-start justify-between gap-4">
-              <div>
-                <h2 className="text-lg font-semibold text-white">Actualización disponible</h2>
-                <p className="mt-1 text-xs text-white/50">
-                  {result?.versionName || 'Nueva versión'}
-                  {info?.versionName ? ` · instalada v${info.versionName}` : ''}
-                </p>
+            <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-white/15 sm:hidden" />
+
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-sky-500/15 text-sky-300">
+                  <Download size={19} />
+                </div>
+                <div>
+                  <h2 className="text-base font-semibold text-white">Actualización disponible</h2>
+                  <p className="mt-0.5 text-xs text-white/50">
+                    {result?.versionName || 'Nueva versión'}
+                    {info?.versionName ? ` · instalada v${info.versionName}` : ''}
+                  </p>
+                </div>
               </div>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 disabled={state === 'working'}
-                className="rounded-full p-1 text-white/50 hover:bg-white/10 hover:text-white"
+                className="rounded-full p-1.5 text-white/45 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-40"
                 aria-label="Cerrar"
               >
-                <X size={18} />
+                <X size={17} />
               </button>
             </div>
 
-            {result?.notes && (
-              <div className="mb-5 max-h-48 overflow-y-auto whitespace-pre-line rounded-2xl bg-white/5 p-4 text-sm leading-relaxed text-white/70">
-                {result.notes}
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              <div className="rounded-2xl border border-white/5 bg-white/[0.04] p-3">
+                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">Descarga</p>
+                <p className="mt-1 text-sm font-semibold text-white">~{mb(result?.downloadBytes)}</p>
+              </div>
+              <div className="rounded-2xl border border-white/5 bg-white/[0.04] p-3">
+                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">Paquete</p>
+                <p className="mt-1 text-sm font-semibold text-white">
+                  {result?.nativeUpdate ? 'APK completo' : 'Solo cambios'}
+                </p>
+              </div>
+            </div>
+
+            {notes && (
+              <div className="mt-4 max-h-28 overflow-hidden rounded-2xl bg-black/25 p-3 text-xs leading-relaxed text-white/60 whitespace-pre-line">
+                {notes}
+              </div>
+            )}
+
+            {state === 'working' && (
+              <div className="mt-4 rounded-2xl border border-sky-400/20 bg-sky-400/[0.06] p-3">
+                <div className="flex items-center justify-between text-xs font-semibold text-white/75">
+                  <span>Descargando</span>
+                  <span>{percent}%</span>
+                </div>
+                <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-sky-400"
+                    style={{ width: `${percent}%` }}
+                  />
+                </div>
+                <p className="mt-2 text-[11px] text-white/45">
+                  {mb(progress.downloaded)} de {mb(total)}
+                </p>
               </div>
             )}
 
             {message && (
-              <p className="mb-4 text-xs text-amber-200/90">{message}</p>
+              <p className="mt-3 text-xs leading-relaxed text-amber-200/90">{message}</p>
             )}
 
-            <div className="flex flex-col gap-2">
-              <button
-                type="button"
-                onClick={handleWebUpdate}
-                disabled={!hasBundle || state === 'working'}
-                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-sky-500 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {state === 'working' ? <RefreshCw size={16} className="animate-spin" /> : <Download size={16} />}
-                {state === 'working' ? 'Descargando cambios…' : 'Actualizar ahora (solo cambios)'}
-              </button>
-              <button
-                type="button"
-                onClick={handleApk}
-                disabled={state === 'working'}
-                className="w-full rounded-2xl border border-white/10 px-4 py-3 text-xs font-medium text-white/60 transition-colors hover:bg-white/5 disabled:opacity-50"
-              >
-                {info?.canInstallApps === false
-                  ? 'Activar permiso de instalación (APK completo)'
-                  : 'Descargar APK completo (cambios nativos)'}
-              </button>
-            </div>
-
-            <p className="mt-4 text-center text-[11px] leading-relaxed text-white/35">
-              La actualización rápida descarga únicamente los archivos que cambiaron.
-              El APK completo solo es necesario si la nueva versión incluye cambios nativos.
-            </p>
+            <button
+              type="button"
+              onClick={handleUpdate}
+              disabled={!result || state === 'working'}
+              className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-sky-500 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {state === 'working'
+                ? <RefreshCw size={16} className="animate-spin" />
+                : <Download size={16} />}
+              <span>Actualizar ahora</span>
+            </button>
           </div>
         </div>
       )}

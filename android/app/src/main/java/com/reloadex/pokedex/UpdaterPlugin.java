@@ -56,6 +56,7 @@ public class UpdaterPlugin extends Plugin {
     // Mismo nombre que usa el plugin WebView de Capacitor para persistir la ruta.
     private static final String CAP_PREFS = "CapWebViewSettings";
     private static final String CAP_SERVER_PATH = "serverBasePath";
+    private static final String PROGRESS_EVENT = "updateProgress";
 
     // Capacitor inyecta estos archivos en assets/public; no vienen en dist/.
     private static final Set<String> CAP_RUNTIME_FILES = new HashSet<>(Arrays.asList(
@@ -63,6 +64,11 @@ public class UpdaterPlugin extends Plugin {
     ));
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private volatile long lastProgressAt;
+
+    private interface ProgressReporter {
+        void report(long downloaded, long total);
+    }
 
     @Override
     public void load() {
@@ -131,7 +137,8 @@ public class UpdaterPlugin extends Plugin {
                 copyRecursively(mirror, staging);
 
                 File zip = new File(cacheDir(), "web-delta-" + newVersion + ".zip");
-                downloadToFile(zipUrl, zip);
+                lastProgressAt = 0;
+                downloadToFile(zipUrl, zip, this::notifyProgress);
                 unzip(zip, staging);
 
                 prune(staging, wanted);
@@ -170,7 +177,8 @@ public class UpdaterPlugin extends Plugin {
         executor.execute(() -> {
             try {
                 File apk = new File(cacheDir(), fileName == null ? "update.apk" : fileName);
-                downloadToFile(url, apk);
+                lastProgressAt = 0;
+                downloadToFile(url, apk, this::notifyProgress);
                 installApk(apk);
                 JSObject ret = new JSObject();
                 ret.put("started", true);
@@ -268,13 +276,26 @@ public class UpdaterPlugin extends Plugin {
     private void copyAssets(String relative, File target) throws IOException {
         AssetManager am = getContext().getAssets();
         String[] children = am.list(relative);
-        if (children == null) {
+
+        // AssetManager.list() devuelve un array vacío para archivos en algunas
+        // versiones de Android. Si solo miramos children == null, index.html se
+        // crea como carpeta y luego el unzip falla con EISDIR.
+        if (children == null || children.length == 0) {
+            File parent = target.getParentFile();
+            if (parent != null && !parent.exists() && !parent.mkdirs()) {
+                throw new IOException("No se pudo crear " + parent);
+            }
+            if (target.isDirectory()) deleteRecursively(target);
             try (InputStream in = am.open(relative);
                  OutputStream out = new FileOutputStream(target)) {
                 copy(in, out);
+            } catch (IOException notAFile) {
+                // Es un directorio vacío, no un archivo.
+                if (!target.exists() && !target.mkdirs()) throw notAFile;
             }
             return;
         }
+
         if (!target.exists() && !target.mkdirs()) throw new IOException("No se pudo crear " + target);
         for (String child : children) {
             copyAssets(relative.equals("") ? child : relative + "/" + child, new File(target, child));
@@ -300,7 +321,7 @@ public class UpdaterPlugin extends Plugin {
         }
     }
 
-    private void downloadToFile(String urlString, File dest) throws IOException {
+    private void downloadToFile(String urlString, File dest, ProgressReporter reporter) throws IOException {
         HttpURLConnection conn = (HttpURLConnection) new URL(urlString).openConnection();
         conn.setInstanceFollowRedirects(true);
         conn.setConnectTimeout(30000);
@@ -314,14 +335,35 @@ public class UpdaterPlugin extends Plugin {
             throw new IOException("HTTP " + code + " al descargar " + urlString);
         }
 
+        long total = conn.getContentLengthLong();
+        long downloaded = 0L;
         File part = new File(dest.getParentFile(), dest.getName() + ".part");
         try (InputStream in = new BufferedInputStream(conn.getInputStream(), 65536);
              OutputStream out = new BufferedOutputStream(new FileOutputStream(part), 65536)) {
-            copy(in, out);
+            byte[] buf = new byte[65536];
+            int n;
+            while ((n = in.read(buf)) != -1) {
+                out.write(buf, 0, n);
+                downloaded += n;
+                if (reporter != null) reporter.report(downloaded, total);
+            }
         } finally {
             conn.disconnect();
         }
         if (!part.renameTo(dest)) throw new IOException("No se pudo guardar " + dest.getName());
+        if (reporter != null) reporter.report(downloaded, total > 0 ? downloaded : total);
+    }
+
+    /** Envía el avance al WebView sin saturarlo con un evento por cada chunk. */
+    private void notifyProgress(long downloaded, long total) {
+        long now = System.currentTimeMillis();
+        if (now - lastProgressAt < 120 && total > 0 && downloaded < total) return;
+        lastProgressAt = now;
+        JSObject data = new JSObject();
+        data.put("phase", "download");
+        data.put("downloaded", downloaded);
+        data.put("total", total);
+        notifyListeners(PROGRESS_EVENT, data);
     }
 
     private void copy(InputStream in, OutputStream out) throws IOException {
@@ -345,7 +387,11 @@ public class UpdaterPlugin extends Plugin {
                     continue;
                 }
                 File parent = out.getParentFile();
-                if (parent != null) parent.mkdirs();
+                if (parent != null) {
+                    if (parent.isFile()) parent.delete();
+                    parent.mkdirs();
+                }
+                if (out.isDirectory()) deleteRecursively(out);
                 try (OutputStream fos = new FileOutputStream(out)) {
                     int n;
                     while ((n = zis.read(buf)) != -1) fos.write(buf, 0, n);

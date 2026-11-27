@@ -28,8 +28,8 @@ function parseArgs(argv) {
 }
 
 const args = parseArgs(process.argv.slice(2));
-const versionCode = Number(args['version-code'] || 3);
-const versionName = args['version-name'] || '1.0.1';
+const versionCode = Number(args['version-code'] || 4);
+const versionName = args['version-name'] || '1.0.2';
 const tag = args.tag || `v${versionName}`;
 const notes = typeof args.notes === 'string' ? args.notes : '';
 const setBaseline = args['set-baseline'] === true;
@@ -162,12 +162,16 @@ writeZip(bundlePath, useDelta ? changed : manifestFiles.map((f) => ({
   data: fs.readFileSync(path.join(distDir, f.path)),
 })));
 
+const bundleBytes = fs.statSync(bundlePath).size;
+
 const manifest = {
   versionCode,
   versionName,
   tag,
   generatedAt: new Date().toISOString(),
   notes,
+  bundleAsset: bundleName,
+  bundleSize: bundleBytes,
   deltaAsset: useDelta ? bundleName : null,
   fullAsset: useDelta ? null : bundleName,
   files: manifestFiles,

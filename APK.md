@@ -1,9 +1,9 @@
 # Generar el APK — Reloadex
 
-**Descarga pública:** [Reloadex-1.0.1.apk](https://github.com/nelsonjpr/Reloadex/releases/download/v1.0.1/Reloadex-1.0.1.apk)
-· [Página del release](https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.1)
+**Descarga pública:** [Reloadex-1.0.2.apk](https://github.com/nelsonjpr/Reloadex/releases/download/v1.0.2/Reloadex-1.0.2.apk)
+· [Página del release](https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.2)
 
-La v1.0.1 incluye el actualizador desde la propia app y el back físico respeta la pila de pantallas; consulta `ACTUALIZACIONES.md`.
+La v1.0.2 incluye el actualizador con un único botón, progreso real de descarga y la corrección del error `EISDIR`; consulta `ACTUALIZACIONES.md`.
 
 La app se distribuye como **APK firmado** y funciona **100% offline desde el primer arranque**:
 dataset, guía, sprites, shiny, fuentes y gritos van dentro del paquete. No usa PokeAPI ni
@@ -65,9 +65,8 @@ keyPassword=TU_PASSWORD
 npm run apk:release    # build web + cap sync + APK firmado, en un solo comando
 ```
 
-Salida: `android/app/build/outputs/apk/release/app-release.apk` (~34,8 MB). La v1.0.1
-pesa **34.835.283 bytes** y su SHA-256 es
-`abe413f657ed9f53feba96c0006f14aeffc71c9c532aa00e06e5c1585021aa3e`.
+Salida: `android/app/build/outputs/apk/release/app-release.apk` (~34,8 MB). La v1.0.2
+pesa **pendiente de compilar** y su SHA-256 es **pendiente de compilar**.
 Firmado con los esquemas v1 (JAR), v2 y v3; verifica con
 `apksigner verify --verbose --min-sdk-version 18 <apk>`.
 Para probar sin firmar: `npm run apk:debug`.
@@ -92,7 +91,7 @@ Los JARs descargados como respaldo viven en `android/local-jars/` (ignorado por 
 
 ## Publicar para todo el mundo
 
-El release **v1.0.1 ya está publicado**: https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.1
+El release **v1.0.2 ya está publicado**: https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.2
 
 1. Sube `app-release.apk` como asset de un **GitHub Release** para versiones nuevas.
 2. Quien descarga el APK desde el móvil lo instala habilitando "Instalar apps desconocidas".

@@ -56,18 +56,29 @@ async function getJson(url) {
 
 export async function getNativeInfo() {
   if (!isNative) {
-    return { versionCode: 3, versionName: '1.0.1', webVersionCode: 3, canInstallApps: true, webRoot: null };
+    return { versionCode: 4, versionName: '1.0.2', webVersionCode: 4, canInstallApps: true, webRoot: null };
   }
   return Updater.getInfo();
 }
 
+/** Escucha el progreso real del plugin nativo mientras se descarga. */
+async function withProgress(onProgress, work) {
+  if (typeof onProgress !== 'function' || !isNative) return work();
+  const handle = await Updater.addListener('updateProgress', onProgress);
+  try {
+    return await work();
+  } finally {
+    await handle?.remove?.();
+  }
+}
+
 /**
- * Consulta el último release de GitHub y devuelve si hay una versión web nueva.
+ * Consulta el último release de GitHub y devuelve si hay una versión nueva.
  * `force: true` ignora la cache (use para el botón "Comprobar").
  */
 export async function checkForUpdate({ force = false } = {}) {
   if (!isNative) {
-    return { available: false, reason: 'web', webVersionCode: 3, versionCode: 3 };
+    return { available: false, reason: 'web', webVersionCode: 4, versionCode: 4 };
   }
 
   if (!force) {
@@ -92,17 +103,24 @@ export async function checkForUpdate({ force = false } = {}) {
       || assets.find((a) => a.name.startsWith('web-full-'));
     const apk = assets.find((a) => /\.apk$/i.test(a.name));
 
+    const targetCode = Number(manifest.versionCode);
+    const nativeUpdate = targetCode > Number(info.versionCode);
+    const webAsset = delta || full;
+
     const result = {
-      available: Number(manifest.versionCode) > Number(info.webVersionCode),
-      versionCode: Number(manifest.versionCode),
+      available: targetCode > Number(info.webVersionCode),
+      versionCode: targetCode,
       versionName: manifest.versionName || release.tag_name,
       notes: manifest.notes || release.body || '',
       webVersionCode: Number(info.webVersionCode),
       canInstallApps: Boolean(info.canInstallApps),
+      nativeUpdate,
       deltaUrl: delta?.browser_download_url || null,
       fullUrl: full?.browser_download_url || null,
       apkUrl: apk?.browser_download_url || release.html_url,
       apkName: apk?.name || 'Reloadex.apk',
+      downloadBytes: Number(nativeUpdate ? apk?.size : (webAsset?.size || manifest.bundleSize)) || 0,
+      downloadAsset: nativeUpdate ? (apk?.name || 'APK completo') : (webAsset?.name || 'paquete web'),
       manifestJson: manifestText,
     };
     return writeResult(result);
@@ -116,27 +134,37 @@ function writeResult(result) {
   return result;
 }
 
-/** Aplica solo los archivos cambiados. El WebView se recarga automáticamente. */
-export async function applyWebUpdate(result) {
-  const zipUrl = result?.deltaUrl || result?.fullUrl;
-  if (!zipUrl) throw new Error('El release no incluye paquete de cambios');
-  const response = await Updater.applyWebUpdate({
-    zipUrl,
-    manifestJson: result.manifestJson,
-  });
-  clearUpdateCache();
-  return response;
-}
-
-/** Instala el APK completo. Devuelve needSettings cuando faltan permisos. */
-export async function installFullApk(result) {
+/** Descarga e instala el APK completo. Devuelve needSettings si falta permiso. */
+export async function installFullApk(result, onProgress) {
   const info = await getNativeInfo();
   if (!info.canInstallApps) {
     await Updater.openInstallSettings();
     return { needSettings: true };
   }
-  return Updater.downloadAndInstallApk({
+  return withProgress(onProgress, () => Updater.downloadAndInstallApk({
     url: result?.apkUrl,
     fileName: result?.apkName || 'Reloadex.apk',
-  });
+  }));
+}
+
+/** Aplica solo los archivos cambiados. El WebView se recarga automáticamente. */
+export async function applyWebUpdate(result, onProgress) {
+  const zipUrl = result?.deltaUrl || result?.fullUrl;
+  if (!zipUrl) throw new Error('El release no incluye paquete de cambios');
+  const response = await withProgress(onProgress, () => Updater.applyWebUpdate({
+    zipUrl,
+    manifestJson: result.manifestJson,
+  }));
+  clearUpdateCache();
+  return response;
+}
+
+/**
+ * Único punto de entrada del botón "Actualizar ahora":
+ * - Si el release sube el código nativo, instala el APK completo.
+ * - Si solo cambió la web, aplica el delta.
+ */
+export async function applyUpdate(result, onProgress) {
+  if (result?.nativeUpdate) return installFullApk(result, onProgress);
+  return applyWebUpdate(result, onProgress);
 }
