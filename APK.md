@@ -66,7 +66,7 @@ npm run apk:release    # build web + cap sync + APK firmado, en un solo comando
 ```
 
 Salida: `android/app/build/outputs/apk/release/app-release.apk` (~34,8 MB). La v1.0.2
-pesa **pendiente de compilar** y su SHA-256 es **pendiente de compilar**.
+pesa **37.620.558 bytes** y su SHA-256 es `fdd098bf84d919ec27fcfc3335a562b7e1f89df7007d36114ea751aeb8671d5a`.
 Firmado con los esquemas v1 (JAR), v2 y v3; verifica con
 `apksigner verify --verbose --min-sdk-version 18 <apk>`.
 Para probar sin firmar: `npm run apk:debug`.

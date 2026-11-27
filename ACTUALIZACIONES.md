@@ -5,7 +5,8 @@ portada un botón que dice **Actualizar ahora** cuando hay versión nueva y
 **Actualizado** cuando no la hay. El número mostrado abajo sale de `APP_VERSION` y
 del `versionName` del APK; ambos son **1.0.2**.
 
-Solo hay un botón de actualización. Al pulsarlo se abre una tarjeta opaca con:
+Solo hay un botón de actualización. Al pulsarlo se abre una tarjeta opaca y la
+descarga empieza en el acto (no hay segundo botón de confirmación). La tarjeta muestra:
 
 - el tamaño aproximado de la descarga;
 - si corresponde un APK completo o solo los cambios web;

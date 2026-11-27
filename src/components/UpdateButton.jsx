@@ -44,22 +44,22 @@ const UpdateButton = () => {
     setState(result.available ? 'available' : 'uptodate');
   };
 
-  const handleClick = () => {
-    if (state === 'available') {
-      setMessage('');
-      setProgress({ downloaded: 0, total: resultRef.current?.downloadBytes || 0 });
-      setOpen(true);
-    } else if (state === 'uptodate' || state === 'error') {
-      recheck();
+  // Un único botón: al pulsarlo se abre la tarjeta y arranca la descarga.
+  const startUpdate = async () => {
+    if (state === 'checking' || state === 'working') return;
+    if (state === 'uptodate') {
+      await recheck();
+      return;
     }
-  };
 
-  const handleUpdate = async () => {
     const result = resultRef.current;
     if (!result) return;
-    setState('working');
+
     setMessage('');
     setProgress({ downloaded: 0, total: result.downloadBytes || 0 });
+    setOpen(true);
+    setState('working');
+
     try {
       const res = await applyUpdate(result, (event) => {
         if (event?.phase !== 'download') return;
@@ -94,14 +94,13 @@ const UpdateButton = () => {
 
   let Icon = Check;
   if (state === 'checking' || state === 'working') Icon = RefreshCw;
-  else if (state === 'available') Icon = Download;
-  else if (state === 'error') Icon = AlertCircle;
+  else if (state === 'available' || state === 'error') Icon = Download;
 
   return (
     <>
       <button
         type="button"
-        onClick={handleClick}
+        onClick={startUpdate}
         disabled={busy}
         aria-label={`Actualizaciones: ${LABELS[state]}`}
         className={`pill inline-flex items-center gap-1.5 px-2.5 py-1 font-semibold transition-colors ${
@@ -118,10 +117,10 @@ const UpdateButton = () => {
 
       {open && (
         <div
-          className="fixed inset-0 z-[100] flex items-end justify-center bg-[#040812]/90 p-3 sm:items-center sm:p-5"
+          className="fixed inset-0 z-[100] flex items-end justify-center bg-[#040812]/95 p-3 sm:items-center sm:p-5"
           role="dialog"
           aria-modal="true"
-          aria-label="Actualización disponible"
+          aria-label="Actualizando Reloadex"
           onClick={() => state !== 'working' && setOpen(false)}
         >
           <div
@@ -136,7 +135,9 @@ const UpdateButton = () => {
                   <Download size={19} />
                 </div>
                 <div>
-                  <h2 className="text-base font-semibold text-white">Actualización disponible</h2>
+                  <h2 className="text-base font-semibold text-white">
+                    {state === 'error' ? 'Actualización detenida' : 'Actualizando Reloadex'}
+                  </h2>
                   <p className="mt-0.5 text-xs text-white/50">
                     {result?.versionName || 'Nueva versión'}
                     {info?.versionName ? ` · instalada v${info.versionName}` : ''}
@@ -168,44 +169,30 @@ const UpdateButton = () => {
             </div>
 
             {notes && (
-              <div className="mt-4 max-h-28 overflow-hidden rounded-2xl bg-black/25 p-3 text-xs leading-relaxed text-white/60 whitespace-pre-line">
+              <div className="mt-4 max-h-24 overflow-hidden rounded-2xl bg-black/25 p-3 text-xs leading-relaxed text-white/60 whitespace-pre-line">
                 {notes}
               </div>
             )}
 
-            {state === 'working' && (
-              <div className="mt-4 rounded-2xl border border-sky-400/20 bg-sky-400/[0.06] p-3">
-                <div className="flex items-center justify-between text-xs font-semibold text-white/75">
-                  <span>Descargando</span>
-                  <span>{percent}%</span>
-                </div>
-                <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
-                  <div
-                    className="h-full rounded-full bg-sky-400"
-                    style={{ width: `${percent}%` }}
-                  />
-                </div>
-                <p className="mt-2 text-[11px] text-white/45">
-                  {mb(progress.downloaded)} de {mb(total)}
-                </p>
+            <div className="mt-4 rounded-2xl border border-sky-400/20 bg-sky-400/[0.06] p-3">
+              <div className="flex items-center justify-between text-xs font-semibold text-white/75">
+                <span>{state === 'error' ? 'Progreso' : 'Descargando'}</span>
+                <span>{percent}%</span>
               </div>
-            )}
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+                <div
+                  className="h-full rounded-full bg-sky-400 transition-[width] duration-150"
+                  style={{ width: `${percent}%` }}
+                />
+              </div>
+              <p className="mt-2 text-[11px] text-white/45">
+                {mb(progress.downloaded)} de {mb(total)}
+              </p>
+            </div>
 
             {message && (
               <p className="mt-3 text-xs leading-relaxed text-amber-200/90">{message}</p>
             )}
-
-            <button
-              type="button"
-              onClick={handleUpdate}
-              disabled={!result || state === 'working'}
-              className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-sky-500 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {state === 'working'
-                ? <RefreshCw size={16} className="animate-spin" />
-                : <Download size={16} />}
-              <span>Actualizar ahora</span>
-            </button>
           </div>
         </div>
       )}

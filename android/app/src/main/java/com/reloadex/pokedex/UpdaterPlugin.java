@@ -126,7 +126,11 @@ public class UpdaterPlugin extends Plugin {
                 Map<String, String> wanted = new HashMap<>();
                 for (int i = 0; i < files.length(); i++) {
                     JSONObject f = files.getJSONObject(i);
-                    wanted.put(f.getString("path"), f.getString("sha256").toLowerCase());
+                    String path = f.getString("path");
+                    if (path.startsWith("/") || path.contains("..") || path.contains("\\")) {
+                        throw new IOException("Ruta de actualización no válida: " + path);
+                    }
+                    wanted.put(path, f.getString("sha256").toLowerCase());
                 }
 
                 File mirror = webRoot();
@@ -290,8 +294,10 @@ public class UpdaterPlugin extends Plugin {
                  OutputStream out = new FileOutputStream(target)) {
                 copy(in, out);
             } catch (IOException notAFile) {
-                // Es un directorio vacío, no un archivo.
-                if (!target.exists() && !target.mkdirs()) throw notAFile;
+                // Es un directorio (vacío), no un archivo. Si una versión anterior
+                // dejó aquí un archivo con el mismo nombre, lo retiramos.
+                deleteRecursively(target);
+                if (!target.mkdirs()) throw notAFile;
             }
             return;
         }
@@ -378,10 +384,11 @@ public class UpdaterPlugin extends Plugin {
             byte[] buf = new byte[65536];
             String rootPath = target.getCanonicalPath();
             while ((entry = zis.getNextEntry()) != null) {
-                String name = entry.getName();
+                String name = entry.getName().replace('\\', '/');
                 if (name.startsWith("/") || name.contains("..")) continue;
                 File out = new File(target, name);
-                if (!out.getCanonicalPath().startsWith(rootPath)) continue;
+                String canonical = out.getCanonicalPath();
+                if (!canonical.equals(rootPath) && !canonical.startsWith(rootPath + File.separator)) continue;
                 if (entry.isDirectory()) {
                     out.mkdirs();
                     continue;
