@@ -1,7 +1,7 @@
 {
   "version": 1,
   "source": "src/data/guide.json ( guía real del juego )",
-  "count": 68,
+  "count": 69,
   "gifts": [
     {
       "itemId": 153,
@@ -282,6 +282,16 @@
       "region": "Star",
       "quote": "En esta ruta podremos cosechar y cultivar baya Zanama, baya Aranja, baya Higog y baya Wiki, también encontraremos la casa de Skuiro, donde Skuiro nos entregará el movimiento metrónomo. Después de explorar la ruta nos dirigiremos hacía Zona Safari ubicada en…",
       "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 409,
+      "itemName": "Mewtwoita Y",
+      "who": "Comisario Amando",
+      "where": "Durante la historia",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "Guía de megapiedras de Pokémon Reloaded"
     },
     {
       "itemId": 194,

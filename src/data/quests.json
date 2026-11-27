@@ -1,0 +1,4740 @@
+{
+  "version": 1,
+  "source": "txt_quests.dll + GML del juego (TituloMision, DescribeMision, ObjetivosMision, ResolucionMision)",
+  "stats": {
+    "total": 144,
+    "principales": 63,
+    "elite": 66,
+    "frente": 15,
+    "objetivos": 689,
+    "opcionales": 58,
+    "restricciones": 34
+  },
+  "groups": [
+    {
+      "key": "principales",
+      "label": "Historia principal",
+      "prefix": "Q"
+    },
+    {
+      "key": "elite",
+      "label": "Escuadrón Élite",
+      "prefix": "E"
+    },
+    {
+      "key": "frente",
+      "label": "Retos del Frente",
+      "prefix": "F"
+    }
+  ],
+  "quests": [
+    {
+      "id": "Q001",
+      "gameId": 1,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Visita Facultad",
+      "description": "Visitar la Facultad de combate (situada en la Ruta 3) y hablar con Teron.",
+      "objectives": [
+        {
+          "text": "Visitar Facultad de combate",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Teron",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Teron nos ha dado un objeto y ha dicho que volvamos cuando ganemos las 8 medallas."
+    },
+    {
+      "id": "Q002",
+      "gameId": 2,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medalla Pedrusco",
+      "description": "Obtener Medalla Pedrusco en Ciudad Spica.",
+      "objectives": [
+        {
+          "text": "Vencer al líder de gimnasio",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q003",
+      "gameId": 3,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Golpe Roca",
+      "description": "Desbloquear habilidad Golpe Roca fuera del combate.",
+      "objectives": [
+        {
+          "text": "Encontrar MO6 Golpe Roca",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Medalla Pedrusco",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has encontrado la MO6 Golpe Roca en la Ruta 4."
+    },
+    {
+      "id": "Q004",
+      "gameId": 4,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Corte",
+      "description": "Desbloquear habilidad Corte fuera del combate.",
+      "objectives": [
+        {
+          "text": "Encontrar MO1 Corte",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Medalla Aguacero",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Un entrenador de Farfetch'd de Pueblo Talo te ha entregado la MO1 Corte."
+    },
+    {
+      "id": "Q005",
+      "gameId": 5,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medalla Aguacero",
+      "description": "Obtener Medalla Aguacero en Ciudad Naos.",
+      "objectives": [
+        {
+          "text": "Vencer al líder de gimnasio",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q006",
+      "gameId": 6,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Pokémon dormilón",
+      "description": "Hay un Snorlax durmiendo que bloquea el paso en la Ruta 9.",
+      "objectives": [
+        {
+          "text": "Obtener Flauta Pkmn",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Despertar a Snorlax",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Snorlax",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "La Flauta Pokémon obtenida en la Torre Pokémon ha despertado a Snorlax."
+    },
+    {
+      "id": "Q007",
+      "gameId": 7,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medalla Misterio",
+      "description": "Obtener Medalla Misterio en Ciudad Sirio.",
+      "objectives": [
+        {
+          "text": "Vencer al líder de gimnasio",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q008",
+      "gameId": 8,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Destello",
+      "description": "Desbloquear habilidad Destello fuera del combate.",
+      "objectives": [
+        {
+          "text": "Encontrar MO5 Destello",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Medalla Misterio",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "El Alcalde de Ciudad Sirio te ha entregado la MO5 Destello."
+    },
+    {
+      "id": "Q009",
+      "gameId": 9,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Hotel Sirio",
+      "description": "Helia te ha recomendado pasar la noche en el Hotel de Ciudad Sirio.",
+      "objectives": [
+        {
+          "text": "Pasar una noche en el hotel",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Un Darkrai te ha secuestrado y te ha dejado en la casa de Agatha en la Ruta 10."
+    },
+    {
+      "id": "Q010",
+      "gameId": 10,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Búsqueda de paquetes",
+      "description": "Para poder entrar al Gimnasio Deneb debes encontrar 5 paquetes ocultos.",
+      "objectives": [
+        {
+          "text": "Encontrar paquetes (5)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Entregar paquetes",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Entrar al Gimnasio Deneb",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q011",
+      "gameId": 11,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medalla Iceberg",
+      "description": "Obtener Medalla Iceberg en Ciudad Deneb.",
+      "objectives": [
+        {
+          "text": "Vencer al líder de gimnasio",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q012",
+      "gameId": 12,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Vuelo",
+      "description": "Desbloquear habilidad Vuelo fuera del combate.",
+      "objectives": [
+        {
+          "text": "Encontrar MO2 Vuelo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Medalla Iceberg",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has encontrado la MO2 Vuelo en la Cueva Helada."
+    },
+    {
+      "id": "Q013",
+      "gameId": 13,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Obtener Bicicleta",
+      "description": "Conseguir una bicicleta para poder cruzar el Carril Bicis.",
+      "objectives": [
+        {
+          "text": "Conseguir una bicicleta",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Cruzar el Carril de Bicis",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Un amigo de la líder Rosama nos deja su bicicleta por ayudarlo con un problemita."
+    },
+    {
+      "id": "Q014",
+      "gameId": 14,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Base Secreta",
+      "description": "Enseñar el ataque Daño Secreto a un Pokémon y crear una Base Secreta.",
+      "objectives": [
+        {
+          "text": "Visitar Tienda Secreta",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener MT45 Daño Secreto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Construir una base secreta",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q015",
+      "gameId": 15,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medalla Secuoya",
+      "description": "Obtener Medalla Secuoya en Ciudad Vega.",
+      "objectives": [
+        {
+          "text": "Vencer al líder de gimnasio",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q016",
+      "gameId": 16,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Obstrucción Pokémon",
+      "description": "Algunos Pokémon están obstruyendo el paso en determinados puntos.",
+      "objectives": [
+        {
+          "text": "Obtener Medalla Secuoya",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Regadera",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Sudowoodo en Ruta 18",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Bonsly en Ciudad Vega",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar caso",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Conseguida una regadera para regar Bayas y Pokémon que obstaculizan el paso."
+    },
+    {
+      "id": "Q017",
+      "gameId": 17,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Fuerza",
+      "description": "Desbloquear habilidad Fuerza fuera del combate.",
+      "objectives": [
+        {
+          "text": "Encontrar MO4 Fuerza",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Medalla Secuoya",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has conocido a Brock en la Zona Safari y te ha entregado la MO4 Fuerza."
+    },
+    {
+      "id": "Q018",
+      "gameId": 18,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medalla Llama",
+      "description": "Obtener Medalla Llama en Ciudad Rigel.",
+      "objectives": [
+        {
+          "text": "Vencer al líder de gimnasio",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q019",
+      "gameId": 19,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Surf",
+      "description": "Desbloquear habilidad Surf fuera del combate.",
+      "objectives": [
+        {
+          "text": "Encontrar MO3 Surf",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Medalla Llama",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has encontrado la MO3 Surf en la Cloaca Polar."
+    },
+    {
+      "id": "Q020",
+      "gameId": 20,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Exploración Islas",
+      "description": "Hay varias islas interesantes por explorar en la Región Star.",
+      "objectives": [
+        {
+          "text": "Ir a la Central Eléctrica",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ir a la Cueva Caliente",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ir a la Cueva Vendaval",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar armas (3)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Entrar al Gimnasio Polar",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q021",
+      "gameId": 21,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medalla Fábula",
+      "description": "Obtener Medalla Fábula en Ciudad Polar.",
+      "objectives": [
+        {
+          "text": "Vencer al líder de gimnasio",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q022",
+      "gameId": 22,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Repoblación Inicial",
+      "description": "El Profesor Abedul va a repoblar una zona con Pokémon salvajes.",
+      "objectives": [
+        {
+          "text": "Entregar al profesor el Pokémon indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Traer el Pokémon indicado",
+          "kind": "restriccion"
+        },
+        {
+          "text": "Debe ser del nivel 5 o inferior",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "Ahora es posible encontrar Pokémon salvajes en la Región Star."
+    },
+    {
+      "id": "Q023",
+      "gameId": 23,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Buceo",
+      "description": "Desbloquear habilidad Buceo fuera del combate.",
+      "objectives": [
+        {
+          "text": "Encontrar MO7 Buceo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Medalla Fábula",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Tras jugar a un juego con Ramonchu te ha entregado la MO7 Buceo."
+    },
+    {
+      "id": "Q024",
+      "gameId": 24,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Banco Star",
+      "description": "Visitar el Banco Star (situado en Ciudad Antares) y crear una cuenta.",
+      "objectives": [
+        {
+          "text": "Visitar Banco Star",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Crear una cuenta en el Banco",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q025",
+      "gameId": 25,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medalla Psíquica",
+      "description": "Obtener Medalla Psíquica en Ciudad Antares.",
+      "objectives": [
+        {
+          "text": "Vencer al líder de gimnasio",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q026",
+      "gameId": 26,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Liga Pokémon Star",
+      "description": "Llegar a Isla Sol y ganar la Liga Pokémon Star.",
+      "objectives": [
+        {
+          "text": "Encontrar Isla Sol",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Cruzar Calle Victoria",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Entrar a la Liga Pokémon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al Campeón",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q027",
+      "gameId": 27,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medallas de Kanto",
+      "description": "Encontrar a los líderes de Kanto y vencerlos para ganar las medallas.",
+      "objectives": [
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q028",
+      "gameId": 28,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medallas de Johto",
+      "description": "Encontrar a los líderes de Johto y vencerlos para ganar las medallas.",
+      "objectives": [
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q029",
+      "gameId": 29,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medallas de Hoenn",
+      "description": "Encontrar a los líderes de Hoenn y vencerlos para ganar las medallas.",
+      "objectives": [
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q030",
+      "gameId": 30,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medallas de Sinnoh",
+      "description": "Encontrar a los líderes de Sinnoh y vencerlos para ganar las medallas.",
+      "objectives": [
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q031",
+      "gameId": 31,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Reto Bosque Siluam",
+      "description": "Intentar participar en un evento para entrenadores en un edificio en el Bosque Siluam.",
+      "objectives": [
+        {
+          "text": "Ganar Liga Kanto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en el Reto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Llevar un solo Pokémon",
+          "kind": "restriccion"
+        },
+        {
+          "text": "Debe ser del nivel 5 o inferior",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "En realidad era una trampa del Team Rocket para robarte tus Pokémon."
+    },
+    {
+      "id": "Q032",
+      "gameId": 32,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Repoblación Cueva Paleo",
+      "description": "Roco va a repoblar la Cueva Paleo con Pokémon extintos revividos a partir de fósiles.",
+      "objectives": [
+        {
+          "text": "Encontrar fósiles (19)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Revivir Pokémon Extinto (15)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Entregar Pokémon a Roco (15)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Traer Pokémon prehistórico",
+          "kind": "restriccion"
+        },
+        {
+          "text": "Debe ser del nivel 5 o inferior",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "Ahora es posible encontrar Pokémon extintos salvajes en la Cueva Paleo."
+    },
+    {
+      "id": "Q033",
+      "gameId": 33,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Coleccionista Gordon",
+      "description": "Enseñar Pokémon a Gordon (Pueblo Regulo) a cambio de objetos.",
+      "objectives": [
+        {
+          "text": "Capturar el Pokémon indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Mostrar el Pokémon indicado a Gordon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Traer Pokémon solicitado",
+          "kind": "restriccion"
+        },
+        {
+          "text": "En la primera posición",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "¡Has recibido multitud de objetos bastante interesantes!"
+    },
+    {
+      "id": "Q034",
+      "gameId": 34,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Liga Pokémon Kanto",
+      "description": "Visitar Isla Sol y ganar la Liga Pokémon de Kanto.",
+      "objectives": [
+        {
+          "text": "Entrar a la Liga Kanto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al Campeón",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q035",
+      "gameId": 35,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Ticket Solar",
+      "description": "Conseguir un Ticket Solar en Isla Mercurio para poder viajar en Barco.",
+      "objectives": [
+        {
+          "text": "Obtener Ticket Solar",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Sellar en Isla Mercurio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Sellar en Isla Venus",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Sellar en Isla Terra",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Sellar en Isla Marte",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Sellar en Isla Júpiter",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Sellar en Isla Saturno",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Sellar en Isla Urano",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Sellar en Isla Neptuno",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q036",
+      "gameId": 36,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Liga Pokémon Johto",
+      "description": "Visitar Isla Sol y ganar la Liga Pokémon de Johto.",
+      "objectives": [
+        {
+          "text": "Entrar a la Liga Johto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al Campeón",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q037",
+      "gameId": 37,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Pesca de Magikarp",
+      "description": "Debes pescar muchos Magikarp y mostrárselos al pescador de Isla Júpiter.",
+      "objectives": [
+        {
+          "text": "Magikarp insuperable",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Traer Magikarp",
+          "kind": "restriccion"
+        },
+        {
+          "text": "En la primera posición",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q038",
+      "gameId": 38,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Pesca de Whiscash",
+      "description": "Debes pescar muchos Whiscash y mostrárselos al pescador de Isla Júpiter.",
+      "objectives": [
+        {
+          "text": "Whiscash insuperable",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Traer Whiscash",
+          "kind": "restriccion"
+        },
+        {
+          "text": "En la primera posición",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q039",
+      "gameId": 39,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Liga Pokémon Hoenn",
+      "description": "Visitar Isla Sol y ganar la Liga Pokémon de Hoenn.",
+      "objectives": [
+        {
+          "text": "Entrar a la Liga Hoenn",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al Campeón",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q040",
+      "gameId": 40,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Laboratorio Voltio",
+      "description": "Explorar el laboratorio Voltio en Isla Saturno y vencer a Lectro.",
+      "objectives": [
+        {
+          "text": "Entrar a Lab. Voltio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Lectro",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q041",
+      "gameId": 41,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Liga Pokémon Sinnoh",
+      "description": "Visitar Isla Sol y ganar la Liga Pokémon de Sinnoh.",
+      "objectives": [
+        {
+          "text": "Entrar a la Liga Sinnoh",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a la Campeona",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q042",
+      "gameId": 42,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Reto de Treto",
+      "description": "Treto nos ha retado a ganar dos veces todas las ligas Pokémon.",
+      "objectives": [
+        {
+          "text": "Ganar 2 veces Liga Star",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar 2 veces Liga Kanto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar 2 veces Liga Johto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar 2 veces Liga Hoenn",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar 2 veces Liga Sinnoh",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q043",
+      "gameId": 43,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Combates Místicos",
+      "description": "Vencer a varios entrenadores fuertes que están en el Bosque Místico.",
+      "objectives": [
+        {
+          "text": "Entrar al Bosque Místico",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer entrenadores (7)",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q044",
+      "gameId": 44,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Combates Sinnoh",
+      "description": "Vencer a varios entrenadores fuertes que han venido desde Sinnoh.",
+      "objectives": [
+        {
+          "text": "Aspirante Frente de Batalla",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer entrenadores (7)",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q045",
+      "gameId": 45,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Profesora Encina",
+      "description": "La Profesora Encina viene desde Teselia a la Facultad de Combate (Ruta 3).",
+      "objectives": [
+        {
+          "text": "Visitar Facultad de combate",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Teron",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Profesora Encina",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Ahora también se celebra la Liga de Teselia en Isla Sol."
+    },
+    {
+      "id": "Q046",
+      "gameId": 46,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medallas de Teselia",
+      "description": "Encontrar a los líderes de Teselia y vencerlos para ganar las medallas.",
+      "objectives": [
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "opcional"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q047",
+      "gameId": 47,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Liga Pokémon Teselia",
+      "description": "Visitar Isla Sol y ganar la Liga Pokémon de Teselia.",
+      "objectives": [
+        {
+          "text": "Entrar a la Liga Teselia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a la Campeona",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q048",
+      "gameId": 48,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Búsqueda de Iniciales",
+      "description": "Encontrar y capturar a los diferentes Pokémon iniciales.",
+      "objectives": [
+        {
+          "text": "Hablar con Henrry",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Captura de iniciales (33)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener recompensa",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has encontrado y capturado a todos los iniciales."
+    },
+    {
+      "id": "Q049",
+      "gameId": 49,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Cristales Z",
+      "description": "Obtener los Cristales Z elementales de Alola.",
+      "objectives": [
+        {
+          "text": "Obtener Pulsera Z",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Cristales Z (18)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Conocer a Gabriel Oak",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Has conseguido todos los cristales Z elementales."
+    },
+    {
+      "id": "Q050",
+      "gameId": 50,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Cristales Z Especiales",
+      "description": "Obtener los Cristales Z especiales de Alola.",
+      "objectives": [
+        {
+          "text": "Obtener Cristales Z (17)",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has conseguido todos los cristales Z especiales."
+    },
+    {
+      "id": "Q051",
+      "gameId": 51,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medallas de Kalos",
+      "description": "Encontrar a los líderes de Kalos y vencerlos para ganar las medallas.",
+      "objectives": [
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q052",
+      "gameId": 52,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Medallas de Alola",
+      "description": "Encontrar a los líderes de Alola y vencerlos para ganar las medallas.",
+      "objectives": [
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener el objeto indicado",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q053",
+      "gameId": 53,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Liga de Kalos",
+      "description": "Visitar Isla Sol y ganar la Liga Pokémon de Kalos.",
+      "objectives": [
+        {
+          "text": "Entrar a la Liga Kalos",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a la Campeona",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q054",
+      "gameId": 54,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Liga de Alola",
+      "description": "Visitar Isla Sol y ganar la Liga Pokémon de Alola.",
+      "objectives": [
+        {
+          "text": "Entrar a la Liga Alola",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al adversario indicado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al Campeón",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "Q055",
+      "gameId": 55,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Salvajes Llanos",
+      "description": "Ayudar al Prof. Abedul con el estudio de las ubicaciones de los Pokémon salvajes en Isla Llanos.",
+      "objectives": [
+        {
+          "text": "Simisage, Simisear y Simipour (3)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Nidoking y Nidoqueen (2)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Escavalier y Accelgor (2)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Barraskewda",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Staraptor",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Scyther, Pinsir y Heracross (3)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Kabuto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Bulbasaur",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Ahora la Pokédex incluye las ubicaciones de Isla Llanos."
+    },
+    {
+      "id": "Q056",
+      "gameId": 56,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Salvajes Nebulosa",
+      "description": "Ayudar al Prof. Abedul con el estudio de las ubicaciones de los Pokémon salvajes en Isla Nebulosa.",
+      "objectives": [
+        {
+          "text": "Squirtle",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Larvitar",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Feebas y Qwilfish de Hisui  (2)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Walrein",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Gorebyss y Huntail (2)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Muk de Alola y de Kanto (2)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Drakeon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Tyrunt, Bagon y Dratector  (3)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Klefki",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Ahora la Pokédex incluye las ubicaciones de Isla Nebulosa."
+    },
+    {
+      "id": "Q057",
+      "gameId": 57,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Salvajes Supernova",
+      "description": "Ayudar al Prof. Abedul con el estudio de las ubicaciones de los Pokémon salvajes en Isla Supernova.",
+      "objectives": [
+        {
+          "text": "Leavanny y Scolipede (2)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vivillon y Ribombee (2)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Alakazam y Gardevoir (2)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Sharpedo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Leafeon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Raichu de Alola y de Kanto (2)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Girafarig",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Stonjourner",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Starmie",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Zoroark de Hisui y Ursaluna (2)",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Ahora la Pokédex incluye las ubicaciones de Isla Supernova."
+    },
+    {
+      "id": "Q058",
+      "gameId": 58,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Salvajes Espíritu",
+      "description": "Ayudar al Prof. Abedul con el estudio de las ubicaciones de los Pokémon salvajes en Isla Espíritu.",
+      "objectives": [
+        {
+          "text": "Toucannon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Marowak de Alola y de Kanto (2)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Tauros, Miltank y Bouffalant (3)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Lucario",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Duneon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hatterene",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Betearow, Harfetch'd y Chartfortt (3)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Charmander",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Volcarona y Dark Tyranitar (2)",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Ahora la Pokédex incluye las ubicaciones de Isla Espíritu."
+    },
+    {
+      "id": "Q059",
+      "gameId": 59,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Pendientes Star",
+      "description": "Reto planteado por Llanos para encontrar unos pendientes ocultos.",
+      "objectives": [
+        {
+          "text": "Encontrar Pendientes",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Pendientes extra",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Escrutinio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encuentros espirituales",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder al Templo Passimian",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Llanos",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Llanos ha desvelado secretos sobre la Isla."
+    },
+    {
+      "id": "Q060",
+      "gameId": 60,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Vasijas Ancestrales",
+      "description": "Reto planteado por Nébulo para encontrar unas vasijas ocultas.",
+      "objectives": [
+        {
+          "text": "Encontrar Vasijas",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vasijas extra",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Escrutinio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encuentros espirituales",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder al Templo Wailord",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Nébulo",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Nébulo ha desvelado secretos sobre la Isla."
+    },
+    {
+      "id": "Q061",
+      "gameId": 61,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Pergaminos Secretos",
+      "description": "Reto planteado por Nova para encontrar unos pergaminos ocultos.",
+      "objectives": [
+        {
+          "text": "Encontrar Pergaminos",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Pergaminos extra",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Escrutinio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encuentros espirituales",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder al Templo Sigilyph",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Supernova",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Supernova ha desvelado secretos sobre la Isla."
+    },
+    {
+      "id": "Q062",
+      "gameId": 62,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Anillos Malditos",
+      "description": "Reto planteado por Hole para encontrar unos anillos ocultos.",
+      "objectives": [
+        {
+          "text": "Encontrar Anillos",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Anillos extra",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Escrutinio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encuentros espirituales",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder al Templo Ariados",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Hole",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Hole ha desvelado secretos sobre la Isla."
+    },
+    {
+      "id": "Q063",
+      "gameId": 63,
+      "group": "principales",
+      "groupLabel": "Historia principal",
+      "title": "Reunión Magnétar",
+      "description": "Nova nos quiere desvelar algo en Campo Magnétar.",
+      "objectives": [
+        {
+          "text": "Encontrar a Nova en el Lago Quasar",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encuentro con Morfeo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Reunión en Campo Magnétar",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar un Xurkitree",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Nova nos ha desvelado secretos sobre las Islas Cometa."
+    },
+    {
+      "id": "E001",
+      "gameId": 1001,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pajaritos Hostiles",
+      "description": "Un científico llamado Javi nos ha rociado con una sustancia muy extraña.",
+      "objectives": [
+        {
+          "text": "Encuentro con Javi",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Huir de los Spearow",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encuentro con Lorelei",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Limpiar sustancia",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Lorelei y su Lapras te han ayudado con los Spearow y a limpiarte."
+    },
+    {
+      "id": "E002",
+      "gameId": 1002,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Lluvia Pueblo Talo",
+      "description": "Investigar sequía en Pueblo Talo.",
+      "objectives": [
+        {
+          "text": "Visitar Pozo Talo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer miembros Team Aqua",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Comandante Silvina",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Liberar a los Slowpoke",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Se han liberado a los Slowpoke retenidos por el Team Aqua en el Pozo Talo."
+    },
+    {
+      "id": "E003",
+      "gameId": 1003,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Guardería Naos",
+      "description": "Visitar Guardería en Ciudad Naos.",
+      "objectives": [
+        {
+          "text": "Visitar Guardería",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer al Team Rocket",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Ancianos",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Se ha rescatado a los ancianos secuestrados en la guardería."
+    },
+    {
+      "id": "E004",
+      "gameId": 1004,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Gatito travieso",
+      "description": "Ayudar a Chica Laurita con su Skitty.",
+      "objectives": [
+        {
+          "text": "Capturar un perro Pokémon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Sacar Pokémon para asustarlo",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Skitty se ha asustado y a vuelto con su entrenadora."
+    },
+    {
+      "id": "E005",
+      "gameId": 1005,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Gran Sabio Anciano",
+      "description": "Investigar en la Torre Pokémon qué ocurre con el Gran Sabio Anciano.",
+      "objectives": [
+        {
+          "text": "Subir al último piso",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer miembros Team Rocket",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Lady Boss",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Gran Sabio Anciano",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has rescatado al Gran Sabio Anciano que estaba retenido por el Team Rocket."
+    },
+    {
+      "id": "E006",
+      "gameId": 1006,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Invasión Fantasma",
+      "description": "Investigar una horda de fantasmas que ha invadido Ciudad Sirio.",
+      "objectives": [
+        {
+          "text": "Hablar con Alcalde",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Helia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Revisar acceso al Cementerio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar el problema",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Informar de todo al Alcalde",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Los Pokémon fantasma han vuelto al Cementerio Can."
+    },
+    {
+      "id": "E007",
+      "gameId": 1007,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Invasión Cementerio Can",
+      "description": "El Team Magma ha invadido el Cementerio Can y está tramando algo.",
+      "objectives": [
+        {
+          "text": "Ir al Cementerio Can",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer miembros Team Magma",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Comandante Tatiano",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has derrotado al Team Magma en colaboración con la líder Helia."
+    },
+    {
+      "id": "E008",
+      "gameId": 1008,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon enfermos",
+      "description": "Unos Pokémon se han puesto enfermos en la Ruta 12 y están bloqueando el camino.",
+      "objectives": [
+        {
+          "text": "Investigar solución",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Hierba Especial",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Utilizar Hierba Especial",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has dado a Tina las hierbas medicinales y todos los Pokémon están curados."
+    },
+    {
+      "id": "E009",
+      "gameId": 1009,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Anciano perdido",
+      "description": "Un anciano ha desaparecido sin dejar rastro cerca de la Zona Safari.",
+      "objectives": [
+        {
+          "text": "Visitar Cueva Extravío",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Zona Extravío",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer Equipo Galaxia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Comandante Venus",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Rescatar Anciano",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar caso",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has rescatado al anciano y vencido a los malos, pero se han llevado a Azelf, Mesprit y Uxie."
+    },
+    {
+      "id": "E010",
+      "gameId": 1010,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Robo GS Ball",
+      "description": "Unos maleantes han robado un objeto preciado de la líder de gimnasio de Ciudad Vega.",
+      "objectives": [
+        {
+          "text": "Entrar al Carril Bicis",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a los Motoristas (9)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Recuperar GS Ball",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Entregar GS Ball a Kiko",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has derrotado a los Motoristas del Carril Bicis y has recuperado la GS Ball."
+    },
+    {
+      "id": "E011",
+      "gameId": 1011,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Explorar Ciudad Polar",
+      "description": "Dicen que Ciudad Polar esconde muchos secretos, nos interesa explorarla.",
+      "objectives": [
+        {
+          "text": "Visitar Casa Abandonada",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Liberar Perros Legendarios",
+          "kind": "opcional"
+        },
+        {
+          "text": "Visitar Casino",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Apertura de puerta en Casino",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Cloaca Polar",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Cloaca Polar S2",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "El Team Rocket tiene algo entre manos en las Cloacas de Ciudad Polar."
+    },
+    {
+      "id": "E012",
+      "gameId": 1012,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Incidente Saloon",
+      "description": "Javi se ha metido en líos en el Saloon Rigel con un Pirómano de la ciudad.",
+      "objectives": [
+        {
+          "text": "Acceder a Saloon Rigel",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Johnny",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Resolver disputa",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has calmado al pirómano y ahora Javi está doblemente agradecido."
+    },
+    {
+      "id": "E013",
+      "gameId": 1013,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Instituto Meteorológico",
+      "description": "Investigar qué está ocurriendo en el Instituto meteorológico.",
+      "objectives": [
+        {
+          "text": "Visitar Inst. Meteorológico",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer miembros Team Aqua",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Comandante Silvina",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Aquiles",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ir a la Central Eléctrica",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Destruir dispositivo climático",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has derrotado al Team Aqua y el dispositivo climático ha sido destruido."
+    },
+    {
+      "id": "E014",
+      "gameId": 1014,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Guardián de la central",
+      "description": "El guardián de la Central Eléctrica ha sido secuestrado por el Team Rocket.",
+      "objectives": [
+        {
+          "text": "Recorrer Cloaca Polar S2",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer miembros Team Rocket",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Lady Boss",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Liberar al Guardián",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Zapdos ha sido liberado de manos del Team Rocket."
+    },
+    {
+      "id": "E015",
+      "gameId": 1015,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Biblioteca Antares",
+      "description": "Los profesores Pokémon se reúnen en la Biblioteca de Ciudad Antares.",
+      "objectives": [
+        {
+          "text": "Llegar a Ciudad Antares",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Biblioteca",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Asistir a la reunión",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Los profesores te han pedido ayuda a ti y a tu rival para investigar al Equipo Galaxia."
+    },
+    {
+      "id": "E016",
+      "gameId": 1016,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Centro Tecnológico",
+      "description": "Visitar el Centro tecnológico de Ciudad Antares.",
+      "objectives": [
+        {
+          "text": "Visitar Centro tecnológico",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder al Centro tecnológico",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar al Impostor",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer recluta impostor",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Capturado impostor del Equipo Galaxia que trataba de robar una Master Ball."
+    },
+    {
+      "id": "E017",
+      "gameId": 1017,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Rescate del trío del lago",
+      "description": "Azelf, Mesprit y Uxie han sido secuestrados por el Equipo Galaxia.",
+      "objectives": [
+        {
+          "text": "Encontrar Guarida Galaxia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer Equipo Galaxia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Comandante Saturno",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Liberar trío del lago",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has liberado con ayuda de tu rival a Uxie, Mesprit y Azelf de manos del Equipo Galaxia."
+    },
+    {
+      "id": "E018",
+      "gameId": 1018,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Casa de Fer",
+      "description": "Visitar a Fer. Vive en Ciudad Antares, Edificio Scorpio, piso séptimo, puerta C.",
+      "objectives": [
+        {
+          "text": "Volver a Ciudad Antares",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar Casa de Fer",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Fer",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Fer te ha entregado un Pase Jungla y da comienzo tu aventura con el Escuadrón Élite."
+    },
+    {
+      "id": "E019",
+      "gameId": 1019,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Viaje a La Jungla",
+      "description": "Coger un Barco en Puerto Luz que se dirige a La Jungla.",
+      "objectives": [
+        {
+          "text": "Subir al Barco Jungla",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Llegar a Puerto Jungla",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Fer",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "E020",
+      "gameId": 1020,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Buizel perdido",
+      "description": "El capitán a perdido de vista a su Buizel y vas a ayudarle a encontrarlo.",
+      "objectives": [
+        {
+          "text": "Visitar piso inferior Barco",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Buizel",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hacer volver a Buizel",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Capitán",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Buizel estaba escondido en el piso de abajo del Barco. ¡Has conocido a Misty!"
+    },
+    {
+      "id": "E021",
+      "gameId": 1021,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Origen de Mewtwo",
+      "description": "Hay que investigar en La Jungla información sobre el origen de Mewtwo.",
+      "objectives": [
+        {
+          "text": "Ir a Pueblo Wezen",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ir a Laboratorio Jungla",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Averiguar Información",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Fer",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has averiguado información interesante en Isla Flecha. ¡Misión cumplida!"
+    },
+    {
+      "id": "E022",
+      "gameId": 1022,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Nueva Especie",
+      "description": "Investigar a un Pokémon muy extraño que anda pululando por La Jungla.",
+      "objectives": [
+        {
+          "text": "Investigar Bosque Siluam",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Primer contacto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Identificar Pokémon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder a Bosque Místico",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Mew",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Mew",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "El Pokémon misterioso es Mew, capaz de transformarse en cualquier Pokémon."
+    },
+    {
+      "id": "E023",
+      "gameId": 1023,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Partícula Vital",
+      "description": "Vigilar la Partícula Vital ubicada en el Parque Vital por si Mewtwo aparece.",
+      "objectives": [
+        {
+          "text": "Ir al Parque Vital",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Fer",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Mewtwo",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "El Team Rocket ha robado la partícula Vital y ha ido tras Mewthree."
+    },
+    {
+      "id": "E024",
+      "gameId": 1024,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Quimera Rebelde",
+      "description": "El Team Rocket es peligroso, va tras la captura de Mewtwo y Mewthree.",
+      "objectives": [
+        {
+          "text": "Encontrar a Mewthree",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Mewtwo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Localizar al Team Rocket",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ir a la Ruta 13",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Lady Boss",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Proteger a Mewtwo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Rescatar a Mewthree",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Mewtwo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Mewtwo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Mewtwo",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "El Team Rocket ha capturado a Mewthree y sigue con sus amenazas."
+    },
+    {
+      "id": "E025",
+      "gameId": 1025,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Guarida Rocket",
+      "description": "Debes adentrarte en la Guarida Rocket para atrapar a Giovanni.",
+      "objectives": [
+        {
+          "text": "Disfraz del Team Rocket",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Entrar en Guarida Rocket",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Escapar de la jaula",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Localizar a Giovanni",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Team Rocket",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Giovanni",
+          "kind": "objetivo"
+        },
+        {
+          "text": "¡Giovanni no puede huir!",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "Mewthree ha sido liberado y Giovanni capturado por el Escuadrón Élite."
+    },
+    {
+      "id": "E026",
+      "gameId": 1026,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Arco Iris",
+      "description": "Ho-Oh ha sido visto por Isla Urano, cerca de la Torre Iris.",
+      "objectives": [
+        {
+          "text": "Investigar sobre Ho-Oh",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Puzles Ruinas Omega (4)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Unown Atrapados",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder a la Torre Iris",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Invocación Ho-Oh",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Ho-Oh",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Ho-Oh",
+          "kind": "opcional"
+        },
+        {
+          "text": "Llevar Ala Arcoíris",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "¡La invocación de Ho-Oh ha sido un éxito!"
+    },
+    {
+      "id": "E027",
+      "gameId": 1027,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Esfera de poder",
+      "description": "Noelia ha averiguado que el Team Magma ha encontrado una peligrosa Esfera.",
+      "objectives": [
+        {
+          "text": "Encuentro con Noelia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Team Aqua",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder a la Ruta 36",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar caso",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Team Magma",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Comandante Tatiano",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Magno",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡El Team Magma y el Team Aqua poseen artefactos muy peligrosos!"
+    },
+    {
+      "id": "E028",
+      "gameId": 1028,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Perfumes Venus",
+      "description": "Parece ser que Tina trama algo en la Fábrica de Perfumes Venus.",
+      "objectives": [
+        {
+          "text": "Acceder a Fábrica Perfumes",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Tina",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Huida de Psicovenom",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Psicovenom",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Psicovenom",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Un nuevo Pokémon, Psicovenom, fue liberado por Tina en Isla Venus."
+    },
+    {
+      "id": "E029",
+      "gameId": 1029,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Oscuridad",
+      "description": "Darkrai está interesado en ti, ya te ha secuestrado varias veces.",
+      "objectives": [
+        {
+          "text": "Secuestro Darkrai",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Segundo secuestro Darkrai",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Helia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Noelia Vs Helia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Gimnasio 3",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Noelia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Enfrentamiento con Helia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Darkrai",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Darkrai",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Darkrai",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Por fin has podido enfrentarte a Darkrai cara a cara!"
+    },
+    {
+      "id": "E030",
+      "gameId": 1030,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Cueva Chuzo",
+      "description": "Lorelei te ha retado a encontrar a un Pokémon raro en la Cueva Chuzo.",
+      "objectives": [
+        {
+          "text": "Acceder Cueva Chuzo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encuentro con Lorelei",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar caso",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Onix de Cristal",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar Onix de Cristal",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Un Onix de Cristal habitaba la Cueva Chuzo!"
+    },
+    {
+      "id": "E031",
+      "gameId": 1031,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Team Rekiem",
+      "description": "El peligroso Team Rekiem está tramando algo en La Jungla.",
+      "objectives": [
+        {
+          "text": "Acceder a la Ruta 32",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Débora",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Pueblo Arcturus",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Débora",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Conquistar Castillo Rekiem",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Team Rekiem",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Kustem",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Los vigilantes no pueden verte",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "La mayoría de los miembros del Team Rekiem han sido capturados."
+    },
+    {
+      "id": "E032",
+      "gameId": 1032,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Buceo",
+      "description": "Lugia ha sido visto por la Ruta 40, cerca de la Cueva Remolino.",
+      "objectives": [
+        {
+          "text": "Investigar sobre Lugia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Torbellinos Eliminados",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder a Cascada Plateada",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Invocación Lugia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Lugia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Lugia",
+          "kind": "opcional"
+        },
+        {
+          "text": "Llevar Ala Plateada",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "¡La invocación de Lugia ha sido un éxito!"
+    },
+    {
+      "id": "E033",
+      "gameId": 1033,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Misterio Spica",
+      "description": "Rosama está investigando un Pokémon misterioso en Bosque Spica.",
+      "objectives": [
+        {
+          "text": "Hablar con Rosama",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Celebi",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar en el pasado",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Team Rekiem",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Regresar al futuro",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Evitar paradojas temporales",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Prohibido capturar Pokémon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar GS Ball",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Celebi",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Celebi",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Junto a Rosama habéis salvado el continuo espacio-tiempo."
+    },
+    {
+      "id": "E034",
+      "gameId": 1034,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Isla Magmática",
+      "description": "Se han detectado unos movimientos sísmicos provenientes de Isla Magmática.",
+      "objectives": [
+        {
+          "text": "Ir a Isla Magmática",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder a Cueva Magmática",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Team Magma",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Comandante Tatiano",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar Team Magma",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "El Team Magma ha secuestrado al Pokémon Legendario Groudon."
+    },
+    {
+      "id": "E035",
+      "gameId": 1035,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Guarida Aqua",
+      "description": "Localizar la Guarida del Team Aqua en algún lugar cerca de la Ruta 24.",
+      "objectives": [
+        {
+          "text": "Encontrar Guarida Aqua",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder a Guarida Aqua",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Team Aqua",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Comandante Silvina",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar Team Aqua",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "El Team Aqua ha secuestrado al Pokémon Legendario Kyogre."
+    },
+    {
+      "id": "E036",
+      "gameId": 1036,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Sequía apocalíptica",
+      "description": "Ha empezado a brillar el sol por toda la Región Star y sus alrededores.",
+      "objectives": [
+        {
+          "text": "Acceder a la Cueva Ardiente",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder a la Guarida Magma",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar planes de Magno",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Rescatar a Groudon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Detener a Magno",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "El Escuadrón Élite ha detenido los malvados planes de Magno."
+    },
+    {
+      "id": "E037",
+      "gameId": 1037,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Inundación global",
+      "description": "El Team Aqua ha secuestrado a Kyogre y planea inundar el mundo Pokémon.",
+      "objectives": [
+        {
+          "text": "Revisar río Hidra",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encuentro con Galano",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Isla Oceánica",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder a Cueva Oceánica",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Destruir Dispositivos Clima",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar planes de Aquiles",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Rescatar a Kyogre",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Detener a Aquiles",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "El Escuadrón Élite ha detenido los malvados planes de Aquiles."
+    },
+    {
+      "id": "E038",
+      "gameId": 1038,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Continente",
+      "description": "Es posible que Groudon aparezca próximo a la Cueva Magmática.",
+      "objectives": [
+        {
+          "text": "Acceder a Cueva Magmática",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Comandante Tatiano",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Groudon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Groudon",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Groudon",
+          "kind": "opcional"
+        },
+        {
+          "text": "Llevar Esfera Azul",
+          "kind": "restriccion"
+        },
+        {
+          "text": "No superar Nivel 50",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "Has podido enfrentarte al Pokémon Legendario Groudon."
+    },
+    {
+      "id": "E039",
+      "gameId": 1039,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Cuenca Mar",
+      "description": "Es posible que Kyogre aparezca próximo a la Cueva Oceánica.",
+      "objectives": [
+        {
+          "text": "Acceder a Cueva Oceánica",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Comandante Silvina",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Kyogre",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Kyogre",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Kyogre",
+          "kind": "opcional"
+        },
+        {
+          "text": "Llevar Esfera Roja",
+          "kind": "restriccion"
+        },
+        {
+          "text": "No superar Nivel 50",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "Has podido enfrentarte al Pokémon Legendario Kyogre."
+    },
+    {
+      "id": "E040",
+      "gameId": 1040,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Cielo",
+      "description": "Es posible que Rayquaza aparezca próximo al Santuario Celeste.",
+      "objectives": [
+        {
+          "text": "Acceder a Santuario Celeste",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Rayquaza",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Rayquaza",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Rayquaza",
+          "kind": "opcional"
+        },
+        {
+          "text": "Llevar Esfera Verde",
+          "kind": "restriccion"
+        },
+        {
+          "text": "No superar Nivel 50",
+          "kind": "restriccion"
+        },
+        {
+          "text": "Doblegar poder del mar",
+          "kind": "restriccion"
+        },
+        {
+          "text": "Doblegar poder de la tierra",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "Has podido enfrentarte al Pokémon Legendario Rayquaza."
+    },
+    {
+      "id": "E041",
+      "gameId": 1041,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Deseo Fugaz",
+      "description": "El Team Rocket está tramando algo en el Bosque Fugaz.",
+      "objectives": [
+        {
+          "text": "Investigar Bosque Fugaz",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Team Rocket",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Lady Boss",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ir a Cloaca Polar",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Recuperar Partícula Vital",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Jirachi",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Jirachi",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Jirachi",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Has recuperado la Partícula Vital y conocido a Jirachi."
+    },
+    {
+      "id": "E042",
+      "gameId": 1042,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Galaxia Neptuno",
+      "description": "El Equipo Galaxia está vigilando en Isla Neptuno.",
+      "objectives": [
+        {
+          "text": "Derrotar Equipo Galaxia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Comandante Ceres",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Multimedia Star",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Explorar Multimedia Star",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Se han sentado las bases para luchar contra el Equipo Galaxia."
+    },
+    {
+      "id": "E043",
+      "gameId": 1043,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Isla Halley",
+      "description": "El Equipo Galaxia está preparando algo en Isla Halley.",
+      "objectives": [
+        {
+          "text": "Ir a Isla Saturno",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Capitán Oliver",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Pase Misterio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ir a Isla Halley",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar planes de Helio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Equipo Galaxia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar Diamansfera",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar Lustresfera",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Dialga",
+          "kind": "opcional"
+        },
+        {
+          "text": "Capturar a Palkia",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Los peligrosos planes de Helio han fracasado."
+    },
+    {
+      "id": "E044",
+      "gameId": 1044,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Plutón Renegado",
+      "description": "Helio va a llevar a cabo su siguiente movimiento en Isla Plutón.",
+      "objectives": [
+        {
+          "text": "Ir a Isla Plutón",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Lectro",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Equipo Galaxia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Detener a Helio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Detener a Giratina",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Griseosfera",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Helio ha huido al Mundo Inverso, el Equipo Galaxia ya es historia."
+    },
+    {
+      "id": "E045",
+      "gameId": 1045,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Mundo Inverso",
+      "description": "Podría haber una puerta al Mundo Inverso en Isla Plutón.",
+      "objectives": [
+        {
+          "text": "Ir a Isla Plutón",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder a Mundo Distorsión",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar Mundo Distorsión",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Helio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Helio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Giratina",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Giratina",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Giratina",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Has viajado a otra dimensión y enfrentado a Helio y a Giratina."
+    },
+    {
+      "id": "E046",
+      "gameId": 1046,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Cambia Almas",
+      "description": "El Team Rocket te ha secuestrado y Manaphy te ha traspasado a otro cuerpo.",
+      "objectives": [
+        {
+          "text": "Secuestro Rocket",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Team Rocket",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Fer",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Jessie",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a James",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Meowth",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Recuperar tu cuerpo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Manaphy",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Manaphy",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Manaphy",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Jessie, James y Meowth han sido detenidos por fin!"
+    },
+    {
+      "id": "E047",
+      "gameId": 1047,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Alfa",
+      "description": "El Team Rekiem está tramando algo en la Colina Sagrada, cerca de Pueblo Arcturus.",
+      "objectives": [
+        {
+          "text": "Acceder a Colina Sagrada",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar planes Rekiem",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Team Rekiem",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Detener a Kustem",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Rex",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Colocar Tablas",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Obtener Flauta Azur",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Invocar a Arceus",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Arceus",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Arceus",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "El Team Rekiem ha sido capturado y te has enfrentado a Arceus."
+    },
+    {
+      "id": "E048",
+      "gameId": 1048,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Caso Gripherial",
+      "description": "Investigación secreta sobre unos sucesos ocurridos en el Frente hace años.",
+      "objectives": [
+        {
+          "text": "Gran Sabio Anciano",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Ases Palacio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Ases Torneo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Ases Fábrica",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Ases Supervivencia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Ases Zona",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Ases Torre",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Ases Infierno",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar Caso",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Información confidencial",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "Una historia muy larga, ¡pero parece que todo se ha resuelto!"
+    },
+    {
+      "id": "E049",
+      "gameId": 1049,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Abejas Venenosas",
+      "description": "El dichoso Javi nos ha rociado de nuevo con una sustancia muy extraña.",
+      "objectives": [
+        {
+          "text": "Experimento de Javi",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Huir de los Beedrill",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Limpiar sustancia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceso a Sótano 5",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Deoxys",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Deoxys",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Javi nos metió en otro lío pero gracias a eso hemos conocido a Deoxys."
+    },
+    {
+      "id": "E050",
+      "gameId": 1050,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Paleozoico",
+      "description": "Genesect anda suelto en la Cueva Retaguardia.",
+      "objectives": [
+        {
+          "text": "Acceder a la Cueva Retaguardia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Genesect",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar contra Genesect",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Genesect",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Has entrado en contacto y te has enfrentado con Genesect."
+    },
+    {
+      "id": "E051",
+      "gameId": 1051,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Blanco Veraz",
+      "description": "Brilla el sol con mucha fuerza en las proximidades de Ciudad Naos y la Ruta 8.",
+      "objectives": [
+        {
+          "text": "Ir a la Ruta 8",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Willy",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encuentro con Reshiram",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Mirto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar con Reshiram",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Reshiram",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Reshiram ha llegado a la Región Star avisando de algo."
+    },
+    {
+      "id": "E052",
+      "gameId": 1052,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Puro",
+      "description": "Llueve torrencialmente en las proximidades de la Zona Volcánica.",
+      "objectives": [
+        {
+          "text": "Ir a la Zona Volcánica",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Adalia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encuentro con Zekrom",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Rizzo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Nanci",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar con Zekrom",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Zekrom",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Zekrom ha llegado a la Región Star avisando de algo."
+    },
+    {
+      "id": "E053",
+      "gameId": 1053,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "El Monstruo",
+      "description": "¡Kyurem está atacando junto a su ejército Ciudad Polar!",
+      "objectives": [
+        {
+          "text": "Ir a Ciudad Polar",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Fer",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Ejército Kyurem",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ir a Azotea Centro Comercial",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ir a Ruta 12",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Kyurem",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Investigar planes de Kyurem",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Kyurem se ha calmado y parece que todo se ha solucionado."
+    },
+    {
+      "id": "E054",
+      "gameId": 1054,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Frontera",
+      "description": "Ha comenzado a nevar de forma sospechosa en el desierto.",
+      "objectives": [
+        {
+          "text": "Ir al desierto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Kyurem",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Entrenador N",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Luchar con Kyurem",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Kyurem",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Has luchado con el entrenador N y contra Kyurem."
+    },
+    {
+      "id": "E055",
+      "gameId": 1055,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Espadachines místicos",
+      "description": "¡Los Espadachines Místicos están en la Región Star!",
+      "objectives": [
+        {
+          "text": "Encontrar a Virizion",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Virizion",
+          "kind": "opcional"
+        },
+        {
+          "text": "Encontrar a Terrakion",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Terrakion",
+          "kind": "opcional"
+        },
+        {
+          "text": "Encontrar a Cobalion",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Cobalion",
+          "kind": "opcional"
+        },
+        {
+          "text": "Encontrar a Keldeo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Keldeo",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Has encontrado a todos los espadachines místicos!"
+    },
+    {
+      "id": "E056",
+      "gameId": 1056,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Plasma Polar",
+      "description": "Investigar que trama el Team Plasma en Ciudad Polar.",
+      "objectives": [
+        {
+          "text": "Investigar Team Plasma",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Ghechis",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Ghechis se ha reunido con Giovanni en Ciudad Polar y han huido juntos."
+    },
+    {
+      "id": "E057",
+      "gameId": 1057,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Flare Gaara",
+      "description": "Investigar que trama el Team Flare en el Túnel Gaara.",
+      "objectives": [
+        {
+          "text": "Investigar al Team Flare",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar Cable Verde",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Begonia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar Cable Azul",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Melia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar Cable Violeta",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Caléndula",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar Cable Amarillo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Amapola",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar Cable Rojo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar a Xero",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Rescatar a Zygarde",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has derrotado al Team Flare y liberado a Zygarde con ayuda de Lem."
+    },
+    {
+      "id": "E058",
+      "gameId": 1058,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Equilibrio",
+      "description": "Encontrar células y núcleos de Zygarde escondidos.",
+      "objectives": [
+        {
+          "text": "Obtener Arca de Zygarde",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar células (166)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Forma Célula",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Forma Núcleo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Forma 10%",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Forma 50%",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Forma Completa",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "Has logrado reunir y capturar a todas las formas de Zygarde."
+    },
+    {
+      "id": "E059",
+      "gameId": 1059,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Seísmo Skull",
+      "description": "El profesor Kukui cree que el Team Skull trama algo en el Pantano Seísmo.",
+      "objectives": [
+        {
+          "text": "Acceso al Pantano Seísmo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Kukui",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar al Team Skull (4)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vence a los Ultraentes (6)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vence al Ultraente final",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar un Poipole",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "El conflicto del Pantano Seísmo se ha resuelto."
+    },
+    {
+      "id": "E060",
+      "gameId": 1060,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Invasión Andrómeda",
+      "description": "Las visiones de Ástrid nos llevan a las Ruinas Andrómeda.",
+      "objectives": [
+        {
+          "text": "Acceso a Ruta Andrómeda",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceso a Ruinas Andrómeda",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Astrid",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Activar dispositivos de defensa (16)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vence a los Ultraentes (6)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar un Celesteela",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "La invasión de las Ruinas Andrómeda ha concluido."
+    },
+    {
+      "id": "E061",
+      "gameId": 1061,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Flare Llanos",
+      "description": "El Team Flare se ha vuelto peligroso en Isla Llanos.",
+      "objectives": [
+        {
+          "text": "Acceder al Valle Llanos",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Llanos",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Rescatar a Xerneas",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar reclutas del Team Flare",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Detener a Lysson",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Xerneas",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Xerneas",
+          "kind": "opcional"
+        },
+        {
+          "text": "Encontrar a Yveltal",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Yveltal",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "El Team Flare ha sido derrotado."
+    },
+    {
+      "id": "E062",
+      "gameId": 1062,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Corona Lunar",
+      "description": "El Team Skull está intentando atrapar a Lunala.",
+      "objectives": [
+        {
+          "text": "Acceder a Cueva Elemental",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Lunala",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Detener a Guzmán",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Lunala",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "El Team Skull ha sido derrotado."
+    },
+    {
+      "id": "E063",
+      "gameId": 1063,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Investigación Aether",
+      "description": "Hay que vigilar de cerca la Fundación Aether.",
+      "objectives": [
+        {
+          "text": "Buscar a Fer en el Paraíso Aether",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Reunión con Samina",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Laboratorio Aether",
+          "kind": "opcional"
+        },
+        {
+          "text": "Capturar a Blacephalon",
+          "kind": "opcional"
+        },
+        {
+          "text": "Vencer a Lylia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Detener a Fabio",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "La Fundación Aether está bajo control."
+    },
+    {
+      "id": "E064",
+      "gameId": 1064,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Atracción Gravitacional",
+      "description": "Investigar unas anomalías en el Bosque Marchito.",
+      "objectives": [
+        {
+          "text": "Visitar Bosque Marchito",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Hablar con Hole",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Explorar Bosque Marchito",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Derrotar Guzzlord (6)",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Guzzlord",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "El Bosque Marchito ha vuelto a la normalidad."
+    },
+    {
+      "id": "E065",
+      "gameId": 1065,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Corona Solar",
+      "description": "Confirmar si Solgaleo está a salvo.",
+      "objectives": [
+        {
+          "text": "Encontrar a Gladio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Samina",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Gladio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Samina",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Solgaleo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Solgaleo",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Solgaleo está a salvo ahora."
+    },
+    {
+      "id": "E066",
+      "gameId": 1066,
+      "group": "elite",
+      "groupLabel": "Escuadrón Élite",
+      "title": "Pokémon Prisma",
+      "description": "Averiguar que es lo que Necrozma está tramando.",
+      "objectives": [
+        {
+          "text": "Visitar Isla Alma",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Encontrar a Necrozma",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a Necrozma",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Capturar a Necrozma",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "Necrozma ha sido derrotado."
+    },
+    {
+      "id": "F001",
+      "gameId": 3001,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Pokémon Race",
+      "description": "Evento de carreras de Pokémon celebrado en Ciudad Vega.",
+      "objectives": [
+        {
+          "text": "Acceder a Pokémon Race",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en carrera",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar en Amateur",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar en Profesional",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar en Experto",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Llevar un solo Pokémon",
+          "kind": "restriccion"
+        },
+        {
+          "text": "Usar Pokémon veloz",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F002",
+      "gameId": 3002,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Pokémon Flygol",
+      "description": "Deporte de Pokémon de tipo Volador celebrado en Isla Urano.",
+      "objectives": [
+        {
+          "text": "Acceder a Pokémon Flygol",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar 5 eventos",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar a Pegaso",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Llevar un solo Pokémon",
+          "kind": "restriccion"
+        },
+        {
+          "text": "Usar Pokémon volador",
+          "kind": "restriccion"
+        },
+        {
+          "text": "Ganar a Alana",
+          "kind": "opcional"
+        },
+        {
+          "text": "Ganar a Gerania",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F003",
+      "gameId": 3003,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Concurso de Bichos",
+      "description": "Concurso de atrapar Pokémon de tipo Bicho celebrado en Isla Mercurio.",
+      "objectives": [
+        {
+          "text": "Acceder a Parque Caloris",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en concurso",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar concurso",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Llevar un solo Pokémon",
+          "kind": "restriccion"
+        },
+        {
+          "text": "No ser descalificado",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F004",
+      "gameId": 3004,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Dojo Marte",
+      "description": "Competición para Pokémon de tipo Lucha celebrado en Isla Marte.",
+      "objectives": [
+        {
+          "text": "Acceder a Dojo Marte",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar con Hitmonlee",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar con Hitmonchan",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar con Hitmontop",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Llevar un solo Pokémon",
+          "kind": "restriccion"
+        },
+        {
+          "text": "No caer debilitado",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F005",
+      "gameId": 3005,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Universidad Júpiter",
+      "description": "Exámenes para entrenadores Pokémon que se realizan en Isla Júpiter.",
+      "objectives": [
+        {
+          "text": "Acceder a Universidad",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Realizar examen de acceso",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Aprobar examen de acceso",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Aprobar examen grado D",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Aprobar examen grado C",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Aprobar examen grado B",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Aprobar examen grado A",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Aprobar examen grado S",
+          "kind": "objetivo"
+        },
+        {
+          "text": "No vale copiar",
+          "kind": "restriccion"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F006",
+      "gameId": 3006,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Inauguración Frente",
+      "description": "Asistir a la inauguración del Frente Star.",
+      "objectives": [
+        {
+          "text": "Llegar al Frente de Batalla",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Cúpula de Eventos",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Presenciar la inauguración",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F007",
+      "gameId": 3007,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Explorar Frente",
+      "description": "Explorar todo el complejo del Frente Star.",
+      "objectives": [
+        {
+          "text": "Visitar Frente Norte",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Frente Oeste",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Frente Este",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Cafetería Primera Línea",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceder Cueva Retaguaria",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Salón de Récords",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Maestro Planta",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Maestro Fuego",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Visitar Maestro Agua",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F008",
+      "gameId": 3008,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Palacio del Frente",
+      "description": "Los Pokémon luchan solos sin las indicaciones del entrenador aspirante.",
+      "objectives": [
+        {
+          "text": "Acceder al Palacio",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar un Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Palacio 50",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Palacio Libre",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Palacio 100",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Plata",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Oro",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceso Puerta Palacial",
+          "kind": "opcional"
+        },
+        {
+          "text": "Símbolo de Platino",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F009",
+      "gameId": 3009,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Torneo del Frente",
+      "description": "Torneos por eliminatorias donde participan poderosos entrenadores conocidos.",
+      "objectives": [
+        {
+          "text": "Acceder al Torneo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar un Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Súper Torneo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Mega Torneo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Ultra Torneo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Plata",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Oro",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceso Puerta Pentagonal",
+          "kind": "opcional"
+        },
+        {
+          "text": "Símbolo de Platino",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F010",
+      "gameId": 3010,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Fábrica del Frente",
+      "description": "Los aspirantes no usan sus propios Pokémon, son repartidos por sorteo.",
+      "objectives": [
+        {
+          "text": "Acceder a la Fábrica",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar un Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar en Fábrica Electrón",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar en Fábrica Neutrón",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar en Fábrica Protón",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Plata",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Oro",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceso Puerta Experimental",
+          "kind": "opcional"
+        },
+        {
+          "text": "Símbolo de Platino",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F011",
+      "gameId": 3011,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Supervivencia del Frente",
+      "description": "Los aspirantes recorren peligrosos laberintos llenos de trampas y entrenadores.",
+      "objectives": [
+        {
+          "text": "Acceder a Supervivencia",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar un Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Supervivencia Desesperada",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Supervivencia del Miedo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Supervivencia Angustiosa",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Plata",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Oro",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceso Puerta Abismal",
+          "kind": "opcional"
+        },
+        {
+          "text": "Símbolo de Platino",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F012",
+      "gameId": 3012,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "La Zona del Frente",
+      "description": "Los aspirantes deben adaptarse y enfrentarse a peligrosas y diferentes zonas.",
+      "objectives": [
+        {
+          "text": "Acceder a La Zona",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar un Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Zona Uno",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Zona Tres",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Zona Seis",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Plata",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Oro",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceso Puerta Matricial",
+          "kind": "opcional"
+        },
+        {
+          "text": "Símbolo de Platino",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F013",
+      "gameId": 3013,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Torre del Frente",
+      "description": "Multitud de eventos para los que hay que entrenar diferentes tipos de Pokémon.",
+      "objectives": [
+        {
+          "text": "Acceder a la Torre",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar un Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Torre Estrato",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Torre Meso",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Torre Exo",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Plata",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Oro",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceso Puerta Celestial",
+          "kind": "opcional"
+        },
+        {
+          "text": "Símbolo de Platino",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F014",
+      "gameId": 3014,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Infierno del Frente",
+      "description": "Último reto del Frente de Batalla donde se ponen a prueba las habilidades.",
+      "objectives": [
+        {
+          "text": "Acceder al Infierno",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Participar en Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar un Evento",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Ganar Eventos",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Plata",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Símbolo de Oro",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Acceso Puerta Infernal",
+          "kind": "opcional"
+        },
+        {
+          "text": "Símbolo de Platino",
+          "kind": "opcional"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    },
+    {
+      "id": "F015",
+      "gameId": 3015,
+      "group": "frente",
+      "groupLabel": "Retos del Frente",
+      "title": "Cafetería Primera Línea",
+      "description": "En esta Cafetería puedes volver a luchar contra los líderes de Gimnasio.",
+      "objectives": [
+        {
+          "text": "Visitar Cafetería Primera Línea",
+          "kind": "objetivo"
+        },
+        {
+          "text": "Vencer a líderes",
+          "kind": "objetivo"
+        }
+      ],
+      "resolution": "¡Objetivos cumplidos!"
+    }
+  ]
+}

@@ -177,6 +177,24 @@ for (const [itemId, who, where, when] of NPC_GIFTS) {
   });
 }
 
+// La Mewtwoita Y no aparece en el suelo: la entrega el comisario Amando
+// durante la historia (guía de megapiedras del juego).
+{
+  const item = objectData.items.find((candidate) => candidate.name === 'Mewtwoita Y');
+  if (item) {
+    gifts.set(`${item.id}:durante-la-historia`, {
+      itemId: item.id,
+      itemName: item.name,
+      who: 'Comisario Amando',
+      where: 'Durante la historia',
+      when: '',
+      region: '',
+      quote: '',
+      source: 'Guía de megapiedras de Pokémon Reloaded',
+    });
+  }
+}
+
 const result = {
   version: 1,
   source: 'src/data/guide.json ( guía real del juego )',

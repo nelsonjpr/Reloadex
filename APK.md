@@ -3,7 +3,7 @@
 **Descarga pública:** [Reloadex-1.0.2.apk](https://github.com/nelsonjpr/Reloadex/releases/download/v1.0.2/Reloadex-1.0.2.apk)
 · [Página del release](https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.2)
 
-La v1.0.2 incluye el actualizador con un único botón, progreso real de descarga y la corrección del error `EISDIR`; consulta `ACTUALIZACIONES.md`.
+La v1.0.2 incluye el actualizador con un único botón, progreso real de descarga, la corrección del error `EISDIR`, el arranque siempre en Inicio y la sección de Misiones; consulta `ACTUALIZACIONES.md`.
 
 La app se distribuye como **APK firmado** y funciona **100% offline desde el primer arranque**:
 dataset, guía, sprites, shiny, fuentes y gritos van dentro del paquete. No usa PokeAPI ni
@@ -66,7 +66,7 @@ npm run apk:release    # build web + cap sync + APK firmado, en un solo comando
 ```
 
 Salida: `android/app/build/outputs/apk/release/app-release.apk` (~34,8 MB). La v1.0.2
-pesa **37.620.558 bytes** y su SHA-256 es `fdd098bf84d919ec27fcfc3335a562b7e1f89df7007d36114ea751aeb8671d5a`.
+pesa **37.638.761 bytes** y su SHA-256 es `8d5750406ec6acd3c5f25f31643533ea6b8b57743c12238022fc841458345e6b`.
 Firmado con los esquemas v1 (JAR), v2 y v3; verifica con
 `apksigner verify --verbose --min-sdk-version 18 <apk>`.
 Para probar sin firmar: `npm run apk:debug`.

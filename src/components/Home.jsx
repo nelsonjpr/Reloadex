@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, Users, Zap, Sparkles, Crown, Map, MapPin } from 'lucide-react';
+import { Search, Users, Zap, Sparkles, Crown, Map, MapPin, ScrollText } from 'lucide-react';
 import { APP_VERSION } from '../data/appInfo';
 import { safeTop } from '../utils/safeArea';
 import UpdateButton from './UpdateButton';
@@ -51,6 +51,15 @@ const Home = ({ onNavigate }) => {
       gradient: 'from-teal-500 to-emerald-500',
       bgPattern: 'bg-teal-500/10',
       accent: '#2dd4bf'
+    },
+    {
+      id: 'misiones',
+      title: 'Misiones',
+      description: 'Las 144 misiones del juego',
+      icon: ScrollText,
+      gradient: 'from-fuchsia-500 to-violet-500',
+      bgPattern: 'bg-fuchsia-500/10',
+      accent: '#e879f9'
     },
     {
       id: 'legendaries',

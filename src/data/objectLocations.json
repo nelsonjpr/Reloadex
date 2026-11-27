@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "source": "GameMaker gamedata (CreateObjects, NameLugar) + txt_obj.dll + txt_places.dll",
+  "source": "GameMaker gamedata (CreateObjects, NameLugar) + txt_obj.dll + txt_places.dll + guía de megapiedras",
   "stats": {
     "items": 821,
-    "withRoutes": 487,
+    "withRoutes": 497,
     "placements": 1407,
     "rooms": 423,
-    "roomsWithPlace": 421
+    "roomsWithPlace": 421,
+    "megaStones": 97,
+    "curatedMegaLocations": 22
   },
   "items": [
     {
@@ -12616,7 +12618,7 @@
     {
       "id": 408,
       "name": "Mewtwoita X",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cueva Roja",
@@ -12635,7 +12637,7 @@
     {
       "id": 409,
       "name": "Mewtwoita Y",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": []
     },
     {
@@ -12740,7 +12742,7 @@
     {
       "id": 414,
       "name": "Ampharosita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Faro Luz",
@@ -12759,7 +12761,7 @@
     {
       "id": 415,
       "name": "Venusaurita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Floristeria",
@@ -12772,13 +12774,25 @@
           "qty": 1,
           "method": "En el suelo",
           "source": "CreateObjects"
+        },
+        {
+          "zone": "Floristería Vega",
+          "place": null,
+          "detail": null,
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
         }
       ]
     },
     {
       "id": 416,
       "name": "Charizardita X",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cueva Caliente",
@@ -12797,7 +12811,7 @@
     {
       "id": 417,
       "name": "Charizardita Y",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Playa Vega",
@@ -12816,7 +12830,7 @@
     {
       "id": 418,
       "name": "Blastoisita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Pueblo Luna",
@@ -12835,7 +12849,7 @@
     {
       "id": 419,
       "name": "Pikabluita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 1",
@@ -12854,7 +12868,7 @@
     {
       "id": 420,
       "name": "Lucarita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 2",
@@ -12873,7 +12887,7 @@
     {
       "id": 421,
       "name": "Blazikenita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ciudad Polar",
@@ -12892,14 +12906,39 @@
     {
       "id": 422,
       "name": "Gardevoirita",
-      "category": "Objeto",
-      "locations": []
+      "category": "Mega",
+      "locations": [
+        {
+          "zone": "Edificio Scorpio",
+          "place": null,
+          "detail": "Piso 14",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        }
+      ]
     },
     {
       "id": 423,
       "name": "Absolita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
+        {
+          "zone": "Casa Abandonada",
+          "place": null,
+          "detail": "Piso 2",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        },
         {
           "zone": "Ciudad Polar",
           "place": 51,
@@ -12917,7 +12956,7 @@
     {
       "id": 424,
       "name": "Mawilita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Tunel Yucca",
@@ -12936,7 +12975,7 @@
     {
       "id": 425,
       "name": "Abomasnowita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 32",
@@ -12955,7 +12994,7 @@
     {
       "id": 426,
       "name": "Aerodactylita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cueva Magmática",
@@ -12974,7 +13013,7 @@
     {
       "id": 427,
       "name": "Aggronita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cueva Metal",
@@ -12993,12 +13032,12 @@
     {
       "id": 428,
       "name": "Alakazamita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Calle Victoria",
           "place": 98,
-          "detail": null,
+          "detail": "Cerca de la entrada",
           "room": 258,
           "x": 168,
           "y": 968,
@@ -13012,7 +13051,7 @@
     {
       "id": 429,
       "name": "Banettita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Bosque Siluam",
@@ -13031,7 +13070,7 @@
     {
       "id": 430,
       "name": "Garchompita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cueva Oceánica",
@@ -13050,12 +13089,12 @@
     {
       "id": 431,
       "name": "Gengarita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Torre Pokémon",
           "place": 33,
-          "detail": null,
+          "detail": "Último piso",
           "room": 121,
           "x": 56,
           "y": 224,
@@ -13069,7 +13108,7 @@
     {
       "id": 432,
       "name": "Gyaradosita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 16",
@@ -13088,7 +13127,7 @@
     {
       "id": 433,
       "name": "Heracrossita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Bosque Místico",
@@ -13107,7 +13146,7 @@
     {
       "id": 434,
       "name": "Houndoomita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cueva Ardiente",
@@ -13126,7 +13165,7 @@
     {
       "id": 435,
       "name": "Kangaskhanita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Zona Extravío",
@@ -13145,7 +13184,7 @@
     {
       "id": 436,
       "name": "Manectricita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 28",
@@ -13164,7 +13203,7 @@
     {
       "id": 437,
       "name": "Medichamita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 10",
@@ -13183,7 +13222,7 @@
     {
       "id": 438,
       "name": "Pinsirita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 17",
@@ -13202,7 +13241,7 @@
     {
       "id": 439,
       "name": "Scizorita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Zona Safari",
@@ -13215,13 +13254,37 @@
           "qty": 1,
           "method": "En el suelo",
           "source": "CreateObjects"
+        },
+        {
+          "zone": "Zona Safari oeste",
+          "place": null,
+          "detail": null,
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        },
+        {
+          "zone": "Zona Safari sur",
+          "place": null,
+          "detail": null,
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
         }
       ]
     },
     {
       "id": 440,
       "name": "Tyranitarita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Santuario Celeste",
@@ -13321,19 +13384,45 @@
     {
       "id": 444,
       "name": "Latiasita",
-      "category": "Objeto",
-      "locations": []
+      "category": "Mega",
+      "locations": [
+        {
+          "zone": "Ruta 25",
+          "place": null,
+          "detail": "Solo con Latias en el equipo",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        }
+      ]
     },
     {
       "id": 445,
       "name": "Latiosita",
-      "category": "Objeto",
-      "locations": []
+      "category": "Mega",
+      "locations": [
+        {
+          "zone": "Ruta 25",
+          "place": null,
+          "detail": "Solo con Latios en el equipo",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        }
+      ]
     },
     {
       "id": 446,
       "name": "Sceptilita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 11",
@@ -13352,7 +13441,7 @@
     {
       "id": 447,
       "name": "Swampertita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Tunel Gaara",
@@ -13371,13 +13460,26 @@
     {
       "id": 448,
       "name": "Sableynita",
-      "category": "Objeto",
-      "locations": []
+      "category": "Mega",
+      "locations": [
+        {
+          "zone": "Parque Vital",
+          "place": null,
+          "detail": null,
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        }
+      ]
     },
     {
       "id": 449,
       "name": "Diancita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Río Acuario",
@@ -13434,7 +13536,7 @@
     {
       "id": 452,
       "name": "Slowbronita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Pozo Talo",
@@ -13453,13 +13555,26 @@
     {
       "id": 453,
       "name": "Metagrossita",
-      "category": "Objeto",
-      "locations": []
+      "category": "Mega",
+      "locations": [
+        {
+          "zone": "Castillo Rekiem",
+          "place": null,
+          "detail": null,
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        }
+      ]
     },
     {
       "id": 454,
       "name": "Salamencita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Bosque Tormenta",
@@ -13478,7 +13593,7 @@
     {
       "id": 455,
       "name": "Audinita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Paraíso Floral",
@@ -13497,7 +13612,7 @@
     {
       "id": 456,
       "name": "Galladita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Carril Bicis",
@@ -13516,7 +13631,7 @@
     {
       "id": 457,
       "name": "Beedrillita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Bosque Spica",
@@ -13535,7 +13650,7 @@
     {
       "id": 458,
       "name": "Pidgeotita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 16",
@@ -13554,7 +13669,7 @@
     {
       "id": 459,
       "name": "Steelixita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cueva Remolino",
@@ -13573,7 +13688,7 @@
     {
       "id": 460,
       "name": "Glalita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cueva Helada",
@@ -13592,12 +13707,12 @@
     {
       "id": 461,
       "name": "Sharpedonita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 24",
           "place": 97,
-          "detail": null,
+          "detail": "Agua",
           "room": 253,
           "x": 196,
           "y": 342,
@@ -13611,7 +13726,7 @@
     {
       "id": 462,
       "name": "Cameruptita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Desierto del Gaara",
@@ -13624,13 +13739,25 @@
           "qty": 1,
           "method": "En el suelo",
           "source": "CreateObjects"
+        },
+        {
+          "zone": "Desierto Gaara",
+          "place": null,
+          "detail": null,
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
         }
       ]
     },
     {
       "id": 463,
       "name": "Altarianita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 30",
@@ -13649,8 +13776,21 @@
     {
       "id": 464,
       "name": "Lopunnita",
-      "category": "Objeto",
-      "locations": []
+      "category": "Mega",
+      "locations": [
+        {
+          "zone": "Lab. Jungla",
+          "place": null,
+          "detail": "Último piso",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        }
+      ]
     },
     {
       "id": 465,
@@ -19863,7 +20003,7 @@
     {
       "id": 672,
       "name": "Raichita Star",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Isla Sol",
@@ -19882,7 +20022,7 @@
     {
       "id": 673,
       "name": "Eeveeita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ciudad Polar",
@@ -20763,12 +20903,12 @@
     {
       "id": 775,
       "name": "Scyclawita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Zona Safari",
           "place": 62,
-          "detail": null,
+          "detail": "2ª sección del mapa a la derecha",
           "room": 146,
           "x": 152,
           "y": 304,
@@ -20782,12 +20922,12 @@
     {
       "id": 776,
       "name": "Cryogelixita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 15",
           "place": 46,
-          "detail": null,
+          "detail": "Bajando por Ciudad Deneb, debajo del puzzle de hielo",
           "room": 101,
           "x": 224,
           "y": 376,
@@ -20801,7 +20941,7 @@
     {
       "id": 777,
       "name": "Starmita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 19",
@@ -20820,12 +20960,12 @@
     {
       "id": 778,
       "name": "Clefablita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cueva MoonLight",
           "place": 64,
-          "detail": null,
+          "detail": "A la salida",
           "room": 193,
           "x": 112,
           "y": 768,
@@ -20839,7 +20979,7 @@
     {
       "id": 779,
       "name": "Victreebelita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cloaca Polar",
@@ -20852,18 +20992,30 @@
           "qty": 1,
           "method": "En el suelo",
           "source": "CreateObjects"
+        },
+        {
+          "zone": "Cloacas de Ciudad Polar",
+          "place": null,
+          "detail": "Todo arriba a la derecha",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
         }
       ]
     },
     {
       "id": 780,
       "name": "Dragonitita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Lago Lerna",
           "place": 140,
-          "detail": null,
+          "detail": "Usar Vuelo; justo a la derecha de donde te deja",
           "room": 352,
           "x": 851,
           "y": 181,
@@ -20896,8 +21048,20 @@
     {
       "id": 782,
       "name": "Feraligatrita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
+        {
+          "zone": "Guardería Naos",
+          "place": null,
+          "detail": "Zona de agua al lado izquierdo",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        },
         {
           "zone": "Playa Naos",
           "place": 189,
@@ -20915,12 +21079,12 @@
     {
       "id": 783,
       "name": "Skarmorita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 18",
           "place": 52,
-          "detail": null,
+          "detail": "Bajando, cerca de una zona donde se usa Treparrocas (usar Gran Ojo para mayor precisión)",
           "room": 135,
           "x": 456,
           "y": 239,
@@ -20934,7 +21098,7 @@
     {
       "id": 784,
       "name": "Froslassita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ciudad Deneb",
@@ -20953,7 +21117,7 @@
     {
       "id": 785,
       "name": "Emboarita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ciudad Rigel",
@@ -20972,8 +21136,20 @@
     {
       "id": 786,
       "name": "Excadrillita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
+        {
+          "zone": "Cueva Metal",
+          "place": null,
+          "detail": "Afuera",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        },
         {
           "zone": "Ruta 18",
           "place": 52,
@@ -20991,7 +21167,7 @@
     {
       "id": 787,
       "name": "Scolipedita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 3",
@@ -21010,12 +21186,12 @@
     {
       "id": 788,
       "name": "Scraftita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ciudad Sirio",
           "place": 28,
-          "detail": null,
+          "detail": "Pasillo debajo del Motel",
           "room": 64,
           "x": 517,
           "y": 479,
@@ -21029,12 +21205,12 @@
     {
       "id": 789,
       "name": "Eelektrossita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 11",
           "place": 37,
-          "detail": null,
+          "detail": "Agua",
           "room": 91,
           "x": 80,
           "y": 48,
@@ -21048,12 +21224,12 @@
     {
       "id": 790,
       "name": "Chandelurita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 9",
           "place": 25,
-          "detail": null,
+          "detail": "Cerca de la Torre Pokémon",
           "room": 66,
           "x": 162,
           "y": 114,
@@ -21067,12 +21243,12 @@
     {
       "id": 791,
       "name": "Chesnaughtita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 14",
           "place": 40,
-          "detail": null,
+          "detail": "Encima de Ciudad Vega",
           "room": 94,
           "x": 368,
           "y": 416,
@@ -21086,7 +21262,7 @@
     {
       "id": 792,
       "name": "Delphoxita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Zona Volcánica",
@@ -21105,12 +21281,12 @@
     {
       "id": 793,
       "name": "Greninjanita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 2",
           "place": 8,
-          "detail": null,
+          "detail": "Cerca de la entrada a Ciudad Sirio",
           "room": 61,
           "x": 72,
           "y": 360,
@@ -21124,12 +21300,12 @@
     {
       "id": 794,
       "name": "Pyroarita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Zona Volcánica",
           "place": 73,
-          "detail": null,
+          "detail": "Justo al entrar",
           "room": 181,
           "x": 232,
           "y": 159,
@@ -21143,12 +21319,12 @@
     {
       "id": 795,
       "name": "Floettita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Bosque Hechizo",
           "place": 245,
-          "detail": null,
+          "detail": "Parte rosa",
           "room": 638,
           "x": 504,
           "y": 432,
@@ -21162,12 +21338,12 @@
     {
       "id": 796,
       "name": "Malamarita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ciudad Antares",
           "place": 56,
-          "detail": null,
+          "detail": "Fuente",
           "room": 132,
           "x": 326,
           "y": 165,
@@ -21181,7 +21357,7 @@
     {
       "id": 797,
       "name": "Barbaraclita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cueva Rocosa",
@@ -21200,8 +21376,20 @@
     {
       "id": 798,
       "name": "Dragalgita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
+        {
+          "zone": "Jardín de Bayas",
+          "place": null,
+          "detail": "Debajo",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        },
         {
           "zone": "Ruta 12",
           "place": 38,
@@ -21219,12 +21407,12 @@
     {
       "id": 799,
       "name": "Hawluchanita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 26",
           "place": 105,
-          "detail": null,
+          "detail": "Cerca del puerto jungla",
           "room": 274,
           "x": 398,
           "y": 329,
@@ -21238,18 +21426,31 @@
     {
       "id": 800,
       "name": "Zygardita",
-      "category": "Objeto",
-      "locations": []
+      "category": "Mega",
+      "locations": [
+        {
+          "zone": "Guarida Flare",
+          "place": null,
+          "detail": "Al ganar la Liga Kalos",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        }
+      ]
     },
     {
       "id": 801,
       "name": "Drampanita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Isla Viento",
           "place": 78,
-          "detail": null,
+          "detail": "Fuera de la cueva",
           "room": 190,
           "x": 328,
           "y": 224,
@@ -21263,7 +21464,7 @@
     {
       "id": 802,
       "name": "Falinksita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Isla Marte",
@@ -21282,8 +21483,20 @@
     {
       "id": 803,
       "name": "Raichita X",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
+        {
+          "zone": "Central Eléctrica",
+          "place": null,
+          "detail": null,
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        },
         {
           "zone": "Isla Energía",
           "place": 74,
@@ -21301,7 +21514,7 @@
     {
       "id": 804,
       "name": "Raichita Y",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 11",
@@ -21320,8 +21533,20 @@
     {
       "id": 805,
       "name": "Baxcaliburita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
+        {
+          "zone": "Cueva de Isla Viento",
+          "place": null,
+          "detail": "2º piso",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        },
         {
           "zone": "Cueva Vendaval",
           "place": 81,
@@ -21339,12 +21564,12 @@
     {
       "id": 806,
       "name": "Chimechita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 20",
           "place": 85,
-          "detail": null,
+          "detail": "Saliendo de Pueblo Luna hacia arriba",
           "room": 206,
           "x": 448,
           "y": 318,
@@ -21359,7 +21584,20 @@
       "id": 807,
       "name": "Absolita Z",
       "category": "Mega",
-      "locations": []
+      "locations": [
+        {
+          "zone": "Casa Abandonada de Ciudad Polar",
+          "place": null,
+          "detail": "Visible como Poké Ball en ciertos horarios",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        }
+      ]
     },
     {
       "id": 808,
@@ -21383,7 +21621,7 @@
     {
       "id": 809,
       "name": "Staraptorita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 4",
@@ -21407,7 +21645,7 @@
         {
           "zone": "Ruta 2",
           "place": 8,
-          "detail": null,
+          "detail": "Norte",
           "room": 19,
           "x": 256,
           "y": 568,
@@ -21421,19 +21659,45 @@
     {
       "id": 811,
       "name": "Heatranita",
-      "category": "Objeto",
-      "locations": []
+      "category": "Mega",
+      "locations": [
+        {
+          "zone": "Cueva Ardiente",
+          "place": null,
+          "detail": "Después de entrar al Frente",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        }
+      ]
     },
     {
       "id": 812,
       "name": "Darkrainita",
-      "category": "Objeto",
-      "locations": []
+      "category": "Mega",
+      "locations": [
+        {
+          "zone": "Ciudad Sirio",
+          "place": null,
+          "detail": "Al entrar al Frente Batalla",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        }
+      ]
     },
     {
       "id": 813,
       "name": "Golurkita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Cueva Extravío",
@@ -21452,12 +21716,12 @@
     {
       "id": 814,
       "name": "Meowsticita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 21",
           "place": 87,
-          "detail": null,
+          "detail": "Al lado de Ciudad Antares",
           "room": 225,
           "x": 680,
           "y": 152,
@@ -21471,12 +21735,12 @@
     {
       "id": 815,
       "name": "Crabominablita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Ruta 16",
           "place": 49,
-          "detail": null,
+          "detail": "En el río en 1.9.2 y afuera en 1.9.2.2",
           "room": 111,
           "x": 376,
           "y": 560,
@@ -21490,20 +21754,32 @@
     {
       "id": 816,
       "name": "Golisopodita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": []
     },
     {
       "id": 817,
       "name": "Magearnita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": []
     },
     {
       "id": 818,
       "name": "Zeraoranita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
+        {
+          "zone": "Frente Batalla",
+          "place": null,
+          "detail": "Al lado del Torneo",
+          "room": null,
+          "x": null,
+          "y": null,
+          "num": null,
+          "qty": 1,
+          "method": "En el suelo",
+          "source": "Guía de megapiedras de Pokémon Reloaded"
+        },
         {
           "zone": "Frente Star",
           "place": 167,
@@ -21521,12 +21797,12 @@
     {
       "id": 819,
       "name": "Scovillainita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Isla Calor",
           "place": 76,
-          "detail": null,
+          "detail": "Solo en 1.9.2.1",
           "room": 188,
           "x": 245,
           "y": 296,
@@ -21540,7 +21816,7 @@
     {
       "id": 820,
       "name": "Glimmoranita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": [
         {
           "zone": "Pueblo Wezen",
@@ -21559,7 +21835,7 @@
     {
       "id": 821,
       "name": "Tatsugirita",
-      "category": "Objeto",
+      "category": "Mega",
       "locations": []
     }
   ]

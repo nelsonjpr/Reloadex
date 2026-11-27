@@ -9,17 +9,13 @@ const MovesView = lazy(() => import('./components/MovesView'));
 const AbilitiesView = lazy(() => import('./components/AbilitiesView'));
 const LegendariesView = lazy(() => import('./components/LegendariesView'));
 const ObjectLocationsView = lazy(() => import('./components/ObjectLocationsView'));
+const QuestsView = lazy(() => import('./components/QuestsView'));
 const GuiaView = lazy(() => import('./components/GuiaView'));
 const TeamBuilder = lazy(() => import('./components/TeamBuilder')
   .then((m) => ({ default: m.TeamBuilder })));
 const Pokedex = lazy(() => import('./components/Pokedex'));
 
-const VIEWS = ['home', 'pokedex', 'team', 'moves', 'abilities', 'guia', 'legendaries', 'objetos'];
-
-const getInitialView = () => {
-  const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('reloadex.view') : null;
-  return VIEWS.includes(saved) ? saved : 'home';
-};
+const VIEWS = ['home', 'pokedex', 'team', 'moves', 'abilities', 'guia', 'legendaries', 'objetos', 'misiones'];
 
 const createEntry = (view, selectedPokemon = null) => ({ view, selectedPokemon });
 
@@ -68,15 +64,18 @@ function Loading() {
 function App() {
   // Pila de UI: cada entrada guarda la vista y el Pokémon abierto. Así el back
   // físico de Android puede volver exactamente a la pantalla anterior.
-  const [entries, setEntries] = useState(() => [createEntry(getInitialView())]);
+  // Siempre arrancamos en Inicio. Antes se restauraba la última vista desde
+  // localStorage y, si era Objetos, la pila quedaba sin raíz: no había forma de
+  // volver a las demás pestañas.
+  const [entries, setEntries] = useState(() => [createEntry('home')]);
   const currentEntry = entries[entries.length - 1];
   const currentView = currentEntry.view;
   const selectedPokemon = currentEntry.selectedPokemon;
   const overlayBackRef = useRef(null);
 
   useEffect(() => {
-    try { localStorage.setItem('reloadex.view', currentView); } catch { /* noop */ }
-  }, [currentView]);
+    try { localStorage.removeItem('reloadex.view'); } catch { /* noop */ }
+  }, []);
 
   // Precalienta la Pokédex en idle: solo carga el índice ligero (~625 KB),
   // no el dataset completo que necesita la ficha.
@@ -184,6 +183,8 @@ function App() {
     content = <LegendariesView onBack={handleBack} />;
   } else if (currentView === 'objetos') {
     content = <ObjectLocationsView onBack={handleBack} />;
+  } else if (currentView === 'misiones') {
+    content = <QuestsView onBack={handleBack} />;
   } else {
     content = <Pokedex onBack={handleBack} onSelect={openFromList} />;
   }
