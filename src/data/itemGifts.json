@@ -1,7 +1,7 @@
 {
   "version": 1,
   "source": "src/data/guide.json ( guía real del juego )",
-  "count": 47,
+  "count": 68,
   "gifts": [
     {
       "itemId": 153,
@@ -134,6 +134,16 @@
       "source": "Guía de Pokémon Reloaded incluida en la app"
     },
     {
+      "itemId": 187,
+      "itemName": "Flauta Pkmn",
+      "who": "Un personaje del juego",
+      "where": "Pueblo Valde",
+      "when": "Tras detener a los maleantes",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
       "itemId": 562,
       "itemName": "Flauta solar",
       "who": "Un ciudadano",
@@ -182,6 +192,16 @@
       "region": "Star",
       "quote": "En esta ciudad, nos dará la bienvenida Acromo, quien nos pedirá observar la discusión entre N y Ghechis, líderes del Equipo Plasma y del Equipo Neo Plasma, respectivamente. En la casa al lado del centro comercial, una señora nos entregará una hierba especia…",
       "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 171,
+      "itemName": "Hierba Especial",
+      "who": "Un personaje del juego",
+      "where": "Casa",
+      "when": "Cuando haya Pokémon enfermos en la Ruta 12",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
     },
     {
       "itemId": 498,
@@ -264,6 +284,36 @@
       "source": "Guía de Pokémon Reloaded incluida en la app"
     },
     {
+      "itemId": 194,
+      "itemName": "MO1 Corte",
+      "who": "Un personaje del juego",
+      "where": "Pueblo Valde",
+      "when": "Tras arreglar el pozo de Pueblo Talo",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
+      "itemId": 198,
+      "itemName": "MO5 Destello",
+      "who": "El Alcalde",
+      "where": "Ruta 1",
+      "when": "Tras los fantasmas de Sirio",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
+      "itemId": 164,
+      "itemName": "Mon. Amuleto",
+      "who": "Un personaje del juego",
+      "where": "Lago Senn",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
       "itemId": 169,
       "itemName": "Monedero",
       "who": "Un señor del saloon",
@@ -272,6 +322,16 @@
       "region": "Star",
       "quote": "Después del combate, un señor dentro del saloon nos entregará el monedero. Con este objeto se desbloquearán las fichas como objetos ocultos y podremos acceder al Casino Polar de Ciudad Polar.",
       "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 169,
+      "itemName": "Monedero",
+      "who": "Un personaje del juego",
+      "where": "Lago Senn",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
     },
     {
       "itemId": 630,
@@ -304,6 +364,16 @@
       "source": "Guía de Pokémon Reloaded incluida en la app"
     },
     {
+      "itemId": 222,
+      "itemName": "MT22 Viento Plata",
+      "who": "Un personaje del juego",
+      "where": "Pueblo Valde",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
       "itemId": 230,
       "itemName": "MT30 Bola Sombra",
       "who": "Un personaje del juego",
@@ -312,6 +382,16 @@
       "region": "Kanto",
       "quote": "Si hablas con la mujer que se encuentra en una casa al lado izquierdo del Centro Pokémon, está te entregará la MT30 Bola Sombra; mientras que, al lado derecho un hombre estará dispuesto a intercambiar su Snover por un Spinda.",
       "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 230,
+      "itemName": "MT30 Bola Sombra",
+      "who": "Un personaje del juego",
+      "where": "Ruta 3",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
     },
     {
       "itemId": 240,
@@ -324,6 +404,86 @@
       "source": "Guía de Pokémon Reloaded incluida en la app"
     },
     {
+      "itemId": 244,
+      "itemName": "MT44 Falsotortazo",
+      "who": "Un personaje del juego",
+      "where": "Ruta 2",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
+      "itemId": 245,
+      "itemName": "MT45 Daño Secreto",
+      "who": "Un personaje del juego",
+      "where": "Casa",
+      "when": "Para crear una base secreta",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
+      "itemId": 248,
+      "itemName": "MT48 Cascada",
+      "who": "Un personaje del juego",
+      "where": "Laboratorio Oak",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
+      "itemId": 249,
+      "itemName": "MT49 Ola-Lava",
+      "who": "Un personaje del juego",
+      "where": "Zona Volcánica",
+      "when": "Tras recorrer toda la Zona Volcánica",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
+      "itemId": 250,
+      "itemName": "MT50 Treparrocas",
+      "who": "Un personaje del juego",
+      "where": "Laboratorio Oak",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
+      "itemId": 251,
+      "itemName": "MT51 Metrónomo",
+      "who": "Skuiro",
+      "where": "Ruta 3",
+      "when": "Tras ayudarle en la Zona Extravío",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
+      "itemId": 259,
+      "itemName": "MT59 Respiro",
+      "who": "Un personaje del juego",
+      "where": "Casa",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
+      "itemId": 261,
+      "itemName": "MT61 Imagen",
+      "who": "Un personaje del juego",
+      "where": "Ruta 2",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
       "itemId": 262,
       "itemName": "MT62 Roca Afilada",
       "who": "Un personaje del juego",
@@ -332,6 +492,26 @@
       "region": "Sinnoh",
       "quote": "Al derrotarlo, nos dará la medalla Mina y la MT62 Roca Afilada.",
       "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 268,
+      "itemName": "MT68 Contoneo",
+      "who": "Un personaje del juego",
+      "where": "Laboratorio Oak",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
+      "itemId": 207,
+      "itemName": "MT7 Bomba Lodo",
+      "who": "Un personaje del juego",
+      "where": "Pueblo Valde",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
     },
     {
       "itemId": 271,
@@ -352,6 +532,16 @@
       "region": "Star",
       "quote": "Acromo, un científico contratado recientemente, nos desafiará a un combate. Al derrotarlo, nos dará la MT74 Levitón.",
       "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 208,
+      "itemName": "MT8 Cola Férrea",
+      "who": "Un personaje del juego",
+      "where": "Casa",
+      "when": "Al comienzo de la aventura",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
     },
     {
       "itemId": 620,
@@ -402,6 +592,26 @@
       "region": "Kalos",
       "quote": "Aquí también nos encontraremos con la Protectora de esta Isla, Llanos. Cada isla tiene un protector. Esta nos da la bienvenida a la isla y nos comenta que ha oído de nosotros y que deseaba conocernos, también que va a colaborar con nosotros y el Escuadrón É…",
       "source": "Guía de Pokémon Reloaded incluida en la app"
+    },
+    {
+      "itemId": 168,
+      "itemName": "Regadera",
+      "who": "Un personaje del juego",
+      "where": "Casa",
+      "when": "Tras derrotar a Rosama",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
+    },
+    {
+      "itemId": 168,
+      "itemName": "Regadera",
+      "who": "Un personaje del juego",
+      "where": "Ruta 3",
+      "when": "",
+      "region": "",
+      "quote": "",
+      "source": "GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll"
     },
     {
       "itemId": 176,

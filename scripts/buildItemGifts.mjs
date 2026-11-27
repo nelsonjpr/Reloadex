@@ -133,6 +133,50 @@ for (const chapter of guide.chapters || []) {
   }
 }
 
+// Regalos dedicados de NPC (scripts GML CreateNPC1/CreateNPC2 + RegalarHabla),
+// cruzados con txt_obj.dll y txt_places.dll. Son la fuente más precisa para
+// "quién / dónde / cuándo"; la guía solo los complementa.
+const NPC_GIFTS = [
+  [194, 'Un personaje del juego', 'Pueblo Valde', 'Tras arreglar el pozo de Pueblo Talo'],
+  [208, 'Un personaje del juego', 'Casa', 'Al comienzo de la aventura'],
+  [187, 'Un personaje del juego', 'Pueblo Valde', 'Tras detener a los maleantes'],
+  [198, 'El Alcalde', 'Ruta 1', 'Tras los fantasmas de Sirio'],
+  [164, 'Un personaje del juego', 'Lago Senn'],
+  [168, 'Un personaje del juego', 'Casa', 'Tras derrotar a Rosama'],
+  [222, 'Un personaje del juego', 'Pueblo Valde'],
+  [251, 'Skuiro', 'Ruta 3', 'Tras ayudarle en la Zona Extravío'],
+  [168, 'Un personaje del juego', 'Ruta 3'],
+  [171, 'Un personaje del juego', 'Casa', 'Cuando haya Pokémon enfermos en la Ruta 12'],
+  [250, 'Un personaje del juego', 'Laboratorio Oak'],
+  [248, 'Un personaje del juego', 'Laboratorio Oak'],
+  [169, 'Un personaje del juego', 'Lago Senn'],
+  [245, 'Un personaje del juego', 'Casa', 'Para crear una base secreta'],
+  [249, 'Un personaje del juego', 'Zona Volcánica', 'Tras recorrer toda la Zona Volcánica'],
+  [230, 'Un personaje del juego', 'Ruta 3'],
+  [244, 'Un personaje del juego', 'Ruta 2'],
+  [259, 'Un personaje del juego', 'Casa'],
+  [207, 'Un personaje del juego', 'Pueblo Valde'],
+  [261, 'Un personaje del juego', 'Ruta 2'],
+  [268, 'Un personaje del juego', 'Laboratorio Oak'],
+];
+
+for (const [itemId, who, where, when] of NPC_GIFTS) {
+  const item = objectData.items.find((candidate) => candidate.id === itemId);
+  if (!item) continue;
+  const key = `${itemId}:${normalize(where)}`;
+  if (gifts.has(key)) continue;
+  gifts.set(key, {
+    itemId,
+    itemName: item.name,
+    who,
+    where,
+    when: when || '',
+    region: '',
+    quote: '',
+    source: 'GML CreateNPC1/CreateNPC2 + txt_obj.dll + txt_places.dll',
+  });
+}
+
 const result = {
   version: 1,
   source: 'src/data/guide.json ( guía real del juego )',

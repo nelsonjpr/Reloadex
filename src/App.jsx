@@ -167,7 +167,13 @@ function App() {
   } else if (currentView === 'home') {
     content = <Home onNavigate={navigate} />;
   } else if (currentView === 'team') {
-    content = <TeamBuilder onBack={handleBack} onOpen={openFromTeam} />;
+    content = (
+      <TeamBuilder
+        onBack={handleBack}
+        onOpen={openFromTeam}
+        onRegisterOverlayBack={registerOverlayBack}
+      />
+    );
   } else if (currentView === 'moves') {
     content = <MovesView onBack={handleBack} />;
   } else if (currentView === 'abilities') {

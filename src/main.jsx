@@ -16,10 +16,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 )
 
 // El splash inline cubre el primer frame (incluso antes de que React arranque)
-// y se retira en cuanto la app ya tiene contenido propio.
-window.requestAnimationFrame(() => {
-  document.getElementById('app-splash')?.remove()
-})
+// y se funde cuando la app ya tiene contenido propio, sin bloquear el arranque.
+const splash = document.getElementById('app-splash')
+if (splash) {
+  window.setTimeout(() => {
+    splash.style.transition = 'opacity 260ms ease'
+    splash.style.opacity = '0'
+    window.setTimeout(() => splash.remove(), 280)
+  }, 420)
+}
 
 // En la APK todo ya está dentro del paquete: registrar el service worker solo
 // añadiría copias de cada asset a CacheStorage. En PWA sí lo necesitamos.

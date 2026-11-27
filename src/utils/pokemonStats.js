@@ -1,8 +1,9 @@
 // Cálculo de estadísticas por nivel usando las fórmulas REALES de Pokémon
 // Reloaded, extraídas del GML del juego (scripts/game-scripts-extra):
 //   PSPokemon / ATPokemon / DEFPokemon / ATSpPokemon / DEFSpPokemon / ShowStatVel
-// El juego usa dígitos IV 0-9 y un dígito de naturaleza 0-9. Para un Pokémon
-// "base" de la Pokédex se toma IV 9 (máximo) y naturaleza 5 (neutral).
+// El juego usa dígitos IV 0-9 y un dígito de naturaleza 0-9 (el GML le suma 1:
+// ntv = dígito + 1). Con IV 9 y dígito 0 el multiplicador es exactamente 1,0:
+// es el perfil "IV máximo, naturaleza neutral" que usa la Pokédex.
 export const STAT_KEYS = ['hp', 'attack', 'defense', 'spAttack', 'spDefense', 'speed'];
 
 export const STAT_LABELS = {
@@ -15,7 +16,7 @@ export const STAT_LABELS = {
 };
 
 const IV = 9;
-const NATURE = 5;
+const NATURE = 1;
 
 const clampLevel = (level) => {
   const n = Number(level);

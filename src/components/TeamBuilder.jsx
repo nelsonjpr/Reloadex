@@ -64,7 +64,7 @@ const Modal = ({ children, onClose }) => (
   </motion.div>
 );
 
-export function TeamBuilder({ onBack }) {
+export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
   const [store, setStore] = useState(loadTeams);
   const [renaming, setRenaming] = useState(false);
   const [selectorSlot, setSelectorSlot] = useState(null);
@@ -80,6 +80,24 @@ export function TeamBuilder({ onBack }) {
 
   useEffect(() => { saveTeams(store); }, [store]);
   useEffect(() => { setPage(1); }, [deferredSearch, typeFilter]);
+
+  // El back físico cierra primero el modal abierto, sin salir del creador.
+  useEffect(() => {
+    if (!onRegisterOverlayBack) return undefined;
+    onRegisterOverlayBack(() => {
+      if (configSlot !== null) {
+        setConfigSlot(null);
+        setPending(null);
+        return true;
+      }
+      if (selectorSlot !== null) {
+        setSelectorSlot(null);
+        return true;
+      }
+      return false;
+    });
+    return () => onRegisterOverlayBack(null);
+  }, [onRegisterOverlayBack, configSlot, selectorSlot]);
 
   const filtered = useMemo(() => {
     const q = normalize(deferredSearch);
@@ -222,7 +240,7 @@ export function TeamBuilder({ onBack }) {
                 Creador de equipos
               </h1>
               <p className="mt-0.5 text-xs tracking-[0.08em] text-white/50 sm:text-sm">
-                Terón · Pokémon Reloaded
+                Tu equipo de Pokémon Reloaded
               </p>
             </div>
             <button

@@ -50,8 +50,11 @@ Documento interno. **La interfaz no muestra esta información.**
 
 ### Datos heredados (no verificables en los archivos legibles)
 
-- `types` / `stats`: vienen del dataset anterior. Los tipos se emparejan **por nombre del juego** (`official-name-matched`); cuando Reloaded reutiliza un ID con otro nombre (Pikablue ocupa el 495, que oficialmente es Snivy), no se copia el tipo del hueco. Las criaturas exclusivas sin ficha oficial se dejan sin tipo en lugar de inventar uno.
-- Los stats se conservan por hueco cuando el nombre es propio de Reloaded (Pikablue y Mega Pikablue mantienen 45/45/55/45/55/63 = 308); cuando el nombre sí coincide con una ficha oficial se usan los stats de esa ficha (por ejemplo, Sylveon).
+- `types`: vienen del dataset anterior. Se emparejan **por nombre del juego** (`official-name-matched`); cuando Reloaded reutiliza un ID con otro nombre (Pikablue ocupa el 495, que oficialmente es Snivy), no se copia el tipo del hueco. Las criaturas exclusivas sin ficha oficial se dejan sin tipo en lugar de inventar uno.
+- Los `stats` de `reloadex.json` (usados en la ficha) se conservan por hueco cuando el nombre es propio de Reloaded (Pikablue y Mega Pikablue mantienen 45/45/55/45/55/63 = 308); cuando el nombre sí coincide con una ficha oficial se usan los stats de esa ficha.
+- **Stats base reales para el creador de equipos:** `scripts/buildGameBaseStats.mjs` extrae las tablas `StatPSPokemon`, `StatATPokemon`, `StatDEFPokemon`, `StatATSpPokemon`, `StatDEFSpPokemon` y `StatVELPokemon` del GML incrustado en el EXE. `scripts/buildTeamData.mjs` las vuelca en `src/data/teamData.json` (1397 de 1561 IDs; el resto cae al JSON heredado). `src/utils/pokemonStats.js` aplica las fórmulas originales `PSPokemon`, `ATPokemon`, etc., con IV 9 y dígito de naturaleza 0 (multiplicador 1,0). La velocidad mostrada usa `ShowStatVel`, no la velocidad de movimiento `VELPokemon`.
+- **Objetos equipables:** `scripts/buildEquippableItems.mjs` aplica exactamente las reglas del GML `ObjetoPosibleAsignar` a los 821 nombres de `txt_obj.dll`, dando 76 objetos. No se incluyen Revivir ni Revivir Máximo, ni objetos clave, MT o MO que el juego rechaza.
+- **Regalos de objetos:** `scripts/buildItemGifts.mjs` combina (a) los 21 regalos NPC dedicados del GML (`CreateNPC1`/`CreateNPC2` + `RegalarHabla`, cruzados con `txt_obj.dll` y `txt_places.dll`) y (b) las entregas narradas en la guía real incluida en `src/data/guide.json`. Resultado: `src/data/itemGifts.json` con quién, dónde, cuándo y la cita original. Por ejemplo, la Master Ball la entrega **Javi** en el Centro de Investigación, tras vencer al infiltrado (Medalla Psíquica).
 - `evolutions` / `prevEvolution`: la autoridad son los scripts GML embebidos en el gamedata del EXE
   (`Dex_evolution_standar`, `Dex_evolution_complex`, `Dex_mega_evolution`, `EvolutionConfirmation`).
   `scripts/extractGameScripts.py` los extrae y `scripts/parseGameEvolutions.mjs` construye la tabla;
@@ -84,6 +87,9 @@ No se asignan a ningún Pokémon para no atribuir un grito equivocado.
 `npm run build:data` ejecuta ambos pasos y actualiza `src/data/reloadex.json` y
 `src/data/reloadex.provenance.json`, con `abilities: [{ id, key, name, hidden }]`.
 `npm run build:guia` actualiza `src/data/guide.json` desde `scripts/wiki-cache.json`.
+`node scripts/buildGameBaseStats.mjs` y `node scripts/buildTeamData.mjs` generan las stats base
+reales y el índice ligero del creador de equipos. `node scripts/buildEquippableItems.mjs` y
+`node scripts/buildItemGifts.mjs` generan los objetos equipables y los regalos de objetos.
 `npm run build:all` regenera habilidades, learnsets, datos y guía, y compila la PWA.
 
 ## Límites del entorno
