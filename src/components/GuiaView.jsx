@@ -5,6 +5,7 @@ import {
   List, Map, Search, Sparkles, Sword, Trophy,
 } from 'lucide-react';
 import guideData from '../data/guide.json';
+import { safeTop } from '../utils/safeArea';
 
 // =============================================================
 // Reloadex — Guía / Historia de Pokémon Reloaded
@@ -195,7 +196,7 @@ const GuiaView = ({ onBack }) => {
 
   return (
     <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+28px)]">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
+      <div className="mx-auto max-w-7xl px-4 pb-6 sm:pb-8" style={safeTop(24)}>
         {/* Cabecera */}
         <header className="mb-6">
           <div className="flex items-center gap-3">

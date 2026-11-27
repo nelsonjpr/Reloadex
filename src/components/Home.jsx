@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Search, Users, Zap, Sparkles, Crown, Map } from 'lucide-react';
 import { APP_VERSION } from '../data/appInfo';
+import { safeTop } from '../utils/safeArea';
 
 const Home = ({ onNavigate }) => {
   const menuItems = [
@@ -66,7 +67,7 @@ const Home = ({ onNavigate }) => {
       {/* Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent" />
-        <div className="relative z-10 px-4 py-8 sm:py-12">
+        <div className="relative z-10 px-4 pb-8 sm:pb-12" style={safeTop(32)}>
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}

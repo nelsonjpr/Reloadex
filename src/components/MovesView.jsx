@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ArrowLeft, Zap } from 'lucide-react';
 import { moves, moveCategories } from '../data/moves';
+import { safeTop } from '../utils/safeArea';
 
 const MovesView = ({ onBack }) => {
   const [selectedCategory, setSelectedCategory] = useState('MT');
@@ -24,8 +25,8 @@ const MovesView = ({ onBack }) => {
   const currentMoves = moves[selectedCategory] || [];
 
   return (
-    <div className="min-h-screen bg-[#080d1a]">
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]">
+      <div className="container mx-auto px-4 pb-8 max-w-6xl" style={safeTop(32)}>
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <button

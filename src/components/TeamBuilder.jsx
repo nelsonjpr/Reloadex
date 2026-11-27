@@ -14,6 +14,7 @@ import {
   ArrowLeft
 } from 'lucide-react';
 import { pokemonData, typeColors, typeTranslations } from '../data/pokemon';
+import { safeTop } from '../utils/safeArea';
 
 export function TeamBuilder({ onBack }) {
   const [team, setTeam] = useState(Array(6).fill(null));
@@ -127,7 +128,7 @@ export function TeamBuilder({ onBack }) {
   const typesCoverage = getTypesCoverage();
 
   return (
-    <div className="min-h-screen p-4 md:p-6 pb-20">
+    <div className="min-h-screen px-4 pb-[calc(env(safe-area-inset-bottom)+20px)] md:px-6" style={safeTop(16)}>
       {/* Botón Volver */}
       <motion.button
         onClick={onBack}

@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ArrowLeft, Search, Sparkles } from 'lucide-react';
 import { abilities, searchAbilities, getPokemonByAbility } from '../data/abilities';
+import { safeTop } from '../utils/safeArea';
 
 const AbilitiesView = ({ onBack }) => {
   const [expandedAbility, setExpandedAbility] = useState(null);
@@ -12,8 +13,8 @@ const AbilitiesView = ({ onBack }) => {
     : abilities;
 
   return (
-    <div className="min-h-screen bg-[#080d1a]">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]">
+      <div className="container mx-auto px-4 pb-8 max-w-4xl" style={safeTop(32)}>
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <button

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useDeferredValue, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search, Filter, X, ChevronUp, ChevronLeft, ChevronRight as ChevronRightIcon,
@@ -11,6 +11,7 @@ import {
 } from '../utils/sprites';
 import TypeFilter from './TypeFilter';
 import GenerationFilter from './GenerationFilter';
+import { safeTop } from '../utils/safeArea';
 
 // =============================================================
 // Reloadex — Pokédex profesional (Pokémon Reloaded)
@@ -24,6 +25,20 @@ const ROW_HEIGHT = 124;
 const ROW_GAP = 12;
 const ROW_STRIDE = ROW_HEIGHT + ROW_GAP;
 const OVERSCAN = 4;
+
+// Índice precalculado una sola vez: evita ~6.000 toLowerCase() por pulsación
+// y hace que ordenar por nombre no use Intl.Collator en cada comparación.
+const SEARCH_INDEX = pokemonData.map((p) => {
+  const name = (p.name || '').toLowerCase();
+  return {
+    id: String(p.id),
+    idNum: Number(p.id),
+    name,
+    displayName: (p.displayName || '').toLowerCase(),
+    baseFormName: (p.baseFormName || '').toLowerCase(),
+    bst: bst(p),
+  };
+});
 
 const loadFavorites = () => {
   try {
@@ -46,6 +61,8 @@ const adjustColor = (hex, amount) => {
 
 export default function Pokedex({ onBack, onSelect }) {
   const [searchTerm, setSearchTerm] = useState('');
+  // La respuesta del input va primero; el filtrado pesado se aplaza.
+  const deferredSearch = useDeferredValue(searchTerm);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedGeneration, setSelectedGeneration] = useState(null);
   const [showTypeFilter, setShowTypeFilter] = useState(false);
@@ -72,36 +89,38 @@ export default function Pokedex({ onBack, onSelect }) {
     try { localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favorites])); } catch { /* almacenamiento no disponible */ }
   }, [favorites]);
 
-  React.useEffect(() => { setPage(1); }, [searchTerm, selectedTypes, selectedGeneration, sort, formFilter, pageSize]);
+  React.useEffect(() => { setPage(1); }, [deferredSearch, selectedTypes, selectedGeneration, sort, formFilter, pageSize]);
 
   const filtered = useMemo(() => {
-    const q = searchTerm.trim().toLowerCase();
+    const q = deferredSearch.trim().toLowerCase();
     const qNum = q.replace(/^#/, '');
-    let list = pokemonData.filter((p) => {
-      if (selectedTypes.length && !selectedTypes.every((type) => p.types.includes(type))) return false;
-      if (selectedGeneration && p.generation !== selectedGeneration) return false;
-      if (formFilter !== 'all' && (p.form || 'base') !== formFilter) return false;
-      if (!q) return true;
-      return (
-        (p.name || '').toLowerCase().includes(q) ||
-        String(p.id).includes(qNum) ||
-        (p.displayName || '').toLowerCase().includes(q) ||
-        (p.baseFormName || '').toLowerCase().includes(q)
-      );
-    });
-    const byName = (a, b) => (a.name || '').localeCompare(b.name || '', 'es');
-    list = [...list].sort((a, b) => {
+    const indices = [];
+    for (let i = 0; i < pokemonData.length; i += 1) {
+      const p = pokemonData[i];
+      if (selectedTypes.length && !selectedTypes.every((type) => p.types.includes(type))) continue;
+      if (selectedGeneration && p.generation !== selectedGeneration) continue;
+      if (formFilter !== 'all' && (p.form || 'base') !== formFilter) continue;
+      if (q) {
+        const s = SEARCH_INDEX[i];
+        if (!s.name.includes(q) && !s.id.includes(qNum) && !s.displayName.includes(q) && !s.baseFormName.includes(q)) continue;
+      }
+      indices.push(i);
+    }
+    const byName = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+    indices.sort((ia, ib) => {
+      const a = SEARCH_INDEX[ia];
+      const b = SEARCH_INDEX[ib];
       switch (sort) {
-        case 'id-desc': return Number(b.id) - Number(a.id);
-        case 'name-asc': return byName(a, b);
-        case 'name-desc': return byName(b, a);
-        case 'bst-desc': return bst(b) - bst(a);
+        case 'id-desc': return b.idNum - a.idNum;
+        case 'name-asc': return byName(a.name, b.name);
+        case 'name-desc': return byName(b.name, a.name);
+        case 'bst-desc': return b.bst - a.bst;
         case 'id-asc':
-        default: return Number(a.id) - Number(b.id);
+        default: return a.idNum - b.idNum;
       }
     });
-    return list;
-  }, [searchTerm, selectedTypes, selectedGeneration, sort, formFilter]);
+    return indices.map((i) => pokemonData[i]);
+  }, [deferredSearch, selectedTypes, selectedGeneration, sort, formFilter]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const safePage = Math.min(page, totalPages);
@@ -156,8 +175,8 @@ export default function Pokedex({ onBack, onSelect }) {
       style={{ backgroundImage: 'radial-gradient(circle at 50% -10%, rgba(56,189,248,0.08), transparent 45%)' }}
     >
       {/* Header sticky: capa superior, fondo sólido con glass para que nada se vea a través */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#080d1a]/95 shadow-[0_16px_36px_-24px_rgba(3,10,26,0.95)] backdrop-blur-xl">
-        <div className="mx-auto max-w-3xl px-4 pt-3 pb-4">
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#080d1a] shadow-[0_16px_36px_-24px_rgba(3,10,26,0.95)]" style={safeTop(12)}>
+        <div className="mx-auto max-w-3xl px-4 pb-4">
           <div className="flex items-center gap-3 mb-4">
             {onBack && (
               <button onClick={onBack} aria-label="Volver"
@@ -246,7 +265,6 @@ export default function Pokedex({ onBack, onSelect }) {
               <div key={pokemon.id} className="absolute inset-x-0" style={{ top: index * ROW_STRIDE + 4, height: ROW_HEIGHT }}>
                 <PokemonRow
                   pokemon={pokemon}
-                  index={index}
                   isFavorite={favorites.has(Number(pokemon.id))}
                   onToggleFavorite={() => toggleFavorite(Number(pokemon.id))}
                   onClick={() => onSelect && onSelect(pokemon)}
@@ -325,7 +343,7 @@ function bst(p) {
   return (s.hp || 0) + (s.attack || 0) + (s.defense || 0) + (s.spAttack || 0) + (s.spDefense || 0) + (s.speed || 0);
 }
 
-function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
+function PokemonRow({ pokemon, isFavorite, onToggleFavorite, onClick }) {
   const [shiny, setShiny] = useState(false);
   const [playing, setPlaying] = useState(false);
   const fallbackIndex = React.useRef(0);
@@ -366,13 +384,7 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
   const stop = (e) => e.stopPropagation();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.15, delay: Math.min(index * 0.01, 0.12) }}
-      whileHover={{ y: -4, transition: { duration: 0.3, delay: 0 } }}
-      whileTap={{ scale: 0.98, transition: { duration: 0.18, delay: 0 } }}
+    <div
       className="premium-card group relative h-[124px] w-full overflow-hidden rounded-[28px] border border-white/[0.16]"
       style={{
         background: `linear-gradient(115deg, ${deep} 0%, ${vivid} 54%, ${light} 100%)`,
@@ -405,8 +417,7 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
               key={`${pokemon.id}-${shiny}`}
               src={imgSrc}
               alt={pokemon.name}
-              className="h-full w-full origin-center scale-[1.28] transform-gpu object-contain pixelated"
-              style={{ filter: `drop-shadow(0 4px 6px rgba(0,0,0,0.38)) drop-shadow(0 0 7px ${light}88)` }}
+              className="h-full w-full origin-center scale-[1.28] object-contain pixelated"
               loading="lazy"
               onError={onImgError}
             />
@@ -447,7 +458,7 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
             aria-label={shiny ? `Ver sprite normal de ${pokemon.name}` : `Ver sprite shiny de ${pokemon.name}`}
             aria-pressed={shiny}
             title="Shiny"
-            className={`flex h-9 w-9 items-center justify-center rounded-full border backdrop-blur-md transition active:scale-90 ${
+            className={`flex h-9 w-9 items-center justify-center rounded-full border transition active:scale-90 ${
               shiny
                 ? 'border-white/70 bg-yellow-300/90 text-slate-900 shadow-[0_0_16px_rgba(253,230,138,0.55)]'
                 : 'border-white/25 bg-black/25 text-white hover:bg-white/25'
@@ -461,7 +472,7 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
             aria-label={isFavorite ? `Quitar ${pokemon.name} de favoritos` : `Añadir ${pokemon.name} a favoritos`}
             aria-pressed={isFavorite}
             title="Favorito"
-            className={`flex h-9 w-9 items-center justify-center rounded-full border backdrop-blur-md transition active:scale-90 ${
+            className={`flex h-9 w-9 items-center justify-center rounded-full border transition active:scale-90 ${
               isFavorite
                 ? 'border-white/60 bg-rose-500/90 text-white shadow-[0_0_16px_rgba(244,63,94,0.5)]'
                 : 'border-white/25 bg-black/25 text-white hover:bg-white/25'
@@ -475,7 +486,7 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
               onClick={playCry}
               aria-label={`Escuchar grito de ${pokemon.name}`}
               title="Grito"
-              className={`flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/25 text-white backdrop-blur-md transition hover:bg-white/25 active:scale-90 ${
+              className={`flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/25 text-white transition hover:bg-white/25 active:scale-90 ${
                 playing ? 'bg-white/35 shadow-[0_0_16px_rgba(255,255,255,0.35)]' : ''
               }`}
             >
@@ -484,7 +495,7 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

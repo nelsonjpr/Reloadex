@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, MapPin, Search, Sparkles, X } from 'lucide-react';
 import { legendaries } from '../data/legendaries';
 import { spriteUrl, typeColor, typeName, typeIcon } from '../utils/sprites';
+import { safeTop } from '../utils/safeArea';
 
 const gradientFor = (types = []) => {
   const primary = typeColor(types[0]);
@@ -45,7 +46,7 @@ const LegendariesView = ({ onBack }) => {
 
   return (
     <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
+      <div className="mx-auto max-w-7xl px-4 pb-6 sm:pb-8" style={safeTop(24)}>
         <header className="mb-7">
           <div className="flex items-center gap-3">
             <button

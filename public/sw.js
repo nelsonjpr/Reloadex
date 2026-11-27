@@ -1,6 +1,6 @@
 /* Reloadex service worker — 100% offline (APK/PWA) */
 const VERSION = 'reloadex-v4-fast';
-// Precarga mínimo: el logo de 1,78 MB y los iconos grandes se descargan bajo
+// Precarga mínimo: el logo grande y los iconos pesados se descargan bajo
 // demanda (o ya están en el APK), no bloquean el primer render.
 const CORE = [
   '/',
@@ -30,7 +30,7 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   // Todo lo que usa la app está empaquetado localmente: cache-first.
-  // Incluye JS/CSS, fuentes woff2, JSON, sprites GIF, iconos PNG y gritos WAV.
+  // Incluye JS/CSS, fuentes woff2, JSON, sprites GIF, iconos PNG y gritos MP3.
   const isLocalAsset = /\.(gif|png|jpg|jpeg|webp|svg|ico|wav|mp3|ogg|js|css|json|woff2?|webmanifest)(\?|$)/.test(url.pathname);
   if (isLocalAsset) {
     event.respondWith(

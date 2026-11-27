@@ -14,6 +14,7 @@ import { abilityNameEs } from '../data/abilityNames.es';
 import { getAbility } from '../data/abilities';
 import { effectivenessGroups, formatMultiplier } from '../data/typeChart';
 import EvolutionTree, { normalizeLink } from './EvolutionTree';
+import { safeTop } from '../utils/safeArea';
 
 // =============================================================
 // Reloadex — ficha móvil moderna (datos reales de Pokémon Reloaded)
@@ -160,7 +161,7 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
             }}
           />
 
-          <div className="relative z-10 px-4 pb-20 pt-4 sm:px-7">
+          <div className="relative z-10 px-4 pb-20 sm:px-7" style={safeTop(16)}>
             <div className="flex items-center justify-between gap-3">
               <button
                 onClick={onClose}

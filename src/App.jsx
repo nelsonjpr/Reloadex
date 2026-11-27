@@ -40,6 +40,18 @@ function App() {
     try { localStorage.setItem('reloadex.view', currentView); } catch { /* noop */ }
   }, [currentView]);
 
+  // Precalienta la Pokédex en idle: el usuario la abre al instante y el coste
+  // de ~1,8 MB de datos no se paga en el primer render.
+  useEffect(() => {
+    const warm = () => { import('./components/Pokedex'); };
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(warm, { timeout: 2500 });
+      return () => window.cancelIdleCallback?.(id);
+    }
+    const timer = window.setTimeout(warm, 1200);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   const navigate = (view) => { setCurrentView(view); setSelectedPokemon(null); };
 
   // Navegación de evolución / mega: IDs NUMÉRICOS. El dataset se importa aquí
