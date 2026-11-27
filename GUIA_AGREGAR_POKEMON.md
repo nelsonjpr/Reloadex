@@ -37,7 +37,10 @@ Abre `src/data/pokemon.js` y agrega la información:
   evolutions: [
     { id: 5, name: "Charmeleon", level: 16, method: "Level 16" }
   ],
-  abilities: ["Mar Llamas", "Poder Solar (Oculta)"],
+  abilities: [
+    { "id": 66, "key": "Blaze", "name": "Mar Llamas", "hidden": false },
+    { "id": 94, "key": "Solar Power", "name": "Poder Solar", "hidden": true }
+  ],
   generation: 1,
   region: "Kanto"
 }
@@ -135,7 +138,10 @@ copy "D:\reloaded\Proyecto Reloaded The Last Beta 1.9.2.2 Full\data\audio\grito\
   evolutions: [
     { id: 26, name: "Raichu", method: "Piedra Trueno" }
   ],
-  abilities: ["Electricidad Estática", "Pararrayos (Oculta)"],
+  abilities: [
+    { "id": 9, "key": "Static", "name": "Electricidad Estática", "hidden": false },
+    { "id": 31, "key": "Lightning Rod", "name": "Pararrayos", "hidden": true }
+  ],
   generation: 1,
   region: "Kanto",
   prevEvolution: { id: 172, name: "Pichu" }

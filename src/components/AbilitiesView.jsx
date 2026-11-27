@@ -54,7 +54,7 @@ const AbilitiesView = ({ onBack }) => {
           <div className="space-y-2">
             {filteredAbilities.map((ability, index) => (
               <motion.div
-                key={`${ability.name}-${index}`}
+                key={`${ability.id}-${ability.name}`}
                 layout
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -62,7 +62,7 @@ const AbilitiesView = ({ onBack }) => {
                 className="glass-effect rounded-xl overflow-hidden"
               >
                 <button
-                  onClick={() => setExpandedAbility(expandedAbility === ability.name ? null : ability.name)}
+                  onClick={() => setExpandedAbility(expandedAbility === ability.id ? null : ability.id)}
                   className="w-full p-4 flex items-center justify-between hover:bg-white/5 transition-colors"
                 >
                   <div className="flex items-center gap-3">
@@ -72,7 +72,7 @@ const AbilitiesView = ({ onBack }) => {
                     <span className="font-semibold text-white text-left">{ability.name}</span>
                   </div>
                   <motion.div
-                    animate={{ rotate: expandedAbility === ability.name ? 180 : 0 }}
+                    animate={{ rotate: expandedAbility === ability.id ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
                   >
                     <ChevronDown size={20} className="text-white/60" />
@@ -80,7 +80,7 @@ const AbilitiesView = ({ onBack }) => {
                 </button>
 
                 <AnimatePresence>
-                  {expandedAbility === ability.name && (
+                  {expandedAbility === ability.id && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
@@ -96,7 +96,7 @@ const AbilitiesView = ({ onBack }) => {
                         <div className="glass-dark rounded-lg p-3">
                           <div className="text-xs text-white/60 mb-2">Pokémon con esta habilidad:</div>
                           {(() => {
-                            const pokemon = getPokemonByAbility(ability.name);
+                            const pokemon = getPokemonByAbility(ability.id);
                             return pokemon.length > 0 ? (
                               <div className="text-sm text-purple-300">
                                 {pokemon.join(', ')}

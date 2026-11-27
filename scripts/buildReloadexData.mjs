@@ -143,6 +143,84 @@ const cleanAbility = (a) => {
   return s ? { name: s, hidden } : null;
 };
 
+// Catálogo y asignación reales, generados por scripts/buildAbilities.mjs desde
+// los DLL de habilidades y el script PokemonHabilidad del propio juego.
+const GAME_ABILITIES = JSON.parse(fs.readFileSync(path.join(SRC_DATA, 'gameAbilities.json'), 'utf8'));
+const ABILITY_BY_ID = new Map(GAME_ABILITIES.catalog.map((a) => [a.id, a]));
+const ABILITY_ID_BY_KEY = new Map();
+for (const a of GAME_ABILITIES.catalog) {
+  if (!ABILITY_ID_BY_KEY.has(a.key)) ABILITY_ID_BY_KEY.set(a.key, a.id);
+}
+for (const [alias, target] of Object.entries(GAME_ABILITIES.aliases || {})) {
+  const id = ABILITY_ID_BY_KEY.get(target);
+  if (id) ABILITY_ID_BY_KEY.set(alias, id);
+}
+const ABILITY_ID_BY_NORMALIZED_KEY = new Map(
+  [...ABILITY_ID_BY_KEY].map(([key, id]) => [
+    String(key).toLowerCase().replace(/[^a-z0-9]/g, ''),
+    id,
+  ]),
+);
+const GAME_ASSIGNMENTS = new Map(
+  Object.entries(GAME_ABILITIES.assignments || {}).map(([id, list]) => [Number(id), list]),
+);
+const normalizeAbilityKey = (value) => String(value || '')
+  .toLowerCase()
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .replace(/[^a-z0-9]/g, '');
+const abilityIdFromRaw = (raw) => {
+  if (raw == null) return null;
+  if (typeof raw === 'number' || /^\d+$/.test(String(raw))) {
+    const id = Number(raw);
+    return ABILITY_BY_ID.has(id) ? id : null;
+  }
+  const key = String(raw).trim();
+  if (ABILITY_ID_BY_KEY.has(key)) return ABILITY_ID_BY_KEY.get(key);
+  return ABILITY_ID_BY_NORMALIZED_KEY.get(normalizeAbilityKey(key)) || null;
+};
+const displayAbilities = (list) => [...new Map((list || [])
+  .filter((a) => a && ABILITY_BY_ID.has(a.id))
+  .map((a) => [a.id, { id: a.id, hidden: !!a.hidden }])).values()]
+  .sort((a, b) => a.id - b.id)
+  .map((a) => {
+    const gameAbility = ABILITY_BY_ID.get(a.id);
+    return { id: a.id, key: gameAbility.key, name: gameAbility.name, hidden: a.hidden };
+  });
+
+// Orden de resolución: ID exacto del juego -> ID base -> otro ID con el mismo
+// nombre del juego -> habilidades heredadas (solo para entradas que el script
+// PokemonHabilidad no contempla, como formas/Gigamax añadidos después).
+const abilitiesForGameId = (id, name, baseForm, existing) => {
+  let raw = GAME_ASSIGNMENTS.get(Number(id));
+  let source = raw ? 'game-script' : null;
+  if (!raw && baseForm != null) {
+    raw = GAME_ASSIGNMENTS.get(Number(baseForm));
+    if (raw) source = 'game-script-base';
+  }
+  if (!raw && name && typeof gameIdByName === 'object') {
+    const byNameId = gameIdByName.get(normName(name));
+    if (byNameId != null) {
+      raw = GAME_ASSIGNMENTS.get(byNameId);
+      if (raw) source = 'game-script-name';
+    }
+  }
+  if (!raw && Array.isArray(existing)) {
+    raw = existing
+      .map(cleanAbility)
+      .filter(Boolean)
+      .map((a) => {
+        const abilityId = abilityIdFromRaw(a.id ?? a.key ?? a.name);
+        return abilityId ? { id: abilityId, hidden: a.hidden } : null;
+      })
+      .filter(Boolean);
+    source = 'dataset-cache';
+  }
+  const curatedSource = (GAME_ABILITIES.assignmentSources || {})[id];
+  if (curatedSource) source = curatedSource;
+  return { abilities: displayAbilities(raw), source };
+};
+
 const num = (v, d = null) => (Number.isFinite(Number(v)) ? Number(v) : d);
 
 const cleanLink = (x) => {
@@ -382,6 +460,32 @@ for (const p of (Array.isArray(fullEvoMod.fullPokemonData) ? fullEvoMod.fullPoke
   if (annihilape) annihilape.prevEvolution = { id: 57, name: 'Primeape', method: 'Furia 20x' };
 }
 
+// Eevee: el propio juego confirma 18 especies evolutivas por piedras
+// (dex_info.dll:133 y txt_dialog.dll:14712). La correspondencia piedra -> especie
+// está en la wiki oficial del juego; los nombres/IDs de las piedras se contrastaron
+// con txt_obj.dll (es/en). ID 738 = Sylveon; 2054-2059 son los IDs de sprite de
+// Aereon...Titaneon (en txt_pkmn.dll ocupan las líneas 1054-1059).
+const EEVEE_STONE_EVOLUTIONS = [
+  [134, 'Piedra Agua'],
+  [135, 'Piedra Trueno'],
+  [136, 'Piedra Fuego'],
+  [196, 'Piedra Solar'],
+  [197, 'Piedra Lunar'],
+  [470, 'Piedra Hoja'],
+  [471, 'Piedra Hielo'],
+  [738, 'Piedra Ninfa'],
+  [505, 'Piedra Día'],
+  [506, 'Piedra Noche'],
+  [507, 'Piedra Alba'],
+  [508, 'Piedra Mineral'],
+  [2054, 'Piedra Celeste'],
+  [2055, 'Piedra Bicho'],
+  [2056, 'Piedra Desierto'],
+  [2057, 'Piedra Marte'],
+  [2058, 'Piedra Venus'],
+  [2059, 'Piedra Metálica'],
+];
+
 const byId = new Map();
 for (const p of existing) {
   const id = num(p.id);
@@ -586,9 +690,8 @@ for (const id of [...allIds].sort((a, b) => a - b)) {
     : 'unknown';
 
   const abilityEntry = byName || (nameMatchesLegacy ? exReal : null) || null;
-  const abilities = Array.isArray(abilityEntry?.abilities)
-    ? abilityEntry.abilities.map(cleanAbility).filter(Boolean)
-    : [];
+  const resolvedAbilities = abilitiesForGameId(id, name, baseForm, abilityEntry?.abilities);
+  const abilities = resolvedAbilities.abilities;
 
   // línea evolutiva: datos heredados internos, con IDs remapeados a los del juego.
   const legacy = (nameMatchesLegacy
@@ -624,6 +727,22 @@ for (const id of [...allIds].sort((a, b) => a - b)) {
   if ((id === 2236 || id === 2237) && !prevEvolution) {
     prevEvolution = resolveLink({ id: 2235, name: baseNameById.get(2235), method: null });
   }
+
+  // Eevee: 18 evoluciones por piedra, sin felicidad/amistad ni nivel.
+  if (id === 133) {
+    evolutions = EEVEE_STONE_EVOLUTIONS
+      .map(([target, method]) => resolveLink({
+        id: target,
+        name: baseNameById.get(target) || gameNames[textIndexForId(target)] || null,
+        method,
+      }))
+      .filter(Boolean);
+  }
+  const eeveeStone = EEVEE_STONE_EVOLUTIONS.find(([target]) => target === id);
+  if (eeveeStone && !prevEvolution) {
+    prevEvolution = resolveLink({ id: 133, name: 'Eevee', method: eeveeStone[1] });
+  }
+
   const moves = Array.isArray(legacy?.moves) ? legacy.moves.slice() : [];
 
   // descripción / altura / peso / categoría: resueltos por NOMBRE (name-line),
@@ -648,6 +767,7 @@ for (const id of [...allIds].sort((a, b) => a - b)) {
     stats: statsObj,
     statsSource,
     abilities,
+    abilitiesSource: resolvedAbilities.source,
     moves,
     prevEvolution,
     evolutions,

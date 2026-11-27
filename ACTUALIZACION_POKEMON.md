@@ -106,7 +106,10 @@ export const pokemonData = [
       spDefense: 65,
       speed: 45
     },
-    abilities: ["overgrow", "chlorophyll"],
+    abilities: [
+      { id: 65, key: "Overgrow", name: "Espesura", hidden: false },
+      { id: 34, key: "Chlorophyll", name: "Clorofila", hidden: true }
+    ],
     generation: "Gen I",
     region: "Kanto"
   },

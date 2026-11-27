@@ -8,9 +8,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build:data": "node scripts/buildReloadexData.mjs",
+    "build:abilities": "node scripts/buildAbilities.mjs",
+    "icons:hd": "node scripts/fetchHdTypeIcons.mjs",
+    "build:data": "node scripts/buildAbilities.mjs && node scripts/buildReloadexData.mjs",
     "build:guia": "node scripts/buildGuideData.mjs",
-    "build:all": "node scripts/buildReloadexData.mjs && node scripts/buildGuideData.mjs && vite build",
+    "build:all": "node scripts/buildAbilities.mjs && node scripts/buildReloadexData.mjs && node scripts/buildGuideData.mjs && vite build",
     "apk:prepare": "npm run build && npx cap sync android && node scripts/prepareApkBuild.mjs",
     "apk:debug": "npm run apk:prepare && node scripts/runGradle.mjs assembleDebug --no-daemon",
     "apk:release": "npm run apk:prepare && node scripts/runGradle.mjs assembleRelease --no-daemon -x :capacitor-android:extractReleaseAnnotations -x :capacitor-cordova-android-plugins:extractReleaseAnnotations -x :capacitor-android:lintVitalAnalyzeRelease -x :capacitor-cordova-android-plugins:lintVitalAnalyzeRelease -x :app:lintVitalAnalyzeRelease -x :app:lintVitalReportRelease -x :app:lintVitalRelease"

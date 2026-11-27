@@ -197,11 +197,11 @@ export const fullPokemonData = [
       { id: 134, name: 'Vaporeon', method: 'Piedra Agua' },
       { id: 135, name: 'Jolteon', method: 'Piedra Trueno' },
       { id: 136, name: 'Flareon', method: 'Piedra Fuego' },
-      { id: 196, name: 'Espeon', method: 'Felicidad (día)' },
-      { id: 197, name: 'Umbreon', method: 'Felicidad (noche)' },
+      { id: 196, name: 'Espeon', method: 'Piedra Solar' },
+      { id: 197, name: 'Umbreon', method: 'Piedra Lunar' },
       { id: 470, name: 'Leafeon', method: 'Piedra Hoja' },
       { id: 471, name: 'Glaceon', method: 'Piedra Hielo' },
-      { id: 700, name: 'Sylveon', method: 'Afecto' }
+      { id: 738, name: 'Sylveon', method: 'Piedra Ninfa' }
     ]
   },
   {

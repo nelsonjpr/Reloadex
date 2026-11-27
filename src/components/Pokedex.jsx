@@ -39,7 +39,7 @@ const adjustColor = (hex, amount) => {
 
 export default function Pokedex({ onBack, onSelect }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedType, setSelectedType] = useState(null);
+  const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedGeneration, setSelectedGeneration] = useState(null);
   const [showTypeFilter, setShowTypeFilter] = useState(false);
   const [showGenFilter, setShowGenFilter] = useState(false);
@@ -49,6 +49,14 @@ export default function Pokedex({ onBack, onSelect }) {
   const [page, setPage] = useState(1);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [favorites, setFavorites] = useState(loadFavorites);
+
+  const toggleType = (type) => {
+    setSelectedTypes((prev) => {
+      if (prev.includes(type)) return prev.filter((t) => t !== type);
+      if (prev.length >= 2) return [prev[1], type];
+      return [...prev, type];
+    });
+  };
 
   React.useEffect(() => {
     try { localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favorites])); } catch { /* almacenamiento no disponible */ }
@@ -60,13 +68,13 @@ export default function Pokedex({ onBack, onSelect }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  React.useEffect(() => { setPage(1); }, [searchTerm, selectedType, selectedGeneration, sort, formFilter, pageSize]);
+  React.useEffect(() => { setPage(1); }, [searchTerm, selectedTypes, selectedGeneration, sort, formFilter, pageSize]);
 
   const filtered = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
     const qNum = q.replace(/^#/, '');
     let list = pokemonData.filter((p) => {
-      if (selectedType && !p.types.includes(selectedType)) return false;
+      if (selectedTypes.length && !selectedTypes.every((type) => p.types.includes(type))) return false;
       if (selectedGeneration && p.generation !== selectedGeneration) return false;
       if (formFilter !== 'all' && (p.form || 'base') !== formFilter) return false;
       if (!q) return true;
@@ -89,13 +97,13 @@ export default function Pokedex({ onBack, onSelect }) {
       }
     });
     return list;
-  }, [searchTerm, selectedType, selectedGeneration, sort, formFilter]);
+  }, [searchTerm, selectedTypes, selectedGeneration, sort, formFilter]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const safePage = Math.min(page, totalPages);
   const pageItems = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
 
-  const activeFilters = (selectedType ? 1 : 0) + (selectedGeneration ? 1 : 0) + (formFilter !== 'all' ? 1 : 0);
+  const activeFilters = selectedTypes.length + (selectedGeneration ? 1 : 0) + (formFilter !== 'all' ? 1 : 0);
 
   const toggleFavorite = (id) => {
     setFavorites((prev) => {
@@ -155,8 +163,8 @@ export default function Pokedex({ onBack, onSelect }) {
           {/* Barra de filtros/orden */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <button onClick={() => setShowTypeFilter(true)}
-              className={`shrink-0 h-10 px-3.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition ${selectedType ? 'bg-sky-500/90 border-sky-300/40 text-white shadow-[0_6px_18px_rgba(56,189,248,0.28)]' : 'bg-[#0d1528]/80 border-white/10 text-white/80 hover:bg-white/10'}`}>
-              <Filter size={15} /> {selectedType ? typeName(selectedType) : 'Tipo'}
+              className={`shrink-0 h-10 px-3.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition ${selectedTypes.length ? 'bg-sky-500/90 border-sky-300/40 text-white shadow-[0_6px_18px_rgba(56,189,248,0.28)]' : 'bg-[#0d1528]/80 border-white/10 text-white/80 hover:bg-white/10'}`}>
+              <Filter size={15} /> {selectedTypes.length ? selectedTypes.map(typeName).join(' + ') : 'Tipo'}
             </button>
             <button onClick={() => setShowGenFilter(true)}
               className={`shrink-0 h-10 px-3.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition ${selectedGeneration ? 'bg-sky-500/90 border-sky-300/40 text-white shadow-[0_6px_18px_rgba(56,189,248,0.28)]' : 'bg-[#0d1528]/80 border-white/10 text-white/80 hover:bg-white/10'}`}>
@@ -180,7 +188,7 @@ export default function Pokedex({ onBack, onSelect }) {
           </div>
 
           {activeFilters > 0 && (
-            <button onClick={() => { setSelectedType(null); setSelectedGeneration(null); setFormFilter('all'); }}
+            <button onClick={() => { setSelectedTypes([]); setSelectedGeneration(null); setFormFilter('all'); }}
               className="mt-2 text-[11px] text-sky-300 hover:text-sky-200 underline">Limpiar {activeFilters} filtro(s)</button>
           )}
 
@@ -238,8 +246,13 @@ export default function Pokedex({ onBack, onSelect }) {
         {/* Filtros (hojas) */}
         <AnimatePresence>
           {showTypeFilter && (
-            <Sheet title="Filtrar por tipo" onClose={() => setShowTypeFilter(false)} compact>
-              <TypeFilter selectedType={selectedType} onSelectType={(t) => { setSelectedType(t); setShowTypeFilter(false); }} />
+            <Sheet title="Filtrar por tipo" onClose={() => setShowTypeFilter(false)} compact wide>
+              <TypeFilter
+                selectedTypes={selectedTypes}
+                onToggleType={toggleType}
+                onClear={() => setSelectedTypes([])}
+                onDone={() => setShowTypeFilter(false)}
+              />
             </Sheet>
           )}
           {showGenFilter && (
@@ -435,12 +448,12 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
   );
 }
 
-function Sheet({ title, children, onClose, compact = false }) {
+function Sheet({ title, children, onClose, compact = false, wide = false }) {
   return (
     <motion.div className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center"
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}>
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-      <motion.div className={`relative w-full sm:max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-slate-900 border border-white/10 ${compact ? 'p-4' : 'p-5'}`}
+      <motion.div className={`relative w-full ${wide ? 'sm:max-w-2xl' : 'sm:max-w-md'} max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-slate-900 border border-white/10 ${compact ? 'p-4' : 'p-5'}`}
         initial={{ y: 40 }} animate={{ y: 0 }} exit={{ y: 40 }} onClick={(e) => e.stopPropagation()}>
         <div className={`flex items-center justify-between ${compact ? 'mb-3' : 'mb-4'}`}>
           <h3 className="font-bold">{title}</h3>

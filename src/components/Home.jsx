@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, Users, Zap, Sparkles, BookOpen, Crown, Map } from 'lucide-react';
+import { Search, Users, Zap, Sparkles, Crown, Map } from 'lucide-react';
 import { APP_VERSION } from '../data/appInfo';
 
 const Home = ({ onNavigate }) => {
@@ -40,15 +40,6 @@ const Home = ({ onNavigate }) => {
       gradient: 'from-green-500 to-emerald-500',
       bgPattern: 'bg-green-500/10',
       accent: '#34d399'
-    },
-    {
-      id: 'story',
-      title: 'Historia',
-      description: 'Guía de la historia principal',
-      icon: BookOpen,
-      gradient: 'from-red-500 to-rose-500',
-      bgPattern: 'bg-red-500/10',
-      accent: '#fb7185'
     },
     {
       id: 'guia',

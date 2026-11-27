@@ -15,6 +15,14 @@ Documento interno. **La interfaz no muestra esta información.**
   - `data\text\es\dex_info.dll` → descripción.
   - `data\text\es\dex_espec.dll` → categoría.
   - `data\text\zz\dex_height_m.dll` / `dex_weight_kg.dll` → altura y peso.
+  - `data\text\{es,en}\txt_abilities.dll` → 314 nombres (español del juego y clave interna).
+  - `data\text\es\txt_abilities_desc.dll` → 314 descripciones en español.
+  - `data\text\{es,en}\ordenNameAbility.dll` → orden alfabético de la UI (no es el ID).
+- **Habilidades por Pokémon:** script `PokemonHabilidad` del `gamedata` de GameMaker 8
+  (`scripts/game-scripts/PokemonHabilidad.gml.txt`). El ID de habilidad es el número
+  de línea en `txt_abilities.dll`. Las pocas especies añadidas que el script no
+  contempla (Ruinas, Koraidon/Miraidon, Ogerpon, Terapagos, megas tardías) se
+  completan con habilidades oficiales ya presentes en el DLL (`curated-official`).
 - **Shiny:** el juego nombra los sprites como `<ID+1000>.gif` (por ejemplo, `1 -> 1001.gif`, `892 -> 1892.gif`).
   El dataset guarda el nombre exacto en `sprite.shinyFile`; la app también conserva copias renombradas a ID plano.
 - **Gritos:** carpeta mantenida por el usuario `D:\reloaded\Proyecto Reloaded The Last Beta 1.9.2.2 Full\data\audio\grito` (sincronizada a `public\cries` por `npm run build:data`). Se usa el nombre de archivo exacto por ID; los archivos nuevos tienen prioridad sobre los empaquetados antes.
@@ -22,6 +30,9 @@ Documento interno. **La interfaz no muestra esta información.**
 - **Iconos de tipos:** extraídos sin modificar los EXE del `gamedata` cifrado de GameMaker 8.0
   (`spr_gotype` 12×12 y `spr_gobigtype` 44×44). El orden de frames se contrastó con `TipoName`
   y los colores con `TipoColor`; se guardan en `public/icons/types/`.
+- **Iconos del filtro:** versiones vectoriales SVG 512×512 en blanco puro, guardadas en
+  `public/icons/types/hd/` y generadas por `scripts/fetchHdTypeIcons.mjs` desde
+  `duiker101/pokemon-type-svg-icons` (MIT). Solo se usan en el filtro para evitar el pixelado.
 - **Guía/historia:** wikitext de la wiki oficial guardado en `scripts/wiki-cache.json` y
   convertido por `scripts/buildGuideData.mjs` en `src/data/guide.json` (sin peticiones en runtime).
 
@@ -30,7 +41,8 @@ Documento interno. **La interfaz no muestra esta información.**
 - `types` / `stats`: vienen del dataset anterior. Los tipos se emparejan **por nombre del juego** (`official-name-matched`); cuando Reloaded reutiliza un ID con otro nombre (Pikablue ocupa el 495, que oficialmente es Snivy), no se copia el tipo del hueco. Las criaturas exclusivas sin ficha oficial se dejan sin tipo en lugar de inventar uno.
 - Los stats se conservan por hueco cuando el nombre es propio de Reloaded (Pikablue y Mega Pikablue mantienen 45/45/55/45/55/63 = 308); cuando el nombre sí coincide con una ficha oficial se usan los stats de esa ficha (por ejemplo, Sylveon).
 - `evolutions` / `prevEvolution`: del backup interno (`pokemon_backup.js`, `pokemonFull.js`), solo donde existe registro.
-  No hay una tabla de evolución legible en el juego; los métodos son datos internos heredados, no verificados en disco.
+  No hay una tabla de evolución legible en el juego; en general los métodos son datos internos heredados, no verificados en disco.
+  **Excepción Eevee:** el juego confirma en `dex_info.dll:133` y `txt_dialog.dll:14712` que evoluciona a 18 especies por piedras; las 18 piedras y sus nombres exactos están en `txt_obj.dll` (43-51, 54, 322, 412, 601-606) y la correspondencia piedra → especie en la wiki oficial del juego. No se usa felicidad, afecto ni nivel. `buildReloadexData.mjs` aplica esa tabla al regenerar.
 - **Corrección aplicada:** el backup apuntaba Primeape → ID 979, que en Reloaded es Tapu Fini.
   `Annihilape` está en `txt_pkmn.dll` con ID real **2357**; el enlace quedó corregido.
 - **Urshifu:** las dos formas del juego (2236 y 2237) no tienen método de evolución legible; se muestran como dos ramas desde Kubfu (2235), sin inventar objeto.
@@ -47,9 +59,12 @@ No se asignan a ningún Pokémon para no atribuir un grito equivocado.
 
 ## Regeneración
 
-`npm run build:data` actualiza `src/data/reloadex.json` y `src/data/reloadex.provenance.json`.
+`npm run build:abilities` regenera el catálogo (`src/data/gameAbilities.json`,
+`src/data/abilities.js`, `src/data/abilityNames.es.js`) desde los DLL y el script del juego.
+`npm run build:data` ejecuta ese paso y actualiza `src/data/reloadex.json` y
+`src/data/reloadex.provenance.json`, con `abilities: [{ id, key, name, hidden }]`.
 `npm run build:guia` actualiza `src/data/guide.json` desde `scripts/wiki-cache.json`.
-`npm run build:all` regenera datos y guía, y compila la PWA.
+`npm run build:all` regenera habilidades, datos y guía, y compila la PWA.
 
 ## Límites del entorno
 

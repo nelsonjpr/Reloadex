@@ -28,26 +28,46 @@ con índice, búsqueda, filtros por región/fase y colores para medallas, ligas 
 
 `public/icons/types/` contiene los iconos reales extraídos del `gamedata` de GameMaker
 (`spr_gotype` / `spr_gobigtype`), con transparencia y colores contrastados contra el propio
-`TipoColor` del juego. Se usan en la lista, la ficha y el filtro de tipos.
+`TipoColor` del juego. Se usan en la lista y la ficha.
+El filtro utiliza versiones SVG 512×512 en blanco puro (`public/icons/types/hd/`,
+regenerables con `npm run icons:hd`) sobre fondos de color vibrante y botones de 4/6 columnas.
+Se pueden marcar hasta **2 tipos** a la vez; el Pokémon debe tener ambos para aparecer.
+
+### Habilidades reales del juego
+
+Las 314 habilidades y sus descripciones salen de `txt_abilities.dll` y
+`txt_abilities_desc.dll`; la asignación por Pokémon se lee del script
+`PokemonHabilidad` extraído del `gamedata` de GameMaker. El ID interno de cada
+habilidad es su línea en el DLL (no el orden alfabético de la UI).
+
+```bash
+npm run build:abilities  # genera gameAbilities.json, abilities.js y abilityNames.es.js
+```
+
+Cada entrada de `src/data/reloadex.json` guarda `abilities` como
+`{ id, key, name, hidden }`, con `name` en español del juego.
 
 ### Regenerar el dataset
 
 ```bash
-npm run build:data      # node scripts/buildReloadexData.mjs
+npm run build:data      # habilidades + dataset (recomendado)
 # o apuntando a otra copia del juego:
-RELAODEX_GAME_DATA="D:\Juegos\Reloaded\data" npm run build:data
+RELOADEX_GAME_DATA="D:\Juegos\Reloaded\data" npm run build:data
 ```
 
-Genera `src/data/reloadex.json` + `src/data/reloadex.provenance.json`.
+Genera `src/data/gameAbilities.json`, `src/data/abilities.js`,
+`src/data/abilityNames.es.js`, `src/data/reloadex.json` y
+`src/data/reloadex.provenance.json`.
 
 ## Desarrollo
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173
-npm run build      # producción -> dist/
-npm run build:guia # regenera guía/historia desde la caché de la wiki
-npm run build:all  # regenera datos + guía + build
+npm run dev            # http://localhost:5173
+npm run build          # producción -> dist/
+npm run build:abilities # catálogo y asignación de habilidades desde el juego
+npm run build:guia     # regenera guía/historia desde la caché de la wiki
+npm run build:all      # regenera habilidades + datos + guía + build
 npm run preview
 ```
 

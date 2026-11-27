@@ -131,6 +131,16 @@
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
   }
+
+  .type-filter-button {
+    -webkit-tap-highlight-color: transparent;
+    transform: translateZ(0);
+  }
+
+  .type-filter-icon {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
 }
 
 /* ===================================

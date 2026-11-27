@@ -12,28 +12,16 @@ import { formatId, spriteFallbacks, spriteUrl, typeColor } from '../utils/sprite
 const memory = new Map(); // conserva el scroll al navegar entre eslabones
 
 const EEVEE_ID = 133;
-const EEVEE_GROUP_ORDER = ['piedras', 'felicidad', 'reloaded'];
+const EEVEE_GROUP_ORDER = ['piedras', 'reloaded'];
 
-// Reloaded incluye 10 evoluciones propias de Eevee además de las 8 clásicas.
-// El juego no publica su método de evolución, así que se etiqueta sin inventarlo.
+// Las 18 evoluciones de Eevee (8 clásicas + 10 de Reloaded) llegan ya con su
+// piedra desde reloadex.json. Los tipos de las exclusivas se completan aquí
+// cuando el dataset no los trae.
 const eeveeTypesFor = (id) => ({
   505: ['grass'], 506: ['ghost'], 507: ['dragon'], 508: ['rock'],
   2054: ['flying'], 2055: ['bug'], 2056: ['ground'], 2057: ['fighting'],
   2058: ['fire'], 2059: ['steel'],
 }[id] || ['normal']);
-
-const EEVEE_EXTRA_BRANCHES = [
-  { id: 505, name: 'Eeveon', method: 'Evolución de Eevee' },
-  { id: 506, name: 'Phanteon', method: 'Evolución de Eevee' },
-  { id: 507, name: 'Drakeon', method: 'Evolución de Eevee' },
-  { id: 508, name: 'Rockeon', method: 'Evolución de Eevee' },
-  { id: 2054, name: 'Aereon', method: 'Evolución de Eevee' },
-  { id: 2055, name: 'Lephideon', method: 'Evolución de Eevee' },
-  { id: 2056, name: 'Duneon', method: 'Evolución de Eevee' },
-  { id: 2057, name: 'Bandeon', method: 'Evolución de Eevee' },
-  { id: 2058, name: 'Lireon', method: 'Evolución de Eevee' },
-  { id: 2059, name: 'Titaneon', method: 'Evolución de Eevee' },
-];
 
 export function normalizeLink(x) {
   if (x == null) return null;
@@ -123,15 +111,6 @@ pokemonData.forEach((p) => {
   if (back) addEdge(back.id, p, back.method, true);
 });
 
-EEVEE_EXTRA_BRANCHES.forEach((branch) => {
-  addEdge(EEVEE_ID, branch, branch.method);
-  evolutionParents.set(Number(branch.id), [{
-    id: EEVEE_ID,
-    name: pokemonById.get(EEVEE_ID)?.name || 'Eevee',
-    method: branch.method,
-  }]);
-});
-
 function methodIcon(method) {
   const m = String(method || '').toLowerCase();
   if (/evoluci[oó]n de eevee/.test(m)) return Sparkles;
@@ -147,9 +126,6 @@ function methodIcon(method) {
 function eeveeGroupFor(method) {
   const m = String(method || '').toLowerCase();
   if (/piedra/.test(m)) return { key: 'piedras', title: 'Piedras evolutivas', icon: Gem };
-  if (/felicidad|afecto|amistad|d[íi]a|noche/.test(m)) {
-    return { key: 'felicidad', title: 'Felicidad y afecto', icon: Heart };
-  }
   return { key: 'reloaded', title: 'Evoluciones de Reloaded', icon: Sparkles };
 }
 

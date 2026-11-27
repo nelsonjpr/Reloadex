@@ -11,6 +11,7 @@ import {
 } from '../utils/sprites';
 import { pokemonData } from '../data/pokemon';
 import { abilityNameEs } from '../data/abilityNames.es';
+import { getAbility } from '../data/abilities';
 import { effectivenessGroups, formatMultiplier } from '../data/typeChart';
 import EvolutionTree, { normalizeLink } from './EvolutionTree';
 
@@ -70,6 +71,7 @@ const canPlayCry = (p) => cryCandidates(p).some((name) => CRY_FILES.has(name));
 const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
   const [isShiny, setIsShiny] = useState(false);
   const [showVariants, setShowVariants] = useState(false);
+  const [expandedAbility, setExpandedAbility] = useState(null);
 
   const id = Number(pokemon?.id);
   const types = Array.isArray(pokemon?.types) ? pokemon.types : [];
@@ -301,24 +303,98 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
                 <h4 className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white/50">Habilidades</h4>
                 <div className="flex flex-wrap gap-2">
                   {abilities.map((ability, i) => {
-                    const name = typeof ability === 'object' ? ability.name : ability;
-                    const hidden = typeof ability === 'object' && !!ability.hidden;
+                    const isObject = typeof ability === 'object' && ability != null;
+                    const rawName = isObject ? (ability.name || ability.key) : ability;
+                    const hidden = isObject && !!ability.hidden;
+                    const key = isObject ? (ability.id ?? `${rawName}-${i}`) : `${rawName}-${i}`;
+                    const expanded = expandedAbility === key;
                     return (
-                      <span
-                        key={`${name}-${i}`}
-                        className="pill inline-flex items-center gap-2 border px-3.5 py-2 text-[13px] text-white"
-                        style={{ background: `${primary}1f`, borderColor: `${primary}66` }}
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() => setExpandedAbility(expanded ? null : key)}
+                        aria-expanded={expanded}
+                        aria-controls={`habilidad-${key}`}
+                        className={`pill inline-flex items-center gap-2 border px-3.5 py-2 text-[13px] text-white transition hover:brightness-110 active:scale-[0.97] ${
+                          expanded ? 'ring-1 ring-white/45' : ''
+                        }`}
+                        style={{
+                          background: expanded ? `${primary}33` : `${primary}1f`,
+                          borderColor: `${primary}66`,
+                        }}
                       >
-                        {abilityNameEs(name)}
+                        {abilityNameEs(isObject ? ability : rawName)}
                         {hidden && (
                           <span className="pill bg-gradient-to-r from-amber-300 to-pink-400 px-2 py-0.5 text-[10px] font-extrabold text-slate-900">
                             Oculta
                           </span>
                         )}
-                      </span>
+                        <ChevronDown
+                          size={13}
+                          className={`text-white/55 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+                        />
+                      </button>
                     );
                   })}
                 </div>
+
+                <AnimatePresence initial={false}>
+                  {expandedAbility !== null && (() => {
+                    const current = abilities.find((ability, i) => {
+                      const isObject = typeof ability === 'object' && ability != null;
+                      const rawName = isObject ? (ability.name || ability.key) : ability;
+                      return (isObject ? (ability.id ?? `${rawName}-${i}`) : `${rawName}-${i}`) === expandedAbility;
+                    });
+                    if (!current) return null;
+                    const isObject = typeof current === 'object' && current != null;
+                    const name = abilityNameEs(isObject ? current : current);
+                    const hidden = isObject && !!current.hidden;
+                    const info = getAbility(isObject ? (current.id ?? current.key ?? current.name) : current);
+                    return (
+                      <motion.div
+                        key={expandedAbility}
+                        id={`habilidad-${expandedAbility}`}
+                        initial={{ height: 0, opacity: 0, y: -4 }}
+                        animate={{ height: 'auto', opacity: 1, y: 0 }}
+                        exit={{ height: 0, opacity: 0, y: -4 }}
+                        transition={{ duration: 0.22, ease: 'easeOut' }}
+                        className="overflow-hidden"
+                      >
+                        <div className="glass-effect mt-3 rounded-2xl border p-4" style={{ borderColor: `${primary}44` }}>
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex items-center gap-2.5">
+                              <span
+                                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl"
+                                style={{ background: `${primary}26`, color: primary }}
+                              >
+                                <Sparkles size={16} />
+                              </span>
+                              <div>
+                                <p className="text-sm font-bold text-white">{name}</p>
+                                {hidden && (
+                                  <p className="text-[10px] font-bold uppercase tracking-wider text-amber-300">
+                                    Habilidad oculta
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setExpandedAbility(null)}
+                              aria-label="Cerrar descripción de la habilidad"
+                              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white/55 transition hover:bg-white/10 hover:text-white"
+                            >
+                              <ChevronDown size={16} className="rotate-180" />
+                            </button>
+                          </div>
+                          {info?.description && (
+                            <p className="mt-3 text-[13px] leading-6 text-white/75">{info.description}</p>
+                          )}
+                        </div>
+                      </motion.div>
+                    );
+                  })()}
+                </AnimatePresence>
               </div>
             )}
 

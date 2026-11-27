@@ -81,6 +81,11 @@ export const typeIcon = (type, big = false) => {
   return file ? `/icons/types/${big ? 'big' : 'small'}_${file}.png` : null;
 };
 
+// Iconos vectoriales 512x512 en blanco puro, usados en el filtro de tipos.
+export const typeIconHd = (type) => (
+  TYPE_ICON_FILE[type] ? `/icons/types/hd/${type}.svg` : null
+);
+
 export const typeColor = (type) => typeColors[type] || '#777777';
 export const typeName = (type) => typeTranslations[type] || type || '?';
 

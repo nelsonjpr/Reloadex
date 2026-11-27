@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T22:43:23.260Z",
+  "generatedAt": "2026-11-27T00:19:32.526Z",
   "gameDataDir": "D:\\Juegos\\Reloaded\\data",
   "criesSourceDir": "D:\\reloaded\\Proyecto Reloaded The Last Beta 1.9.2.2 Full\\data\\audio\\grito",
   "syncedCries": 1284,
@@ -10,7 +10,7 @@
     "mega": 129,
     "forme": 432,
     "unknownNames": 0,
-    "withStats": 1502,
+    "withStats": 1507,
     "withShiny": 1505,
     "withCry": 1264
   },

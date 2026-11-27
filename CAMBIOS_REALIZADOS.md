@@ -200,7 +200,7 @@ useEffect(() => {
 
 ### LocalStorage:
 - Key: `currentView`
-- Valores: `'home'`, `'pokedex'`, `'team'`, `'moves'`, `'abilities'`, `'story'`, `'legendaries'`
+- Valores: `'home'`, `'pokedex'`, `'team'`, `'moves'`, `'abilities'`, `'guia'`, `'legendaries'`
 
 ### Breakpoints Tailwind:
 - `sm:` 640px+

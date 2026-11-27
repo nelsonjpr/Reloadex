@@ -153,12 +153,11 @@ const SectionView = ({ section, chapter }) => {
   );
 };
 
-const GuiaView = ({ onBack, variant = 'guia' }) => {
-  const isHistoria = variant === 'historia';
-  const [region, setRegion] = useState(isHistoria ? 'Todo' : 'Star');
+const GuiaView = ({ onBack }) => {
+  const [region, setRegion] = useState('Star');
   const [phase, setPhase] = useState('Todo');
   const [query, setQuery] = useState('');
-  const [open, setOpen] = useState(isHistoria ? 'antes' : 'liga-star');
+  const [open, setOpen] = useState('liga-star');
   const [indexOpen, setIndexOpen] = useState(false);
 
   const chapters = guideData.chapters;
@@ -209,12 +208,10 @@ const GuiaView = ({ onBack, variant = 'guia' }) => {
             </button>
             <div className="min-w-0">
               <h1 className="text-2xl font-semibold tracking-[-0.035em] text-white sm:text-4xl">
-                {isHistoria ? 'Historia' : 'Guía'}
+                Guía
               </h1>
               <p className="mt-0.5 text-xs font-normal tracking-[0.08em] text-white/50 sm:text-sm">
-                {isHistoria
-                  ? 'Del primer Pokémon a la Liga Star y todo lo que viene después'
-                  : 'Guía completa de Pokémon Reloaded, capítulo por capítulo'}
+                Guía completa de Pokémon Reloaded, capítulo por capítulo
               </p>
             </div>
           </div>
