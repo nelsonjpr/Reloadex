@@ -1,16 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import Home from './components/Home';
-import PokemonDetail from './components/PokemonDetail';
-import MovesView from './components/MovesView';
-import AbilitiesView from './components/AbilitiesView';
-import LegendariesView from './components/LegendariesView';
-import GuiaView from './components/GuiaView';
-import { TeamBuilder } from './components/TeamBuilder';
-import Pokedex from './components/Pokedex';
-import { pokemonData } from './data/pokemon';
+
+// Las vistas pesadas se cargan solo cuando se abren. Así el arranque no debe
+// parsear los ~2,8 MB de datos (reloadex.json, guía, habilidades, movimientos).
+const PokemonDetail = lazy(() => import('./components/PokemonDetail'));
+const MovesView = lazy(() => import('./components/MovesView'));
+const AbilitiesView = lazy(() => import('./components/AbilitiesView'));
+const LegendariesView = lazy(() => import('./components/LegendariesView'));
+const GuiaView = lazy(() => import('./components/GuiaView'));
+const TeamBuilder = lazy(() => import('./components/TeamBuilder')
+  .then((m) => ({ default: m.TeamBuilder })));
+const Pokedex = lazy(() => import('./components/Pokedex'));
 
 const VIEWS = ['home', 'pokedex', 'team', 'moves', 'abilities', 'guia', 'legendaries'];
+
+function Loading() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#080d1a]">
+      <div className="flex flex-col items-center gap-3">
+        <img src="/logo-ui.png" alt="" className="h-12 w-12 animate-pulse rounded-2xl object-cover" />
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Cargando…</p>
+      </div>
+    </div>
+  );
+}
 
 // =============================================================
 // Reloadex — Pokédex profesional de Pokémon Reloaded
@@ -28,17 +42,19 @@ function App() {
 
   const navigate = (view) => { setCurrentView(view); setSelectedPokemon(null); };
 
-  // Navegación de evolución / mega: IDs NUMÉRICOS
-  const handleEvolutionNavigate = (pokemonId) => {
+  // Navegación de evolución / mega: IDs NUMÉRICOS. El dataset se importa aquí
+  // bajo demanda para no incluirlo en el chunk inicial.
+  const handleEvolutionNavigate = async (pokemonId) => {
+    const { pokemonData } = await import('./data/pokemon');
     const target = pokemonData.find((p) => Number(p.id) === Number(pokemonId));
     if (target) setSelectedPokemon(target);
   };
 
   const handleBackToHome = () => { setCurrentView('home'); setSelectedPokemon(null); };
 
-  // Detalle de Pokémon (página completa)
+  let content;
   if (selectedPokemon && (currentView === 'pokedex' || currentView === 'team')) {
-    return (
+    content = (
       <AnimatePresence mode="wait">
         <PokemonDetail
           key={selectedPokemon.id}
@@ -48,22 +64,23 @@ function App() {
         />
       </AnimatePresence>
     );
+  } else if (currentView === 'home') {
+    content = <Home onNavigate={navigate} />;
+  } else if (currentView === 'team') {
+    content = <TeamBuilder onBack={handleBackToHome} onOpen={(p) => setSelectedPokemon(p)} />;
+  } else if (currentView === 'moves') {
+    content = <MovesView onBack={handleBackToHome} />;
+  } else if (currentView === 'abilities') {
+    content = <AbilitiesView onBack={handleBackToHome} />;
+  } else if (currentView === 'guia') {
+    content = <GuiaView onBack={handleBackToHome} />;
+  } else if (currentView === 'legendaries') {
+    content = <LegendariesView onBack={handleBackToHome} />;
+  } else {
+    content = <Pokedex onBack={handleBackToHome} onSelect={(p) => setSelectedPokemon(p)} />;
   }
 
-  if (currentView === 'home') return <Home onNavigate={navigate} />;
-  if (currentView === 'team') return <TeamBuilder onBack={handleBackToHome} onOpen={(p) => setSelectedPokemon(p)} />;
-  if (currentView === 'moves') return <MovesView onBack={handleBackToHome} />;
-  if (currentView === 'abilities') return <AbilitiesView onBack={handleBackToHome} />;
-  if (currentView === 'guia') return <GuiaView onBack={handleBackToHome} />;
-  if (currentView === 'legendaries') return <LegendariesView onBack={handleBackToHome} />;
-
-  // Pokédex (vista actual)
-  return (
-    <Pokedex
-      onBack={handleBackToHome}
-      onSelect={(p) => setSelectedPokemon(p)}
-    />
-  );
+  return <Suspense fallback={<Loading />}>{content}</Suspense>;
 }
 
 export default App;

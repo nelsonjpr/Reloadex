@@ -1,15 +1,13 @@
 /* Reloadex service worker — 100% offline (APK/PWA) */
-const VERSION = 'reloadex-v3-offline';
+const VERSION = 'reloadex-v4-fast';
+// Precarga mínimo: el logo de 1,78 MB y los iconos grandes se descargan bajo
+// demanda (o ya están en el APK), no bloquean el primer render.
 const CORE = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
-  '/logo.png',
-  '/favicon.ico',
+  '/logo-ui.png',
   '/favicon.png',
-  '/apple-touch-icon.png',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
 ];
 
 self.addEventListener('install', (event) => {

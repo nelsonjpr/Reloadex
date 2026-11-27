@@ -173,7 +173,7 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
                 {formatId(id)}
               </span>
               <img
-                src="/logo.png"
+                src="/logo-ui.png"
                 alt="Reloadex"
                 className="h-10 w-10 rounded-2xl bg-black/20 object-cover ring-1 ring-white/25"
               />

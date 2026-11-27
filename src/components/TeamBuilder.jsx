@@ -392,6 +392,7 @@ export function TeamBuilder({ onBack }) {
                       <img
                         src={`/sprites/normal/${pokemon.id}.gif`}
                         alt={pokemon.name}
+                        loading="lazy"
                         className="w-full h-16 object-contain mb-2"
                         onError={(e) => {
                           e.target.style.display = 'none';

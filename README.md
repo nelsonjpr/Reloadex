@@ -4,7 +4,8 @@ Pokédex **profesional** para el fangame **Pokémon Reloaded** (The Last Beta 1.
 **mobile-first** y lista para empaquetar como **app móvil (APK)**.
 
 - Nombre de la app: **Reloadex**
-- Logo: `logo.png` → copiado a `public/logo.png`, `public/favicon.ico`, `public/apple-touch-icon.png`, `public/icons/*`
+- Logo: `logo.png` → iconos APK/PWA en `assets/logo.png`, `public/favicon.ico`, `public/apple-touch-icon.png`, `public/icons/*`
+- Logo ligero para la interfaz: `public/logo-ui.png` (36 KB; sustituye al `public/logo.png` de 1,78 MB)
 - PWA instalable + service worker offline (`public/manifest.webmanifest`, `public/sw.js`)
 - Salida de build APK-ready con Capacitor (`capacitor.config.json`) → ver **[APK.md](./APK.md)**
 

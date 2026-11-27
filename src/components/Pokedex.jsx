@@ -18,6 +18,13 @@ import GenerationFilter from './GenerationFilter';
 const PAGE_SIZES = [30, 60, 120, 1000000];
 const FAVORITES_KEY = 'reloadex:favorites';
 
+// Lista virtual: la tarjeta mide 124 px y hay 12 px de separación. Solo se
+// montan las filas visibles (±4 de margen), aunque «Todos» tenga 1.561 Pokémon.
+const ROW_HEIGHT = 124;
+const ROW_GAP = 12;
+const ROW_STRIDE = ROW_HEIGHT + ROW_GAP;
+const OVERSCAN = 4;
+
 const loadFavorites = () => {
   try {
     const raw = localStorage.getItem(FAVORITES_KEY);
@@ -45,10 +52,13 @@ export default function Pokedex({ onBack, onSelect }) {
   const [showGenFilter, setShowGenFilter] = useState(false);
   const [sort, setSort] = useState('id-asc');
   const [formFilter, setFormFilter] = useState('all'); // all | base | mega | forme
-  const [pageSize, setPageSize] = useState(60);
+  const [pageSize, setPageSize] = useState(30);
   const [page, setPage] = useState(1);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [favorites, setFavorites] = useState(loadFavorites);
+  const listRef = React.useRef(null);
+  const scrollFrame = React.useRef(0);
+  const [range, setRange] = useState({ start: 0, end: 24 });
 
   const toggleType = (type) => {
     setSelectedTypes((prev) => {
@@ -61,12 +71,6 @@ export default function Pokedex({ onBack, onSelect }) {
   React.useEffect(() => {
     try { localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favorites])); } catch { /* almacenamiento no disponible */ }
   }, [favorites]);
-
-  React.useEffect(() => {
-    const onScroll = () => setShowScrollTop(window.scrollY > 400);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   React.useEffect(() => { setPage(1); }, [searchTerm, selectedTypes, selectedGeneration, sort, formFilter, pageSize]);
 
@@ -103,6 +107,38 @@ export default function Pokedex({ onBack, onSelect }) {
   const safePage = Math.min(page, totalPages);
   const pageItems = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
 
+  // Recalcula qué filas tocan la pantalla. Se llama al hacer scroll, al rotar
+  // el móvil y al cambiar de filtro/página; el DOM nunca pasa de ~20 tarjetas.
+  const updateRange = React.useCallback(() => {
+    const el = listRef.current;
+    if (!el) return;
+    const listTop = el.getBoundingClientRect().top + window.scrollY;
+    const first = Math.max(0, Math.floor((window.scrollY - listTop) / ROW_STRIDE));
+    const count = Math.ceil(window.innerHeight / ROW_STRIDE) + OVERSCAN * 2;
+    const start = Math.max(0, first - OVERSCAN);
+    const end = Math.min(pageItems.length, start + count);
+    setRange((prev) => (prev.start === start && prev.end === end ? prev : { start, end }));
+  }, [pageItems.length]);
+
+  React.useEffect(() => {
+    const onScroll = () => {
+      if (scrollFrame.current) return;
+      scrollFrame.current = window.requestAnimationFrame(() => {
+        scrollFrame.current = 0;
+        setShowScrollTop(window.scrollY > 400);
+        updateRange();
+      });
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (scrollFrame.current) window.cancelAnimationFrame(scrollFrame.current);
+    };
+  }, [updateRange]);
+
   const activeFilters = selectedTypes.length + (selectedGeneration ? 1 : 0) + (formFilter !== 'all' ? 1 : 0);
 
   const toggleFavorite = (id) => {
@@ -130,7 +166,7 @@ export default function Pokedex({ onBack, onSelect }) {
               </button>
             )}
             <div className="flex items-center gap-3 flex-1 min-w-0">
-              <img src="/logo.png" alt="Reloadex" className="h-9 w-9 rounded-xl object-cover ring-1 ring-white/15" />
+              <img src="/logo-ui.png" alt="Reloadex" className="h-9 w-9 rounded-xl object-cover ring-1 ring-white/15" />
               <div className="min-w-0">
                 <h1 className="truncate text-xl font-semibold tracking-[-0.035em] sm:text-2xl">Reloadex</h1>
                 <p className="truncate text-[11px] font-normal tracking-[0.08em] text-white/50">Pokédex de Pokémon Reloaded</p>
@@ -200,19 +236,24 @@ export default function Pokedex({ onBack, onSelect }) {
 
       {/* Lista: se separa del header sticky para que la primera tarjeta quede visible */}
       <main className="mx-auto max-w-3xl px-4 pt-5 pb-5 sm:pt-6 sm:pb-8">
-        <div className="space-y-3 pt-1">
-          <AnimatePresence initial={false}>
-            {pageItems.map((pokemon, index) => (
-              <PokemonRow
-                key={pokemon.id}
-                pokemon={pokemon}
-                index={index}
-                isFavorite={favorites.has(Number(pokemon.id))}
-                onToggleFavorite={() => toggleFavorite(Number(pokemon.id))}
-                onClick={() => onSelect && onSelect(pokemon)}
-              />
-            ))}
-          </AnimatePresence>
+        <div ref={listRef} className="relative w-full pt-1" style={{ height: pageItems.length * ROW_STRIDE + 4 }}>
+          {pageItems.slice(
+            Math.min(range.start, Math.max(0, pageItems.length - 1)),
+            Math.max(range.end, Math.min(range.start, Math.max(0, pageItems.length - 1))),
+          ).map((pokemon, i) => {
+            const index = Math.min(range.start, Math.max(0, pageItems.length - 1)) + i;
+            return (
+              <div key={pokemon.id} className="absolute inset-x-0" style={{ top: index * ROW_STRIDE + 4, height: ROW_HEIGHT }}>
+                <PokemonRow
+                  pokemon={pokemon}
+                  index={index}
+                  isFavorite={favorites.has(Number(pokemon.id))}
+                  onToggleFavorite={() => toggleFavorite(Number(pokemon.id))}
+                  onClick={() => onSelect && onSelect(pokemon)}
+                />
+              </div>
+            );
+          })}
         </div>
 
         {filtered.length === 0 && (
@@ -326,14 +367,13 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
 
   return (
     <motion.div
-      layout
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.15, delay: Math.min(index * 0.01, 0.12) }}
       whileHover={{ y: -4, transition: { duration: 0.3, delay: 0 } }}
       whileTap={{ scale: 0.98, transition: { duration: 0.18, delay: 0 } }}
-      className="premium-card group relative w-full min-h-[112px] overflow-hidden rounded-[28px] border border-white/[0.16]"
+      className="premium-card group relative h-[124px] w-full overflow-hidden rounded-[28px] border border-white/[0.16]"
       style={{
         background: `linear-gradient(115deg, ${deep} 0%, ${vivid} 54%, ${light} 100%)`,
         '--card-shadow': `0 18px 44px -22px ${deep}ee, 0 10px 28px -18px rgba(3, 8, 20, 0.85)`,
@@ -356,10 +396,10 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
       <div className="pointer-events-none relative z-20 flex items-center gap-3 p-3.5 sm:gap-4 sm:p-4">
         <div className="relative shrink-0">
           <div
-            className="absolute -inset-2 rounded-full opacity-55 blur-xl transition group-hover:opacity-80"
-            style={{ backgroundColor: light }}
+            className="absolute -inset-2 rounded-full opacity-45 transition group-hover:opacity-70"
+            style={{ background: `radial-gradient(circle, ${light}aa, transparent 70%)` }}
           />
-          <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-white/25 bg-gradient-to-br from-white/25 to-black/30 shadow-[inset_0_2px_6px_rgba(255,255,255,0.16),0_6px_14px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:h-[88px] sm:w-[88px]">
+          <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-white/25 bg-gradient-to-br from-white/25 to-black/30 shadow-[inset_0_2px_6px_rgba(255,255,255,0.16),0_6px_14px_rgba(0,0,0,0.25)] sm:h-[88px] sm:w-[88px]">
             <div className="absolute inset-[3px] rounded-full border border-white/15" />
             <img
               key={`${pokemon.id}-${shiny}`}
@@ -391,9 +431,9 @@ function PokemonRow({ pokemon, index, isFavorite, onToggleFavorite, onClick }) {
             {(pokemon.types || []).map((t) => (
               <span
                 key={t}
-                className="pill inline-flex items-center gap-1 bg-black/25 px-2.5 py-1 text-[10px] uppercase text-white ring-1 ring-white/20 backdrop-blur-sm"
+                className="pill inline-flex items-center gap-1 bg-black/25 px-2.5 py-1 text-[10px] uppercase text-white ring-1 ring-white/20"
               >
-                <img src={typeIcon(t)} alt="" aria-hidden="true" className="h-3.5 w-3.5 object-contain pixelated" />
+                <img src={typeIcon(t)} alt="" aria-hidden="true" loading="lazy" className="h-3.5 w-3.5 object-contain pixelated" />
                 {typeName(t)}
               </span>
             ))}

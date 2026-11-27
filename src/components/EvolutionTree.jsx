@@ -23,20 +23,21 @@ const eeveeTypesFor = (id) => ({
   2058: ['fire'], 2059: ['steel'],
 }[id] || ['normal']);
 
+// Índice único: evita ~500.000 comparaciones lineales al construir el árbol.
+const pokemonById = new Map(pokemonData.map((p) => [Number(p.id), p]));
+
 export function normalizeLink(x) {
   if (x == null) return null;
   const rawId = typeof x === 'object' ? (x.id ?? x) : x;
   const id = Number(rawId);
   if (!Number.isFinite(id)) return null;
-  const known = pokemonData.find((p) => Number(p.id) === id);
+  const known = pokemonById.get(id);
   return {
     id,
     name: known?.name || (typeof x === 'object' ? x.name : null) || `Pokémon #${id}`,
     method: typeof x === 'object' ? (x.method || null) : null,
   };
 }
-
-const pokemonById = new Map(pokemonData.map((p) => [Number(p.id), p]));
 const evolutionParents = new Map();
 
 pokemonData.forEach((p) => {

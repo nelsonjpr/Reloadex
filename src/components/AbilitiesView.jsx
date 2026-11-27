@@ -55,10 +55,9 @@ const AbilitiesView = ({ onBack }) => {
             {filteredAbilities.map((ability, index) => (
               <motion.div
                 key={`${ability.id}-${ability.name}`}
-                layout
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.02 }}
+                transition={{ delay: Math.min(index * 0.02, 0.15) }}
                 className="glass-effect rounded-xl overflow-hidden"
               >
                 <button

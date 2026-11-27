@@ -74,7 +74,7 @@ const Home = ({ onNavigate }) => {
           >
             <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
               <img
-                src="/logo.png"
+                src="/logo-ui.png"
                 alt="Reloadex"
                 className="h-14 w-14 rounded-2xl object-cover ring-2 ring-white/20 sm:h-20 sm:w-20"
                 style={{ boxShadow: '0 18px 38px -18px rgba(56, 189, 248, 0.8), inset 0 1px 0 rgba(255,255,255,0.2)' }}
