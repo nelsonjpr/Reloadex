@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, Users, Zap, Sparkles, Crown, Map } from 'lucide-react';
+import { Search, Users, Zap, Sparkles, Crown, Map, MapPin } from 'lucide-react';
 import { APP_VERSION } from '../data/appInfo';
 import { safeTop } from '../utils/safeArea';
+import UpdateButton from './UpdateButton';
 
 const Home = ({ onNavigate }) => {
   const menuItems = [
@@ -59,6 +60,15 @@ const Home = ({ onNavigate }) => {
       gradient: 'from-amber-500 to-yellow-500',
       bgPattern: 'bg-amber-500/10',
       accent: '#fcd34d'
+    },
+    {
+      id: 'objetos',
+      title: 'Localización de objetos',
+      description: 'Todos los objetos y sus rutas',
+      icon: MapPin,
+      gradient: 'from-indigo-500 to-blue-500',
+      bgPattern: 'bg-indigo-500/10',
+      accent: '#818cf8'
     }
   ];
 
@@ -162,6 +172,7 @@ const Home = ({ onNavigate }) => {
             <span className="pill bg-white/10 px-2 py-0.5 font-semibold tracking-normal text-white/75">
               Versión {APP_VERSION}
             </span>
+            <UpdateButton />
             <span>{new Date().getFullYear()} · Hecho con ❤️ para entrenadores</span>
           </p>
         </div>

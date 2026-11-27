@@ -1,0 +1,1 @@
+ var cn; if(argument0=0 || argument1=0)return(false); for(cn=194;cn<=637;cn+=1){if(cn=291)cn=618; if(ex(8693,cn)=argument1){ if(ex(5278,cn,argument0))return(true);}} if(argument2=true){ if(ex(5233,argument0,argument1))return true;} return(false); 

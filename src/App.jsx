@@ -8,12 +8,13 @@ const PokemonDetail = lazy(() => import('./components/PokemonDetail'));
 const MovesView = lazy(() => import('./components/MovesView'));
 const AbilitiesView = lazy(() => import('./components/AbilitiesView'));
 const LegendariesView = lazy(() => import('./components/LegendariesView'));
+const ObjectLocationsView = lazy(() => import('./components/ObjectLocationsView'));
 const GuiaView = lazy(() => import('./components/GuiaView'));
 const TeamBuilder = lazy(() => import('./components/TeamBuilder')
   .then((m) => ({ default: m.TeamBuilder })));
 const Pokedex = lazy(() => import('./components/Pokedex'));
 
-const VIEWS = ['home', 'pokedex', 'team', 'moves', 'abilities', 'guia', 'legendaries'];
+const VIEWS = ['home', 'pokedex', 'team', 'moves', 'abilities', 'guia', 'legendaries', 'objetos'];
 
 function Loading() {
   return (
@@ -96,6 +97,8 @@ function App() {
     content = <GuiaView onBack={handleBackToHome} />;
   } else if (currentView === 'legendaries') {
     content = <LegendariesView onBack={handleBackToHome} />;
+  } else if (currentView === 'objetos') {
+    content = <ObjectLocationsView onBack={handleBackToHome} />;
   } else {
     content = <Pokedex onBack={handleBackToHome} onSelect={openFromList} />;
   }

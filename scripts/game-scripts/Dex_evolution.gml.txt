@@ -1,0 +1,1 @@
+var PK, f, f1, f2, PK, z1, z2, z3; PK=ex(8811,global.LISTADEX[global.pkdexAC]); if(ex(6924,PK))exit; if(ex(6920,PK))exit; if(ex(6921,PK))exit; ex(6919,PK); 

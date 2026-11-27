@@ -28,6 +28,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { gameEvolutionById } from './parseGameEvolutions.mjs';
 import { decodeFile } from './decodeReloaded.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -696,8 +697,11 @@ for (const id of [...allIds].sort((a, b) => a - b)) {
   const resolvedAbilities = abilitiesForGameId(id, name, baseForm, abilityEntry?.abilities);
   const abilities = resolvedAbilities.abilities;
 
-  // línea evolutiva: datos heredados internos, con IDs remapeados a los del juego.
-  const legacy = (nameMatchesLegacy
+  // Línea evolutiva: los scripts GML del juego son la autoridad. El backup
+  // heredado queda solo como fallback para lo que el GML no declara.
+  const gameEvo = gameEvolutionById.get(id) || null;
+  const hasGameEvo = !!gameEvo && (gameEvo.evolutions.length > 0 || gameEvo.prevEvolution.length > 0);
+  const legacy = hasGameEvo ? null : (nameMatchesLegacy
     ? (legacyEvolutionById.get(id) || fullEvolutionById.get(id))
     : null)
     || fullEvolutionByGameName.get(gameNameKey(name))
@@ -714,22 +718,13 @@ for (const id of [...allIds].sort((a, b) => a - b)) {
     link.name = baseNameById.get(link.id) || gameNames[textIndexForId(link.id)] || link.name;
     return link;
   };
-  let prevEvolution = legacy?.prevEvolution ? resolveLink(legacy.prevEvolution) : null;
+  const sourcePrev = gameEvo?.prevEvolution?.[0] || legacy?.prevEvolution || null;
+  let prevEvolution = sourcePrev ? resolveLink(sourcePrev) : null;
   if (!prevEvolution && form === 'mega' && baseForm != null) {
     prevEvolution = { id: baseForm, name: baseNameById.get(baseForm) || null, method: null };
   }
-  let evolutions = (Array.isArray(legacy?.evolutions) ? legacy.evolutions : [])
-    .map(resolveLink)
-    .filter(Boolean);
-
-  // Reloaded registra dos Urshifu distintos (2236 y 2237) a partir de Kubfu (2235).
-  // No hay método legible en los archivos del juego: se muestra la rama, sin inventar objeto.
-  if (id === 2235 && evolutions.length === 0) {
-    evolutions = [2236, 2237].map((target) => resolveLink({ id: target, name: baseNameById.get(target), method: null }));
-  }
-  if ((id === 2236 || id === 2237) && !prevEvolution) {
-    prevEvolution = resolveLink({ id: 2235, name: baseNameById.get(2235), method: null });
-  }
+  const sourceEvolutions = hasGameEvo ? gameEvo.evolutions : (Array.isArray(legacy?.evolutions) ? legacy.evolutions : []);
+  let evolutions = sourceEvolutions.map(resolveLink).filter(Boolean);
 
   // Eevee: 18 evoluciones por piedra, sin felicidad/amistad ni nivel.
   if (id === 133) {
@@ -742,7 +737,7 @@ for (const id of [...allIds].sort((a, b) => a - b)) {
       .filter(Boolean);
   }
   const eeveeStone = EEVEE_STONE_EVOLUTIONS.find(([target]) => target === id);
-  if (eeveeStone && !prevEvolution) {
+  if (eeveeStone) {
     prevEvolution = resolveLink({ id: 133, name: 'Eevee', method: eeveeStone[1] });
   }
 
@@ -774,7 +769,7 @@ for (const id of [...allIds].sort((a, b) => a - b)) {
     moves,
     prevEvolution,
     evolutions,
-    evolutionKnown: !!legacy,
+    evolutionKnown: hasGameEvo || !!legacy,
     height,
     weight,
     species,

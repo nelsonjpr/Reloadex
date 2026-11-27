@@ -1,7 +1,7 @@
-﻿import React, { useMemo, useState } from 'react';
+﻿import React, { lazy, Suspense, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Volume2, Sparkles, ArrowLeft, ChevronDown,
+  Volume2, Sparkles, ArrowLeft, ChevronDown, BookOpen,
   BarChart3, Layers, Ruler, Weight, Dna, Egg, TrendingUp,
   TrendingDown, Activity,
 } from 'lucide-react';
@@ -15,6 +15,8 @@ import { getAbility } from '../data/abilities';
 import { effectivenessGroups, formatMultiplier } from '../data/typeChart';
 import EvolutionTree, { normalizeLink } from './EvolutionTree';
 import { safeTop } from '../utils/safeArea';
+
+const PokemonMovesPanel = lazy(() => import('./PokemonMovesPanel'));
 
 // =============================================================
 // Reloadex — ficha móvil moderna (datos reales de Pokémon Reloaded)
@@ -73,6 +75,7 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
   const [isShiny, setIsShiny] = useState(false);
   const [showVariants, setShowVariants] = useState(false);
   const [expandedAbility, setExpandedAbility] = useState(null);
+  const [showMoves, setShowMoves] = useState(false);
 
   const id = Number(pokemon?.id);
   const types = Array.isArray(pokemon?.types) ? pokemon.types : [];
@@ -126,7 +129,6 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
   };
 
   const abilities = Array.isArray(pokemon.abilities) ? pokemon.abilities : [];
-  const moves = Array.isArray(pokemon.moves) ? pokemon.moves : [];
   const hasBreeding = !!(pokemon.eggGroups?.length || pokemon.eggSteps || pokemon.growthRate);
 
   return (
@@ -399,28 +401,47 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
               </div>
             )}
 
-            {moves.length > 0 && (
-              <div className="mt-6">
-                <h4 className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white/50">Movimientos</h4>
-                <div className="flex flex-wrap gap-2">
-                  {moves.slice(0, 16).map((move, i) => (
-                    <span
-                      key={`${moveLabel(move)}-${i}`}
-                      className="pill border px-3 py-1.5 text-xs font-semibold text-white/85"
-                      style={{ background: 'rgba(255,255,255,0.05)', borderColor: `${primary}44` }}
-                    >
-                      {moveLabel(move)}
-                    </span>
-                  ))}
-                  {moves.length > 16 && (
-                    <span className="pill bg-white/10 px-3 py-1.5 text-xs font-semibold text-white/60">
-                      +{moves.length - 16}
-                    </span>
-                  )}
-                </div>
-              </div>
-            )}
+            <motion.button
+              type="button"
+              whileTap={{ scale: 0.99 }}
+              onClick={() => setShowMoves((v) => !v)}
+              aria-label="Movimientos"
+              aria-expanded={showMoves}
+              className="mt-6 flex min-h-[52px] w-full items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-left transition hover:brightness-110"
+              style={{ background: `${primary}1f`, borderColor: `${primary}55` }}
+            >
+              <span className="flex min-w-0 items-center gap-2.5">
+                <span
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl"
+                  style={{ background: `${primary}2e`, color: primary }}
+                >
+                  <BookOpen size={16} />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[13px] font-bold text-white">Movimientos</span>
+                  <span className="block truncate text-[10px] text-white/45">
+                    Nivel, MT/MO, tutores, DT y huevo
+                  </span>
+                </span>
+              </span>
+              <ChevronDown
+                size={16}
+                className={`shrink-0 text-white/55 transition-transform ${showMoves ? 'rotate-180' : ''}`}
+              />
+            </motion.button>
           </Card>
+
+          <AnimatePresence initial={false}>
+            {showMoves && (
+              <Suspense fallback={null}>
+                <PokemonMovesPanel
+                  pokemon={pokemon}
+                  color={primary}
+                  onClose={() => setShowMoves(false)}
+                />
+              </Suspense>
+            )}
+          </AnimatePresence>
 
           {/* Estadisticas */}
           {hasStats && (
@@ -572,7 +593,6 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate }) => {
   );
 };
 
-const moveLabel = (move) => (typeof move === 'object' ? (move.name || move.id || '—') : String(move));
 const eggName = (group) => (typeof group === 'object' ? (group.name || '—') : String(group));
 const growthName = (rate) => ({
   slow: 'Lenta', medium: 'Media', 'medium-slow': 'Media lenta', fast: 'Rápida',

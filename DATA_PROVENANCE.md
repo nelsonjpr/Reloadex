@@ -33,19 +33,38 @@ Documento interno. **La interfaz no muestra esta información.**
 - **Iconos del filtro:** versiones vectoriales SVG 512×512 en blanco puro, guardadas en
   `public/icons/types/hd/` y generadas por `scripts/fetchHdTypeIcons.mjs` desde
   `duiker101/pokemon-type-svg-icons` (MIT). Solo se usan en el filtro para evitar el pixelado.
+- **Movimientos por Pokémon:** scripts GML del `gamedata` extraídos por
+  `scripts/extractGameScripts.py` (`Ataque_Nivel`, `Ataque_MT`, `Ataque_Tutor`, `Ataque_DT`,
+  `AprendeAtaqueHuevo`, `MTAtack`, `IndiceTutor`). `scripts/buildLearnsets.mjs` genera
+  `src/data/learnsets.json` con niveles reales, objetos MT/MO, tutores, DTs y huevo;
+  nombres y descripciones vienen de `txt_attack.dll` y `txt_attack_desc.dll`.
+  `PokemonMovesPanel.jsx` los muestra por pestañas en la ficha de cada Pokémon.
 - **Guía/historia:** wikitext de la wiki oficial guardado en `scripts/wiki-cache.json` y
   convertido por `scripts/buildGuideData.mjs` en `src/data/guide.json` (sin peticiones en runtime).
+- **Localización de objetos:** scripts GML del `gamedata` (`CreateObjects` para los objetos del
+  suelo por sala y `NameLugar` para convertir cada sala en el lugar del juego), cruzados con
+  `txt_obj.dll` y `txt_places.dll`. `scripts/buildObjectLocations.mjs` genera
+  `src/data/objectLocations.json` con los 821 objetos registrados y sus rutas reales
+  (487 con al menos una ruta, 1407 colocaciones en 421 lugares). No se inventa ninguna ruta;
+  los objetos sin colocación verificada se dejan sin ubicación.
 
 ### Datos heredados (no verificables en los archivos legibles)
 
 - `types` / `stats`: vienen del dataset anterior. Los tipos se emparejan **por nombre del juego** (`official-name-matched`); cuando Reloaded reutiliza un ID con otro nombre (Pikablue ocupa el 495, que oficialmente es Snivy), no se copia el tipo del hueco. Las criaturas exclusivas sin ficha oficial se dejan sin tipo en lugar de inventar uno.
 - Los stats se conservan por hueco cuando el nombre es propio de Reloaded (Pikablue y Mega Pikablue mantienen 45/45/55/45/55/63 = 308); cuando el nombre sí coincide con una ficha oficial se usan los stats de esa ficha (por ejemplo, Sylveon).
-- `evolutions` / `prevEvolution`: del backup interno (`pokemon_backup.js`, `pokemonFull.js`), solo donde existe registro.
-  No hay una tabla de evolución legible en el juego; en general los métodos son datos internos heredados, no verificados en disco.
-  **Excepción Eevee:** el juego confirma en `dex_info.dll:133` y `txt_dialog.dll:14712` que evoluciona a 18 especies por piedras; las 18 piedras y sus nombres exactos están en `txt_obj.dll` (43-51, 54, 322, 412, 601-606) y la correspondencia piedra → especie en la wiki oficial del juego. No se usa felicidad, afecto ni nivel. `buildReloadexData.mjs` aplica esa tabla al regenerar.
+- `evolutions` / `prevEvolution`: la autoridad son los scripts GML embebidos en el gamedata del EXE
+  (`Dex_evolution_standar`, `Dex_evolution_complex`, `Dex_mega_evolution`, `EvolutionConfirmation`).
+  `scripts/extractGameScripts.py` los extrae y `scripts/parseGameEvolutions.mjs` construye la tabla;
+  `buildReloadexData.mjs` la aplica antes que el backup heredado (`pokemon_backup.js`, `pokemonFull.js`).
+  `Dex_evolution_complex` se interpreta evaluando `PK` y cada modo `(79).EV` (1-19), siguiendo las
+  asignaciones `f.p1 / f.p2 / f.str` y las ramas `if/else`, de modo que no se pierdan las líneas
+  condicionales (Ralts, Eevee, Pichu, Typhlosion, Mime Jr., Flapple…).
+  Los métodos se leen de los textos reales: `txt_menu.dll` (260-266) y `txt_obj.dll` (piedras y objetos).
+  **Eevee** mantiene su tabla verificada de 18 piedras (`txt_obj.dll` 43-51, 54, 322, 412, 601-606)
+  y prevalece sobre la rama genérica del GML. No se usa felicidad, afecto ni nivel.
 - **Corrección aplicada:** el backup apuntaba Primeape → ID 979, que en Reloaded es Tapu Fini.
   `Annihilape` está en `txt_pkmn.dll` con ID real **2357**; el enlace quedó corregido.
-- **Urshifu:** las dos formas del juego (2236 y 2237) no tienen método de evolución legible; se muestran como dos ramas desde Kubfu (2235), sin inventar objeto.
+- **Urshifu:** Kubfu (2235) evoluciona a 2236 con `Gafas de Sol` y a 2237 con `Agua Mística`, según `Dex_evolution_complex`.
 - No se han encontrado tablas por Pokémon de **grupos huevo, pasos de eclosión ni tasa de crecimiento**;
   esos campos no se inventan y la ficha los omite.
 
@@ -61,10 +80,11 @@ No se asignan a ningún Pokémon para no atribuir un grito equivocado.
 
 `npm run build:abilities` regenera el catálogo (`src/data/gameAbilities.json`,
 `src/data/abilities.js`, `src/data/abilityNames.es.js`) desde los DLL y el script del juego.
-`npm run build:data` ejecuta ese paso y actualiza `src/data/reloadex.json` y
+`npm run build:learnsets` genera `src/data/learnsets.json` desde los GML extraídos.
+`npm run build:data` ejecuta ambos pasos y actualiza `src/data/reloadex.json` y
 `src/data/reloadex.provenance.json`, con `abilities: [{ id, key, name, hidden }]`.
 `npm run build:guia` actualiza `src/data/guide.json` desde `scripts/wiki-cache.json`.
-`npm run build:all` regenera habilidades, datos y guía, y compila la PWA.
+`npm run build:all` regenera habilidades, learnsets, datos y guía, y compila la PWA.
 
 ## Límites del entorno
 

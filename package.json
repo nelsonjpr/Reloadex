@@ -9,13 +9,17 @@
     "build": "vite build",
     "preview": "vite preview",
     "build:abilities": "node scripts/buildAbilities.mjs",
+    "build:learnsets": "node scripts/buildLearnsets.mjs",
+    "build:objetos": "node scripts/buildObjectLocations.mjs",
     "icons:hd": "node scripts/fetchHdTypeIcons.mjs",
-    "build:data": "node scripts/buildAbilities.mjs && node scripts/buildReloadexData.mjs",
+    "build:data": "node scripts/buildAbilities.mjs && node scripts/buildReloadexData.mjs && node scripts/buildLearnsets.mjs && node scripts/buildObjectLocations.mjs",
     "build:guia": "node scripts/buildGuideData.mjs",
-    "build:all": "node scripts/buildAbilities.mjs && node scripts/buildReloadexData.mjs && node scripts/buildGuideData.mjs && vite build",
+    "build:all": "node scripts/buildAbilities.mjs && node scripts/buildReloadexData.mjs && node scripts/buildLearnsets.mjs && node scripts/buildObjectLocations.mjs && node scripts/buildGuideData.mjs && vite build",
     "apk:prepare": "npm run build && npx cap sync android && node scripts/prepareApkBuild.mjs",
     "apk:debug": "npm run apk:prepare && node scripts/runGradle.mjs assembleDebug --no-daemon",
-    "apk:release": "npm run apk:prepare && node scripts/runGradle.mjs assembleRelease --no-daemon -x :capacitor-android:extractReleaseAnnotations -x :capacitor-cordova-android-plugins:extractReleaseAnnotations -x :capacitor-android:lintVitalAnalyzeRelease -x :capacitor-cordova-android-plugins:lintVitalAnalyzeRelease -x :app:lintVitalAnalyzeRelease -x :app:lintVitalReportRelease -x :app:lintVitalRelease"
+    "apk:release": "npm run apk:prepare && node scripts/runGradle.mjs assembleRelease --no-daemon -x :capacitor-android:extractReleaseAnnotations -x :capacitor-cordova-android-plugins:extractReleaseAnnotations -x :capacitor-android:lintVitalAnalyzeRelease -x :capacitor-cordova-android-plugins:lintVitalAnalyzeRelease -x :app:lintVitalAnalyzeRelease -x :app:lintVitalReportRelease -x :app:lintVitalRelease",
+    "update:bundle": "node scripts/buildUpdateBundle.mjs",
+    "release:update": "npm run build && npm run update:bundle"
   },
   "dependencies": {
     "@capacitor/android": "^8.6.3",
