@@ -145,7 +145,7 @@ public class UpdaterPlugin extends Plugin {
                 downloadToFile(zipUrl, zip, this::notifyProgress);
                 unzip(zip, staging);
 
-                prune(staging, wanted);
+                prune(staging, staging, wanted);
                 verifyHashes(staging, wanted);
                 swap(mirror, staging);
 
@@ -408,14 +408,19 @@ public class UpdaterPlugin extends Plugin {
         }
     }
 
-    /** Quita archivos que ya no existen en la versión destino. */
-    private void prune(File dir, Map<String, String> wanted) {
+    /**
+     * Quita archivos que ya no existen en la versión destino. La ruta debe
+     * compararse siempre desde la raíz: si se calcula desde el directorio que
+     * se está recorriendo, `sprites/normal/100025.gif` se ve como `100025.gif`
+     * y se borra aunque el manifest lo espere.
+     */
+    private void prune(File root, File dir, Map<String, String> wanted) {
         File[] children = dir.listFiles();
         if (children == null) return;
         for (File child : children) {
-            String rel = relativeTo(dir, child);
+            String rel = relativeTo(root, child);
             if (child.isDirectory()) {
-                prune(child, wanted);
+                prune(root, child, wanted);
                 File[] rest = child.listFiles();
                 if (rest != null && rest.length == 0) child.delete();
             } else if (!wanted.containsKey(rel) && !CAP_RUNTIME_FILES.contains(rel)) {
@@ -433,7 +438,18 @@ public class UpdaterPlugin extends Plugin {
     private void verifyHashes(File root, Map<String, String> wanted) throws IOException {
         for (Map.Entry<String, String> entry : wanted.entrySet()) {
             File file = new File(root, entry.getKey().replace('/', File.separatorChar));
-            if (!file.isFile()) throw new IOException("Falta el archivo " + entry.getKey());
+            if (!file.isFile()) {
+                // La copia local puede venir de un APK anterior que no tenia este
+                // archivo. Si el APK actual lo trae en assets, lo recuperamos; el
+                // hash de abajo decide si sirve.
+                File parent = file.getParentFile();
+                if (parent != null) parent.mkdirs();
+                try {
+                    copyAssets("public/" + entry.getKey(), file);
+                } catch (IOException missing) {
+                    throw new IOException("Falta el archivo " + entry.getKey());
+                }
+            }
             if (!sha256(file).equals(entry.getValue())) {
                 throw new IOException("Hash incorrecto en " + entry.getKey());
             }

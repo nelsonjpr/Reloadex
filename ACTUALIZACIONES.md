@@ -24,24 +24,43 @@ La actualización web no reinstala la app: mantiene una copia local de `dist/` e
 y le dice al WebView de Capacitor que cargue desde esa carpeta (`WebView.setServerBasePath`).
 Si el ZIP o algún hash falla, se conserva la copia anterior.
 
+Desde la v1.0.3 la tarjeta se monta con un portal sobre `<body>` y usa un `z-index`
+muy alto: el footer tiene `backdrop-filter`, que antes atrapaba el modal y lo dejaba
+debajo de las tarjetas del inicio. También se corrigió `prune()` en el plugin nativo:
+comparaba las rutas desde el subdirectorio recorrido y borraba archivos válidos como
+`sprites/normal/100025.gif` antes de verificarlos. Si falta un archivo en la copia
+local, el plugin lo recupera desde los assets del APK y vuelve a validar su SHA-256.
+
 ## Versiones y firma
 
 La **v1.0** no tenía el actualizador; hubo que instalar manualmente la **v1.1**
-(`versionCode 2`) una vez. La versión pública vigente es la **v1.0.2**
-(`versionCode 4`, `versionName 1.0.2`), que se puede instalar encima de la v1.0.1
-con la misma firma. El código fuente ya apunta a la **v1.0.3** (`versionCode 5`,
-`versionName 1.0.3`: Caras y paleta de comandos); esa versión aún no está publicada,
-así que la descarga pública sigue siendo la v1.0.2.
+(`versionCode 2`) una vez. La versión pública vigente es la **v1.0.3**
+(`versionCode 5`, `versionName 1.0.3`), que se instala encima de la v1.0.2
+con la misma firma: añade las Caras, la paleta de comandos y las correcciones del
+actualizador.
 
 Reglas que no se pueden saltar:
 
 - Todo APK nuevo debe ir firmado con el **mismo `reloadex-release.jks`**. Si cambia la
   firma, Android rechaza la actualización ("la app no está instalada").
-- Subir `versionCode` en `android/app/build.gradle` en cada APK nuevo (ahora 5 = v1.0.3; publicada: 4 = v1.0.2).
+- Subir `versionCode` en `android/app/build.gradle` en cada APK nuevo (ahora 5 = v1.0.3).
 - Si algún día publicas en Google Play, desactiva esta vía: la política de Play exige
   usar *Play In-App Updates* y prohíbe instalar APKs descargados a mano.
 
-## Publicar la v1.0.2
+## Publicar la v1.0.3
+
+```bash
+npm run build
+npm run update:bundle -- --version-code 5 --version-name 1.0.3 --tag v1.0.3 \
+  --notes "Reloadex 1.0.3: 361 caras del truco CARA, paleta de comandos y correcciones del actualizador." --set-baseline
+npm run apk:release                # APK firmado con versionCode 5
+```
+
+El delta se calcula desde la base fijada en v1.0.2 y se suben los tres assets a la
+GitHub Release **v1.0.3**: `Reloadex-1.0.3.apk`, `update-manifest.json` y
+`web-delta-v1.0.3.zip`.
+
+## Publicar la v1.0.2 (histórico)
 
 ```bash
 npm run build
@@ -66,7 +85,7 @@ Mantén el `versionCode` del APK y sube solo el del manifiesto:
 
 ```bash
 npm run build
-npm run update:bundle -- --version-code 5 --version-name 1.0.3 --tag v1.0.3 \
+npm run update:bundle -- --version-code 6 --version-name 1.0.4 --tag v1.0.4 \
   --notes $'Novedades:\n- Más Pokémon\n- Correcciones'
 ```
 
@@ -75,12 +94,12 @@ npm run update:bundle -- --version-code 5 --version-name 1.0.3 --tag v1.0.3 \
 Al instalarlo, Capacitor vuelve a usar los assets del paquete y la versión web se
 alinea automáticamente con la del APK.
 
-En ambos casos se genera `release/web-delta-v1.0.3.zip` con **únicamente los archivos
+En ambos casos se genera `release/web-delta-v1.0.4.zip` con **únicamente los archivos
 que cambiaron desde la base fijada**. Sube a la release:
 
 - `release/update-manifest.json`
-- `release/web-delta-v1.0.3.zip`
-- el APK (`Reloadex-1.0.3.apk`) solo si compilaste uno nuevo
+- `release/web-delta-v1.0.4.zip`
+- el APK (`Reloadex-1.0.4.apk`) solo si compilaste uno nuevo
 
 **No vuelvas a pasar `--set-baseline`** en las actualizaciones web posteriores: la base
 debe seguir siendo la última release publicada para que los deltas sean pequeños.

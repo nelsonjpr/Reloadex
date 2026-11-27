@@ -78,7 +78,7 @@ async function withProgress(onProgress, work) {
  */
 export async function checkForUpdate({ force = false } = {}) {
   if (!isNative) {
-    return { available: false, reason: 'web', webVersionCode: 4, versionCode: 4 };
+    return { available: false, reason: 'web', webVersionCode: 5, versionCode: 5 };
   }
 
   if (!force) {

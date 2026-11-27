@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AlertCircle, Check, Download, RefreshCw, X } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { Check, Download, RefreshCw, X } from 'lucide-react';
 import { applyUpdate, checkForUpdate, getNativeInfo } from '../utils/updater';
 
 const LABELS = {
@@ -22,6 +23,15 @@ const UpdateButton = () => {
   const [open, setOpen] = useState(false);
   const [progress, setProgress] = useState({ downloaded: 0, total: 0 });
   const resultRef = useRef(null);
+
+  // El modal se monta con un portal sobre <body>: el footer usa backdrop-filter
+  // y, sin portal, cualquier z-index queda atrapado en ese contexto de capas.
+  useEffect(() => {
+    if (!open) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previous; };
+  }, [open]);
 
   useEffect(() => {
     let alive = true;
@@ -115,9 +125,9 @@ const UpdateButton = () => {
         <span>{LABELS[state]}</span>
       </button>
 
-      {open && (
+      {open && createPortal(
         <div
-          className="fixed inset-0 z-[100] flex items-end justify-center bg-[#040812]/95 p-3 sm:items-center sm:p-5"
+          className="fixed inset-0 z-[9999] flex items-end justify-center bg-[#040812]/95 p-3 sm:items-center sm:p-5"
           role="dialog"
           aria-modal="true"
           aria-label="Actualizando Reloadex"
@@ -194,7 +204,8 @@ const UpdateButton = () => {
               <p className="mt-3 text-xs leading-relaxed text-amber-200/90">{message}</p>
             )}
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );

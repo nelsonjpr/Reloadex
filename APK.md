@@ -1,13 +1,11 @@
 # Generar el APK — Reloadex
 
-**Descarga pública:** [Reloadex-1.0.2.apk](https://github.com/nelsonjpr/Reloadex/releases/download/v1.0.2/Reloadex-1.0.2.apk)
-· [Página del release](https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.2)
+**Descarga pública:** [Reloadex-1.0.3.apk](https://github.com/nelsonjpr/Reloadex/releases/download/v1.0.3/Reloadex-1.0.3.apk)
+· [Página del release](https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.3)
 
-La v1.0.2 incluye el actualizador con un único botón, progreso real de descarga, la corrección del error `EISDIR`, el arranque siempre en Inicio y la sección de Misiones; consulta `ACTUALIZACIONES.md`.
-
-El código fuente ya está en **v1.0.3** (`versionCode 5`): añade Caras y paleta de
-comandos. Todavía no hay APK ni release pública de la v1.0.3; el enlace y el hash de
-abajo corresponden a la v1.0.2 publicada.
+La v1.0.3 (`versionCode 5`) incluye las 361 caras del truco CARA, la paleta de comandos,
+el modal de actualización siempre por encima de la interfaz y la corrección del error
+`Falta el archivo sprites/normal/100025.gif` al aplicar deltas; consulta `ACTUALIZACIONES.md`.
 
 La app se distribuye como **APK firmado** y funciona **100% offline desde el primer arranque**:
 dataset, guía, sprites, shiny, fuentes y gritos van dentro del paquete. No usa PokeAPI ni
@@ -69,8 +67,8 @@ keyPassword=TU_PASSWORD
 npm run apk:release    # build web + cap sync + APK firmado, en un solo comando
 ```
 
-Salida: `android/app/build/outputs/apk/release/app-release.apk` (~34,8 MB). La v1.0.2
-pesa **37.638.761 bytes** y su SHA-256 es `8d5750406ec6acd3c5f25f31643533ea6b8b57743c12238022fc841458345e6b`.
+Salida: `android/app/build/outputs/apk/release/app-release.apk`. La v1.0.3
+pesa **38.898.534 bytes** y su SHA-256 es `27c47a5c907d2115d06c100b9313be9c5a611f18d14e825ec0761686c9fcb90f`.
 Firmado con los esquemas v1 (JAR), v2 y v3; verifica con
 `apksigner verify --verbose --min-sdk-version 18 <apk>`.
 Para probar sin firmar: `npm run apk:debug`.
@@ -95,7 +93,8 @@ Los JARs descargados como respaldo viven en `android/local-jars/` (ignorado por 
 
 ## Publicar para todo el mundo
 
-El release **v1.0.2 ya está publicado**: https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.2
+El release **v1.0.3 ya está publicado**: https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.3
+(anterior: https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.2)
 
 1. Sube `app-release.apk` como asset de un **GitHub Release** para versiones nuevas.
 2. Quien descarga el APK desde el móvil lo instala habilitando "Instalar apps desconocidas".
