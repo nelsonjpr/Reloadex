@@ -10,7 +10,8 @@ Google Fonts en runtime.
 ## Requisitos
 
 - Node 22+
-- **JDK 21** (Temurin recomendado)
+- **JDK 21** (Temurin recomendado). No hace falta configurar `JAVA_HOME`: `scripts/runGradle.mjs`
+  lo detecta solo en `%LOCALAPPDATA%\Programs\jdk-21*`, `Program Files\EclipseAdoptium` o `JAVA_HOME`.
 - Android SDK con **platform 36** y `ANDROID_HOME` apuntando al SDK
 - `ffmpeg` en el PATH (solo si vas a regenerar los gritos desde el juego)
 
@@ -56,14 +57,25 @@ keyPassword=TU_PASSWORD
 > **Guarda el `.jks` y esas contraseñas fuera del repo.** Sin ellos no podrás firmar futuras
 > versiones con la misma identidad.
 
-## Compilar
+## Compilar después de cambios
 
 ```bash
-npm run apk:release    # assemblyRelease firmado
+npm run apk:release    # build web + cap sync + APK firmado, en un solo comando
 ```
 
 Salida: `android/app/build/outputs/apk/release/app-release.apk` (~34,5 MB).
 Para probar sin firmar: `npm run apk:debug`.
+
+**Tiempo medido con caché caliente: ~67 s** (Vite ~19 s + `cap sync` ~4 s + Gradle ~37 s).
+Solo cambia el código: no rehaces gritos, iconos ni keystore. Para tocar únicamente algo nativo
+de Android puedes saltarte el build web y llamar a Gradle directo (~20-30 s):
+
+```bash
+node scripts/runGradle.mjs assembleRelease --no-daemon -x :capacitor-android:extractReleaseAnnotations -x :capacitor-cordova-android-plugins:extractReleaseAnnotations -x :capacitor-android:lintVitalAnalyzeRelease -x :capacitor-cordova-android-plugins:lintVitalAnalyzeRelease -x :app:lintVitalAnalyzeRelease -x :app:lintVitalReportRelease -x :app:lintVitalRelease
+```
+
+Si el cambio fue en datos del juego (`scripts/buildReloadexData.mjs`, guía, etc.), usa
+`npm run build:all && npm run apk:release`, que sí regenera `dist/` desde cero.
 
 ### Si Google Maven está bloqueado
 
