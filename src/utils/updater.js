@@ -56,7 +56,7 @@ async function getJson(url) {
 
 export async function getNativeInfo() {
   if (!isNative) {
-    return { versionCode: 5, versionName: '1.0.3', webVersionCode: 5, canInstallApps: true, webRoot: null };
+    return { versionCode: 6, versionName: '1.0.4', webVersionCode: 6, canInstallApps: true, webRoot: null };
   }
   return Updater.getInfo();
 }
@@ -78,7 +78,7 @@ async function withProgress(onProgress, work) {
  */
 export async function checkForUpdate({ force = false } = {}) {
   if (!isNative) {
-    return { available: false, reason: 'web', webVersionCode: 5, versionCode: 5 };
+    return { available: false, reason: 'web', webVersionCode: 6, versionCode: 6 };
   }
 
   if (!force) {

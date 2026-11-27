@@ -281,30 +281,36 @@ public class UpdaterPlugin extends Plugin {
         AssetManager am = getContext().getAssets();
         String[] children = am.list(relative);
 
-        // AssetManager.list() devuelve un array vacío para archivos en algunas
-        // versiones de Android. Si solo miramos children == null, index.html se
-        // crea como carpeta y luego el unzip falla con EISDIR.
-        if (children == null || children.length == 0) {
-            File parent = target.getParentFile();
-            if (parent != null && !parent.exists() && !parent.mkdirs()) {
-                throw new IOException("No se pudo crear " + parent);
+        // Un directorio con contenido se reconstruye tal cual. Si antes había un
+        // archivo con ese nombre, se retira para no repetir el error EISDIR.
+        if (children != null && children.length > 0) {
+            if (target.isFile() && !target.delete()) {
+                throw new IOException("No se pudo retirar " + target);
             }
-            if (target.isDirectory()) deleteRecursively(target);
-            try (InputStream in = am.open(relative);
-                 OutputStream out = new FileOutputStream(target)) {
-                copy(in, out);
-            } catch (IOException notAFile) {
-                // Es un directorio (vacío), no un archivo. Si una versión anterior
-                // dejó aquí un archivo con el mismo nombre, lo retiramos.
-                deleteRecursively(target);
-                if (!target.mkdirs()) throw notAFile;
+            if (!target.isDirectory() && !target.mkdirs()) {
+                throw new IOException("No se pudo crear " + target);
+            }
+            for (String child : children) {
+                copyAssets(relative.equals("") ? child : relative + "/" + child, new File(target, child));
             }
             return;
         }
 
-        if (!target.exists() && !target.mkdirs()) throw new IOException("No se pudo crear " + target);
-        for (String child : children) {
-            copyAssets(relative.equals("") ? child : relative + "/" + child, new File(target, child));
+        // AssetManager.list() también devuelve vacío para un archivo, así que
+        // am.open() es la única forma fiable de saber si existe. Si falla, NO
+        // creamos un directorio: eso hacía que el hash luego leyera una carpeta
+        // y saliera "No se pudo calcular SHA-256".
+        try (InputStream in = am.open(relative)) {
+            File parent = target.getParentFile();
+            if (parent != null && !parent.isDirectory() && !parent.mkdirs()) {
+                throw new IOException("No se pudo crear " + parent);
+            }
+            if (target.isDirectory()) deleteRecursively(target);
+            try (OutputStream out = new FileOutputStream(target)) {
+                copy(in, out);
+            }
+        } catch (IOException notAFile) {
+            throw new IOException("No existe el asset " + relative, notAFile);
         }
     }
 
@@ -447,8 +453,10 @@ public class UpdaterPlugin extends Plugin {
                 try {
                     copyAssets("public/" + entry.getKey(), file);
                 } catch (IOException missing) {
-                    throw new IOException("Falta el archivo " + entry.getKey());
+                    throw new IOException("Falta el archivo " + entry.getKey()
+                        + " (no está en la copia local ni en el APK)");
                 }
+                if (!file.isFile()) throw new IOException("Falta el archivo " + entry.getKey());
             }
             if (!sha256(file).equals(entry.getValue())) {
                 throw new IOException("Hash incorrecto en " + entry.getKey());
@@ -457,6 +465,9 @@ public class UpdaterPlugin extends Plugin {
     }
 
     private String sha256(File file) throws IOException {
+        if (!file.isFile()) {
+            throw new IOException("No se pudo calcular SHA-256: " + file.getName() + " no es un archivo");
+        }
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             try (InputStream in = new FileInputStream(file)) {
@@ -468,7 +479,8 @@ public class UpdaterPlugin extends Plugin {
             for (byte b : md.digest()) sb.append(String.format("%02x", b & 0xff));
             return sb.toString();
         } catch (Exception e) {
-            throw new IOException("No se pudo calcular SHA-256", e);
+            throw new IOException("No se pudo calcular SHA-256 de " + file.getName()
+                + ": " + e.getMessage(), e);
         }
     }
 
