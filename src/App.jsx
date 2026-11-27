@@ -81,9 +81,9 @@ function Loading() {
         <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">Cargando…</p>
         <div className="h-1 w-28 overflow-hidden rounded-full bg-white/10">
           <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-fuchsia-400 to-violet-300"
-            initial={{ width: '10%' }}
-            animate={{ width: ['10%', '85%', '100%'] }}
+            className="h-full w-full origin-left rounded-full bg-gradient-to-r from-fuchsia-400 to-violet-300"
+            initial={{ scaleX: 0.1 }}
+            animate={{ scaleX: [0.1, 0.85, 1] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           />
         </div>

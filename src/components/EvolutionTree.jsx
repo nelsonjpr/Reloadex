@@ -223,15 +223,28 @@ export default function EvolutionTree({ pokemon, prevEvolution, onNavigate }) {
     [pokemon, prevEvolution, activeId],
   );
   const scroller = useRef(null);
+  const scrollFrame = useRef(0);
 
   useEffect(() => {
     const el = scroller.current;
     if (!el) return undefined;
     const saved = memory.get(line.rootId);
     if (saved) el.scrollTop = saved.top || 0;
-    const onScroll = () => memory.set(line.rootId, { top: el.scrollTop });
+    // Guardar la posición en cada evento era trabajo innecesario en el hilo
+    // principal durante el scroll; con rAF se escribe como mucho una vez por frame.
+    const onScroll = () => {
+      if (scrollFrame.current) return;
+      scrollFrame.current = window.requestAnimationFrame(() => {
+        scrollFrame.current = 0;
+        memory.set(line.rootId, { top: el.scrollTop });
+      });
+    };
     el.addEventListener('scroll', onScroll, { passive: true });
-    return () => el.removeEventListener('scroll', onScroll);
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      if (scrollFrame.current) window.cancelAnimationFrame(scrollFrame.current);
+      scrollFrame.current = 0;
+    };
   }, [line.rootId]);
 
   return (

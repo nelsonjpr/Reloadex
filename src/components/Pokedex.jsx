@@ -146,8 +146,13 @@ export default function Pokedex({ onBack, onSelect }) {
       if (scrollFrame.current) return;
       scrollFrame.current = window.requestAnimationFrame(() => {
         scrollFrame.current = 0;
-        setShowScrollTop(window.scrollY > 400);
+        // Primero se lee el layout (updateRange) y después se programa React;
+        // hacerlo al revés puede forzar un reflow dentro del propio frame.
         updateRange();
+        setShowScrollTop((visible) => {
+          const next = window.scrollY > 400;
+          return visible === next ? visible : next;
+        });
       });
     };
     onScroll();
@@ -513,7 +518,7 @@ function Sheet({ title, children, onClose, compact = false, wide = false }) {
   return (
     <motion.div className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center"
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}>
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/60" />
       <motion.div className={`relative w-full ${wide ? 'sm:max-w-2xl' : 'sm:max-w-md'} max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-slate-900 border border-white/10 ${compact ? 'p-4' : 'p-5'}`}
         initial={{ y: 40 }} animate={{ y: 0 }} exit={{ y: 40 }} onClick={(e) => e.stopPropagation()}>
         <div className={`flex items-center justify-between ${compact ? 'mb-3' : 'mb-4'}`}>

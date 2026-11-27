@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Search, Users, Zap, Sparkles, Crown, Map, MapPin, ScrollText, Smile, Terminal } from 'lucide-react';
 import { APP_VERSION } from '../data/appInfo';
 import { safeTop } from '../utils/safeArea';
@@ -96,11 +95,7 @@ const Home = ({ onNavigate, onOpenPalette }) => {
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent" />
         <div className="relative z-10 px-4 pb-8 sm:pb-12" style={safeTop(32)}>
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center"
-          >
+          <div className="text-center">
             <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
               <img
                 src="/logo-ui.png"
@@ -115,7 +110,7 @@ const Home = ({ onNavigate, onOpenPalette }) => {
             <p className="text-sm sm:text-lg font-normal tracking-[0.01em] text-white/70">
               Tu Pokédex definitiva de <span className="font-semibold text-white">Pokémon Reloaded</span>
             </p>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -130,26 +125,22 @@ const Home = ({ onNavigate, onOpenPalette }) => {
           Comandos: pulsa <kbd className="rounded border border-white/10 bg-black/30 px-1 font-mono text-[10px]">Ctrl+K</kbd> o <kbd className="rounded border border-white/10 bg-black/30 px-1 font-mono text-[10px]">/</kbd> y escribe <span className="font-mono text-rose-200/90">cambio cara</span>
         </button>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-          {menuItems.map((item, index) => {
+          {menuItems.map((item) => {
             const Icon = item.icon;
             return (
-              <motion.button
+              <button
+                type="button"
                 key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -4, transition: { duration: 0.25, delay: 0 } }}
-                whileTap={{ scale: 0.98, transition: { duration: 0.15, delay: 0 } }}
                 onClick={() => onNavigate(item.id)}
-                className="premium-card group relative overflow-hidden rounded-2xl border border-white/[0.06] sm:rounded-3xl p-4 text-left sm:p-6"
+                className="premium-card group relative overflow-hidden rounded-2xl border border-white/[0.06] p-4 text-left active:scale-[0.98] sm:rounded-3xl sm:p-6"
                 style={{
                   '--card-shadow': `0 18px 44px -22px ${item.accent}66, 0 12px 30px -18px rgba(3, 8, 20, 0.85)`,
                   '--card-shadow-hover': `0 26px 58px -20px ${item.accent}99, 0 16px 34px -16px rgba(3, 8, 20, 0.9)`,
                 }}
               >
-                {/* Background con glass effect */}
-                <div className="absolute inset-0 bg-white/5 backdrop-blur-xl" />
-                <div className={`absolute inset-0 ${item.bgPattern} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                {/* Sin backdrop-blur: la tarjeta ya es opaca y evitar capas de
+                    desenfoque mejora mucho el scroll en móvil. */}
+                <div className={`absolute inset-0 ${item.bgPattern} opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
                 
                 {/* Patrón decorativo */}
                 <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 opacity-10">
@@ -182,7 +173,7 @@ const Home = ({ onNavigate, onOpenPalette }) => {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-10`} />
                 </div>
-              </motion.button>
+              </button>
             );
           })}
         </div>

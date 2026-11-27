@@ -1,5 +1,4 @@
 import React, { memo, useDeferredValue, useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import { ArrowLeft, ChevronDown, Gift, MapPin, Package, Search, User } from 'lucide-react';
 import {
   OBJECT_SEARCH_INDEX, normalizeText, objectLocations, objectLocationStats,
@@ -21,7 +20,7 @@ const visibleDetail = (detail) => {
 
 // Tarjeta memoizada con estado propio: desplegar una ruta o un regalo no obliga
 // a volver a renderizar las otras tarjetas ya visibles.
-const ObjectCard = memo(function ObjectCard({ item, gifts, index }) {
+const ObjectCard = memo(function ObjectCard({ item, gifts }) {
   const locations = item.locations || [];
   const [locationsOpen, setLocationsOpen] = useState(false);
   const [giftsOpen, setGiftsOpen] = useState(false);
@@ -29,12 +28,10 @@ const ObjectCard = memo(function ObjectCard({ item, gifts, index }) {
   const visibleGifts = giftsOpen ? gifts : gifts.slice(0, 1);
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.22, delay: Math.min(index * 0.004, 0.25) }}
-      className="premium-card rounded-[24px] border border-white/[0.07] p-4 sm:p-5"
+    <article
+      className="premium-card deferred-card rounded-[24px] border border-white/[0.07] p-4 sm:p-5"
       style={{
+        '--deferred-height': '210px',
         '--card-shadow': '0 18px 44px -24px rgba(129,140,248,0.35), 0 12px 30px -18px rgba(3,8,20,0.85)',
         '--card-shadow-hover': '0 26px 58px -22px rgba(129,140,248,0.5), 0 16px 34px -16px rgba(3,8,20,0.9)',
       }}
@@ -127,7 +124,7 @@ const ObjectCard = memo(function ObjectCard({ item, gifts, index }) {
           )}
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 });
 
@@ -245,11 +242,10 @@ const ObjectLocationsView = ({ onBack }) => {
         ) : (
           <>
             <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 sm:gap-4">
-              {visibleItems.map((item, index) => (
+              {visibleItems.map((item) => (
                 <ObjectCard
                   key={item.id}
                   item={item}
-                  index={index}
                   gifts={giftsByItemId.get(item.id) || NO_GIFTS}
                 />
               ))}

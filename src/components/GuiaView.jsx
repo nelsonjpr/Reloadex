@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useDeferredValue, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowLeft, BookOpen, ChevronDown, Compass, Filter, Flag,
@@ -158,27 +158,29 @@ const GuiaView = ({ onBack }) => {
   const [region, setRegion] = useState('Star');
   const [phase, setPhase] = useState('Todo');
   const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
   const [open, setOpen] = useState('liga-star');
   const [indexOpen, setIndexOpen] = useState(false);
 
   const chapters = guideData.chapters;
   const index = useMemo(() => chapters.map((c) => ({ id: c.id, text: chapterText(c) })), []);
+  const indexText = useMemo(
+    () => new globalThis.Map(index.map((entry) => [entry.id, entry.text])),
+    [index],
+  );
 
   const filtered = useMemo(() => {
-    const q = normalize(query.trim());
+    const q = normalize(deferredQuery.trim());
     return chapters.filter((chapter) => {
       if (region !== 'Todo') {
         const label = REGION_LABEL[chapter.region] || chapter.region;
         if (label !== region) return false;
       }
       if (phase !== 'Todo' && chapter.kind !== phase) return false;
-      if (q) {
-        const text = index.find((entry) => entry.id === chapter.id)?.text || '';
-        if (!text.includes(q)) return false;
-      }
+      if (q && !(indexText.get(chapter.id) || '').includes(q)) return false;
       return true;
     });
-  }, [chapters, index, phase, query, region]);
+  }, [chapters, indexText, phase, deferredQuery, region]);
 
   const jumpTo = (id) => {
     setRegion('Todo');
@@ -321,18 +323,14 @@ const GuiaView = ({ onBack }) => {
 
           {/* Capítulos */}
           <main className="min-w-0 flex-1 space-y-3">
-            {filtered.map((chapter, indexNumber) => {
+            {filtered.map((chapter) => {
               const meta = KIND[chapter.kind] || KIND.inicio;
               const Icon = meta.icon;
               const isOpen = open === chapter.id;
               return (
-                <motion.article
+                <article
                   key={chapter.id}
                   id={`capitulo-${chapter.id}`}
-                  layout
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: Math.min(indexNumber * 0.02, 0.25) }}
                   className="premium-card overflow-hidden rounded-[22px] border border-white/[0.07] scroll-mt-4"
                   style={{
                     '--card-shadow': `0 18px 44px -26px ${meta.color}66, 0 12px 30px -18px rgba(3,8,20,0.85)`,
@@ -368,33 +366,20 @@ const GuiaView = ({ onBack }) => {
                         {chapter.sections.length} apartados
                       </span>
                     </span>
-                    <motion.span
-                      animate={{ rotate: isOpen ? 180 : 0 }}
-                      transition={{ duration: 0.25 }}
-                      className="shrink-0 text-white/45"
-                    >
-                      <ChevronDown size={20} />
-                    </motion.span>
+                    <ChevronDown
+                      size={20}
+                      className={`shrink-0 text-white/45 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                    />
                   </button>
 
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="space-y-3 border-t border-white/[0.06] bg-black/20 p-4 sm:p-5">
-                          {chapter.sections.map((section, i) => (
-                            <SectionView key={`${section.id}-${i}`} section={section} chapter={chapter} />
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.article>
+                  {isOpen && (
+                    <div className="space-y-3 border-t border-white/[0.06] bg-black/20 p-4 sm:p-5">
+                      {chapter.sections.map((section, i) => (
+                        <SectionView key={`${section.id}-${i}`} section={section} chapter={chapter} />
+                      ))}
+                    </div>
+                  )}
+                </article>
               );
             })}
 
@@ -422,7 +407,7 @@ const GuiaView = ({ onBack }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIndexOpen(false)}
-            className="fixed inset-0 z-[75] flex items-end bg-black/70 backdrop-blur-md lg:hidden"
+            className="fixed inset-0 z-[75] flex items-end bg-black/70 lg:hidden"
           >
             <motion.div
               initial={{ y: 40, opacity: 0 }}

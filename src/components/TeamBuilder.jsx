@@ -48,7 +48,7 @@ const Modal = ({ children, onClose }) => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
-    className="fixed inset-0 z-[80] flex items-end justify-center bg-black/75 backdrop-blur-sm sm:items-center"
+    className="fixed inset-0 z-[80] flex items-end justify-center bg-black/75 sm:items-center"
     onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}
   >
     <motion.div

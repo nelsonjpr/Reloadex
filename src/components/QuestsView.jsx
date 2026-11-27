@@ -1,5 +1,4 @@
 import React, { memo, useDeferredValue, useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import {
   ArrowLeft, CheckCircle2, ChevronDown, ListChecks, LockKeyhole,
   Search, ScrollText, Sparkles, Trophy, Users,
@@ -22,18 +21,16 @@ const KIND_INFO = {
 
 const GROUP_ICONS = { principales: ScrollText, elite: Users, frente: Trophy };
 
-const QuestCard = memo(function QuestCard({ quest, index }) {
+const QuestCard = memo(function QuestCard({ quest }) {
   const [open, setOpen] = useState(false);
   const objectives = quest.objectives || [];
   const visible = open ? objectives : objectives.slice(0, PREVIEW_OBJECTIVES);
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.22, delay: Math.min(index * 0.006, 0.25) }}
-      className="premium-card rounded-[24px] border border-white/[0.07] p-4 sm:p-5"
+    <article
+      className="premium-card deferred-card rounded-[24px] border border-white/[0.07] p-4 sm:p-5"
       style={{
+        '--deferred-height': '210px',
         '--card-shadow': '0 18px 44px -24px rgba(129,140,248,0.35), 0 12px 30px -18px rgba(3,8,20,0.85)',
         '--card-shadow-hover': '0 26px 58px -22px rgba(129,140,248,0.5), 0 16px 34px -16px rgba(3,8,20,0.9)',
       }}
@@ -106,7 +103,7 @@ const QuestCard = memo(function QuestCard({ quest, index }) {
           )}
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 });
 
@@ -228,8 +225,8 @@ const QuestsView = ({ onBack }) => {
         ) : (
           <>
             <div className="grid grid-cols-1 gap-3 sm:gap-4">
-              {visibleQuests.map((quest, index) => (
-                <QuestCard key={quest.id} quest={quest} index={index} />
+              {visibleQuests.map((quest) => (
+                <QuestCard key={quest.id} quest={quest} />
               ))}
             </div>
 

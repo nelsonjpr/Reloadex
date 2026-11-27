@@ -1,5 +1,4 @@
 import React, { memo, useDeferredValue, useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import { ArrowLeft, Search, Smile, Terminal, Users } from 'lucide-react';
 import {
   FACE_SEARCH_INDEX, extraFaces, normalizeFaceText, principalFaces,
@@ -14,18 +13,16 @@ const FILTERS = [
   { key: 'adicional', label: 'Adicionales', count: extraFaces.length },
 ];
 
-const FaceCard = memo(function FaceCard({ face, index }) {
+const FaceCard = memo(function FaceCard({ face }) {
   const [error, setError] = useState(false);
   const numero = face.n === 10 ? `10·${face.sub}` : String(face.n);
 
   return (
-    <motion.button
+    <button
       type="button"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, delay: Math.min(index * 0.004, 0.2) }}
-      className="premium-card group rounded-2xl border border-white/[0.07] p-2.5 text-center sm:p-3"
+      className="premium-card deferred-card group rounded-2xl border border-white/[0.07] p-2.5 text-center sm:p-3"
       style={{
+        '--deferred-height': '170px',
         '--card-shadow': '0 14px 34px -24px rgba(251,113,133,0.35), 0 10px 26px -18px rgba(3,8,20,0.85)',
         '--card-shadow-hover': '0 22px 48px -22px rgba(251,113,133,0.5), 0 14px 30px -16px rgba(3,8,20,0.9)',
       }}
@@ -55,7 +52,7 @@ const FaceCard = memo(function FaceCard({ face, index }) {
       <p className="truncate font-mono text-[9px] text-white/30" title={face.codigo}>
         {face.codigo}
       </p>
-    </motion.button>
+    </button>
   );
 });
 
@@ -155,8 +152,8 @@ const CarasView = ({ onBack }) => {
         ) : (
           <>
             <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-5 lg:grid-cols-8">
-              {visible.map((face, index) => (
-                <FaceCard key={`${face.tipo}-${face.id}`} face={face} index={index} />
+              {visible.map((face) => (
+                <FaceCard key={`${face.tipo}-${face.id}`} face={face} />
               ))}
             </div>
             {visibleCount < results.length && (

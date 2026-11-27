@@ -164,11 +164,16 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
             minHeight: 420,
           }}
         >
+          {/* Resplandor con degradado en vez de `blur-3xl`: el filtro obligaba
+              a recomponer una superficie grande en cada frame del scroll. */}
           <div
-            className="pointer-events-none absolute -left-24 top-8 h-72 w-72 rounded-full opacity-30 blur-3xl"
-            style={{ backgroundColor: primaryLight }}
+            className="pointer-events-none absolute -left-24 top-8 h-72 w-72 rounded-full opacity-60"
+            style={{ background: `radial-gradient(circle, ${primaryLight} 0%, transparent 70%)` }}
           />
-          <div className="pointer-events-none absolute -right-20 -top-10 h-80 w-80 rounded-full bg-white/25 blur-3xl" />
+          <div
+            className="pointer-events-none absolute -right-20 -top-10 h-80 w-80 rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%)' }}
+          />
           <div
             className="pointer-events-none absolute inset-0 opacity-10"
             style={{
@@ -182,7 +187,7 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
               <button
                 onClick={onClose}
                 aria-label="Volver"
-                className="pill flex h-11 w-11 items-center justify-center bg-black/25 text-white ring-1 ring-white/25 backdrop-blur-md transition hover:bg-black/35 active:scale-95"
+                className="pill flex h-11 w-11 items-center justify-center bg-black/25 text-white ring-1 ring-white/25 transition hover:bg-black/35 active:scale-95"
               >
                 <ArrowLeft size={20} />
               </button>
@@ -199,8 +204,8 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
             <div className="mt-1 flex flex-col items-center text-center">
               <div className="relative flex items-center justify-center">
                 <div
-                  className="absolute h-36 w-36 rounded-full opacity-45 blur-3xl"
-                  style={{ backgroundColor: adjustColor(primary, 0.45) }}
+                  className="absolute h-36 w-36 rounded-full opacity-70"
+                  style={{ background: `radial-gradient(circle, ${adjustColor(primary, 0.45)} 0%, transparent 70%)` }}
                 />
                 <SpriteImage
                   id={id}

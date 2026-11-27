@@ -3,7 +3,7 @@
 La app comprueba el último release de GitHub (`nelsonjpr/Reloadex`) y muestra en la
 portada un botón que dice **Actualizar ahora** cuando hay versión nueva y
 **Actualizado** cuando no la hay. El número mostrado abajo sale de `APP_VERSION` y
-del `versionName` del APK; ambos son **1.0.5** en el código fuente.
+del `versionName` del APK; ambos son **1.0.6** en el código fuente.
 
 Solo hay un botón de actualización. Al pulsarlo se abre una tarjeta opaca y la
 descarga empieza en el acto (no hay segundo botón de confirmación). La tarjeta muestra:
@@ -44,23 +44,46 @@ template) y el buscador de **Objeto equipado** en el creador de equipos: en vez 
 76 objetos equipables según el GML, ofrece los **821 objetos** de `objectLocations.json`
 con búsqueda por nombre o ID.
 
+La v1.0.6 elimina el trabajo por fotograma que hundía el scroll en móvil: se fue el
+`backdrop-filter`/`backdrop-blur` de tarjetas y modales, el ruido SVG del `body`, las
+transiciones de `box-shadow`/`filter` y las animaciones de Framer Motion en listas y en
+la portada. Las tarjetas largas usan `content-visibility: auto` (`deferred-card`), el
+efecto hover solo se aplica con ratón real y el indicador de scroll compara su estado
+antes de llamar a React. El manifest incorpora `nativeVersionCode`, que es el código
+del APK que publicó la versión: así una futura actualización solo web no intentará
+instalar un APK inexistente.
+
 ## Versiones y firma
 
 La **v1.0** no tenía el actualizador; hubo que instalar manualmente la **v1.1**
-(`versionCode 2`) una vez. La versión pública vigente es la **v1.0.5**
-(`versionCode 7`, `versionName 1.0.5`), que se instala encima de la v1.0.4
-con la misma firma: corrige el icono y conserva las correcciones del actualizador, las
-Caras y la paleta de comandos.
+(`versionCode 2`) una vez. La versión pública vigente es la **v1.0.6**
+(`versionCode 8`, `versionName 1.0.6`), que se instala encima de la v1.0.5
+con la misma firma: mejora el scroll y conserva el icono, el buscador de 821 objetos y
+todas las correcciones del actualizador.
 
 Reglas que no se pueden saltar:
 
 - Todo APK nuevo debe ir firmado con el **mismo `reloadex-release.jks`**. Si cambia la
   firma, Android rechaza la actualización ("la app no está instalada").
-- Subir `versionCode` en `android/app/build.gradle` en cada APK nuevo (ahora 7 = v1.0.5).
+- Subir `versionCode` en `android/app/build.gradle` en cada APK nuevo (ahora 8 = v1.0.6).
 - Si algún día publicas en Google Play, desactiva esta vía: la política de Play exige
   usar *Play In-App Updates* y prohíbe instalar APKs descargados a mano.
 
-## Publicar la v1.0.5
+## Publicar la v1.0.6
+
+```bash
+npm run build
+npm run update:bundle -- --version-code 8 --version-name 1.0.6 --tag v1.0.6 \
+  --native-version-code 8 \
+  --notes "Reloadex 1.0.6: scroll más fluido sin blur ni animaciones por frame." --set-baseline
+npm run apk:release                # APK firmado con versionCode 8
+```
+
+Se suben tres assets a la GitHub Release **v1.0.6**: `Reloadex-1.0.6.apk`,
+`update-manifest.json` y `web-delta-v1.0.6.zip`. La base de deltas se fija en v1.0.6
+porque también cambia el código web del actualizador (`nativeVersionCode`).
+
+## Publicar la v1.0.5 (histórico)
 
 ```bash
 npm run build
@@ -120,7 +143,8 @@ Mantén el `versionCode` del APK y sube solo el del manifiesto:
 
 ```bash
 npm run build
-npm run update:bundle -- --version-code 8 --version-name 1.0.6 --tag v1.0.6 \
+npm run update:bundle -- --version-code 9 --version-name 1.0.7 --tag v1.0.7 \
+  --native-version-code 8 \
   --notes $'Novedades:\n- Más Pokémon\n- Correcciones'
 ```
 
@@ -136,8 +160,10 @@ que cambiaron desde la base fijada**. Sube a la release:
 - `release/web-delta-v1.0.6.zip`
 - el APK (`Reloadex-1.0.6.apk`) solo si compilaste uno nuevo
 
-**No vuelvas a pasar `--set-baseline`** en las actualizaciones web posteriores: la base
-debe seguir siendo la última release publicada para que los deltas sean pequeños.
+**No vuelvas a pasar `--set-baseline`** en actualizaciones web posteriores: la base debe
+seguir siendo la última release publicada para que los deltas sean pequeños. La excepción
+es una release que también trae APK nuevo (como la v1.0.6), porque el WebView vuelve a
+cargar los assets del paquete y la base debe quedar alineada con él.
 
 ## Flujo dentro de la app
 

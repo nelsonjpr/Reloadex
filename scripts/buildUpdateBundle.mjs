@@ -28,8 +28,9 @@ function parseArgs(argv) {
 }
 
 const args = parseArgs(process.argv.slice(2));
-const versionCode = Number(args['version-code'] || 7);
-const versionName = args['version-name'] || '1.0.5';
+const versionCode = Number(args['version-code'] || 8);
+const versionName = args['version-name'] || '1.0.6';
+const nativeVersionCode = Number(args['native-version-code'] || versionCode);
 const tag = args.tag || `v${versionName}`;
 const notes = typeof args.notes === 'string' ? args.notes : '';
 const setBaseline = args['set-baseline'] === true;
@@ -167,6 +168,7 @@ const bundleBytes = fs.statSync(bundlePath).size;
 const manifest = {
   versionCode,
   versionName,
+  nativeVersionCode,
   tag,
   generatedAt: new Date().toISOString(),
   notes,
@@ -184,6 +186,7 @@ if (setBaseline || !baseline) {
   fs.writeFileSync(baselinePath, JSON.stringify({
     versionCode,
     versionName,
+    nativeVersionCode,
     tag,
     files: Object.fromEntries(manifestFiles.map((f) => [f.path, f.sha256])),
   }, null, 2) + '\n');

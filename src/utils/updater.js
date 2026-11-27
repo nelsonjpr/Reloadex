@@ -56,7 +56,7 @@ async function getJson(url) {
 
 export async function getNativeInfo() {
   if (!isNative) {
-    return { versionCode: 7, versionName: '1.0.5', webVersionCode: 7, canInstallApps: true, webRoot: null };
+    return { versionCode: 8, versionName: '1.0.6', webVersionCode: 8, canInstallApps: true, webRoot: null };
   }
   return Updater.getInfo();
 }
@@ -78,7 +78,7 @@ async function withProgress(onProgress, work) {
  */
 export async function checkForUpdate({ force = false } = {}) {
   if (!isNative) {
-    return { available: false, reason: 'web', webVersionCode: 7, versionCode: 7 };
+    return { available: false, reason: 'web', webVersionCode: 8, versionCode: 8 };
   }
 
   if (!force) {
@@ -104,7 +104,11 @@ export async function checkForUpdate({ force = false } = {}) {
     const apk = assets.find((a) => /\.apk$/i.test(a.name));
 
     const targetCode = Number(manifest.versionCode);
-    const nativeUpdate = targetCode > Number(info.versionCode);
+    // `versionCode` es la versión WEB del manifest. El código del APK que la
+    // publicó va aparte para que una actualización solo web no descargue un APK
+    // que no existe en el release (los manifests antiguos no traen el campo).
+    const nativeCode = Number(manifest.nativeVersionCode ?? targetCode);
+    const nativeUpdate = nativeCode > Number(info.versionCode);
     const webAsset = delta || full;
 
     const result = {

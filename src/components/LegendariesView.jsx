@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useDeferredValue, useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, MapPin, Search, Sparkles, X } from 'lucide-react';
 import { legendaries } from '../data/legendaries';
@@ -22,7 +22,7 @@ const TypePills = ({ types }) => {
           className="pill inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white ring-1 ring-white/25"
           style={{ backgroundColor: typeColor(type) }}
         >
-          <img src={typeIcon(type)} alt="" aria-hidden="true" className="h-3.5 w-3.5 object-contain pixelated" />
+          <img src={typeIcon(type)} alt="" aria-hidden="true" loading="lazy" className="h-3.5 w-3.5 object-contain pixelated" />
           {typeName(type)}
         </span>
       ))}
@@ -33,16 +33,26 @@ const TypePills = ({ types }) => {
 const LegendariesView = ({ onBack }) => {
   const [selected, setSelected] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const deferredSearch = useDeferredValue(searchTerm);
 
   const filtered = useMemo(() => {
-    const q = searchTerm.trim().toLowerCase();
+    const q = deferredSearch.trim().toLowerCase();
     if (!q) return legendaries;
     return legendaries.filter((item) =>
       item.name.toLowerCase().includes(q) ||
       item.dex.toLowerCase().includes(q) ||
       item.location.toLowerCase().includes(q),
     );
-  }, [searchTerm]);
+  }, [deferredSearch]);
+
+  // Con la ficha abierta no se desplaza el fondo: evita repintar la lista
+  // completa detrás del modal mientras el dedo sigue deslizando.
+  useEffect(() => {
+    if (!selected) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previous; };
+  }, [selected]);
 
   return (
     <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]">
@@ -83,18 +93,14 @@ const LegendariesView = ({ onBack }) => {
         </div>
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 sm:gap-4">
-          {filtered.map((item, index) => (
-            <motion.button
+          {filtered.map((item) => (
+            <button
               key={`${item.dex}-${item.name}`}
               type="button"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: Math.min(index * 0.012, 0.35) }}
-              whileHover={{ y: -4, transition: { duration: 0.3 } }}
-              whileTap={{ scale: 0.98, transition: { duration: 0.15 } }}
               onClick={() => setSelected(item)}
-              className="premium-card group relative overflow-hidden rounded-[24px] border border-white/[0.07] text-left"
+              className="premium-card deferred-card group relative overflow-hidden rounded-[24px] border border-white/[0.07] text-left active:scale-[0.98]"
               style={{
+                '--deferred-height': '330px',
                 '--card-shadow': '0 18px 44px -24px rgba(245,158,11,0.35), 0 12px 30px -18px rgba(3,8,20,0.85)',
                 '--card-shadow-hover': '0 26px 58px -22px rgba(245,158,11,0.5), 0 16px 34px -16px rgba(3,8,20,0.9)',
               }}
@@ -113,11 +119,11 @@ const LegendariesView = ({ onBack }) => {
                     onError={(e) => { e.currentTarget.style.opacity = '0'; }}
                   />
                 </div>
-                <span className="pill absolute left-3 top-3 bg-black/30 px-2.5 py-1 font-mono text-[11px] font-bold text-white/90 ring-1 ring-white/25 backdrop-blur-md">
+                <span className="pill absolute left-3 top-3 bg-black/30 px-2.5 py-1 font-mono text-[11px] font-bold text-white/90 ring-1 ring-white/25">
                   #{item.dex}
                 </span>
                 {item.level != null && (
-                  <span className="pill absolute right-3 top-3 bg-black/30 px-2.5 py-1 text-[11px] font-bold text-white ring-1 ring-white/25 backdrop-blur-md">
+                  <span className="pill absolute right-3 top-3 bg-black/30 px-2.5 py-1 text-[11px] font-bold text-white ring-1 ring-white/25">
                     Nv. {item.level}
                   </span>
                 )}
@@ -134,7 +140,7 @@ const LegendariesView = ({ onBack }) => {
                   VER GUÍA COMPLETA →
                 </span>
               </div>
-            </motion.button>
+            </button>
           ))}
         </div>
 
@@ -153,7 +159,7 @@ const LegendariesView = ({ onBack }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelected(null)}
-            className="fixed inset-0 z-[70] flex items-end justify-center bg-black/70 p-0 backdrop-blur-md sm:items-center sm:p-4"
+            className="fixed inset-0 z-[70] flex items-end justify-center bg-black/70 p-0 sm:items-center sm:p-4"
           >
             <motion.div
               initial={{ opacity: 0, y: 28, scale: 0.98 }}
@@ -171,7 +177,7 @@ const LegendariesView = ({ onBack }) => {
                 <button
                   onClick={() => setSelected(null)}
                   aria-label="Cerrar"
-                  className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/25 text-white ring-1 ring-white/20 backdrop-blur-md transition hover:bg-black/40 active:scale-95"
+                  className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/25 text-white ring-1 ring-white/20 transition hover:bg-black/40 active:scale-95"
                 >
                   <X size={20} />
                 </button>

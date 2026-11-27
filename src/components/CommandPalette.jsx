@@ -45,7 +45,7 @@ const CommandPalette = ({ commands, onRun, onClose }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[60] bg-black/75 backdrop-blur-sm"
+      className="fixed inset-0 z-[60] bg-black/75"
       onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}
     >
       <div className="mx-auto w-full max-w-xl px-4" style={{ ...safeTop(72) }}>

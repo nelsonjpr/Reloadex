@@ -1,16 +1,78 @@
-import React, { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
 import { ChevronDown, X, BookOpen } from 'lucide-react';
 import {
   getLearnset, learnsetMethods, moveDescription, moveItemName, moveName, tutorName,
 } from '../data/learnsets';
 
+// El peor caso (DT de Mew) tiene más de 800 entradas. Se entregan en tandas y
+// cada fila decide si se abre, para que desplegar una no vuelva a renderizar
+// las demás. `deferred-card` evita maquetar las que están fuera del panel.
+const ENTRIES_PER_PAGE = 120;
+
+const MoveEntry = memo(function MoveEntry({ entry, method, index, color, isOpen, onToggle }) {
+  const [moveId, extra] = entry;
+  const level = method === 'level' ? extra : null;
+  const itemId = method === 'tm' ? extra : null;
+  const tutorIndex = method === 'tutor' ? extra : null;
+  const key = `${method}-${moveId}-${extra ?? index}`;
+  const detail = method === 'tm'
+    ? (itemId ? moveItemName(itemId) : '')
+    : method === 'tutor'
+      ? (tutorIndex ? tutorName(tutorIndex) : '')
+      : '';
+
+  return (
+    <div
+      className="glass-effect deferred-card overflow-hidden rounded-2xl"
+      style={{ '--deferred-height': '70px' }}
+    >
+      <button
+        type="button"
+        onClick={() => onToggle(key)}
+        aria-expanded={isOpen}
+        className="flex w-full items-center gap-3 px-3.5 py-3 text-left transition hover:bg-white/5"
+      >
+        {level != null && (
+          <span
+            className="pill shrink-0 px-2 py-0.5 font-mono text-[11px] font-bold tabular-nums"
+            style={{ background: `${color}26`, color }}
+          >
+            Nv. {level === 200 ? 'Evo.' : level === 201 ? 'Huevo' : level === 202 ? 'Evento' : level}
+          </span>
+        )}
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-[13px] font-semibold text-white/90">
+            {moveName(moveId)}
+          </span>
+          {detail && <span className="block truncate text-[10px] text-white/45">{detail}</span>}
+        </span>
+        <ChevronDown
+          size={15}
+          className={`shrink-0 text-white/45 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+        />
+      </button>
+      {isOpen && (
+        <p className="border-t border-white/10 px-3.5 py-3 text-xs leading-5 text-white/65">
+          {moveDescription(moveId) || 'Sin descripción en el juego.'}
+        </p>
+      )}
+    </div>
+  );
+});
+
 // Panel lazy de movimientos reales por Pokémon, con pestañas por método.
 const PokemonMovesPanel = ({ pokemon, onClose, color = '#7dd3fc' }) => {
   const [method, setMethod] = useState('level');
   const [expanded, setExpanded] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(ENTRIES_PER_PAGE);
   const learnset = useMemo(() => getLearnset(pokemon), [pokemon]);
   const entries = learnset?.[method] || [];
+
+  useEffect(() => { setVisibleCount(ENTRIES_PER_PAGE); }, [method]);
+  const toggleEntry = useCallback((key) => {
+    setExpanded((current) => (current === key ? null : key));
+  }, []);
 
   return (
     <motion.div
@@ -74,65 +136,33 @@ const PokemonMovesPanel = ({ pokemon, onClose, color = '#7dd3fc' }) => {
               No aprende movimientos por este método.
             </div>
           ) : (
-            <div className="mt-4 max-h-[420px] space-y-1.5 overflow-y-auto pr-1">
-              {entries.map((entry, i) => {
-                const [moveId, extra] = entry;
-                const level = method === 'level' ? extra : null;
-                const itemId = method === 'tm' ? extra : null;
-                const tutorIndex = method === 'tutor' ? extra : null;
-                const key = `${method}-${moveId}-${extra ?? i}`;
-                const isOpen = expanded === key;
-                const detail = method === 'tm'
-                  ? (itemId ? moveItemName(itemId) : '')
-                  : method === 'tutor'
-                    ? (tutorIndex ? tutorName(tutorIndex) : '')
-                    : '';
-                return (
-                  <div key={key} className="glass-effect overflow-hidden rounded-2xl">
-                    <button
-                      type="button"
-                      onClick={() => setExpanded(isOpen ? null : key)}
-                      aria-expanded={isOpen}
-                      className="flex w-full items-center gap-3 px-3.5 py-3 text-left transition hover:bg-white/5"
-                    >
-                      {level != null && (
-                        <span
-                          className="pill shrink-0 px-2 py-0.5 font-mono text-[11px] font-bold tabular-nums"
-                          style={{ background: `${color}26`, color }}
-                        >
-                          Nv. {level === 200 ? 'Evo.' : level === 201 ? 'Huevo' : level === 202 ? 'Evento' : level}
-                        </span>
-                      )}
-                      <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[13px] font-semibold text-white/90">
-                          {moveName(moveId)}
-                        </span>
-                        {detail && <span className="block truncate text-[10px] text-white/45">{detail}</span>}
-                      </span>
-                      <ChevronDown
-                        size={15}
-                        className={`shrink-0 text-white/45 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-                      />
-                    </button>
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.18 }}
-                          className="overflow-hidden"
-                        >
-                          <p className="border-t border-white/10 px-3.5 py-3 text-xs leading-5 text-white/65">
-                            {moveDescription(moveId) || 'Sin descripción en el juego.'}
-                          </p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
-            </div>
+            <>
+              <div className="mt-4 max-h-[420px] space-y-1.5 overflow-y-auto pr-1">
+                {entries.slice(0, visibleCount).map((entry, i) => {
+                  const key = `${method}-${entry[0]}-${entry[1] ?? i}`;
+                  return (
+                    <MoveEntry
+                      key={key}
+                      entry={entry}
+                      method={method}
+                      index={i}
+                      color={color}
+                      isOpen={expanded === key}
+                      onToggle={toggleEntry}
+                    />
+                  );
+                })}
+              </div>
+              {visibleCount < entries.length && (
+                <button
+                  type="button"
+                  onClick={() => setVisibleCount((count) => count + ENTRIES_PER_PAGE)}
+                  className="mt-3 w-full rounded-xl border border-white/10 bg-white/5 py-2 text-[11px] font-bold text-white/70 transition hover:bg-white/10"
+                >
+                  Mostrar {Math.min(ENTRIES_PER_PAGE, entries.length - visibleCount)} movimientos más
+                </button>
+              )}
+            </>
           )}
         </>
       ) : (

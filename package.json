@@ -1,7 +1,7 @@
 {
   "name": "reloadex",
   "private": true,
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "description": "Reloadex - Pokédex profesional de Pokémon Reloaded (datos fieles al juego; app móvil/APK ready)",
   "scripts": {
