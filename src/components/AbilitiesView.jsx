@@ -19,6 +19,7 @@ const AbilitiesView = ({ onBack }) => {
         <div className="flex items-center gap-4 mb-8">
           <button
             onClick={onBack}
+            aria-label="Volver"
             className="w-10 h-10 rounded-full glass-effect flex items-center justify-center text-white hover:bg-white/10 transition-colors"
           >
             <ArrowLeft size={20} />

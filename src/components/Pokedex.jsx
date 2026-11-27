@@ -175,7 +175,7 @@ export default function Pokedex({ onBack, onSelect }) {
       style={{ backgroundImage: 'radial-gradient(circle at 50% -10%, rgba(56,189,248,0.08), transparent 45%)' }}
     >
       {/* Header sticky: capa superior, fondo sólido con glass para que nada se vea a través */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#080d1a] shadow-[0_16px_36px_-24px_rgba(3,10,26,0.95)]" style={safeTop(12)}>
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#080d1a] shadow-[0_16px_36px_-24px_rgba(3,10,26,0.95)]" style={safeTop(20)}>
         <div className="mx-auto max-w-3xl px-4 pb-4">
           <div className="flex items-center gap-3 mb-4">
             {onBack && (
