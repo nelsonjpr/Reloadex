@@ -1,12 +1,13 @@
 # Generar el APK — Reloadex
 
-**Descarga pública:** [Reloadex-1.0.4.apk](https://github.com/nelsonjpr/Reloadex/releases/download/v1.0.4/Reloadex-1.0.4.apk)
-· [Página del release](https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.4)
+**Descarga pública:** [Reloadex-1.0.5.apk](https://github.com/nelsonjpr/Reloadex/releases/download/v1.0.5/Reloadex-1.0.5.apk)
+· [Página del release](https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.5)
 
-La v1.0.4 (`versionCode 6`) corrige el error `No se pudo calcular SHA-256` al aplicar un
-delta: ya no se crea una carpeta cuando un asset no existe. Incluye además las 361 caras,
-la paleta de comandos, el modal siempre encima y la corrección de `Falta el archivo
-sprites/normal/100025.gif`; consulta `ACTUALIZACIONES.md`.
+La v1.0.5 (`versionCode 7`) arregla el icono: el logo de `assets/logo.png` ocupa todo el
+icono (a sangre), sin margen transparente ni fondo blanco, y los adaptive icons usan el
+mismo logo con fondo `#0b0f1a`. Incluye además la corrección del `No se pudo calcular
+SHA-256`, las 361 caras, la paleta de comandos y el modal siempre encima; consulta
+`ACTUALIZACIONES.md`.
 
 La app se distribuye como **APK firmado** y funciona **100% offline desde el primer arranque**:
 dataset, guía, sprites, shiny, fuentes y gritos van dentro del paquete. No usa PokeAPI ni
@@ -39,7 +40,8 @@ npx @capacitor/assets generate --android \
   --iconBackgroundColor '#0b0f1a' --splashBackgroundColor '#0b0f1a'
 ```
 
-Los iconos y el splash se generan desde `assets/logo.png` (tu `logo.png`). El `appId` es
+Los iconos se regeneran con `npm run icons:android` desde `assets/logo.png` (logo a sangre,
+fondo `#0b0f1a`); el splash se genera con `node scripts/regenAndroidSplash.mjs`. El `appId` es
 `com.reloadex.pokedex` y el `webDir` es `dist`.
 
 ## Firma release (una sola vez)
@@ -68,8 +70,8 @@ keyPassword=TU_PASSWORD
 npm run apk:release    # build web + cap sync + APK firmado, en un solo comando
 ```
 
-Salida: `android/app/build/outputs/apk/release/app-release.apk`. La v1.0.4
-pesa **38.898.667 bytes** y su SHA-256 es `73a64819461e6e14f542b69bd612964f68a1e9f357e851fde568ed4c049d5630`.
+Salida: `android/app/build/outputs/apk/release/app-release.apk`. La v1.0.5
+pesa **38.908.729 bytes** y su SHA-256 es `39ab53332492ea4261289b063ac0c77e0341a790a0c657bb0bc1f8def7442d3f`.
 Firmado con los esquemas v1 (JAR), v2 y v3; verifica con
 `apksigner verify --verbose --min-sdk-version 18 <apk>`.
 Para probar sin firmar: `npm run apk:debug`.
@@ -94,8 +96,8 @@ Los JARs descargados como respaldo viven en `android/local-jars/` (ignorado por 
 
 ## Publicar para todo el mundo
 
-El release **v1.0.4 ya está publicado**: https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.4
-(anteriores: v1.0.3, v1.0.2, v1.0.1 y v1.0)
+El release **v1.0.5 ya está publicado**: https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0.5
+(anteriores: v1.0.4, v1.0.3, v1.0.2, v1.0.1 y v1.0)
 
 1. Sube `app-release.apk` como asset de un **GitHub Release** para versiones nuevas.
 2. Quien descarga el APK desde el móvil lo instala habilitando "Instalar apps desconocidas".

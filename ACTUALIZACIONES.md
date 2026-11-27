@@ -3,7 +3,7 @@
 La app comprueba el último release de GitHub (`nelsonjpr/Reloadex`) y muestra en la
 portada un botón que dice **Actualizar ahora** cuando hay versión nueva y
 **Actualizado** cuando no la hay. El número mostrado abajo sale de `APP_VERSION` y
-del `versionName` del APK; ambos son **1.0.4** en el código fuente.
+del `versionName` del APK; ambos son **1.0.5** en el código fuente.
 
 Solo hay un botón de actualización. Al pulsarlo se abre una tarjeta opaca y la
 descarga empieza en el acto (no hay segundo botón de confirmación). La tarjeta muestra:
@@ -37,23 +37,41 @@ existen. Al recuperar un archivo ausente creaba una carpeta con su nombre y lueg
 hash intentaba leerla como archivo. Ahora `am.open()` decide si es un archivo real; si
 no existe, se informa `Falta el archivo <ruta>` en vez de generar una carpeta falsa.
 
+La v1.0.5 cambia solo los recursos nativos del icono: `npm run icons:android` genera los
+PNG de todos los tamaños con el logo a sangre y fondo `#0b0f1a`, y añade los adaptive
+icons (`mipmap-anydpi-v26`) para que Android 8+ no caiga al robot por defecto ni al color
+blanco del template.
+
 ## Versiones y firma
 
 La **v1.0** no tenía el actualizador; hubo que instalar manualmente la **v1.1**
-(`versionCode 2`) una vez. La versión pública vigente es la **v1.0.4**
-(`versionCode 6`, `versionName 1.0.4`), que se instala encima de la v1.0.3
-con la misma firma: corrige el SHA-256 del actualizador y conserva las Caras y la
-paleta de comandos.
+(`versionCode 2`) una vez. La versión pública vigente es la **v1.0.5**
+(`versionCode 7`, `versionName 1.0.5`), que se instala encima de la v1.0.4
+con la misma firma: corrige el icono y conserva las correcciones del actualizador, las
+Caras y la paleta de comandos.
 
 Reglas que no se pueden saltar:
 
 - Todo APK nuevo debe ir firmado con el **mismo `reloadex-release.jks`**. Si cambia la
   firma, Android rechaza la actualización ("la app no está instalada").
-- Subir `versionCode` en `android/app/build.gradle` en cada APK nuevo (ahora 6 = v1.0.4).
+- Subir `versionCode` en `android/app/build.gradle` en cada APK nuevo (ahora 7 = v1.0.5).
 - Si algún día publicas en Google Play, desactiva esta vía: la política de Play exige
   usar *Play In-App Updates* y prohíbe instalar APKs descargados a mano.
 
-## Publicar la v1.0.4
+## Publicar la v1.0.5
+
+```bash
+npm run build
+npm run update:bundle -- --version-code 7 --version-name 1.0.5 --tag v1.0.5 \
+  --notes "Reloadex 1.0.5: icono con el logo a sangre y sin fondo blanco." --set-baseline
+npm run apk:release                # APK firmado con versionCode 7
+```
+
+El delta se calcula desde la base fijada en v1.0.4 y se suben los tres assets a la
+GitHub Release **v1.0.5**: `Reloadex-1.0.5.apk`, `update-manifest.json` y
+`web-delta-v1.0.5.zip`.
+
+## Publicar la v1.0.4 (histórico)
 
 ```bash
 npm run build
@@ -61,10 +79,6 @@ npm run update:bundle -- --version-code 6 --version-name 1.0.4 --tag v1.0.4 \
   --notes "Reloadex 1.0.4: corregido el error SHA-256 al aplicar actualizaciones web." --set-baseline
 npm run apk:release                # APK firmado con versionCode 6
 ```
-
-El delta se calcula desde la base fijada en v1.0.3 y se suben los tres assets a la
-GitHub Release **v1.0.4**: `Reloadex-1.0.4.apk`, `update-manifest.json` y
-`web-delta-v1.0.4.zip`.
 
 ## Publicar la v1.0.3 (histórico)
 
@@ -104,7 +118,7 @@ Mantén el `versionCode` del APK y sube solo el del manifiesto:
 
 ```bash
 npm run build
-npm run update:bundle -- --version-code 7 --version-name 1.0.5 --tag v1.0.5 \
+npm run update:bundle -- --version-code 8 --version-name 1.0.6 --tag v1.0.6 \
   --notes $'Novedades:\n- Más Pokémon\n- Correcciones'
 ```
 
@@ -113,12 +127,12 @@ npm run update:bundle -- --version-code 7 --version-name 1.0.5 --tag v1.0.5 \
 Al instalarlo, Capacitor vuelve a usar los assets del paquete y la versión web se
 alinea automáticamente con la del APK.
 
-En ambos casos se genera `release/web-delta-v1.0.5.zip` con **únicamente los archivos
+En ambos casos se genera `release/web-delta-v1.0.6.zip` con **únicamente los archivos
 que cambiaron desde la base fijada**. Sube a la release:
 
 - `release/update-manifest.json`
-- `release/web-delta-v1.0.5.zip`
-- el APK (`Reloadex-1.0.5.apk`) solo si compilaste uno nuevo
+- `release/web-delta-v1.0.6.zip`
+- el APK (`Reloadex-1.0.6.apk`) solo si compilaste uno nuevo
 
 **No vuelvas a pasar `--set-baseline`** en las actualizaciones web posteriores: la base
 debe seguir siendo la última release publicada para que los deltas sean pequeños.

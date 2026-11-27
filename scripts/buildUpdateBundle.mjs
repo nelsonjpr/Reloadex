@@ -28,8 +28,8 @@ function parseArgs(argv) {
 }
 
 const args = parseArgs(process.argv.slice(2));
-const versionCode = Number(args['version-code'] || 6);
-const versionName = args['version-name'] || '1.0.4';
+const versionCode = Number(args['version-code'] || 7);
+const versionName = args['version-name'] || '1.0.5';
 const tag = args.tag || `v${versionName}`;
 const notes = typeof args.notes === 'string' ? args.notes : '';
 const setBaseline = args['set-baseline'] === true;

@@ -1,7 +1,7 @@
 {
   "name": "reloadex",
   "private": true,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "description": "Reloadex - Pokédex profesional de Pokémon Reloaded (datos fieles al juego; app móvil/APK ready)",
   "scripts": {
@@ -14,6 +14,7 @@
     "build:misiones": "node scripts/buildQuests.mjs",
     "build:faces": "node scripts/buildFaces.mjs",
     "icons:hd": "node scripts/fetchHdTypeIcons.mjs",
+    "icons:android": "node scripts/regenAndroidIcons.mjs",
     "build:data": "node scripts/buildAbilities.mjs && node scripts/buildReloadexData.mjs && node scripts/buildLearnsets.mjs && node scripts/buildObjectLocations.mjs && node scripts/buildQuests.mjs && node scripts/buildFaces.mjs",
     "build:guia": "node scripts/buildGuideData.mjs",
     "build:all": "node scripts/buildAbilities.mjs && node scripts/buildReloadexData.mjs && node scripts/buildLearnsets.mjs && node scripts/buildObjectLocations.mjs && node scripts/buildQuests.mjs && node scripts/buildFaces.mjs && node scripts/buildGuideData.mjs && vite build",
