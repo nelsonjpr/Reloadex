@@ -1,7 +1,9 @@
 # Generar el APK — Reloadex
 
-**Descarga pública:** [Reloadex-1.0.apk (32,9 MB)](https://github.com/nelsonjpr/Reloadex/releases/download/v1.0/Reloadex-1.0.apk)
-· [Página del release](https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0)
+**Descarga pública:** [Reloadex-1.1.apk (34,8 MB)](https://github.com/nelsonjpr/Reloadex/releases/download/v1.1/Reloadex-1.1.apk)
+· [Página del release](https://github.com/nelsonjpr/Reloadex/releases/tag/v1.1)
+
+La v1.1 incluye el actualizador desde la propia app; consulta `ACTUALIZACIONES.md`.
 
 La app se distribuye como **APK firmado** y funciona **100% offline desde el primer arranque**:
 dataset, guía, sprites, shiny, fuentes y gritos van dentro del paquete. No usa PokeAPI ni
@@ -63,7 +65,7 @@ keyPassword=TU_PASSWORD
 npm run apk:release    # build web + cap sync + APK firmado, en un solo comando
 ```
 
-Salida: `android/app/build/outputs/apk/release/app-release.apk` (~32,9 MB).
+Salida: `android/app/build/outputs/apk/release/app-release.apk` (~34,8 MB).
 Firmado con los esquemas v1 (JAR), v2 y v3; verifica con
 `apksigner verify --verbose --min-sdk-version 18 <apk>`.
 Para probar sin firmar: `npm run apk:debug`.
@@ -88,7 +90,7 @@ Los JARs descargados como respaldo viven en `android/local-jars/` (ignorado por 
 
 ## Publicar para todo el mundo
 
-El release **v1.0 ya está publicado**: https://github.com/nelsonjpr/Reloadex/releases/tag/v1.0
+El release **v1.1 ya está publicado**: https://github.com/nelsonjpr/Reloadex/releases/tag/v1.1
 
 1. Sube `app-release.apk` como asset de un **GitHub Release** para versiones nuevas.
 2. Quien descarga el APK desde el móvil lo instala habilitando "Instalar apps desconocidas".
