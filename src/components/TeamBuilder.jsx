@@ -1,420 +1,719 @@
-﻿import { useState, useMemo } from 'react';
+﻿import React, { useDeferredValue, useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Search, 
-  X, 
-  Plus, 
-  Trash2, 
-  Download, 
-  Upload,
-  Users,
-  Shield,
-  Zap,
-  Sparkles,
-  ArrowLeft
+import {
+  ArrowLeft, Check, ChevronLeft, ChevronRight, Download, Pencil, Plus,
+  Search, Sparkles, Trash2, Upload, Users, X, Zap,
 } from 'lucide-react';
-import { pokemonData } from '../data/pokemonIndex';
-import { typeColors, typeTranslations } from '../data/typeMeta';
+import { teamPokemon } from '../data/teamData';
+import { equippableItems } from '../data/equippableItems';
+import { typeColor, typeName, spriteUrl, spriteFallbacks } from '../utils/sprites';
+import { calculateStats, STAT_KEYS, STAT_LABELS, statsTotal } from '../utils/pokemonStats';
+import { loadTeams, saveTeams, createTeam, createSlot } from '../utils/teamStorage';
 import { safeTop } from '../utils/safeArea';
 
+const PAGE_SIZE = 24;
+const MAX_TEAMS = 12;
+
+const normalize = (value) => String(value || '')
+  .toLowerCase()
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .trim();
+
+const Sprite = ({ pokemon, shiny, className = '' }) => {
+  const [src, setSrc] = useState(() => spriteUrl(pokemon?.id, shiny, pokemon?.shinyFile));
+  useEffect(() => {
+    setSrc(spriteUrl(pokemon?.id, shiny, pokemon?.shinyFile));
+  }, [pokemon?.id, pokemon?.shinyFile, shiny]);
+  const fallbacks = useMemo(
+    () => spriteFallbacks(pokemon?.id, shiny, pokemon?.shinyFile),
+    [pokemon?.id, pokemon?.shinyFile, shiny],
+  );
+  return (
+    <img
+      src={src}
+      alt={pokemon?.name || ''}
+      className={className}
+      loading="lazy"
+      onError={() => setSrc((current) => {
+        const index = fallbacks.indexOf(current);
+        return index >= 0 && index + 1 < fallbacks.length ? fallbacks[index + 1] : current;
+      })}
+    />
+  );
+};
+
+const Modal = ({ children, onClose }) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="fixed inset-0 z-[80] flex items-end justify-center bg-black/75 backdrop-blur-sm sm:items-center"
+    onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}
+  >
+    <motion.div
+      initial={{ y: 28, opacity: 0, scale: 0.98 }}
+      animate={{ y: 0, opacity: 1, scale: 1 }}
+      exit={{ y: 20, opacity: 0, scale: 0.98 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+      className="max-h-[93vh] w-full max-w-3xl overflow-y-auto rounded-t-[30px] border border-white/10 bg-[#0d1528] p-5 shadow-2xl sm:rounded-[30px] sm:p-6"
+      style={{ paddingBottom: 'calc(20px + env(safe-area-inset-bottom))' }}
+    >
+      {children}
+    </motion.div>
+  </motion.div>
+);
+
 export function TeamBuilder({ onBack }) {
-  const [team, setTeam] = useState(Array(6).fill(null));
-  const [showSelector, setShowSelector] = useState(false);
-  const [selectedSlot, setSelectedSlot] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [store, setStore] = useState(loadTeams);
+  const [renaming, setRenaming] = useState(false);
+  const [selectorSlot, setSelectorSlot] = useState(null);
+  const [configSlot, setConfigSlot] = useState(null);
+  const [pending, setPending] = useState(null);
+  const [search, setSearch] = useState('');
+  const deferredSearch = useDeferredValue(search);
+  const [typeFilter, setTypeFilter] = useState('todos');
+  const [page, setPage] = useState(1);
 
-  // Filtrar Pokémon disponibles
-  const availablePokemon = useMemo(() => {
-    if (!searchTerm) return pokemonData;
-    return pokemonData.filter(pokemon => 
-      pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pokemon.id.toString().includes(searchTerm)
-    );
-  }, [searchTerm]);
+  const activeTeam = store.teams.find((team) => team.id === store.activeId) || store.teams[0];
+  const byId = useMemo(() => new Map(teamPokemon.map((p) => [p.id, p])), []);
 
-  // Añadir Pokémon al equipo
-  const addToTeam = (pokemon) => {
-    if (selectedSlot !== null) {
-      const newTeam = [...team];
-      newTeam[selectedSlot] = pokemon;
-      setTeam(newTeam);
-      setShowSelector(false);
-      setSelectedSlot(null);
-      setSearchTerm('');
-    }
-  };
+  useEffect(() => { saveTeams(store); }, [store]);
+  useEffect(() => { setPage(1); }, [deferredSearch, typeFilter]);
 
-  // Remover Pokémon del equipo
-  const removeFromTeam = (index) => {
-    const newTeam = [...team];
-    newTeam[index] = null;
-    setTeam(newTeam);
-  };
-
-  // Abrir selector para un slot específico
-  const openSelector = (index) => {
-    setSelectedSlot(index);
-    setShowSelector(true);
-  };
-
-  // Calcular cobertura de tipos del equipo
-  const getTypesCoverage = () => {
-    const types = new Set();
-    team.forEach(pokemon => {
-      if (pokemon) {
-        pokemon.types.forEach(type => types.add(type));
-      }
+  const filtered = useMemo(() => {
+    const q = normalize(deferredSearch);
+    return teamPokemon.filter((p) => {
+      if (typeFilter !== 'todos' && !(p.types || []).includes(typeFilter)) return false;
+      if (!q) return true;
+      return normalize(p.name).includes(q) || String(p.id).includes(q);
     });
-    return Array.from(types);
+  }, [deferredSearch, typeFilter]);
+
+  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pageCount);
+  const visible = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+  const types = useMemo(() => [...new Set(teamPokemon.flatMap((p) => p.types || []))].sort(), []);
+
+  const updateSlots = (slots) => {
+    setStore((current) => ({
+      ...current,
+      teams: current.teams.map((team) => (team.id === current.activeId ? { ...team, slots } : team)),
+    }));
   };
 
-  // Calcular estadísticas promedio del equipo
-  const getTeamStats = () => {
-    const activePokemon = team.filter(p => p !== null);
-    if (activePokemon.length === 0) return null;
+  const openSelector = (slotIndex) => {
+    setSearch('');
+    setTypeFilter('todos');
+    setPage(1);
+    setSelectorSlot(slotIndex);
+  };
 
-    const totalStats = activePokemon.reduce((acc, pokemon) => {
-      const st = pokemon.stats || {};
-      return {
-        hp: acc.hp + (st.hp || 0),
-        attack: acc.attack + (st.attack || 0),
-        defense: acc.defense + (st.defense || 0),
-        spAttack: acc.spAttack + (st.spAttack || 0),
-        spDefense: acc.spDefense + (st.spDefense || 0),
-        speed: acc.speed + (st.speed || 0)
-      };
-    }, { hp: 0, attack: 0, defense: 0, spAttack: 0, spDefense: 0, speed: 0 });
+  const choosePokemon = (pokemon) => {
+    const slot = activeTeam.slots[selectorSlot];
+    setPending({
+      pokemon,
+      level: slot?.id === pokemon.id ? slot.level : 50,
+      shiny: slot?.id === pokemon.id ? slot.shiny : false,
+      ability: slot?.id === pokemon.id ? slot.ability : (pokemon.abilities?.[0]?.name || null),
+      item: slot?.id === pokemon.id ? slot.item : null,
+    });
+    setConfigSlot(selectorSlot);
+    setSelectorSlot(null);
+  };
 
-    return {
-      hp: Math.round(totalStats.hp / activePokemon.length),
-      attack: Math.round(totalStats.attack / activePokemon.length),
-      defense: Math.round(totalStats.defense / activePokemon.length),
-      spAttack: Math.round(totalStats.spAttack / activePokemon.length),
-      spDefense: Math.round(totalStats.spDefense / activePokemon.length),
-      speed: Math.round(totalStats.speed / activePokemon.length)
+  const editSlot = (slotIndex) => {
+    const slot = activeTeam.slots[slotIndex];
+    const pokemon = byId.get(slot.id);
+    if (!pokemon) return openSelector(slotIndex);
+    setPending({
+      pokemon,
+      level: slot.level,
+      shiny: slot.shiny,
+      ability: slot.ability || pokemon.abilities?.[0]?.name || null,
+      item: slot.item || null,
+    });
+    setConfigSlot(slotIndex);
+  };
+
+  const acceptSlot = () => {
+    if (!pending || configSlot == null) return;
+    const slots = [...activeTeam.slots];
+    slots[configSlot] = createSlot(pending.pokemon, pending);
+    updateSlots(slots);
+    setConfigSlot(null);
+    setPending(null);
+  };
+
+  const removeSlot = (slotIndex) => {
+    const slots = [...activeTeam.slots];
+    slots[slotIndex] = null;
+    updateSlots(slots);
+  };
+
+  const addTeam = () => {
+    if (store.teams.length >= MAX_TEAMS) return;
+    const team = createTeam(store.teams.length + 1);
+    setStore((current) => ({ activeId: team.id, teams: [...current.teams, team] }));
+  };
+
+  const deleteTeam = () => {
+    if (store.teams.length <= 1) return;
+    setStore((current) => {
+      const teams = current.teams.filter((team) => team.id !== current.activeId);
+      return { activeId: teams[0].id, teams };
+    });
+  };
+
+  const renameTeam = (name) => {
+    setStore((current) => ({
+      ...current,
+      teams: current.teams.map((team) => (
+        team.id === current.activeId ? { ...team, name: name || team.name } : team
+      )),
+    }));
+  };
+
+  const exportTeams = () => {
+    const blob = new Blob([JSON.stringify(store, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'reloadex-equipos.json';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const importTeams = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(reader.result);
+        if (parsed && Array.isArray(parsed.teams) && parsed.teams.length) setStore(parsed);
+      } catch { /* archivo no válido: se ignora */ }
     };
+    reader.readAsText(file);
+    event.target.value = '';
   };
 
-  // Guardar equipo en localStorage
-  const saveTeam = () => {
-    const teamData = team.map(p => p ? p.id : null);
-    localStorage.setItem('pokemonTeam', JSON.stringify(teamData));
-    alert('¡Equipo guardado exitosamente!');
-  };
+  const teamTypes = useMemo(() => [...new Set(
+    activeTeam.slots.filter(Boolean).flatMap((slot) => byId.get(slot.id)?.types || []),
+  )], [activeTeam.slots, byId]);
 
-  // Cargar equipo desde localStorage
-  const loadTeam = () => {
-    const savedTeam = localStorage.getItem('pokemonTeam');
-    if (savedTeam) {
-      const teamIds = JSON.parse(savedTeam);
-      const loadedTeam = teamIds.map(id => 
-        id ? pokemonData.find(p => Number(p.id) === Number(id)) || null : null
-      );
-      setTeam(loadedTeam);
-      alert('¡Equipo cargado exitosamente!');
-    } else {
-      alert('No hay equipo guardado');
-    }
-  };
-
-  // Limpiar equipo
-  const clearTeam = () => {
-    if (confirm('¿Estás seguro de que quieres limpiar todo el equipo?')) {
-      setTeam(Array(6).fill(null));
-    }
-  };
-
-  const teamCount = team.filter(p => p !== null).length;
-  const teamStats = getTeamStats();
-  const typesCoverage = getTypesCoverage();
+  const pendingStats = pending ? calculateStats(pending.pokemon, pending.level) : null;
 
   return (
-    <div className="min-h-screen px-4 pb-[calc(env(safe-area-inset-bottom)+20px)] md:px-6" style={safeTop(16)}>
-      {/* Botón Volver */}
-      <motion.button
-        onClick={onBack}
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        className="flex items-center gap-2 glass-effect px-4 py-2 rounded-xl text-white hover:glass-hover transition-all mb-4"
-      >
-        <ArrowLeft className="w-5 h-5" />
-        <span>Volver</span>
-      </motion.button>
-
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-6"
-      >
-        <h1 className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-sky-300 via-cyan-300 to-indigo-300 bg-clip-text text-transparent">
-          Constructor de Equipo
-        </h1>
-        <p className="text-gray-400">Crea tu equipo perfecto de Pokémon</p>
-      </motion.div>
-
-      {/* Acciones */}
-      <div className="flex flex-wrap gap-2 mb-6 justify-center">
-        <button
-          onClick={saveTeam}
-          disabled={teamCount === 0}
-          className="glass-effect hover:glass-hover px-4 py-2 rounded-xl flex items-center gap-2 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-        >
-          <Download className="w-4 h-4" />
-          Guardar
-        </button>
-        <button
-          onClick={loadTeam}
-          className="glass-effect hover:glass-hover px-4 py-2 rounded-xl flex items-center gap-2 text-white transition-all"
-        >
-          <Upload className="w-4 h-4" />
-          Cargar
-        </button>
-        <button
-          onClick={clearTeam}
-          disabled={teamCount === 0}
-          className="glass-effect hover:glass-hover px-4 py-2 rounded-xl flex items-center gap-2 text-red-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-        >
-          <Trash2 className="w-4 h-4" />
-          Limpiar
-        </button>
-      </div>
-
-      {/* Contador de equipo */}
-      <div className="glass-effect rounded-2xl p-4 mb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-blue-400" />
-            <span className="text-white font-semibold">
-              Equipo: {teamCount}/6
-            </span>
+    <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+32px)]">
+      <div className="mx-auto max-w-6xl px-4 pb-10" style={safeTop(24)}>
+        <header className="mb-6">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={onBack}
+              aria-label="Volver"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl glass-effect transition hover:bg-white/10 active:scale-95"
+            >
+              <ArrowLeft size={20} />
+            </button>
+            <div className="min-w-0 flex-1">
+              <h1 className="truncate text-2xl font-semibold tracking-[-0.035em] text-white sm:text-4xl">
+                Creador de equipos
+              </h1>
+              <p className="mt-0.5 text-xs tracking-[0.08em] text-white/50 sm:text-sm">
+                Terón · Pokémon Reloaded
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={exportTeams}
+              aria-label="Exportar equipos"
+              className="flex h-11 w-11 items-center justify-center rounded-2xl glass-effect transition hover:bg-white/10 active:scale-95"
+            >
+              <Download size={18} />
+            </button>
+            <label
+              aria-label="Importar equipos"
+              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-2xl glass-effect transition hover:bg-white/10 active:scale-95"
+            >
+              <Upload size={18} />
+              <input type="file" accept="application/json" className="hidden" onChange={importTeams} />
+            </label>
           </div>
-          <div className="flex gap-1">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className={`w-3 h-3 rounded-full ${
-                  team[i] ? 'bg-green-500' : 'bg-gray-700'
+        </header>
+
+        {/* Pestañas de equipos */}
+        <div className="mb-5 flex items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {store.teams.map((team) => (
+            <button
+              key={team.id}
+              type="button"
+              onClick={() => setStore((current) => ({ ...current, activeId: team.id }))}
+              className={`shrink-0 rounded-2xl border px-3.5 py-2 text-xs font-semibold transition ${
+                team.id === activeTeam.id
+                  ? 'border-violet-300/40 bg-violet-500/25 text-white shadow-[0_6px_18px_rgba(139,92,246,0.25)]'
+                  : 'border-white/10 bg-white/[0.04] text-white/65 hover:bg-white/10'
+              }`}
+            >
+              <Users size={13} className="mr-1.5 inline" />
+              {team.name}
+              <span className="ml-1.5 opacity-50">{team.slots.filter(Boolean).length}/6</span>
+            </button>
+          ))}
+          {store.teams.length < MAX_TEAMS && (
+            <button
+              type="button"
+              onClick={addTeam}
+              aria-label="Nuevo equipo"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-dashed border-white/20 text-white/60 transition hover:border-violet-300/50 hover:text-white"
+            >
+              <Plus size={17} />
+            </button>
+          )}
+        </div>
+
+        {/* Nombre del equipo */}
+        <div className="mb-5 flex items-center gap-2">
+          {renaming ? (
+            <input
+              autoFocus
+              value={activeTeam.name}
+              onChange={(event) => renameTeam(event.target.value)}
+              onBlur={() => setRenaming(false)}
+              onKeyDown={(event) => { if (event.key === 'Enter') setRenaming(false); }}
+              className="h-10 w-full max-w-xs rounded-xl border border-white/15 bg-white/[0.06] px-3 text-sm font-semibold text-white outline-none focus:border-violet-300/50"
+            />
+          ) : (
+            <button
+              type="button"
+              onClick={() => setRenaming(true)}
+              className="group flex items-center gap-2 text-lg font-semibold tracking-[-0.02em] text-white"
+            >
+              {activeTeam.name}
+              <Pencil size={14} className="text-white/35 transition group-hover:text-violet-200" />
+            </button>
+          )}
+          <span className="rounded-lg bg-white/[0.06] px-2 py-1 text-[10px] font-bold text-white/50">
+            {activeTeam.slots.filter(Boolean).length}/6
+          </span>
+          {store.teams.length > 1 && (
+            <button
+              type="button"
+              onClick={deleteTeam}
+              aria-label="Eliminar equipo"
+              className="ml-auto flex h-9 w-9 items-center justify-center rounded-xl text-white/40 transition hover:bg-rose-500/15 hover:text-rose-200"
+            >
+              <Trash2 size={16} />
+            </button>
+          )}
+        </div>
+
+        {/* Slots */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {activeTeam.slots.map((slot, index) => {
+            const pokemon = slot ? byId.get(slot.id) : null;
+            const stats = slot ? calculateStats(pokemon, slot.level) : null;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: Math.min(index * 0.03, 0.2) }}
+                className={`relative overflow-hidden rounded-[24px] border p-4 ${
+                  pokemon
+                    ? 'border-white/[0.08] bg-white/[0.035]'
+                    : 'border-dashed border-white/15 bg-white/[0.02]'
                 }`}
-              />
+              >
+                <p className="absolute right-4 top-3 text-[10px] font-bold tracking-[0.14em] text-white/25">
+                  {index + 1}
+                </p>
+                {pokemon ? (
+                  <>
+                    <div className="flex items-center gap-3">
+                      <Sprite
+                        pokemon={pokemon}
+                        shiny={slot.shiny}
+                        className="h-20 w-20 shrink-0 object-contain"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-[15px] font-semibold text-white">{pokemon.name}</p>
+                        <p className="font-mono text-[11px] text-white/40">
+                          #{String(pokemon.id).padStart(4, '0')}
+                        </p>
+                        <div className="mt-1.5 flex flex-wrap gap-1">
+                          {(pokemon.types || []).map((type) => (
+                            <span
+                              key={type}
+                              className="rounded-md px-1.5 py-0.5 text-[9px] font-bold text-white"
+                              style={{ backgroundColor: typeColor(type) }}
+                            >
+                              {typeName(type)}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <span className="rounded-lg bg-violet-500/20 px-2 py-1 text-[11px] font-bold text-violet-100">
+                        Nv. {slot.level}
+                      </span>
+                    </div>
+                    <div className="mt-3 grid grid-cols-3 gap-1.5 text-[10px] text-white/55">
+                      <span>PS <b className="text-white/85">{stats.hp}</b></span>
+                      <span>At <b className="text-white/85">{stats.attack}</b></span>
+                      <span>De <b className="text-white/85">{stats.defense}</b></span>
+                      <span>AtE <b className="text-white/85">{stats.spAttack}</b></span>
+                      <span>DeE <b className="text-white/85">{stats.spDefense}</b></span>
+                      <span>Ve <b className="text-white/85">{stats.speed}</b></span>
+                    </div>
+                    {(slot.item || slot.ability || slot.shiny) && (
+                      <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[10px] text-white/50">
+                        {slot.item && (
+                          <span className="rounded-md bg-amber-400/15 px-1.5 py-0.5 text-amber-100">
+                            {slot.item}
+                          </span>
+                        )}
+                        {slot.ability && (
+                          <span className="rounded-md bg-sky-400/15 px-1.5 py-0.5 text-sky-100">
+                            {slot.ability}
+                          </span>
+                        )}
+                        {slot.shiny && <Sparkles size={13} className="text-yellow-300" />}
+                      </div>
+                    )}
+                    <div className="mt-3 flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => editSlot(index)}
+                        className="flex-1 rounded-xl bg-white/[0.07] py-2 text-[11px] font-bold text-white/80 transition hover:bg-white/[0.12]"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => removeSlot(index)}
+                        aria-label="Quitar Pokémon"
+                        className="flex h-8 w-9 items-center justify-center rounded-xl bg-white/[0.05] text-white/45 transition hover:bg-rose-500/20 hover:text-rose-200"
+                      >
+                        <X size={15} />
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => openSelector(index)}
+                    className="flex h-full min-h-[184px] w-full flex-col items-center justify-center gap-2 text-white/40 transition hover:text-violet-200"
+                  >
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/[0.06]">
+                      <Plus size={22} />
+                    </span>
+                    <span className="text-xs font-semibold">Elige un Pokémon</span>
+                  </button>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {teamTypes.length > 0 && (
+          <div className="mt-5 flex flex-wrap items-center gap-1.5">
+            <Zap size={13} className="mr-1 text-white/40" />
+            {teamTypes.map((type) => (
+              <span
+                key={type}
+                className="rounded-md px-2 py-0.5 text-[10px] font-bold text-white"
+                style={{ backgroundColor: typeColor(type) }}
+              >
+                {typeName(type)}
+              </span>
             ))}
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Slots del equipo */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-        {team.map((pokemon, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: index * 0.1 }}
-            className="glass-effect rounded-2xl p-4 relative group"
-          >
-            {pokemon ? (
-              <>
-                {/* Botón eliminar */}
-                <button
-                  onClick={() => removeFromTeam(index)}
-                  className="absolute top-2 right-2 p-1.5 bg-red-500/80 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                >
-                  <X className="w-4 h-4 text-white" />
-                </button>
-
-                {/* Sprite */}
-                <div className="relative mb-2">
-                  <img
-                    src={`/sprites/normal/${pokemon.id}.gif`}
-                    alt={pokemon.name}
-                    className="w-full h-24 object-contain"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
-                  />
-                </div>
-
-                {/* Info */}
-                <h3 className="text-white font-bold text-center mb-1">
-                  {pokemon.name}
-                </h3>
-                <p className="text-gray-400 text-xs text-center mb-2">
-                  #{pokemon.id}
+      {/* Selector de Pokémon */}
+      <AnimatePresence>
+        {selectorSlot !== null && (
+          <Modal onClose={() => setSelectorSlot(null)}>
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <div>
+                <h2 className="text-xl font-semibold tracking-[-0.03em] text-white">
+                  Elige un Pokémon
+                </h2>
+                <p className="mt-0.5 text-[11px] text-white/50">
+                  Puesto {selectorSlot + 1} · {filtered.length} disponibles
                 </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectorSlot(null)}
+                aria-label="Cerrar"
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.07] text-white/70"
+              >
+                <X size={18} />
+              </button>
+            </div>
 
-                {/* Tipos */}
-                <div className="flex gap-1 justify-center">
-                  {pokemon.types.map((type) => (
+            <div className="relative mb-3">
+              <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/45" />
+              <input
+                autoFocus
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Buscar por nombre o número…"
+                className="h-11 w-full rounded-2xl border border-white/10 bg-white/[0.05] pl-11 pr-4 text-sm text-white placeholder-white/35 outline-none focus:border-violet-300/40"
+              />
+            </div>
+
+            <div className="mb-4 flex gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <button
+                type="button"
+                onClick={() => setTypeFilter('todos')}
+                className={`shrink-0 rounded-lg px-2.5 py-1 text-[10px] font-bold ${
+                  typeFilter === 'todos' ? 'bg-white/20 text-white' : 'bg-white/[0.06] text-white/55'
+                }`}
+              >
+                Todos
+              </button>
+              {types.map((type) => (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => setTypeFilter(type)}
+                  className={`shrink-0 rounded-lg px-2.5 py-1 text-[10px] font-bold text-white transition ${
+                    typeFilter === type ? 'ring-2 ring-white/70' : 'opacity-70 hover:opacity-100'
+                  }`}
+                  style={{ backgroundColor: typeColor(type) }}
+                >
+                  {typeName(type)}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid max-h-[46vh] grid-cols-3 gap-2 overflow-y-auto pr-1 sm:grid-cols-6">
+              {visible.map((pokemon) => (
+                <button
+                  key={pokemon.id}
+                  type="button"
+                  onClick={() => choosePokemon(pokemon)}
+                  className="flex flex-col items-center rounded-2xl border border-white/[0.07] bg-white/[0.035] p-2 transition hover:border-violet-300/40 hover:bg-violet-500/15"
+                >
+                  <Sprite
+                    pokemon={pokemon}
+                    shiny={false}
+                    className="h-14 w-14 object-contain"
+                  />
+                  <span className="mt-1 w-full truncate text-center text-[11px] font-semibold text-white/90">
+                    {pokemon.name}
+                  </span>
+                  <span className="font-mono text-[9px] text-white/35">
+                    #{String(pokemon.id).padStart(4, '0')}
+                  </span>
+                </button>
+              ))}
+              {visible.length === 0 && (
+                <p className="col-span-full py-10 text-center text-sm text-white/50">
+                  No se encontraron Pokémon
+                </p>
+              )}
+            </div>
+
+            <div className="mt-4 flex items-center justify-between text-[11px] text-white/55">
+              <button
+                type="button"
+                disabled={currentPage <= 1}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                className="flex items-center gap-1 rounded-xl px-3 py-2 transition hover:bg-white/10 disabled:opacity-30"
+              >
+                <ChevronLeft size={15} /> Anterior
+              </button>
+              <span className="tabular-nums">
+                Página {currentPage} de {pageCount}
+              </span>
+              <button
+                type="button"
+                disabled={currentPage >= pageCount}
+                onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+                className="flex items-center gap-1 rounded-xl px-3 py-2 transition hover:bg-white/10 disabled:opacity-30"
+              >
+                Siguiente <ChevronRight size={15} />
+              </button>
+            </div>
+          </Modal>
+        )}
+      </AnimatePresence>
+
+      {/* Configuración del Pokémon */}
+      <AnimatePresence>
+        {configSlot !== null && pending && (
+          <Modal onClose={() => { setConfigSlot(null); setPending(null); }}>
+            <div className="mb-5 flex items-start gap-4">
+              <div className="rounded-[22px] bg-white/[0.05] p-2">
+                <Sprite
+                  pokemon={pending.pokemon}
+                  shiny={pending.shiny}
+                  className="h-24 w-24 object-contain"
+                />
+              </div>
+              <div className="min-w-0 flex-1">
+                <h2 className="truncate text-xl font-semibold tracking-[-0.03em] text-white">
+                  {pending.pokemon.name}
+                </h2>
+                <p className="font-mono text-[11px] text-white/40">
+                  #{String(pending.pokemon.id).padStart(4, '0')} · Puesto {configSlot + 1}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {(pending.pokemon.types || []).map((type) => (
                     <span
                       key={type}
-                      className="px-2 py-0.5 rounded-full text-xs font-semibold text-white"
-                      style={{ backgroundColor: typeColors[type] }}
+                      className="rounded-md px-2 py-0.5 text-[10px] font-bold text-white"
+                      style={{ backgroundColor: typeColor(type) }}
                     >
-                      {typeTranslations[type]}
+                      {typeName(type)}
                     </span>
                   ))}
                 </div>
-              </>
-            ) : (
-              <button
-                onClick={() => openSelector(index)}
-                className="w-full h-full min-h-[180px] flex flex-col items-center justify-center text-gray-400 hover:text-white transition-colors group"
-              >
-                <div className="p-4 bg-white/5 rounded-full mb-2 group-hover:bg-white/10 transition-colors">
-                  <Plus className="w-8 h-8" />
-                </div>
-                <span className="text-sm">Añadir Pokémon</span>
-              </button>
-            )}
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Estadísticas del equipo */}
-      {teamStats && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-4"
-        >
-          {/* Cobertura de tipos */}
-          <div className="glass-effect rounded-2xl p-4">
-            <div className="flex items-center gap-2 mb-3">
-              <Shield className="w-5 h-5 text-purple-400" />
-              <h3 className="text-white font-semibold">Cobertura de Tipos</h3>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {typesCoverage.map((type) => (
-                <span
-                  key={type}
-                  className="px-3 py-1 rounded-full text-sm font-semibold text-white"
-                  style={{ backgroundColor: typeColors[type] }}
-                >
-                  {typeTranslations[type]}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Estadísticas promedio */}
-          <div className="glass-effect rounded-2xl p-4">
-            <div className="flex items-center gap-2 mb-3">
-              <Zap className="w-5 h-5 text-yellow-400" />
-              <h3 className="text-white font-semibold">Estadísticas Promedio</h3>
-            </div>
-            <div className="space-y-2">
-              {[
-                { label: 'PS', value: teamStats.hp, color: 'bg-red-500' },
-                { label: 'Ataque', value: teamStats.attack, color: 'bg-orange-500' },
-                { label: 'Defensa', value: teamStats.defense, color: 'bg-yellow-500' },
-                { label: 'At. Esp.', value: teamStats.spAttack, color: 'bg-blue-500' },
-                { label: 'Def. Esp.', value: teamStats.spDefense, color: 'bg-green-500' },
-                { label: 'Velocidad', value: teamStats.speed, color: 'bg-pink-500' }
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-gray-400">{stat.label}</span>
-                    <span className="text-white font-semibold">{stat.value}</span>
-                  </div>
-                  <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${(stat.value / 255) * 100}%` }}
-                      className={`h-full ${stat.color}`}
-                      transition={{ duration: 1, delay: 0.2 }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      )}
-
-      {/* Modal Selector */}
-      <AnimatePresence>
-        {showSelector && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => {
-              setShowSelector(false);
-              setSelectedSlot(null);
-              setSearchTerm('');
-            }}
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="glass-effect rounded-3xl p-6 max-w-4xl w-full max-h-[80vh] overflow-hidden flex flex-col"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-white">
-                  Seleccionar Pokémon
-                </h2>
-                <button
-                  onClick={() => {
-                    setShowSelector(false);
-                    setSelectedSlot(null);
-                    setSearchTerm('');
-                  }}
-                  className="p-2 hover:bg-white/10 rounded-xl transition-colors"
-                >
-                  <X className="w-6 h-6 text-white" />
-                </button>
               </div>
+              <button
+                type="button"
+                onClick={() => { setConfigSlot(null); setPending(null); }}
+                aria-label="Cerrar"
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.07] text-white/70"
+              >
+                <X size={18} />
+              </button>
+            </div>
 
-              {/* Buscador */}
-              <div className="relative mb-4">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            {/* Nivel */}
+            <div className="mb-4 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-4">
+              <div className="mb-2 flex items-center justify-between">
+                <label htmlFor="team-level" className="text-xs font-bold uppercase tracking-[0.1em] text-white/55">
+                  Nivel
+                </label>
                 <input
-                  type="text"
-                  placeholder="Buscar por nombre o número..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 glass-dark rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  autoFocus
+                  id="team-level-number"
+                  type="number"
+                  min="1"
+                  max="100"
+                  value={pending.level}
+                  onChange={(event) => setPending((p) => ({
+                    ...p,
+                    level: Math.min(100, Math.max(1, Number(event.target.value) || 1)),
+                  }))}
+                  className="w-16 rounded-lg border border-white/10 bg-white/[0.06] px-2 py-1 text-center text-sm font-bold text-white outline-none"
                 />
               </div>
+              <input
+                id="team-level"
+                type="range"
+                min="1"
+                max="100"
+                value={pending.level}
+                onChange={(event) => setPending((p) => ({ ...p, level: Number(event.target.value) }))}
+                className="w-full accent-violet-400"
+              />
+            </div>
 
-              {/* Lista de Pokémon */}
-              <div className="overflow-y-auto flex-1 -mx-2 px-2">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                  {availablePokemon.map((pokemon) => (
-                    <button
-                      key={pokemon.id}
-                      onClick={() => addToTeam(pokemon)}
-                      className="glass-dark hover:glass-hover rounded-xl p-3 transition-all group"
-                    >
-                      <img
-                        src={`/sprites/normal/${pokemon.id}.gif`}
-                        alt={pokemon.name}
-                        loading="lazy"
-                        className="w-full h-16 object-contain mb-2"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                        }}
-                      />
-                      <p className="text-white text-sm font-semibold text-center mb-1">
-                        {pokemon.name}
-                      </p>
-                      <p className="text-gray-400 text-xs text-center">
-                        #{pokemon.id}
-                      </p>
-                    </button>
-                  ))}
-                </div>
+            {/* Shiny */}
+            <div className="mb-4 flex items-center justify-between rounded-2xl border border-white/[0.07] bg-white/[0.03] p-4">
+              <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-white/55">
+                <Sparkles size={15} className="text-yellow-300" /> Shiny
+              </span>
+              <div className="flex gap-1 rounded-xl bg-black/25 p-1">
+                {[false, true].map((value) => (
+                  <button
+                    key={String(value)}
+                    type="button"
+                    onClick={() => setPending((p) => ({ ...p, shiny: value }))}
+                    className={`rounded-lg px-4 py-1.5 text-[11px] font-bold transition ${
+                      pending.shiny === value ? 'bg-violet-500/40 text-white' : 'text-white/50 hover:text-white'
+                    }`}
+                  >
+                    {value ? 'Sí' : 'No'}
+                  </button>
+                ))}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+
+            {/* Habilidad y objeto */}
+            <div className="mb-4 grid gap-3 sm:grid-cols-2">
+              <label className="block">
+                <span className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.1em] text-white/50">
+                  Habilidad
+                </span>
+                <select
+                  value={pending.ability || ''}
+                  onChange={(event) => setPending((p) => ({ ...p, ability: event.target.value || null }))}
+                  className="h-11 w-full rounded-xl border border-white/10 bg-[#131d33] px-3 text-sm text-white outline-none focus:border-violet-300/40"
+                >
+                  {(pending.pokemon.abilities || []).map((ability) => (
+                    <option key={ability.name} value={ability.name}>
+                      {ability.name}{ability.hidden ? ' (oculta)' : ''}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="block">
+                <span className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.1em] text-white/50">
+                  Objeto equipado
+                </span>
+                <select
+                  value={pending.item || ''}
+                  onChange={(event) => setPending((p) => ({ ...p, item: event.target.value || null }))}
+                  className="h-11 w-full rounded-xl border border-white/10 bg-[#131d33] px-3 text-sm text-white outline-none focus:border-violet-300/40"
+                >
+                  <option value="">Ninguno</option>
+                  {equippableItems.map((item) => (
+                    <option key={item.id} value={item.name}>{item.name}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            {/* Estadísticas calculadas */}
+            <div className="mb-5 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/50">
+                  Estadísticas en combate
+                </p>
+                <p className="text-[11px] font-semibold text-violet-200 tabular-nums">
+                  Total {statsTotal(pendingStats)}
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3">
+                {STAT_KEYS.map((key) => (
+                  <div key={key} className="flex items-center justify-between text-[12px]">
+                    <span className="text-white/50">{STAT_LABELS[key]}</span>
+                    <span className="font-semibold tabular-nums text-white/90">{pendingStats[key]}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-3 text-[10px] text-white/35">
+                Cálculo original de Pokémon Reloaded (IV máximo, naturaleza neutral).
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => { setConfigSlot(null); setPending(null); }}
+                className="flex-1 rounded-2xl border border-white/10 bg-white/[0.05] py-3 text-sm font-bold text-white/70 transition hover:bg-white/10"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={acceptSlot}
+                className="flex flex-[2] items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 text-sm font-bold text-white shadow-[0_10px_30px_-10px_rgba(139,92,246,0.7)] transition hover:brightness-110 active:scale-[0.99]"
+              >
+                <Check size={17} /> Aceptar
+              </button>
+            </div>
+          </Modal>
         )}
       </AnimatePresence>
     </div>
   );
 }
-

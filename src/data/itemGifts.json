@@ -6,7 +6,7 @@
     {
       "itemId": 153,
       "itemName": "Ala Arcoíris",
-      "who": "el Profesor",
+      "who": "Un personaje del juego",
       "where": "Pueblo Alba",
       "when": "Johto: guardianes y alto mando",
       "region": "Johto",
@@ -16,7 +16,7 @@
     {
       "itemId": 531,
       "itemName": "Arca de Zygarde",
-      "who": "Un personaje del juego",
+      "who": "Clem",
       "where": "Guarida Flare",
       "when": "Medalla Fábula",
       "region": "Star",
@@ -36,7 +36,7 @@
     {
       "itemId": 182,
       "itemName": "Caña Buena",
-      "who": "Un personaje del juego",
+      "who": "Pescador profesional",
       "where": "Playa Vega",
       "when": "Medalla Secuoya",
       "region": "Star",
@@ -46,7 +46,7 @@
     {
       "itemId": 181,
       "itemName": "Caña Vieja",
-      "who": "el Pescador",
+      "who": "Pescador Amateur",
       "where": "Ruta 4",
       "when": "Medalla Aguacero",
       "region": "Star",
@@ -56,7 +56,7 @@
     {
       "itemId": 484,
       "itemName": "Cuaderno",
-      "who": "Un personaje del juego",
+      "who": "Teron",
       "where": "Ruta 3",
       "when": "Medalla Pedrusco",
       "region": "Star",
@@ -76,7 +76,7 @@
     {
       "itemId": 30,
       "itemName": "Despertar",
-      "who": "la recepcionista",
+      "who": "La recepcionista de la Torre Pokémon",
       "where": "Torre Pokémon",
       "when": "Medalla Misterio",
       "region": "Star",
@@ -116,7 +116,7 @@
     {
       "itemId": 162,
       "itemName": "Esfera Verde",
-      "who": "el Profesor",
+      "who": "Un personaje del juego",
       "where": "Liga Pokémon de Sinnoh",
       "when": "Sinnoh: Helio y el Trío del lago",
       "region": "Sinnoh",
@@ -136,7 +136,7 @@
     {
       "itemId": 562,
       "itemName": "Flauta solar",
-      "who": "Un personaje del juego",
+      "who": "Un ciudadano",
       "where": "Templo Scolipede (Opcional)",
       "when": "Kalos: Islas Cometa y Team Flare",
       "region": "Kalos",
@@ -146,7 +146,7 @@
     {
       "itemId": 157,
       "itemName": "Griseosfera",
-      "who": "El Profesor",
+      "who": "Un personaje del juego",
       "where": "Reto de Treto",
       "when": "Teselia: Frente de Batalla y N",
       "region": "Teselia",
@@ -166,7 +166,7 @@
     {
       "itemId": 490,
       "itemName": "Hidrostal Z",
-      "who": "Un personaje del juego",
+      "who": "Nereida",
       "where": "Playa Naos",
       "when": "Medalla Aguacero",
       "region": "Star",
@@ -176,7 +176,7 @@
     {
       "itemId": 171,
       "itemName": "Hierba Especial",
-      "who": "Un personaje del juego",
+      "who": "Una ciudadana",
       "where": "Ciudad Polar",
       "when": "Medalla Llama",
       "region": "Star",
@@ -186,7 +186,7 @@
     {
       "itemId": 498,
       "itemName": "Insectostal Z",
-      "who": "los Reclutas",
+      "who": "Reclutas Skull",
       "where": "Ruta 5 (segunda visita)",
       "when": "Medalla Aguacero",
       "region": "Star",
@@ -196,7 +196,7 @@
     {
       "itemId": 520,
       "itemName": "Lunalastal Z",
-      "who": "El Profesor",
+      "who": "Un personaje del juego",
       "where": "Liga Pokemon",
       "when": "Alola: guardianes y Necrozma",
       "region": "Alola",
@@ -206,7 +206,7 @@
     {
       "itemId": 186,
       "itemName": "Mapa",
-      "who": "un hombre llamado",
+      "who": "un hombre",
       "where": "Pueblo Wezen",
       "when": "Kanto: islas y medallas",
       "region": "Kanto",
@@ -236,7 +236,7 @@
     {
       "itemId": 4,
       "itemName": "Master Ball",
-      "who": "Un personaje del juego",
+      "who": "Javi",
       "where": "Centro de Investigación",
       "when": "Medalla Psíquica",
       "region": "Star",
@@ -246,7 +246,7 @@
     {
       "itemId": 193,
       "itemName": "Mega-Aro",
-      "who": "Un personaje del juego",
+      "who": "Profesor Oak",
       "where": "Trío del lago",
       "when": "Medalla Psíquica",
       "region": "Star",
@@ -266,7 +266,7 @@
     {
       "itemId": 169,
       "itemName": "Monedero",
-      "who": "Un personaje del juego",
+      "who": "Un señor del saloon",
       "where": "Saloon de Rigel",
       "when": "Medalla Llama",
       "region": "Star",
@@ -316,7 +316,7 @@
     {
       "itemId": 240,
       "itemName": "MT40 Hidropulso",
-      "who": "Un personaje del juego",
+      "who": "Willy",
       "where": "Ciudad Naos",
       "when": "Medalla Aguacero",
       "region": "Star",
@@ -366,7 +366,7 @@
     {
       "itemId": 488,
       "itemName": "Normastal Z",
-      "who": "el profesor",
+      "who": "Profesor Serbal",
       "where": "Ciudad Spica",
       "when": "Medalla Pedrusco",
       "region": "Star",
@@ -386,7 +386,7 @@
     {
       "itemId": 90,
       "itemName": "Piedra Eterna",
-      "who": "el profesor",
+      "who": "Profesor Serbal",
       "where": "Ciudad Spica",
       "when": "Medalla Pedrusco",
       "region": "Star",
@@ -406,7 +406,7 @@
     {
       "itemId": 176,
       "itemName": "SmartPhone",
-      "who": "madre",
+      "who": "Madre",
       "where": "Pueblo Alba",
       "when": "Medalla Pedrusco",
       "region": "Star",
@@ -416,7 +416,7 @@
     {
       "itemId": 13,
       "itemName": "Star Ball",
-      "who": "Un personaje del juego",
+      "who": "Abedul",
       "where": "Q056: Salvajes Nebulosa:",
       "when": "Misiones de las Islas Cometa",
       "region": "Islas Cometa",
@@ -436,7 +436,7 @@
     {
       "itemId": 568,
       "itemName": "Superpulsera Z",
-      "who": "Teron este nos",
+      "who": "Teron",
       "where": "Ruta 3",
       "when": "Medalla Pedrusco",
       "region": "Star",
@@ -456,7 +456,7 @@
     {
       "itemId": 3,
       "itemName": "Ultra Ball",
-      "who": "el Profesor",
+      "who": "Profesor Abedul",
       "where": "Q053: Salvajes Llanos:",
       "when": "Misiones de las Islas Cometa",
       "region": "Islas Cometa",
@@ -466,7 +466,7 @@
     {
       "itemId": 185,
       "itemName": "xPod Star",
-      "who": "la recepcionista",
+      "who": "La recepcionista",
       "where": "Isla Neptuno",
       "when": "Sinnoh: Helio y el Trío del lago",
       "region": "Sinnoh",

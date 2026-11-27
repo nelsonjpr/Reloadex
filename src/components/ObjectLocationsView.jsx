@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ChevronDown, MapPin, Package, Search } from 'lucide-react';
+import { ArrowLeft, ChevronDown, Gift, MapPin, Package, Search, User } from 'lucide-react';
 import { objectLocations, objectLocationStats } from '../data/objectLocations';
+import { giftsByItemId } from '../data/itemGifts';
 import { safeTop } from '../utils/safeArea';
 
 const normalize = (value) => String(value || '')
@@ -42,6 +43,11 @@ const ObjectLocationsView = ({ onBack }) => {
       if (category !== 'todos' && (item.category || 'Objeto') !== category) return false;
       if (!q) return true;
       if (normalize(item.name).includes(q) || String(item.id).includes(q)) return true;
+      if ((giftsByItemId.get(item.id) || []).some((gift) =>
+        normalize(gift.who).includes(q)
+        || normalize(gift.where).includes(q)
+        || normalize(gift.when).includes(q),
+      )) return true;
       return (item.locations || []).some((loc) =>
         normalize(loc.zone).includes(q)
         || normalize(loc.detail).includes(q)
@@ -181,6 +187,32 @@ const ObjectLocationsView = ({ onBack }) => {
                           )}
                         </div>
                       ) : null}
+
+                      {(giftsByItemId.get(item.id) || []).length > 0 && (
+                        <div className="mt-3 space-y-2">
+                          {(giftsByItemId.get(item.id) || []).map((gift, giftIndex) => (
+                            <div
+                              key={`gift-${item.id}-${giftIndex}`}
+                              className="rounded-2xl border border-amber-300/15 bg-amber-300/[0.05] px-3 py-2.5"
+                            >
+                              <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-amber-200/80">
+                                <Gift size={12} /> Te lo regalan
+                              </p>
+                              <p className="mt-1 flex items-center gap-1.5 text-[13px] font-semibold text-white/90">
+                                <User size={13} className="shrink-0 text-amber-200/70" /> {gift.who}
+                              </p>
+                              <p className="mt-0.5 text-[11px] leading-relaxed text-white/55">
+                                {gift.where}{gift.when ? ` · ${gift.when}` : ''}
+                              </p>
+                              {gift.quote && (
+                                <p className="mt-1 line-clamp-2 text-[11px] italic leading-relaxed text-white/40">
+                                  «{gift.quote}»
+                                </p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </motion.article>

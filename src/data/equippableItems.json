@@ -1,0 +1,387 @@
+{
+  "version": 1,
+  "source": "GML ObjetoPosibleAsignar",
+  "count": 76,
+  "items": [
+    {
+      "id": 15,
+      "name": "Poción",
+      "category": "Poción"
+    },
+    {
+      "id": 16,
+      "name": "Superpoción",
+      "category": "Poción"
+    },
+    {
+      "id": 17,
+      "name": "Hiperpoción",
+      "category": "Poción"
+    },
+    {
+      "id": 18,
+      "name": "Poción Máxima",
+      "category": "Poción"
+    },
+    {
+      "id": 19,
+      "name": "Restaurar Todo",
+      "category": "Objeto"
+    },
+    {
+      "id": 20,
+      "name": "Cura Total",
+      "category": "Objeto"
+    },
+    {
+      "id": 23,
+      "name": "Agua Fresca",
+      "category": "Objeto"
+    },
+    {
+      "id": 24,
+      "name": "Refresco",
+      "category": "Objeto"
+    },
+    {
+      "id": 25,
+      "name": "Limonada",
+      "category": "Objeto"
+    },
+    {
+      "id": 26,
+      "name": "Leche Mu-Mu",
+      "category": "Objeto"
+    },
+    {
+      "id": 27,
+      "name": "Antídoto",
+      "category": "Objeto"
+    },
+    {
+      "id": 28,
+      "name": "Antiquemar",
+      "category": "Objeto"
+    },
+    {
+      "id": 29,
+      "name": "Antihielo",
+      "category": "Objeto"
+    },
+    {
+      "id": 30,
+      "name": "Despertar",
+      "category": "Objeto"
+    },
+    {
+      "id": 31,
+      "name": "Antiparalizador",
+      "category": "Objeto"
+    },
+    {
+      "id": 109,
+      "name": "Baya Zreza",
+      "category": "Baya"
+    },
+    {
+      "id": 110,
+      "name": "Baya Atania",
+      "category": "Baya"
+    },
+    {
+      "id": 111,
+      "name": "Baya Meloc",
+      "category": "Baya"
+    },
+    {
+      "id": 112,
+      "name": "Baya Safre",
+      "category": "Baya"
+    },
+    {
+      "id": 113,
+      "name": "Baya Perasi",
+      "category": "Baya"
+    },
+    {
+      "id": 114,
+      "name": "Baya Zanama",
+      "category": "Baya"
+    },
+    {
+      "id": 115,
+      "name": "Baya Aranja",
+      "category": "Baya"
+    },
+    {
+      "id": 116,
+      "name": "Baya Caquic",
+      "category": "Baya"
+    },
+    {
+      "id": 117,
+      "name": "Baya Ziuela",
+      "category": "Baya"
+    },
+    {
+      "id": 118,
+      "name": "Baya Zidra",
+      "category": "Baya"
+    },
+    {
+      "id": 119,
+      "name": "Baya Higog",
+      "category": "Baya"
+    },
+    {
+      "id": 120,
+      "name": "Baya Wiki",
+      "category": "Baya"
+    },
+    {
+      "id": 121,
+      "name": "Baya Ango",
+      "category": "Baya"
+    },
+    {
+      "id": 122,
+      "name": "Baya Guaya",
+      "category": "Baya"
+    },
+    {
+      "id": 123,
+      "name": "Baya Pabaya",
+      "category": "Baya"
+    },
+    {
+      "id": 124,
+      "name": "Baya Frambu",
+      "category": "Baya"
+    },
+    {
+      "id": 125,
+      "name": "Baya Oram",
+      "category": "Baya"
+    },
+    {
+      "id": 126,
+      "name": "Baya Latano",
+      "category": "Baya"
+    },
+    {
+      "id": 127,
+      "name": "Baya Peragu",
+      "category": "Baya"
+    },
+    {
+      "id": 128,
+      "name": "Baya Pinia",
+      "category": "Baya"
+    },
+    {
+      "id": 129,
+      "name": "Baya Grana",
+      "category": "Baya"
+    },
+    {
+      "id": 141,
+      "name": "Baya Sambia",
+      "category": "Baya"
+    },
+    {
+      "id": 291,
+      "name": "Antibiótico",
+      "category": "Objeto"
+    },
+    {
+      "id": 292,
+      "name": "Antiamor",
+      "category": "Objeto"
+    },
+    {
+      "id": 293,
+      "name": "Antimaldic.",
+      "category": "Objeto"
+    },
+    {
+      "id": 294,
+      "name": "Max. Elixir",
+      "category": "Objeto"
+    },
+    {
+      "id": 295,
+      "name": "Ataque X",
+      "category": "Objeto"
+    },
+    {
+      "id": 296,
+      "name": "Defensa X",
+      "category": "Objeto"
+    },
+    {
+      "id": 297,
+      "name": "Velocidad X",
+      "category": "Objeto"
+    },
+    {
+      "id": 298,
+      "name": "Precisión X",
+      "category": "Objeto"
+    },
+    {
+      "id": 299,
+      "name": "Especial X",
+      "category": "Objeto"
+    },
+    {
+      "id": 300,
+      "name": "Def. Espec. X",
+      "category": "Objeto"
+    },
+    {
+      "id": 301,
+      "name": "Directo",
+      "category": "Objeto"
+    },
+    {
+      "id": 302,
+      "name": "Prot. Especial",
+      "category": "Objeto"
+    },
+    {
+      "id": 546,
+      "name": "Polvo metálico",
+      "category": "Objeto"
+    },
+    {
+      "id": 547,
+      "name": "Polvo curación",
+      "category": "Objeto"
+    },
+    {
+      "id": 548,
+      "name": "Polvo energía",
+      "category": "Objeto"
+    },
+    {
+      "id": 555,
+      "name": "Flauta amarilla",
+      "category": "Objeto"
+    },
+    {
+      "id": 556,
+      "name": "Flauta azul",
+      "category": "Objeto"
+    },
+    {
+      "id": 557,
+      "name": "Flauta roja",
+      "category": "Objeto"
+    },
+    {
+      "id": 558,
+      "name": "Flauta verde",
+      "category": "Objeto"
+    },
+    {
+      "id": 559,
+      "name": "Flauta violeta",
+      "category": "Objeto"
+    },
+    {
+      "id": 564,
+      "name": "Hierba blanca",
+      "category": "Objeto"
+    },
+    {
+      "id": 566,
+      "name": "Hierba mental",
+      "category": "Objeto"
+    },
+    {
+      "id": 579,
+      "name": "Té",
+      "category": "Objeto"
+    },
+    {
+      "id": 580,
+      "name": "Zumo de baya",
+      "category": "Baya"
+    },
+    {
+      "id": 582,
+      "name": "Barrita plus",
+      "category": "Objeto"
+    },
+    {
+      "id": 595,
+      "name": "Caramelo furia",
+      "category": "Objeto"
+    },
+    {
+      "id": 596,
+      "name": "Galleta lava",
+      "category": "Objeto"
+    },
+    {
+      "id": 597,
+      "name": "Porcehelado",
+      "category": "Objeto"
+    },
+    {
+      "id": 598,
+      "name": "Crepe Luminalia",
+      "category": "Objeto"
+    },
+    {
+      "id": 599,
+      "name": "Galleta Yantra",
+      "category": "Objeto"
+    },
+    {
+      "id": 600,
+      "name": "Malasada maxi",
+      "category": "Objeto"
+    },
+    {
+      "id": 681,
+      "name": "Corazón Dulce",
+      "category": "Objeto"
+    },
+    {
+      "id": 682,
+      "name": "Rokikos",
+      "category": "Objeto"
+    },
+    {
+      "id": 734,
+      "name": "Gragea Ofensiva",
+      "category": "Objeto"
+    },
+    {
+      "id": 735,
+      "name": "Gragea Defensiva",
+      "category": "Objeto"
+    },
+    {
+      "id": 736,
+      "name": "Gragea Multi",
+      "category": "Objeto"
+    },
+    {
+      "id": 737,
+      "name": "Gragea Crítica",
+      "category": "Objeto"
+    },
+    {
+      "id": 738,
+      "name": "Gragea Evasiva",
+      "category": "Objeto"
+    },
+    {
+      "id": 739,
+      "name": "Nerviosfera",
+      "category": "Objeto"
+    }
+  ]
+}

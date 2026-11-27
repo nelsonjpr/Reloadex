@@ -18,9 +18,21 @@ const normalize = (value) => String(value || '')
 
 const GIFTS_RE = /(regala|regalan|regalara|regalarnos|entrega|entregara|entregan|nos da|te da|nos dara|te dara|recompensa|recompensara|recibiras|recibiremos|obtendras|conseguid|nos entregan|nos otorga|nos entrega)/i;
 
+// Limpia capturas parciales del texto narrativo («Teron este nos», etc.).
+const cleanWho = (value) => {
+  const allowedGeneric = /^(un|una|el|la|los|las)\s+(investigador|investigadora|ciudadano|ciudadana|senor|senora|pescador|pescadora|recepcionista|profesor|profesora|director|directora|recluta|reclutas|amigo|amiga|hombre|mujer|comisario|lider|capitana|capitan|subdirector)\b/i;
+  const banned = /^(esta|este|tras|sin|donde|para|respondiendo|se|esta|cuando|despues|nosotros|ella|el|la|los|las|aura)\b/i;
+  let words = String(value || '').trim().split(/\s+/);
+  const junk = new Set(['nos', 'te', 'este', 'esta', 'afirmativamente', 'respondiendo', 'llamado', 'por', 'con', 'al']);
+  while (words.length && junk.has(words[words.length - 1].toLowerCase())) words.pop();
+  const name = words.join(' ').trim();
+  if (!name || banned.test(name) || (!/^[A-ZÁÉÍÓÚÑ]/.test(name) && !allowedGeneric.test(name))) return null;
+  return name;
+};
+
 // Extrae al personaje que entrega el objeto de la frase anterior al verbo.
 const whoFrom = (text, verbIndex) => {
-  const before = text.slice(Math.max(0, verbIndex - 150), verbIndex);
+  const before = text.slice(Math.max(0, verbIndex - 150), verbIndex + 40);
   const patterns = [
     /(?:conoceremos a|conocemos a|hablar con|habla con|encontraremos a|nos encontramos con|vuelve a casa para hablar con)\s+([A-ZÁÉÍÓÚÑ][\wÁÉÍÓÚÑáéíóúñ]+(?:\s+[A-ZÁÉÍÓÚÑ][\wÁÉÍÓÚÑáéíóúñ]+){0,2})/gi,
     /\b([A-ZÁÉÍÓÚÑ][\wÁÉÍÓÚÑáéíóúñ]+(?:\s+[A-ZÁÉÍÓÚÑ][\wÁÉÍÓÚÑáéíóúñ]+){0,2})\s+(?:nos|te)\s+(?:recompens|entreg|regal|da\b|dara)/gi,
@@ -31,7 +43,10 @@ const whoFrom = (text, verbIndex) => {
     let match;
     let last = null;
     while ((match = pattern.exec(before))) last = match;
-    if (last) return last[1].trim();
+    if (last) {
+      const cleaned = cleanWho(last[1]);
+      if (cleaned) return cleaned;
+    }
   }
   return null;
 };
@@ -40,6 +55,32 @@ const items = objectData.items
   .filter((item) => item.name && item.name.length >= 4)
   .map((item) => ({ id: item.id, name: item.name, key: normalize(item.name) }))
   .sort((a, b) => b.key.length - a.key.length);
+
+// Cuando la narración no nombra al personaje junto al verbo, se completan los
+// casos verificados en el propio texto de la guía.
+const KNOWN_GIVERS = new Map([
+  ['Master Ball', 'Javi'],
+  ['SmartPhone', 'Madre'],
+  ['Cuaderno', 'Teron'],
+  ['Superpulsera Z', 'Teron'],
+  ['Hidrostal Z', 'Nereida'],
+  ['Insectostal Z', 'Reclutas Skull'],
+  ['Caña Vieja', 'Pescador Amateur'],
+  ['Caña Buena', 'Pescador profesional'],
+  ['MT40 Hidropulso', 'Willy'],
+  ['Piedra Eterna', 'Profesor Serbal'],
+  ['Normastal Z', 'Profesor Serbal'],
+  ['Cuchara Torcida', 'Un investigador'],
+  ['Arca de Zygarde', 'Clem'],
+  ['xPod Star', 'La recepcionista'],
+  ['Ultra Ball', 'Profesor Abedul'],
+  ['Star Ball', 'Abedul'],
+  ['Hierba Especial', 'Una ciudadana'],
+  ['Mega-Aro', 'Profesor Oak'],
+  ['Flauta solar', 'Un ciudadano'],
+  ['Monedero', 'Un señor del saloon'],
+  ['Despertar', 'La recepcionista de la Torre Pokémon'],
+]);
 
 const gifts = new Map();
 
@@ -77,7 +118,9 @@ for (const chapter of guide.chapters || []) {
             itemName: item.name,
             // La ventana normalizada conserva la longitud: se usa el texto
             // original para recuperar el nombre con sus mayúsculas.
-            who: whoFrom(original.slice(windowStart, at + item.key.length + 40), verb.index) || 'Un personaje del juego',
+            who: KNOWN_GIVERS.get(item.name)
+              || whoFrom(original.slice(windowStart, at + item.key.length + 40), verb.index)
+              || 'Un personaje del juego',
             where,
             when,
             region: String(chapter.region || ''),
