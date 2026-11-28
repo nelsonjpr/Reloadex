@@ -58,7 +58,7 @@ const ObjectCard = memo(function ObjectCard({ item, gifts }) {
               {visibleLocations.map((loc, i) => (
                 <div
                   key={`${item.id}-${loc.zone}-${loc.detail}-${i}`}
-                  className="flex items-start gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.035] px-3 py-2.5"
+                  className="flex items-start gap-2 rounded-2xl border border-white/[0.06] bg-[var(--surface-strong)] px-3 py-2.5"
                 >
                   <MapPin size={14} className="mt-0.5 shrink-0 text-indigo-300" />
                   <div className="min-w-0">
@@ -173,7 +173,7 @@ const ObjectLocationsView = ({ onBack }) => {
   );
 
   return (
-    <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]">
+    <div className="min-h-screen bg-[var(--app-bg)] pb-[calc(env(safe-area-inset-bottom)+24px)]">
       <div className="mx-auto max-w-6xl px-4 pb-8" style={safeTop(24)}>
         <header className="mb-6">
           <div className="flex items-center gap-3">
@@ -203,7 +203,7 @@ const ObjectLocationsView = ({ onBack }) => {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Buscar objeto, ruta o lugar…"
-            className="h-12 w-full rounded-2xl border border-white/10 bg-[#0d1528]/90 pl-11 pr-4 text-sm text-white placeholder-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition focus:border-indigo-300/40 focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
+            className="h-12 w-full rounded-2xl border border-white/10 bg-[var(--surface)] pl-11 pr-4 text-sm text-white placeholder-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition focus:border-indigo-300/40 focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
           />
         </div>
 

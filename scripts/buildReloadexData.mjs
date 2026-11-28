@@ -30,6 +30,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { gameEvolutionById } from './parseGameEvolutions.mjs';
 import { decodeFile } from './decodeReloaded.mjs';
+import { dexTextForId } from './dexTextMap.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT = path.resolve(__dirname, '..');
@@ -277,85 +278,10 @@ const gameNameForId = (id) => {
   const i = canonicalNameLine(id);
   return i >= 0 ? (gameNames[i] || null) : null;
 };
-const measurement = (s) => {
-  if (!s) return null;
-  const m = String(s).match(/([\d.,]+)\s*(m|kg|lb|ft)/i);
-  return m ? Number(m[1].replace(',', '.')) : null;
-};
-
-// dex_info.dll, dex_height_m.dll, dex_weight_kg.dll y dex_espec.dll están
-// desalineados respecto a txt_pkmn.dll. La línea se resuelve por NOMBRE y se
-// reutiliza para descripción, altura, peso y categoría (misma name-line).
-const wordKey = (s) => String(s || '').toLowerCase().normalize('NFD')
-  .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
-// Coincidencia exacta de palabra (no substring) dentro de un rango de líneas.
-// Se elige la línea donde el nombre aparece antes: evita confundir "Burmy" con
-// la descripción de Wormadam, que menciona a Burmy al principio.
-const nameHitInInfo = (from, to, key) => {
-  if (!key) return -1;
-  let best = -1;
-  let bestPos = Infinity;
-  for (let k = Math.max(0, from); k <= Math.min(to, gameInfo.length - 1); k++) {
-    const pos = ` ${wordKey(gameInfo[k])} `.indexOf(` ${key} `);
-    if (pos >= 0 && pos < bestPos) { bestPos = pos; best = k; }
-  }
-  return best;
-};
-const megaNameStart = gameNames.findIndex((x) => /^mega /i.test(x || ''));
-// Anclas verificadas en el juego:
-//   txt_pkmn[1425] "Mega Venusaur" <-> dex_info[945]
-//   txt_pkmn[494]  "Pikablue"      <-> dex_info[914]
-const MEGA_INFO_OFFSET = 480;
-const megaInfoStart = megaNameStart >= 0 ? megaNameStart - MEGA_INFO_OFFSET : -1;
-const CUSTOM_INFO_START = 900; // bloque de descripciones añadidas (Pikablue, Eeveon, ...)
-const CUSTOM_INFO_END = megaInfoStart >= 0 ? megaInfoStart - 1 : gameInfo.length - 1;
-// Pistas literales del objeto/efecto cuando el nombre no basta (Mega Pikablue).
-const KEYWORD_HINTS = new Map([
-  ['megapikablue', ['energía de la megaevolución', 'pikablue']],
-]);
-const keywordHit = (flatKey) => {
-  const hints = KEYWORD_HINTS.get(flatKey) || [];
-  if (!hints.length) return -1;
-  const keys = hints.map(wordKey);
-  return gameInfo.findIndex((line) => keys.every((k) => wordKey(line).includes(k)));
-};
-const infoLineForName = (name, nameLine) => {
-  if (!name) return -1;
-  const key = wordKey(name);
-  const flatKey = key.replace(/ /g, '');
-
-  if (/^mega /i.test(name)) {
-    const exact = nameHitInInfo(0, gameInfo.length - 1, key);
-    if (exact >= 0) return exact;
-    const hinted = keywordHit(flatKey);
-    if (hinted >= 0) return hinted;
-    const baseKey = wordKey(name.replace(/^mega\s+/i, ''));
-    const baseHit = nameHitInInfo(megaInfoStart, gameInfo.length - 1, baseKey);
-    if (baseHit >= 0) return baseHit;
-    // Las descripciones mega siguen el mismo orden que sus nombres en txt_pkmn.
-    const positional = nameLine - MEGA_INFO_OFFSET;
-    if (megaNameStart >= 0 && nameLine >= megaNameStart && positional >= 0 && positional < gameInfo.length) {
-      return positional;
-    }
-    return -1;
-  }
-  // dex_info no contiene descripciones Gigamax: no se inventa una descripción.
-  if (/gigamax/i.test(name)) return -1;
-
-  // Solo los nombres propios de Reloaded (bloques 493..944 y 1000..1424 de
-  // txt_pkmn) tienen su descripción desplazada al bloque añadido 900..944.
-  // El resto de nombres (oficiales) conserva su línea canónica: buscar el nombre
-  // en dex_info daría falsos positivos (p. ej., Wormadam menciona a Burmy).
-  const isCustomLine = (nameLine >= 493 && nameLine <= 944)
-    || (nameLine >= 1000 && nameLine <= 1424);
-  if (isCustomLine && gameNames.indexOf(name) === nameLine) {
-    const hit = nameHitInInfo(CUSTOM_INFO_START, CUSTOM_INFO_END, key);
-    if (hit >= 0) return hit;
-  }
-  // Sin coincidencia por nombre se mantiene la name-line canónica (Urshifu,
-  // Annihilape...), nunca una línea calculada desde el ID.
-  return nameLine >= 0 && nameLine < gameInfo.length ? nameLine : -1;
-};
+// La descripción, categoría, altura y peso NO se infieren del nombre: el juego
+// usa su propio mapa ID -> línea (GetOrdenDex / GetOrdenDexEspecial /
+// NumeroPokemonEspecial). Ver `dexTextMap.mjs`; las correlaciones por nombre
+// asignaban textos ajenos, por ejemplo la de Groudon a Marowak de Alola.
 
 // nombre de archivo EXACTO de cada grito (los base van con ceros: 001.mp3).
 // Se prefiere el nombre del juego; si la app empaquetó otro nombre, se añade como respaldo.
@@ -743,14 +669,12 @@ for (const id of [...allIds].sort((a, b) => a - b)) {
 
   const moves = Array.isArray(legacy?.moves) ? legacy.moves.slice() : [];
 
-  // descripción / altura / peso / categoría: resueltos por NOMBRE (name-line),
-  // nunca por la correlación directa ID -> índice de texto.
-  const nameLine = canonicalNameLine(id, name);
-  const ti = infoLineForName(name, nameLine);
-  const description = ti >= 0 ? (gameInfo[ti] || null) : null;
-  const height = ti >= 0 ? measurement(gameHeights[ti]) : null;
-  const weight = ti >= 0 ? measurement(gameWeights[ti]) : null;
-  const species = ti >= 0 ? (gameSpecies[ti] || null) : null;
+  // descripción / altura / peso / categoría: línea EXACTA que usa el juego.
+  const dexText = dexTextForId(id);
+  const description = dexText.description || null;
+  const height = dexText.height;
+  const weight = dexText.weight;
+  const species = dexText.species || null;
   const cryRaw = cryFileById.get(id);
   // Los gritos se empaquetan como MP3 (mucho más livianos que el WAV del juego).
   const cryFile = cryRaw ? cryRaw.replace(/\.(wav|ogg)$/i, '.mp3') : null;

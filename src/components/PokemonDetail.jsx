@@ -1,9 +1,9 @@
 ﻿import React, { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Volume2, Sparkles, ArrowLeft, ChevronDown, BookOpen,
-  BarChart3, Layers, Ruler, Weight, Dna, Egg, TrendingUp,
-  TrendingDown, Activity,
+  Volume2, Sparkles, ArrowLeft, ChevronDown, BookOpen, Heart,
+  BarChart3, Layers, Ruler, Weight, Dna, Egg,
+  ShieldCheck, ShieldAlert, FileText, Activity,
 } from 'lucide-react';
 import {
   typeColor, typeName, typeIcon, spriteUrl, spriteFallbacks,
@@ -22,7 +22,8 @@ const PokemonMovesPanel = lazy(() => import('./PokemonMovesPanel'));
 // Reloadex — ficha móvil moderna (datos reales de Pokémon Reloaded)
 // =============================================================
 const MAX_STAT = 255;
-const DARK_BASE = '#080d1a';
+const DARK_BASE = '#172033';
+const FAVORITES_KEY = 'reloadex:favorites';
 const STAT_ORDER = [
   ['hp', 'PS'], ['attack', 'Ataque'], ['defense', 'Defensa'],
   ['spAttack', 'At. Esp.'], ['spDefense', 'Def. Esp.'], ['speed', 'Velocidad'],
@@ -57,6 +58,16 @@ const CRY_FILES = new Set(
   pokemonData.flatMap((p) => (p.sprite?.cryFile ? [String(p.sprite.cryFile)] : [])),
 );
 
+const loadFavoriteIds = () => {
+  try {
+    const raw = localStorage.getItem(FAVORITES_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return new Set(Array.isArray(parsed) ? parsed.map(Number) : []);
+  } catch {
+    return new Set();
+  }
+};
+
 const cryCandidates = (p) => {
   const id = Number(p?.id);
   if (!Number.isFinite(id)) return [];
@@ -76,8 +87,18 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
   const [showVariants, setShowVariants] = useState(false);
   const [expandedAbility, setExpandedAbility] = useState(null);
   const [showMoves, setShowMoves] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(() => loadFavoriteIds().has(Number(pokemon?.id)));
+  const [activeTab, setActiveTab] = useState('ficha');
 
   const id = Number(pokemon?.id);
+
+  // Cada Pokémon abre en la pestaña de ficha, sin arrastrar paneles abiertos.
+  useEffect(() => {
+    setActiveTab('ficha');
+    setExpandedAbility(null);
+    setShowMoves(false);
+    setShowVariants(false);
+  }, [id]);
   const types = Array.isArray(pokemon?.types) ? pokemon.types : [];
   const hasTypes = types.length > 0;
   const typeKey = types.join(',');
@@ -142,6 +163,17 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
     if (onNavigate) onNavigate(Number(targetId));
   };
 
+  const toggleFavorite = () => {
+    setIsFavorite((prev) => {
+      const next = !prev;
+      const favorites = loadFavoriteIds();
+      if (next) favorites.add(id);
+      else favorites.delete(id);
+      try { localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favorites])); } catch { /* almacenamiento no disponible */ }
+      return next;
+    });
+  };
+
   const abilities = Array.isArray(pokemon.abilities) ? pokemon.abilities : [];
   const hasBreeding = !!(pokemon.eggGroups?.length || pokemon.eggSteps || pokemon.growthRate);
 
@@ -150,7 +182,7 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
       initial={{ opacity: 0, x: 16 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -16 }}
-      className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]"
+      className="min-h-screen bg-[var(--app-bg)] pb-[calc(env(safe-area-inset-bottom)+24px)]"
     >
       <div className="mx-auto max-w-3xl sm:px-4 sm:pt-5">
         {/* Header con degradado del tipo principal y transición curva */}
@@ -164,24 +196,6 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
             minHeight: 420,
           }}
         >
-          {/* Resplandor con degradado en vez de `blur-3xl`: el filtro obligaba
-              a recomponer una superficie grande en cada frame del scroll. */}
-          <div
-            className="pointer-events-none absolute -left-24 top-8 h-72 w-72 rounded-full opacity-60"
-            style={{ background: `radial-gradient(circle, ${primaryLight} 0%, transparent 70%)` }}
-          />
-          <div
-            className="pointer-events-none absolute -right-20 -top-10 h-80 w-80 rounded-full"
-            style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%)' }}
-          />
-          <div
-            className="pointer-events-none absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: 'radial-gradient(circle at 22px 22px, white 2px, transparent 0)',
-              backgroundSize: '44px 44px',
-            }}
-          />
-
           <div className="relative z-10 px-4 pb-20 sm:px-7" style={safeTop(16)}>
             <div className="flex items-center justify-between gap-3">
               <button
@@ -203,10 +217,6 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
 
             <div className="mt-1 flex flex-col items-center text-center">
               <div className="relative flex items-center justify-center">
-                <div
-                  className="absolute h-36 w-36 rounded-full opacity-70"
-                  style={{ background: `radial-gradient(circle, ${adjustColor(primary, 0.45)} 0%, transparent 70%)` }}
-                />
                 <SpriteImage
                   id={id}
                   shiny={isShiny}
@@ -289,6 +299,25 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
                   <Sparkles size={18} />
                   <span>{isShiny ? 'Normal' : 'Shiny'}</span>
                 </motion.button>
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  onClick={toggleFavorite}
+                  aria-label={isFavorite ? `Quitar ${pokemon.name} de favoritos` : `Añadir ${pokemon.name} a favoritos`}
+                  aria-pressed={isFavorite}
+                  title="Favorito"
+                  className={`pill flex min-h-[46px] items-center gap-2 px-6 text-sm ring-1 ${
+                    isFavorite ? 'text-white ring-rose-200/50' : 'text-white/85 ring-white/25'
+                  }`}
+                  style={{
+                    background: isFavorite
+                      ? 'linear-gradient(135deg, #fb7185, #e11d48)'
+                      : 'rgba(255,255,255,0.10)',
+                    boxShadow: isFavorite ? '0 10px 24px rgba(244,63,94,0.35)' : 'none',
+                  }}
+                >
+                  <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
+                  <span>Favorito</span>
+                </motion.button>
               </div>
             </div>
           </div>
@@ -303,293 +332,294 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
           </svg>
         </motion.section>
 
-        {/* Tarjetas flotantes sobre el fondo oscuro */}
-        <div className="relative z-20 -mt-4 space-y-4 px-4 pb-6 sm:px-0">
-          <Card>
-            <SectionTitle icon={Dna} color={primary}>Ficha</SectionTitle>
-            {pokemon.description && (
-              <p className="mt-4 text-sm leading-7 text-white/75 sm:text-[15px]">
-                {pokemon.description}
-              </p>
-            )}
-            <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-              <Info icon={Ruler} label="Altura" value={pokemon.height != null ? `${pokemon.height} m` : '—'} color={primary} />
-              <Info icon={Weight} label="Peso" value={pokemon.weight != null ? `${pokemon.weight} kg` : '—'} color={primary} />
-              {pokemon.species && <Info icon={Dna} label="Categoría" value={pokemon.species} color={primary} />}
-              {generation && <Info label="Generación" value={generation} />}
-              {pokemon.region && <Info label="Región" value={pokemon.region} />}
-            </div>
+        {/* Pestañas: Ficha / Estadísticas. Mismo patrón para cualquier Pokémon. */}
+        <div className="relative z-20 -mt-4 px-4 sm:px-0">
+          <div
+            role="tablist"
+            aria-label="Información del Pokémon"
+            className="glass-effect grid grid-cols-2 gap-1.5 rounded-2xl p-1.5"
+          >
+            <button
+              id="tab-ficha"
+              type="button"
+              role="tab"
+              aria-selected={activeTab === 'ficha'}
+              aria-controls="panel-ficha"
+              onClick={() => setActiveTab('ficha')}
+              className={`flex min-h-[46px] items-center justify-center gap-2 rounded-xl px-3 text-[13px] font-semibold transition ${
+                activeTab === 'ficha' ? 'text-white' : 'text-white/50 hover:text-white/75'
+              }`}
+              style={activeTab === 'ficha'
+                ? { background: `${primary}33`, boxShadow: `inset 0 -2px 0 ${primary}` }
+                : undefined}
+            >
+              <FileText size={16} />
+              Ficha
+            </button>
+            <button
+              id="tab-stats"
+              type="button"
+              role="tab"
+              aria-selected={activeTab === 'stats'}
+              aria-controls="panel-stats"
+              onClick={() => setActiveTab('stats')}
+              className={`flex min-h-[46px] items-center justify-center gap-2 rounded-xl px-3 text-[13px] font-semibold transition ${
+                activeTab === 'stats' ? 'text-white' : 'text-white/50 hover:text-white/75'
+              }`}
+              style={activeTab === 'stats'
+                ? { background: `${primary}33`, boxShadow: `inset 0 -2px 0 ${primary}` }
+                : undefined}
+            >
+              <BarChart3 size={16} />
+              Estadísticas
+            </button>
+          </div>
 
-            {abilities.length > 0 && (
-              <div className="mt-6">
-                <h4 className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white/50">Habilidades</h4>
-                <div className="flex flex-wrap gap-2">
-                  {abilities.map((ability, i) => {
-                    const isObject = typeof ability === 'object' && ability != null;
-                    const rawName = isObject ? (ability.name || ability.key) : ability;
-                    const hidden = isObject && !!ability.hidden;
-                    const key = isObject ? (ability.id ?? `${rawName}-${i}`) : `${rawName}-${i}`;
-                    const expanded = expandedAbility === key;
-                    return (
-                      <button
-                        key={key}
-                        type="button"
-                        onClick={() => setExpandedAbility(expanded ? null : key)}
-                        aria-expanded={expanded}
-                        aria-controls={`habilidad-${key}`}
-                        className={`pill inline-flex items-center gap-2 border px-3.5 py-2 text-[13px] text-white transition hover:brightness-110 active:scale-[0.97] ${
-                          expanded ? 'ring-1 ring-white/45' : ''
-                        }`}
-                        style={{
-                          background: expanded ? `${primary}33` : `${primary}1f`,
-                          borderColor: `${primary}66`,
-                        }}
-                      >
-                        {abilityNameEs(isObject ? ability : rawName)}
-                        {hidden && (
-                          <span className="pill bg-gradient-to-r from-amber-300 to-pink-400 px-2 py-0.5 text-[10px] font-extrabold text-slate-900">
-                            Oculta
-                          </span>
-                        )}
-                        <ChevronDown
-                          size={13}
-                          className={`text-white/55 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
-                        />
-                      </button>
-                    );
-                  })}
-                </div>
+          <AnimatePresence mode="wait" initial={false}>
+            {activeTab === 'ficha' ? (
+              <motion.div
+                key="ficha"
+                id="panel-ficha"
+                role="tabpanel"
+                aria-labelledby="tab-ficha"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.18 }}
+                className="mt-4 flex flex-col gap-4 pb-6"
+              >
+                {/* Descripción */}
+                <Card>
+                  <SectionTitle icon={FileText} color={primary}>Ficha</SectionTitle>
+                  {pokemon.description ? (
+                    <p className="mt-4 text-sm leading-7 text-white/75 sm:text-[15px]">
+                      {pokemon.description}
+                    </p>
+                  ) : (
+                    <p className="mt-4 text-sm italic text-white/45">
+                      Esta ficha no tiene descripción en la Pokédex del juego.
+                    </p>
+                  )}
+                </Card>
 
-                <AnimatePresence initial={false}>
-                  {expandedAbility !== null && (() => {
-                    const current = abilities.find((ability, i) => {
-                      const isObject = typeof ability === 'object' && ability != null;
-                      const rawName = isObject ? (ability.name || ability.key) : ability;
-                      return (isObject ? (ability.id ?? `${rawName}-${i}`) : `${rawName}-${i}`) === expandedAbility;
-                    });
-                    if (!current) return null;
-                    const isObject = typeof current === 'object' && current != null;
-                    const name = abilityNameEs(isObject ? current : current);
-                    const hidden = isObject && !!current.hidden;
-                    const info = getAbility(isObject ? (current.id ?? current.key ?? current.name) : current);
-                    return (
-                      <motion.div
-                        key={expandedAbility}
-                        id={`habilidad-${expandedAbility}`}
-                        initial={{ height: 0, opacity: 0, y: -4 }}
-                        animate={{ height: 'auto', opacity: 1, y: 0 }}
-                        exit={{ height: 0, opacity: 0, y: -4 }}
-                        transition={{ duration: 0.22, ease: 'easeOut' }}
-                        className="overflow-hidden"
-                      >
-                        <div className="glass-effect mt-3 rounded-2xl border p-4" style={{ borderColor: `${primary}44` }}>
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="flex items-center gap-2.5">
-                              <span
-                                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl"
-                                style={{ background: `${primary}26`, color: primary }}
-                              >
-                                <Sparkles size={16} />
-                              </span>
-                              <div>
-                                <p className="text-sm font-bold text-white">{name}</p>
-                                {hidden && (
-                                  <p className="text-[10px] font-bold uppercase tracking-wider text-amber-300">
-                                    Habilidad oculta
-                                  </p>
+                {/* Datos físicos */}
+                <Card>
+                  <SectionTitle icon={Ruler} color={primary}>Datos físicos</SectionTitle>
+                  <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                    <Info icon={Ruler} label="Altura" value={pokemon.height != null ? `${pokemon.height} m` : '—'} color={primary} />
+                    <Info icon={Weight} label="Peso" value={pokemon.weight != null ? `${pokemon.weight} kg` : '—'} color={primary} />
+                    {pokemon.species && <Info icon={Dna} label="Categoría" value={pokemon.species} color={primary} />}
+                    {generation && <Info label="Generación" value={generation} />}
+                    {pokemon.region && <Info label="Región" value={pokemon.region} />}
+                  </div>
+                </Card>
+
+                {/* Habilidades y movimientos */}
+                <Card>
+                  <SectionTitle icon={Sparkles} color={primary}>Habilidades</SectionTitle>
+                  {abilities.length > 0 ? (
+                    <>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {abilities.map((ability, i) => {
+                          const isObject = typeof ability === 'object' && ability != null;
+                          const rawName = isObject ? (ability.name || ability.key) : ability;
+                          const hidden = isObject && !!ability.hidden;
+                          const key = isObject ? (ability.id ?? `${rawName}-${i}`) : `${rawName}-${i}`;
+                          const expanded = expandedAbility === key;
+                          return (
+                            <button
+                              key={key}
+                              type="button"
+                              onClick={() => setExpandedAbility(expanded ? null : key)}
+                              aria-expanded={expanded}
+                              aria-controls={`habilidad-${key}`}
+                              className={`pill inline-flex items-center gap-2 border px-3.5 py-2 text-[13px] text-white transition hover:brightness-110 active:scale-[0.97] ${
+                                expanded ? 'ring-1 ring-white/45' : ''
+                              }`}
+                              style={{
+                                background: expanded ? `${primary}33` : `${primary}1f`,
+                                borderColor: `${primary}66`,
+                              }}
+                            >
+                              {abilityNameEs(isObject ? ability : rawName)}
+                              {hidden && (
+                                <span className="pill bg-gradient-to-r from-amber-300 to-pink-400 px-2 py-0.5 text-[10px] font-extrabold text-slate-900">
+                                  Oculta
+                                </span>
+                              )}
+                              <ChevronDown
+                                size={13}
+                                className={`text-white/55 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+                              />
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <AnimatePresence initial={false}>
+                        {expandedAbility !== null && (() => {
+                          const current = abilities.find((ability, i) => {
+                            const isObject = typeof ability === 'object' && ability != null;
+                            const rawName = isObject ? (ability.name || ability.key) : ability;
+                            return (isObject ? (ability.id ?? `${rawName}-${i}`) : `${rawName}-${i}`) === expandedAbility;
+                          });
+                          if (!current) return null;
+                          const isObject = typeof current === 'object' && current != null;
+                          const name = abilityNameEs(isObject ? current : current);
+                          const hidden = isObject && !!current.hidden;
+                          const info = getAbility(isObject ? (current.id ?? current.key ?? current.name) : current);
+                          return (
+                            <motion.div
+                              key={expandedAbility}
+                              id={`habilidad-${expandedAbility}`}
+                              initial={{ height: 0, opacity: 0, y: -4 }}
+                              animate={{ height: 'auto', opacity: 1, y: 0 }}
+                              exit={{ height: 0, opacity: 0, y: -4 }}
+                              transition={{ duration: 0.22, ease: 'easeOut' }}
+                              className="overflow-hidden"
+                            >
+                              <div className="glass-effect mt-3 rounded-2xl border p-4" style={{ borderColor: `${primary}44` }}>
+                                <div className="flex items-start justify-between gap-3">
+                                  <div className="flex items-center gap-2.5">
+                                    <span
+                                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl"
+                                      style={{ background: `${primary}26`, color: primary }}
+                                    >
+                                      <Sparkles size={16} />
+                                    </span>
+                                    <div>
+                                      <p className="text-sm font-bold text-white">{name}</p>
+                                      {hidden && (
+                                        <p className="text-[10px] font-bold uppercase tracking-wider text-amber-300">
+                                          Habilidad oculta
+                                        </p>
+                                      )}
+                                    </div>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => setExpandedAbility(null)}
+                                    aria-label="Cerrar descripción de la habilidad"
+                                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white/55 transition hover:bg-white/10 hover:text-white"
+                                  >
+                                    <ChevronDown size={16} className="rotate-180" />
+                                  </button>
+                                </div>
+                                {info?.description && (
+                                  <p className="mt-3 text-[13px] leading-6 text-white/75">{info.description}</p>
                                 )}
                               </div>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => setExpandedAbility(null)}
-                              aria-label="Cerrar descripción de la habilidad"
-                              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white/55 transition hover:bg-white/10 hover:text-white"
-                            >
-                              <ChevronDown size={16} className="rotate-180" />
-                            </button>
-                          </div>
-                          {info?.description && (
-                            <p className="mt-3 text-[13px] leading-6 text-white/75">{info.description}</p>
-                          )}
+                            </motion.div>
+                          );
+                        })()}
+                      </AnimatePresence>
+                    </>
+                  ) : (
+                    <p className="mt-4 text-sm text-white/45">Sin habilidades registradas.</p>
+                  )}
+
+                  <div className="mt-5 border-t border-white/10 pt-5">
+                    <motion.button
+                      type="button"
+                      whileTap={{ scale: 0.99 }}
+                      onClick={() => setShowMoves((v) => !v)}
+                      aria-label="Movimientos"
+                      aria-expanded={showMoves}
+                      className="flex min-h-[52px] w-full items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-left transition hover:brightness-110"
+                      style={{ background: `${primary}1f`, borderColor: `${primary}55` }}
+                    >
+                      <span className="flex min-w-0 items-center gap-2.5">
+                        <span
+                          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl"
+                          style={{ background: `${primary}2e`, color: primary }}
+                        >
+                          <BookOpen size={16} />
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block text-[13px] font-bold text-white">Movimientos</span>
+                          <span className="block truncate text-[10px] text-white/45">
+                            Nivel, MT/MO, tutores, DT y huevo
+                          </span>
+                        </span>
+                      </span>
+                      <ChevronDown
+                        size={16}
+                        className={`shrink-0 text-white/55 transition-transform ${showMoves ? 'rotate-180' : ''}`}
+                      />
+                    </motion.button>
+                  </div>
+                </Card>
+
+                <AnimatePresence initial={false}>
+                  {showMoves && (
+                    <Suspense fallback={null}>
+                      <PokemonMovesPanel
+                        pokemon={pokemon}
+                        color={primary}
+                        onClose={() => setShowMoves(false)}
+                      />
+                    </Suspense>
+                  )}
+                </AnimatePresence>
+
+                {/* Crianza y crecimiento (solo si el registro lo contiene) */}
+                {hasBreeding && (
+                  <Card>
+                    <SectionTitle icon={Egg} color={primary}>Crianza y crecimiento</SectionTitle>
+                    <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                      {pokemon.eggGroups?.length > 0 && (
+                        <Info label="Grupos huevo" value={pokemon.eggGroups.map(eggName).join(', ')} />
+                      )}
+                      {pokemon.eggSteps && <Info label="Pasos de eclosión" value={String(pokemon.eggSteps)} />}
+                      {pokemon.growthRate && <Info label="Crecimiento" value={growthName(pokemon.growthRate)} />}
+                    </div>
+                  </Card>
+                )}
+
+                {/* Formas */}
+                <Card>
+                  <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                    <SectionTitle icon={Layers} color={primary}>Formas</SectionTitle>
+                    {variants.length > 0 && (
+                      <button
+                        onClick={() => setShowVariants((v) => !v)}
+                        aria-expanded={showVariants}
+                        className="pill flex min-h-[40px] items-center gap-2 border px-4 text-sm font-semibold text-white transition hover:bg-white/10"
+                        style={{ background: `${primary}1f`, borderColor: `${primary}55` }}
+                      >
+                        Variantes
+                        <motion.span animate={{ rotate: showVariants ? 180 : 0 }} className="inline-flex">
+                          <ChevronDown size={16} />
+                        </motion.span>
+                      </button>
+                    )}
+                  </div>
+
+                  <AnimatePresence initial={false}>
+                    {showVariants && variants.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="grid grid-cols-2 gap-2 pb-5 sm:grid-cols-3">
+                          {variants.map((variant) => (
+                            <VariantCard
+                              key={variant.id}
+                              variant={variant}
+                              active={Number(variant.id) === id}
+                              color={primary}
+                              onClick={() => navigateTo(variant.id)}
+                            />
+                          ))}
                         </div>
                       </motion.div>
-                    );
-                  })()}
-                </AnimatePresence>
-              </div>
-            )}
+                    )}
+                  </AnimatePresence>
+                </Card>
 
-            <motion.button
-              type="button"
-              whileTap={{ scale: 0.99 }}
-              onClick={() => setShowMoves((v) => !v)}
-              aria-label="Movimientos"
-              aria-expanded={showMoves}
-              className="mt-6 flex min-h-[52px] w-full items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-left transition hover:brightness-110"
-              style={{ background: `${primary}1f`, borderColor: `${primary}55` }}
-            >
-              <span className="flex min-w-0 items-center gap-2.5">
-                <span
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl"
-                  style={{ background: `${primary}2e`, color: primary }}
-                >
-                  <BookOpen size={16} />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-[13px] font-bold text-white">Movimientos</span>
-                  <span className="block truncate text-[10px] text-white/45">
-                    Nivel, MT/MO, tutores, DT y huevo
-                  </span>
-                </span>
-              </span>
-              <ChevronDown
-                size={16}
-                className={`shrink-0 text-white/55 transition-transform ${showMoves ? 'rotate-180' : ''}`}
-              />
-            </motion.button>
-          </Card>
-
-          <AnimatePresence initial={false}>
-            {showMoves && (
-              <Suspense fallback={null}>
-                <PokemonMovesPanel
-                  pokemon={pokemon}
-                  color={primary}
-                  onClose={() => setShowMoves(false)}
-                />
-              </Suspense>
-            )}
-          </AnimatePresence>
-
-          {/* Estadisticas */}
-          {hasStats && (
-            <Card>
-              <SectionTitle icon={BarChart3} color={primary}>Estadisticas</SectionTitle>
-              <div
-                className="mt-4 flex items-center justify-between rounded-3xl border px-4 py-3.5"
-                style={{ background: `${primary}16`, borderColor: `${primary}44` }}
-              >
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-wider text-white/55">Total</div>
-                  <div className="text-[11px] text-white/40">Suma de estadísticas base</div>
-                </div>
-                <span className="text-3xl font-semibold tracking-[-0.04em] tabular-nums" style={{ color: primary }}>
-                  {totalStats}
-                </span>
-              </div>
-              <div className="mt-5 space-y-4">
-                {STAT_ORDER.map(([key, label]) => {
-                  const value = stats[key] || 0;
-                  const pct = Math.min(100, (value / MAX_STAT) * 100);
-                  return (
-                    <div key={key}>
-                      <div className="mb-1.5 flex items-center justify-between">
-                        <span className="text-sm font-semibold text-white/75">{label}</span>
-                        <span className="text-sm font-semibold tabular-nums" style={{ color: primary }}>{value}</span>
-                      </div>
-                      <div className="h-2.5 w-full overflow-hidden rounded-full bg-white/[0.07]">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${pct}%` }}
-                          transition={{ duration: 0.55, delay: 0.08 }}
-                          className="h-full rounded-full"
-                          style={{
-                            background: `linear-gradient(90deg, ${primary}, ${adjustColor(primary, 0.3)})`,
-                            boxShadow: `0 0 14px ${primary}88`,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </Card>
-          )}
-
-          {/* Fortalezas y debilidades */}
-          {hasTypes && (
-            <Card>
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div>
-                  <SectionTitle icon={TrendingUp} color={primary}>Debilidades</SectionTitle>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {weaknesses.map(([type, multiplier]) => (
-                      <MultiplierChip key={type} type={type} multiplier={multiplier} />
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <SectionTitle icon={TrendingDown} color={primary}>Fortalezas</SectionTitle>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {resistances.map(([type, multiplier]) => (
-                      <MultiplierChip key={type} type={type} multiplier={multiplier} />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Card>
-          )}
-
-          {/* Cría y crecimiento (solo si el juego/registro los contiene) */}
-          {hasBreeding && (
-            <Card>
-              <SectionTitle icon={Egg} color={primary}>Cría y crecimiento</SectionTitle>
-              <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-                {pokemon.eggGroups?.length > 0 && (
-                  <Info label="Grupos huevo" value={pokemon.eggGroups.map(eggName).join(', ')} />
-                )}
-                {pokemon.eggSteps && <Info label="Pasos de eclosión" value={String(pokemon.eggSteps)} />}
-                {pokemon.growthRate && <Info label="Crecimiento" value={growthName(pokemon.growthRate)} />}
-              </div>
-            </Card>
-          )}
-
-          {/* Variantes y línea evolutiva */}
-          <Card>
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <SectionTitle icon={Layers} color={primary}>Formas</SectionTitle>
-              {variants.length > 0 && (
-                <button
-                  onClick={() => setShowVariants((v) => !v)}
-                  aria-expanded={showVariants}
-                  className="pill flex min-h-[40px] items-center gap-2 border px-4 text-sm font-semibold text-white transition hover:bg-white/10"
-                  style={{ background: `${primary}1f`, borderColor: `${primary}55` }}
-                >
-                  Variantes
-                  <motion.span animate={{ rotate: showVariants ? 180 : 0 }} className="inline-flex">
-                    <ChevronDown size={16} />
-                  </motion.span>
-                </button>
-              )}
-            </div>
-
-            <AnimatePresence initial={false}>
-              {showVariants && variants.length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden"
-                >
-                  <div className="grid grid-cols-2 gap-2 pb-5 sm:grid-cols-3">
-                    {variants.map((variant) => (
-                      <VariantCard
-                        key={variant.id}
-                        variant={variant}
-                        active={Number(variant.id) === id}
-                        color={primary}
-                        onClick={() => navigateTo(variant.id)}
-                      />
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <div className="border-t border-white/10 pt-5">
-              <SectionTitle icon={Activity} color={primary}>Línea evolutiva</SectionTitle>
-              <div className="pt-4">
+                {/* Línea evolutiva */}
                 {hasEvolutionLine ? (
                   <EvolutionTree
                     pokemon={pokemon}
@@ -598,14 +628,107 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
                   />
                 ) : (
                   pokemon.evolutionKnown && (
-                    <div className="rounded-3xl border border-white/10 bg-white/5 py-8 text-center text-sm text-white/60">
-                      Este Pokémon no evoluciona
-                    </div>
+                    <Card>
+                      <SectionTitle icon={Activity} color={primary}>Línea evolutiva</SectionTitle>
+                      <div className="rounded-3xl border border-white/10 bg-white/5 py-8 text-center text-sm text-white/60">
+                        Este Pokémon no evoluciona
+                      </div>
+                    </Card>
                   )
                 )}
-              </div>
-            </div>
-          </Card>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="stats"
+                id="panel-stats"
+                role="tabpanel"
+                aria-labelledby="tab-stats"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.18 }}
+                className="mt-4 flex flex-col gap-4 pb-6"
+              >
+                {/* Estadísticas base */}
+                {hasStats && (
+                  <Card>
+                    <SectionTitle icon={BarChart3} color={primary}>Estadísticas base</SectionTitle>
+                    <div
+                      className="mt-4 rounded-2xl border px-4 py-5 text-center"
+                      style={{ background: `${primary}16`, borderColor: `${primary}44` }}
+                    >
+                      <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">
+                        Total · suma de estadísticas base
+                      </div>
+                      <div className="mt-1 text-4xl font-semibold tracking-[-0.04em] tabular-nums" style={{ color: primary }}>
+                        {totalStats}
+                      </div>
+                    </div>
+                    <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                      {STAT_ORDER.map(([key, label]) => {
+                        const value = stats[key] || 0;
+                        const pct = Math.min(100, (value / MAX_STAT) * 100);
+                        return (
+                          <div key={key}>
+                            <div className="mb-1.5 flex items-center justify-between">
+                              <span className="text-sm font-semibold text-white/75">{label}</span>
+                              <span className="text-sm font-semibold tabular-nums" style={{ color: primary }}>{value}</span>
+                            </div>
+                            <div className="h-2.5 w-full overflow-hidden rounded-full bg-white/[0.08]">
+                              <motion.div
+                                initial={{ width: 0 }}
+                                animate={{ width: `${pct}%` }}
+                                transition={{ duration: 0.55, delay: 0.08 }}
+                                className="h-full rounded-full"
+                                style={{ background: primary }}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </Card>
+                )}
+
+                {/* Fortalezas y debilidades */}
+                {hasTypes && (
+                  <Card>
+                    <SectionTitle icon={ShieldCheck} color="#4ade80">Fortalezas y debilidades</SectionTitle>
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                      <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/[0.06] p-4">
+                        <div className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-emerald-300">
+                          <ShieldCheck size={15} /> Fortalezas
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {resistances.map(([type, multiplier]) => (
+                            <MultiplierChip key={type} type={type} multiplier={multiplier} />
+                          ))}
+                        </div>
+                      </div>
+                      <div className="rounded-2xl border border-rose-400/20 bg-rose-400/[0.06] p-4">
+                        <div className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-rose-300">
+                          <ShieldAlert size={15} /> Debilidades
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {weaknesses.map(([type, multiplier]) => (
+                            <MultiplierChip key={type} type={type} multiplier={multiplier} />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                )}
+
+                {!hasStats && !hasTypes && (
+                  <Card>
+                    <p className="py-6 text-center text-sm text-white/50">
+                      Este Pokémon no tiene estadísticas ni tipos registrados.
+                    </p>
+                  </Card>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </motion.div>
@@ -619,7 +742,7 @@ const growthName = (rate) => ({
 }[String(rate).toLowerCase()] || String(rate));
 
 function Card({ children, className = '' }) {
-  return <div className={`app-card rounded-[28px] p-5 sm:p-6 ${className}`}>{children}</div>;
+  return <div className={`app-card rounded-[20px] p-5 sm:p-6 ${className}`}>{children}</div>;
 }
 
 function SectionTitle({ icon: Icon, children, color = '#7dd3fc' }) {
@@ -629,9 +752,9 @@ function SectionTitle({ icon: Icon, children, color = '#7dd3fc' }) {
         <span
           className="flex h-9 w-9 items-center justify-center rounded-2xl ring-1 ring-white/10"
           style={{
-            background: `radial-gradient(circle at 30% 25%, ${color}55 0%, ${color}22 52%, ${color}0d 100%)`,
+            background: `${color}1f`,
             color,
-            boxShadow: `0 10px 22px -12px ${color}aa`,
+            boxShadow: `0 10px 22px -12px ${color}88`,
           }}
         >
           <Icon size={18} />
@@ -645,8 +768,11 @@ function SectionTitle({ icon: Icon, children, color = '#7dd3fc' }) {
 function Info({ icon: Icon, label, value, color }) {
   return (
     <div
-      className="premium-card rounded-2xl border border-white/10 bg-white/[0.045] p-3.5"
-      style={{ '--card-shadow': '0 14px 30px -18px rgba(3, 10, 26, 0.85)' }}
+      className="premium-card rounded-2xl border border-white/10 p-3.5"
+      style={{
+        backgroundColor: 'var(--surface-strong)',
+        '--card-shadow': '0 14px 30px -18px rgba(3, 10, 26, 0.85)',
+      }}
     >
       <div className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.16em] text-white/50">
         {Icon && <Icon size={14} style={{ color: color || undefined }} />}

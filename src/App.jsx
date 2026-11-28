@@ -58,10 +58,8 @@ function Loading() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#080d1a]"
-      style={{ backgroundImage: 'radial-gradient(circle at 50% 38%, rgba(139,92,246,0.30), transparent 58%)' }}
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[var(--app-bg)]"
     >
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-600/25 blur-3xl" />
       <div className="relative flex flex-col items-center gap-5">
         <motion.div
           initial={{ scale: 0.65, rotate: -12, opacity: 0 }}
@@ -69,7 +67,6 @@ function Loading() {
           transition={{ type: 'spring', stiffness: 170, damping: 14 }}
           className="relative"
         >
-          <div className="absolute -inset-4 rounded-[42px] bg-gradient-to-br from-fuchsia-500/60 via-violet-500/40 to-transparent blur-2xl" />
           <motion.img
             src="/logo-ui.png"
             alt=""

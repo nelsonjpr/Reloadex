@@ -3,18 +3,27 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Azul marino profundo, sólido y opaco. Sin degradados ni texturas:
+       evita el banding y cualquier artefacto al desplazarse en móvil. */
+    --app-bg: #172033;
+    --surface: #273449;
+    --surface-strong: #1f2a3d;
+    --surface-hover: #2f3d55;
+  }
+
   * {
     box-sizing: border-box;
   }
 
+  html,
+  body {
+    background-color: var(--app-bg);
+    background-image: none;
+  }
+
   body {
     color: #f8fafc;
-    background-color: #080d1a;
-    /* Sin ruido SVG ni `background-blend-mode`: en un móvil se vuelve a
-       rasterizar esa capa en cada desplazamiento. Dos degradados son gratis. */
-    background-image:
-      radial-gradient(circle at 15% -10%, rgba(56, 189, 248, 0.10), transparent 42%),
-      radial-gradient(circle at 85% 0%, rgba(99, 102, 241, 0.08), transparent 45%);
     font-family: 'Poppins', 'Montserrat', 'Inter', ui-sans-serif, system-ui, -apple-system,
       BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -38,12 +47,11 @@
 }
 
 @layer utilities {
-  /* Fondo opaco en lugar de `backdrop-filter`: en móvil, desenfozar lo que hay
-     detrás de cada tarjeta obliga a recomponer la escena en cada fotograma del
-     scroll. Con cientos de tarjetas (Habilidades, Legendarios, Movimientos)
-     eso era lo que hundía los FPS. El aspecto se mantiene con degradados. */
+  /* Superficies sólidas y opacas: ni `backdrop-filter` ni degradados. En móvil,
+     desenfozar o mezclar capas obliga a recomponer la escena en cada fotograma
+     del scroll y deja ver el fondo a través de las tarjetas. */
   .glass-effect {
-    background: linear-gradient(180deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.97));
+    background-color: var(--surface);
     border: 1px solid rgba(255, 255, 255, 0.10);
     box-shadow:
       inset 0 0 0 1px rgba(255, 255, 255, 0.05),
@@ -52,7 +60,7 @@
   }
 
   .glass-dark {
-    background: linear-gradient(180deg, rgba(21, 30, 48, 0.98), rgba(12, 18, 32, 0.98));
+    background-color: var(--surface-strong);
     border: 1px solid rgba(255, 255, 255, 0.09);
     box-shadow:
       inset 0 0 0 1px rgba(255, 255, 255, 0.05),
@@ -61,7 +69,7 @@
   }
 
   .app-card {
-    background: linear-gradient(180deg, rgba(22, 31, 49, 0.98), rgba(11, 17, 30, 0.98));
+    background-color: var(--surface);
     border: 1px solid rgba(255, 255, 255, 0.09);
     box-shadow:
       inset 0 0 0 1px rgba(255, 255, 255, 0.05),
@@ -71,6 +79,7 @@
 
   .premium-card {
     position: relative;
+    background-color: var(--surface);
     box-shadow:
       inset 0 0 0 1px rgba(255, 255, 255, 0.05),
       inset 0 1px 0 rgba(255, 255, 255, 0.08),
@@ -107,8 +116,8 @@
   }
 
   .glass-hover {
-    background: rgba(255, 255, 255, 0.11);
-    border-color: rgba(255, 255, 255, 0.22);
+    background-color: var(--surface-hover);
+    border-color: rgba(255, 255, 255, 0.18);
   }
 
   .text-shadow {

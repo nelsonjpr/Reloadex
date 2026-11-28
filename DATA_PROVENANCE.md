@@ -15,6 +15,16 @@ Documento interno. **La interfaz no muestra esta información.**
   - `data\text\es\dex_info.dll` → descripción.
   - `data\text\es\dex_espec.dll` → categoría.
   - `data\text\zz\dex_height_m.dll` / `dex_weight_kg.dll` → altura y peso.
+  - **Línea exacta por Pokémon:** los cuatro archivos anteriores se leen con el mismo
+    índice que el juego, no por correlación nombre/ID. `Dex_Info`, `Dex_especie`,
+    `Dex_altura` y `Dex_peso` (GML del EXE) hacen `PK = GetOrdenDex(id)` y, si vale
+    0 o más de 945, `PK = GetOrdenDexEspecial(id)`, que a su vez delega en
+    `NumeroPokemonEspecial`. `scripts/dexTextMap.mjs` replica esas tres funciones y
+    `scripts/patchDexText.mjs` aplica la línea resultante a `reloadex.json`.
+    Antes se infería la línea por nombre; eso asignaba textos ajenos (por ejemplo,
+    la descripción de Groudon a Marowak de Alola o a Mega Emboar). La ficha muestra
+    ahora el texto real de la línea que el juego usa para ese ID, sin inventarlo;
+    cuando el juego no tiene línea (p. ej. Missigno), el campo queda vacío.
   - `data\text\{es,en}\txt_abilities.dll` → 314 nombres (español del juego y clave interna).
   - `data\text\es\txt_abilities_desc.dll` → 314 descripciones en español.
   - `data\text\{es,en}\ordenNameAbility.dll` → orden alfabético de la UI (no es el ID).

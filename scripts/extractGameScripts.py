@@ -24,6 +24,9 @@ LEARNSET_SCRIPTS = [
     'TieneAprendizajeEspecifico', 'NumeroAtaquesPorNivel',
     'AprendeAtaquePorNivel', 'AprendeAtaquePorMT', 'AprendeAtaquePorTutor',
 ]
+DEX_SCRIPTS = [
+    'GetOrdenDex', 'GetOrdenDexEspecial', 'NumeroPokemonEspecial',
+]
 EVOLUTION_SCRIPTS = [
     'Dex_evolution', 'Dex_evolution_complex', 'Dex_evolution_especiales',
     'Dex_evolution_standar', 'Dex_mega_evolution', 'EvolutionConfirmation',
@@ -138,7 +141,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--exe', default=DEFAULT_EXE)
     ap.add_argument('--out', default=DEFAULT_OUT)
-    ap.add_argument('--names', nargs='*', default=LEARNSET_SCRIPTS + EVOLUTION_SCRIPTS)
+    ap.add_argument('--names', nargs='*', default=LEARNSET_SCRIPTS + EVOLUTION_SCRIPTS + DEX_SCRIPTS)
     args = ap.parse_args()
 
     scripts = load_scripts(args.exe)

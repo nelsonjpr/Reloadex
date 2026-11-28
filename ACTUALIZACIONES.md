@@ -1,12 +1,15 @@
 # Actualizaciones desde la propia app — Reloadex
 
-La app comprueba el último release de GitHub (`nelsonjpr/Reloadex`) y muestra en la
-portada un botón que dice **Actualizar ahora** cuando hay versión nueva y
-**Actualizado** cuando no la hay. El número mostrado abajo sale de `APP_VERSION` y
-del `versionName` del APK; ambos son **1.0.6** en el código fuente.
+La app comprueba el último release de GitHub (`nelsonjpr/Reloadex`) al abrirse. Si
+hay versión nueva, muestra enseguida un modal **Actualización disponible** con la
+versión destino y las notas breves del manifest. Tiene dos botones:
+**Actualizar ahora** y **Actualizar más tarde**. El segundo cierra el aviso, deja
+usar la app con normalidad y mantiene abajo el botón de actualización (el aviso no
+vuelve a aparecer en esa sesión). El número mostrado abajo sale de `APP_VERSION` y
+del `versionName` del APK; ambos son **1.0.7** en el código fuente.
 
-Solo hay un botón de actualización. Al pulsarlo se abre una tarjeta opaca y la
-descarga empieza en el acto (no hay segundo botón de confirmación). La tarjeta muestra:
+Tanto el botón inferior como **Actualizar ahora** del modal usan el mismo flujo:
+abren una tarjeta opaca sobre todo y la descarga empieza en el acto. La tarjeta muestra:
 
 - el tamaño aproximado de la descarga;
 - si corresponde un APK completo o solo los cambios web;
@@ -53,23 +56,45 @@ antes de llamar a React. El manifest incorpora `nativeVersionCode`, que es el c�
 del APK que publicó la versión: así una futura actualización solo web no intentará
 instalar un APK inexistente.
 
+La v1.0.7 añade el aviso automático al abrir la app. Se fuerza la comprobación del
+último release (con caída a la cache de 6 h si falla la red) y se abre un modal con
+el título **Actualización disponible**, la versión destino y hasta cinco líneas de
+`manifest.notes`. **Actualizar más tarde** guarda la clave de esa versión en
+`sessionStorage`, para que el aviso no reaparezca al navegar; **Actualizar ahora**
+llama al mismo `applyUpdate(result, onProgress)` de siempre, con su barra, MB y
+porcentaje reales.
+
 ## Versiones y firma
 
 La **v1.0** no tenía el actualizador; hubo que instalar manualmente la **v1.1**
-(`versionCode 2`) una vez. La versión pública vigente es la **v1.0.6**
-(`versionCode 8`, `versionName 1.0.6`), que se instala encima de la v1.0.5
-con la misma firma: mejora el scroll y conserva el icono, el buscador de 821 objetos y
-todas las correcciones del actualizador.
+(`versionCode 2`) una vez. La versión pública vigente es la **v1.0.7**
+(`versionCode 9`, `versionName 1.0.7`), que se instala encima de la v1.0.6
+con la misma firma: añade el aviso automático de actualización y conserva el scroll
+fluido, el icono, el buscador de 821 objetos y todas las correcciones del actualizador.
 
 Reglas que no se pueden saltar:
 
 - Todo APK nuevo debe ir firmado con el **mismo `reloadex-release.jks`**. Si cambia la
   firma, Android rechaza la actualización ("la app no está instalada").
-- Subir `versionCode` en `android/app/build.gradle` en cada APK nuevo (ahora 8 = v1.0.6).
+- Subir `versionCode` en `android/app/build.gradle` en cada APK nuevo (ahora 9 = v1.0.7).
 - Si algún día publicas en Google Play, desactiva esta vía: la política de Play exige
   usar *Play In-App Updates* y prohíbe instalar APKs descargados a mano.
 
-## Publicar la v1.0.6
+## Publicar la v1.0.7
+
+```bash
+npm run build
+npm run update:bundle -- --version-code 9 --version-name 1.0.7 --tag v1.0.7 \
+  --native-version-code 9 \
+  --notes "Reloadex 1.0.7: aviso automático al abrir la app, cambios breves y opción de actualizar más tarde." --set-baseline
+npm run apk:release                # APK firmado con versionCode 9
+```
+
+Se suben tres assets a la GitHub Release **v1.0.7**: `Reloadex-1.0.7.apk`,
+`update-manifest.json` y `web-delta-v1.0.7.zip`. La base de deltas se fija en v1.0.7
+porque también cambia el código web del actualizador (el modal automático).
+
+## Publicar la v1.0.6 (histórico)
 
 ```bash
 npm run build
@@ -79,9 +104,9 @@ npm run update:bundle -- --version-code 8 --version-name 1.0.6 --tag v1.0.6 \
 npm run apk:release                # APK firmado con versionCode 8
 ```
 
-Se suben tres assets a la GitHub Release **v1.0.6**: `Reloadex-1.0.6.apk`,
-`update-manifest.json` y `web-delta-v1.0.6.zip`. La base de deltas se fija en v1.0.6
-porque también cambia el código web del actualizador (`nativeVersionCode`).
+Se subieron tres assets a la GitHub Release **v1.0.6**: `Reloadex-1.0.6.apk`,
+`update-manifest.json` y `web-delta-v1.0.6.zip`. La base de deltas se fijó en v1.0.6
+porque también cambió el código web del actualizador (`nativeVersionCode`).
 
 ## Publicar la v1.0.5 (histórico)
 
@@ -143,8 +168,8 @@ Mantén el `versionCode` del APK y sube solo el del manifiesto:
 
 ```bash
 npm run build
-npm run update:bundle -- --version-code 9 --version-name 1.0.7 --tag v1.0.7 \
-  --native-version-code 8 \
+npm run update:bundle -- --version-code 10 --version-name 1.0.8 --tag v1.0.8 \
+  --native-version-code 9 \
   --notes $'Novedades:\n- Más Pokémon\n- Correcciones'
 ```
 
@@ -153,25 +178,28 @@ npm run update:bundle -- --version-code 9 --version-name 1.0.7 --tag v1.0.7 \
 Al instalarlo, Capacitor vuelve a usar los assets del paquete y la versión web se
 alinea automáticamente con la del APK.
 
-En ambos casos se genera `release/web-delta-v1.0.6.zip` con **únicamente los archivos
+En ambos casos se genera `release/web-delta-v1.0.8.zip` con **únicamente los archivos
 que cambiaron desde la base fijada**. Sube a la release:
 
 - `release/update-manifest.json`
-- `release/web-delta-v1.0.6.zip`
-- el APK (`Reloadex-1.0.6.apk`) solo si compilaste uno nuevo
+- `release/web-delta-v1.0.8.zip`
+- el APK (`Reloadex-1.0.8.apk`) solo si compilaste uno nuevo
 
 **No vuelvas a pasar `--set-baseline`** en actualizaciones web posteriores: la base debe
 seguir siendo la última release publicada para que los deltas sean pequeños. La excepción
-es una release que también trae APK nuevo (como la v1.0.6), porque el WebView vuelve a
+es una release que también trae APK nuevo (como la v1.0.7), porque el WebView vuelve a
 cargar los assets del paquete y la base debe quedar alineada con él.
 
 ## Flujo dentro de la app
 
-1. Al abrir la portada se consulta la API de GitHub (con cache de 6 h; pulsar el
-   botón fuerza la comprobación).
-2. Si `versionCode` del manifiesto > versión web aplicada → botón **Actualizar ahora**.
-3. Al pulsar, la tarjeta muestra el tamaño estimado y el botón inicia la descarga.
-   El plugin nativo emite eventos `updateProgress` y la barra muestra el avance real.
+1. Al abrir la portada se fuerza la consulta a la API de GitHub; si falla la red se
+   usa la cache de 6 h. El botón inferior también fuerza la comprobación.
+2. Si `versionCode` del manifiesto > versión web aplicada → modal **Actualización
+   disponible** con versión y notas breves; **Actualizar más tarde** lo cierra para
+   toda la sesión y deja el botón inferior visible.
+3. Al pulsar **Actualizar ahora** (en el modal o abajo), la tarjeta muestra el tamaño
+   estimado y empieza la descarga. El plugin nativo emite eventos `updateProgress` y
+   la barra muestra el avance real.
 4. Si el release trae código nativo nuevo, se descarga e instala el APK; si no, se
    aplica el delta, se valida el SHA-256 de cada archivo y la app se recarga sola.
 5. Si no hay conexión o GitHub falla, el botón sigue mostrando **Actualizado** para

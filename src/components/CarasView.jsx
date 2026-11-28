@@ -75,7 +75,7 @@ const CarasView = ({ onBack }) => {
   const visible = results.slice(0, visibleCount);
 
   return (
-    <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+28px)]">
+    <div className="min-h-screen bg-[var(--app-bg)] pb-[calc(env(safe-area-inset-bottom)+28px)]">
       <div className="max-w-6xl mx-auto px-4 pb-8" style={safeTop(28)}>
         <div className="flex items-center gap-4 mb-6">
           <button
@@ -120,7 +120,7 @@ const CarasView = ({ onBack }) => {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Buscar por nombre, número o ID…"
-              className="w-full rounded-xl border border-white/10 bg-white/[0.04] py-2.5 pl-9 pr-3 text-[13px] text-white placeholder:text-white/30 outline-none focus:border-rose-300/40"
+              className="w-full rounded-xl border border-white/10 bg-[var(--surface)] py-2.5 pl-9 pr-3 text-[13px] text-white placeholder:text-white/30 outline-none focus:border-rose-300/40"
             />
           </label>
           <div className="flex flex-wrap gap-2">
@@ -132,7 +132,7 @@ const CarasView = ({ onBack }) => {
                 className={`pill px-3 py-1.5 text-[11px] font-bold transition ${
                   filter === item.key
                     ? 'bg-rose-400/20 text-rose-100 ring-1 ring-rose-300/30'
-                    : 'bg-white/[0.06] text-white/55 ring-1 ring-white/10 hover:text-white/80'
+                    : 'bg-[var(--surface-strong)] text-white/55 ring-1 ring-white/10 hover:text-white/80'
                 }`}
               >
                 {item.label} <span className="opacity-50">{item.count}</span>

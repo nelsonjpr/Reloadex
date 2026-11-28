@@ -64,7 +64,7 @@ const QuestCard = memo(function QuestCard({ quest }) {
                 return (
                   <div
                     key={`${quest.id}-${i}`}
-                    className="flex items-start gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.035] px-3 py-2.5"
+                    className="flex items-start gap-2 rounded-2xl border border-white/[0.06] bg-[var(--surface-strong)] px-3 py-2.5"
                   >
                     <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-lg ring-1 ${info.bg} ${info.color}`}>
                       <Icon size={12} />
@@ -143,7 +143,7 @@ const QuestsView = ({ onBack }) => {
   const visibleQuests = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
 
   return (
-    <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]">
+    <div className="min-h-screen bg-[var(--app-bg)] pb-[calc(env(safe-area-inset-bottom)+24px)]">
       <div className="mx-auto max-w-6xl px-4 pb-8" style={safeTop(24)}>
         <header className="mb-6">
           <div className="flex items-center gap-3">
@@ -170,7 +170,7 @@ const QuestsView = ({ onBack }) => {
             { label: 'Escuadrón Élite', value: questStats.elite },
             { label: 'Frente', value: questStats.frente },
           ].map((item) => (
-            <div key={item.label} className="rounded-2xl border border-white/[0.07] bg-white/[0.035] px-3 py-2.5 text-center">
+            <div key={item.label} className="rounded-2xl border border-white/[0.07] bg-[var(--surface-strong)] px-3 py-2.5 text-center">
               <p className="text-lg font-semibold tabular-nums text-indigo-200">{item.value}</p>
               <p className="truncate text-[10px] font-bold uppercase tracking-[0.1em] text-white/45">{item.label}</p>
             </div>
@@ -184,7 +184,7 @@ const QuestsView = ({ onBack }) => {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Buscar misión, objetivo o lugar…"
-            className="h-12 w-full rounded-2xl border border-white/10 bg-[#0d1528]/90 pl-11 pr-4 text-sm text-white placeholder-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition focus:border-indigo-300/40 focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
+            className="h-12 w-full rounded-2xl border border-white/10 bg-[var(--surface)] pl-11 pr-4 text-sm text-white placeholder-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition focus:border-indigo-300/40 focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
           />
         </div>
 

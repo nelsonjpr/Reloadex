@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Users, Zap, Sparkles, Crown, Map, MapPin, ScrollText, Smile, Terminal } from 'lucide-react';
+import { Search, Users, Zap, Sparkles, Crown, Map, MapPin, ScrollText, Smile } from 'lucide-react';
 import { APP_VERSION } from '../data/appInfo';
 import { safeTop } from '../utils/safeArea';
 import UpdateButton from './UpdateButton';
@@ -90,7 +90,7 @@ const Home = ({ onNavigate, onOpenPalette }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#080d1a]">
+    <div className="min-h-screen bg-[var(--app-bg)]">
       {/* Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent" />
@@ -116,14 +116,6 @@ const Home = ({ onNavigate, onOpenPalette }) => {
 
       {/* Menu Grid */}
       <div className="px-4 pb-12 max-w-6xl mx-auto">
-        <button
-          type="button"
-          onClick={onOpenPalette}
-          className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-[11px] font-semibold tracking-[0.02em] text-white/55 transition hover:border-rose-300/20 hover:text-white/85"
-        >
-          <Terminal size={14} className="text-rose-200/80" />
-          Comandos: pulsa <kbd className="rounded border border-white/10 bg-black/30 px-1 font-mono text-[10px]">Ctrl+K</kbd> o <kbd className="rounded border border-white/10 bg-black/30 px-1 font-mono text-[10px]">/</kbd> y escribe <span className="font-mono text-rose-200/90">cambio cara</span>
-        </button>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {menuItems.map((item) => {
             const Icon = item.icon;
@@ -142,14 +134,6 @@ const Home = ({ onNavigate, onOpenPalette }) => {
                     desenfoque mejora mucho el scroll en móvil. */}
                 <div className={`absolute inset-0 ${item.bgPattern} opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
                 
-                {/* Patrón decorativo */}
-                <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 opacity-10">
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: `radial-gradient(circle at 20px 20px, white 2px, transparent 0)`,
-                    backgroundSize: '20px 20px'
-                  }} />
-                </div>
-
                 {/* Contenido */}
                 <div className="relative z-10">
                   <div

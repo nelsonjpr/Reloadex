@@ -27,7 +27,7 @@ const AbilitiesView = ({ onBack }) => {
   );
 
   return (
-    <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]">
+    <div className="min-h-screen bg-[var(--app-bg)] pb-[calc(env(safe-area-inset-bottom)+24px)]">
       <div className="container mx-auto px-4 pb-8 max-w-4xl" style={safeTop(32)}>
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">

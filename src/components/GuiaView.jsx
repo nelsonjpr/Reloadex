@@ -89,11 +89,11 @@ const BlockView = ({ block }) => {
 
   if (block.type === 'table') {
     return (
-      <div className="-mx-1 overflow-x-auto rounded-xl border border-white/[0.07] bg-black/20">
+      <div className="-mx-1 overflow-x-auto rounded-xl border border-white/[0.07] bg-[var(--surface-strong)]">
         <table className="w-full min-w-[520px] border-collapse text-left text-xs text-white/80">
           <tbody>
             {block.rows.map((row, ri) => (
-              <tr key={ri} className={ri % 2 ? 'bg-white/[0.025]' : ''}>
+              <tr key={ri} className={ri % 2 ? 'bg-[var(--surface-strong)]' : ''}>
                 {row.map((cell, ci) => (
                   <td
                     key={ci}
@@ -122,8 +122,8 @@ const SectionView = ({ section, chapter }) => {
     <section
       className={`relative rounded-2xl border p-4 sm:p-5 ${
         isMilestone
-          ? 'border-white/[0.12] bg-white/[0.045]'
-          : 'border-white/[0.06] bg-white/[0.025]'
+          ? 'border-white/[0.12] bg-[var(--surface)]'
+          : 'border-white/[0.06] bg-[var(--surface-strong)]'
       }`}
     >
       <div
@@ -197,7 +197,7 @@ const GuiaView = ({ onBack }) => {
   const phaseOptions = ['Todo', 'inicio', 'medalla', 'liga', 'misiones', 'final'];
 
   return (
-    <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+28px)]">
+    <div className="min-h-screen bg-[var(--app-bg)] pb-[calc(env(safe-area-inset-bottom)+28px)]">
       <div className="mx-auto max-w-7xl px-4 pb-6 sm:pb-8" style={safeTop(24)}>
         {/* Cabecera */}
         <header className="mb-6">
@@ -229,13 +229,13 @@ const GuiaView = ({ onBack }) => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Buscar ruta, líder, objeto o medalla…"
-              className="h-12 w-full rounded-2xl border border-white/10 bg-[#0d1528]/90 pl-11 pr-4 text-sm text-white placeholder-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] focus:border-amber-300/40 focus:outline-none focus:ring-2 focus:ring-amber-400/50 transition"
+              className="h-12 w-full rounded-2xl border border-white/10 bg-[var(--surface)] pl-11 pr-4 text-sm text-white placeholder-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] focus:border-amber-300/40 focus:outline-none focus:ring-2 focus:ring-amber-400/50 transition"
             />
           </div>
           <button
             onClick={() => setIndexOpen(true)}
             aria-label="Abrir índice"
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-[#0d1528]/90 text-white/80 transition hover:bg-white/10 active:scale-95"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-[var(--surface)] text-white/80 transition hover:bg-white/10 active:scale-95"
           >
             <List size={19} />
           </button>
@@ -373,7 +373,7 @@ const GuiaView = ({ onBack }) => {
                   </button>
 
                   {isOpen && (
-                    <div className="space-y-3 border-t border-white/[0.06] bg-black/20 p-4 sm:p-5">
+                    <div className="space-y-3 border-t border-white/[0.06] bg-[var(--surface-strong)] p-4 sm:p-5">
                       {chapter.sections.map((section, i) => (
                         <SectionView key={`${section.id}-${i}`} section={section} chapter={chapter} />
                       ))}
@@ -384,7 +384,7 @@ const GuiaView = ({ onBack }) => {
             })}
 
             {filtered.length === 0 && (
-              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] py-16 text-center">
+              <div className="rounded-2xl border border-white/[0.06] bg-[var(--surface)] py-16 text-center">
                 <div className="mb-3 text-4xl">🗺️</div>
                 <p className="text-sm text-white/60">No hay capítulos con esos filtros.</p>
                 <button
@@ -415,7 +415,7 @@ const GuiaView = ({ onBack }) => {
               exit={{ y: 30, opacity: 0 }}
               transition={{ duration: 0.28 }}
               onClick={(e) => e.stopPropagation()}
-              className="max-h-[80vh] w-full overflow-y-auto rounded-t-[26px] border border-white/10 bg-[#0b1120] p-4"
+              className="max-h-[80vh] w-full overflow-y-auto rounded-t-[26px] border border-white/10 bg-[var(--surface-strong)] p-4"
             >
               <div className="mb-4 flex items-center justify-between">
                 <div>
@@ -437,7 +437,7 @@ const GuiaView = ({ onBack }) => {
                     <button
                       key={chapter.id}
                       onClick={() => jumpTo(chapter.id)}
-                      className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-2.5 text-left text-xs text-white/80 transition active:scale-[0.98]"
+                      className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-[var(--surface)] px-3 py-2.5 text-left text-xs text-white/80 transition active:scale-[0.98]"
                     >
                       <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: meta.color }} />
                       <span className="min-w-0 flex-1 truncate">{chapter.title}</span>

@@ -177,12 +177,9 @@ export default function Pokedex({ onBack, onSelect }) {
   };
 
   return (
-    <div
-      className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]"
-      style={{ backgroundImage: 'radial-gradient(circle at 50% -10%, rgba(56,189,248,0.08), transparent 45%)' }}
-    >
+    <div className="min-h-screen bg-[var(--app-bg)] pb-[calc(env(safe-area-inset-bottom)+24px)]">
       {/* Header sticky: capa superior, fondo sólido con glass para que nada se vea a través */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#080d1a] shadow-[0_16px_36px_-24px_rgba(3,10,26,0.95)]" style={safeTop(20)}>
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[var(--app-bg)] shadow-[0_16px_36px_-24px_rgba(3,10,26,0.95)]" style={safeTop(20)}>
         <div className="mx-auto max-w-3xl px-4 pb-4">
           <div className="flex items-center gap-3 mb-4">
             {onBack && (
@@ -212,7 +209,7 @@ export default function Pokedex({ onBack, onSelect }) {
               placeholder="Nombre o número…"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full h-12 pl-11 pr-11 rounded-2xl bg-[#0d1528]/90 border border-white/10 text-white placeholder-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] focus:outline-none focus:ring-2 focus:ring-sky-400/60 focus:border-sky-400/40 transition"
+              className="w-full h-12 pl-11 pr-11 rounded-2xl bg-[var(--surface)] border border-white/10 text-white placeholder-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] focus:outline-none focus:ring-2 focus:ring-sky-400/60 focus:border-sky-400/40 transition"
             />
             {searchTerm && (
               <button onClick={() => setSearchTerm('')} aria-label="Limpiar búsqueda"
@@ -227,33 +224,33 @@ export default function Pokedex({ onBack, onSelect }) {
             <button
               onClick={() => setFavoritesOnly((v) => !v)}
               aria-pressed={favoritesOnly}
-              className={`shrink-0 h-10 px-3.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition ${favoritesOnly ? 'bg-rose-500/90 border-rose-300/40 text-white shadow-[0_6px_18px_rgba(244,63,94,0.30)]' : 'bg-[#0d1528]/80 border-white/10 text-white/80 hover:bg-white/10'}`}
+              className={`shrink-0 h-10 px-3.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition ${favoritesOnly ? 'bg-rose-500/90 border-rose-300/40 text-white shadow-[0_6px_18px_rgba(244,63,94,0.30)]' : 'bg-[var(--surface)] border-white/10 text-white/80 hover:bg-white/10'}`}
             >
               <Heart size={15} fill={favoritesOnly ? 'currentColor' : 'none'} />
               Favoritos{favorites.size ? ` (${favorites.size})` : ''}
             </button>
             <button onClick={() => setShowTypeFilter(true)}
-              className={`shrink-0 h-10 px-3.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition ${selectedTypes.length ? 'bg-sky-500/90 border-sky-300/40 text-white shadow-[0_6px_18px_rgba(56,189,248,0.28)]' : 'bg-[#0d1528]/80 border-white/10 text-white/80 hover:bg-white/10'}`}>
+              className={`shrink-0 h-10 px-3.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition ${selectedTypes.length ? 'bg-sky-500/90 border-sky-300/40 text-white shadow-[0_6px_18px_rgba(56,189,248,0.28)]' : 'bg-[var(--surface)] border-white/10 text-white/80 hover:bg-white/10'}`}>
               <Filter size={15} /> {selectedTypes.length ? selectedTypes.map(typeName).join(' + ') : 'Tipo'}
             </button>
             <button onClick={() => setShowGenFilter(true)}
-              className={`shrink-0 h-10 px-3.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition ${selectedGeneration ? 'bg-sky-500/90 border-sky-300/40 text-white shadow-[0_6px_18px_rgba(56,189,248,0.28)]' : 'bg-[#0d1528]/80 border-white/10 text-white/80 hover:bg-white/10'}`}>
+              className={`shrink-0 h-10 px-3.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition ${selectedGeneration ? 'bg-sky-500/90 border-sky-300/40 text-white shadow-[0_6px_18px_rgba(56,189,248,0.28)]' : 'bg-[var(--surface)] border-white/10 text-white/80 hover:bg-white/10'}`}>
               {selectedGeneration || 'Generación'}
             </button>
             <select value={formFilter} onChange={(e) => setFormFilter(e.target.value)} aria-label="Forma"
-              className="shrink-0 h-10 px-3.5 rounded-2xl border border-white/10 bg-[#0d1528]/80 text-xs font-semibold text-white [color-scheme:dark] focus:outline-none focus:ring-2 focus:ring-sky-400/50">
-              <option value="all" className="bg-[#0d1528] text-white">Todas las formas</option>
-              <option value="base" className="bg-[#0d1528] text-white">Base</option>
-              <option value="mega" className="bg-[#0d1528] text-white">Mega</option>
-              <option value="forme" className="bg-[#0d1528] text-white">Formas</option>
+              className="shrink-0 h-10 px-3.5 rounded-2xl border border-white/10 bg-[var(--surface)] text-xs font-semibold text-white [color-scheme:dark] focus:outline-none focus:ring-2 focus:ring-sky-400/50">
+              <option value="all" className="bg-[var(--surface)] text-white">Todas las formas</option>
+              <option value="base" className="bg-[var(--surface)] text-white">Base</option>
+              <option value="mega" className="bg-[var(--surface)] text-white">Mega</option>
+              <option value="forme" className="bg-[var(--surface)] text-white">Formas</option>
             </select>
             <select value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Ordenar"
-              className="shrink-0 h-10 px-3.5 rounded-2xl border border-white/10 bg-[#0d1528]/80 text-xs font-semibold text-white [color-scheme:dark] focus:outline-none focus:ring-2 focus:ring-sky-400/50">
-              <option value="id-asc" className="bg-[#0d1528] text-white">ID ↑</option>
-              <option value="id-desc" className="bg-[#0d1528] text-white">ID ↓</option>
-              <option value="name-asc" className="bg-[#0d1528] text-white">Nombre A-Z</option>
-              <option value="name-desc" className="bg-[#0d1528] text-white">Nombre Z-A</option>
-              <option value="bst-desc" className="bg-[#0d1528] text-white">Estadisticas ↓</option>
+              className="shrink-0 h-10 px-3.5 rounded-2xl border border-white/10 bg-[var(--surface)] text-xs font-semibold text-white [color-scheme:dark] focus:outline-none focus:ring-2 focus:ring-sky-400/50">
+              <option value="id-asc" className="bg-[var(--surface)] text-white">ID ↑</option>
+              <option value="id-desc" className="bg-[var(--surface)] text-white">ID ↓</option>
+              <option value="name-asc" className="bg-[var(--surface)] text-white">Nombre A-Z</option>
+              <option value="name-desc" className="bg-[var(--surface)] text-white">Nombre Z-A</option>
+              <option value="bst-desc" className="bg-[var(--surface)] text-white">Estadisticas ↓</option>
             </select>
           </div>
 
@@ -311,8 +308,8 @@ export default function Pokedex({ onBack, onSelect }) {
               </button>
             </div>
             <select value={String(pageSize)} onChange={(e) => setPageSize(Number(e.target.value))} aria-label="Por página"
-              className="h-9 px-3 rounded-2xl text-xs glass-effect text-white bg-transparent focus:outline-none">
-              {PAGE_SIZES.map((n) => <option key={n} value={n} className="bg-[#0d1528] text-white">{n >= 1000000 ? 'Todos' : `${n} por página`}</option>)}
+              className="h-9 px-3 rounded-2xl text-xs glass-effect text-white focus:outline-none">
+              {PAGE_SIZES.map((n) => <option key={n} value={n} className="bg-[var(--surface)] text-white">{n >= 1000000 ? 'Todos' : `${n} por página`}</option>)}
             </select>
           </div>
         )}

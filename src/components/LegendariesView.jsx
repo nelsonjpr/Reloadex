@@ -55,7 +55,7 @@ const LegendariesView = ({ onBack }) => {
   }, [selected]);
 
   return (
-    <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+24px)]">
+    <div className="min-h-screen bg-[var(--app-bg)] pb-[calc(env(safe-area-inset-bottom)+24px)]">
       <div className="mx-auto max-w-7xl px-4 pb-6 sm:pb-8" style={safeTop(24)}>
         <header className="mb-7">
           <div className="flex items-center gap-3">
@@ -84,7 +84,7 @@ const LegendariesView = ({ onBack }) => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Buscar por nombre, número o ubicación…"
-            className="w-full h-12 pl-11 pr-4 rounded-2xl border border-white/10 bg-[#0d1528]/90 text-sm text-white placeholder-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-300/40 transition"
+            className="w-full h-12 pl-11 pr-4 rounded-2xl border border-white/10 bg-[var(--surface)] text-sm text-white placeholder-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-300/40 transition"
           />
         </div>
 
@@ -106,10 +106,6 @@ const LegendariesView = ({ onBack }) => {
               }}
             >
               <div className="relative h-36 overflow-hidden sm:h-40" style={{ background: gradientFor(item.types) }}>
-                <div className="absolute inset-0 opacity-10" style={{
-                  backgroundImage: 'radial-gradient(circle at 18px 18px, white 2px, transparent 0)',
-                  backgroundSize: '36px 36px',
-                }} />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <img
                     src={spriteUrl(item.spriteId)}
@@ -129,7 +125,7 @@ const LegendariesView = ({ onBack }) => {
                 )}
               </div>
 
-              <div className="relative space-y-2.5 bg-[#0b1120] p-4 sm:p-5">
+              <div className="relative space-y-2.5 bg-[var(--surface-strong)] p-4 sm:p-5">
                 <h2 className="text-lg font-semibold tracking-[-0.03em] text-white sm:text-xl">{item.name}</h2>
                 <TypePills types={item.types} />
                 <div className="flex items-start gap-2">
@@ -167,13 +163,9 @@ const LegendariesView = ({ onBack }) => {
               exit={{ opacity: 0, y: 20, scale: 0.98 }}
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
-              className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-t-[28px] border border-white/10 bg-[#0b1120] shadow-2xl sm:rounded-[28px]"
+              className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-t-[28px] border border-white/10 bg-[var(--surface-strong)] shadow-2xl sm:rounded-[28px]"
             >
               <div className="relative h-56 overflow-hidden sm:h-64" style={{ background: gradientFor(selected.types) }}>
-                <div className="absolute inset-0 opacity-10" style={{
-                  backgroundImage: 'radial-gradient(circle at 18px 18px, white 2px, transparent 0)',
-                  backgroundSize: '36px 36px',
-                }} />
                 <button
                   onClick={() => setSelected(null)}
                   aria-label="Cerrar"
@@ -206,7 +198,7 @@ const LegendariesView = ({ onBack }) => {
                   )}
                 </div>
 
-                <section className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
+                <section className="rounded-2xl border border-white/[0.06] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2">
                     <MapPin size={17} className="text-amber-300" />
                     <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/55">Localización</h3>
@@ -214,7 +206,7 @@ const LegendariesView = ({ onBack }) => {
                   <p className="text-sm font-normal leading-relaxed text-white/90">{selected.location}</p>
                 </section>
 
-                <section className="flex items-center gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4 text-xs text-white/55">
+                <section className="flex items-center gap-2 rounded-2xl border border-white/[0.06] bg-[var(--surface)] p-4 text-xs text-white/55">
                   <Sparkles size={15} className="shrink-0 text-amber-300" />
                   <span>Sigue los pasos de la guía; algunos legendarios requieren condiciones especiales antes de aparecer.</span>
                 </section>

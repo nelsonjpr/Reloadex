@@ -16,32 +16,57 @@ const mb = (bytes) => {
   return `${(bytes / 1024 / 1024).toFixed(1).replace('.', ',')} MB`;
 };
 
+const updateKey = (result) => [
+  result?.versionCode || '',
+  result?.versionName || '',
+  result?.nativeUpdate ? 'apk' : 'web',
+].join(':');
+
+// "Actualizar más tarde" vale para toda la sesión de la WebView, aunque la
+// portada se desmonte al navegar a otra vista.
+const DISMISSED_KEY = 'reloadex.updateDismissed';
+const readDismissed = () => {
+  try { return sessionStorage.getItem(DISMISSED_KEY) || ''; } catch { return ''; }
+};
+const writeDismissed = (key) => {
+  try { sessionStorage.setItem(DISMISSED_KEY, key); } catch { /* noop */ }
+};
+
 const UpdateButton = () => {
   const [state, setState] = useState('checking');
   const [info, setInfo] = useState(null);
   const [message, setMessage] = useState('');
-  const [open, setOpen] = useState(false);
+  const [modal, setModal] = useState(null); // 'prompt' | 'progress'
   const [progress, setProgress] = useState({ downloaded: 0, total: 0 });
   const resultRef = useRef(null);
 
-  // El modal se monta con un portal sobre <body>: el footer usa backdrop-filter
-  // y, sin portal, cualquier z-index queda atrapado en ese contexto de capas.
+  // Ambos modales se montan con un portal sobre <body>: el footer usa
+  // backdrop-filter y, sin portal, cualquier z-index queda atrapado en ese
+  // contexto de capas.
   useEffect(() => {
-    if (!open) return undefined;
+    if (!modal) return undefined;
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = previous; };
-  }, [open]);
+  }, [modal]);
 
   useEffect(() => {
     let alive = true;
     (async () => {
       const nativeInfo = await getNativeInfo().catch(() => null);
       if (alive) setInfo(nativeInfo);
-      const result = await checkForUpdate();
+
+      // Al abrir la app queremos ver una release publicada aunque la cache de
+      // 6 h diga lo contrario. Si la red falla, sí caemos a la cache.
+      let result = await checkForUpdate({ force: true });
+      if (result?.reason === 'error') result = await checkForUpdate();
       if (!alive) return;
+
       resultRef.current = result;
       setState(result.available ? 'available' : 'uptodate');
+      if (result.available && readDismissed() !== updateKey(result)) {
+        setModal('prompt');
+      }
     })();
     return () => { alive = false; };
   }, []);
@@ -52,9 +77,20 @@ const UpdateButton = () => {
     const result = await checkForUpdate({ force: true });
     resultRef.current = result;
     setState(result.available ? 'available' : 'uptodate');
+    if (result.available) {
+      writeDismissed('');
+      setModal('prompt');
+    }
   };
 
-  // Un único botón: al pulsarlo se abre la tarjeta y arranca la descarga.
+  const dismissPrompt = () => {
+    writeDismissed(updateKey(resultRef.current));
+    setModal(null);
+  };
+
+  // Un único punto de entrada: tanto el botón inferior como el modal
+  // "Actualización disponible" usan exactamente la misma descarga e
+  // instalación, con la tarjeta de progreso real del plugin nativo.
   const startUpdate = async () => {
     if (state === 'checking' || state === 'working') return;
     if (state === 'uptodate') {
@@ -67,7 +103,7 @@ const UpdateButton = () => {
 
     setMessage('');
     setProgress({ downloaded: 0, total: result.downloadBytes || 0 });
-    setOpen(true);
+    setModal('progress');
     setState('working');
 
     try {
@@ -83,7 +119,7 @@ const UpdateButton = () => {
         setState('error');
         return;
       }
-      setOpen(false);
+      setModal(null);
       setState('uptodate');
     } catch (error) {
       setMessage(error?.message || 'No se pudo completar la actualización');
@@ -125,16 +161,73 @@ const UpdateButton = () => {
         <span>{LABELS[state]}</span>
       </button>
 
-      {open && createPortal(
+      {modal === 'prompt' && result && createPortal(
+        <div
+          className="fixed inset-0 z-[9999] flex items-end justify-center bg-[#040812]/95 p-3 sm:items-center sm:p-5"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Actualización disponible"
+          onClick={dismissPrompt}
+        >
+          <div
+            className="w-full max-w-[430px] rounded-[28px] border border-white/10 bg-[var(--surface-strong)] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.7)]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-white/15 sm:hidden" />
+
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-sky-500/15 text-sky-300">
+                <Download size={19} />
+              </div>
+              <div>
+                <h2 className="text-base font-semibold text-white">Actualización disponible</h2>
+                <p className="mt-0.5 text-xs text-white/50">
+                  v{result.versionName || 'nueva'}
+                  {info?.versionName ? ` · instalada v${info.versionName}` : ''}
+                </p>
+              </div>
+            </div>
+
+            {notes && (
+              <div className="mt-4 rounded-2xl bg-[var(--surface-strong)] p-3">
+                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">Cambios</p>
+                <p className="mt-1 max-h-24 overflow-hidden text-xs leading-relaxed text-white/60 whitespace-pre-line">
+                  {notes}
+                </p>
+              </div>
+            )}
+
+            <div className="mt-5 flex flex-col gap-2 sm:flex-row-reverse">
+              <button
+                type="button"
+                onClick={startUpdate}
+                className="rounded-2xl bg-sky-400 px-4 py-2.5 text-sm font-bold text-[#04101f] transition-colors hover:bg-sky-300"
+              >
+                Actualizar ahora
+              </button>
+              <button
+                type="button"
+                onClick={dismissPrompt}
+                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white/75 transition-colors hover:bg-white/10"
+              >
+                Actualizar más tarde
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body,
+      )}
+
+      {modal === 'progress' && createPortal(
         <div
           className="fixed inset-0 z-[9999] flex items-end justify-center bg-[#040812]/95 p-3 sm:items-center sm:p-5"
           role="dialog"
           aria-modal="true"
           aria-label="Actualizando Reloadex"
-          onClick={() => state !== 'working' && setOpen(false)}
+          onClick={() => state !== 'working' && setModal(null)}
         >
           <div
-            className="w-full max-w-[430px] rounded-[28px] border border-white/10 bg-[#0d1528] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.7)]"
+            className="w-full max-w-[430px] rounded-[28px] border border-white/10 bg-[var(--surface-strong)] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.7)]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-white/15 sm:hidden" />
@@ -156,7 +249,7 @@ const UpdateButton = () => {
               </div>
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={() => setModal(null)}
                 disabled={state === 'working'}
                 className="rounded-full p-1.5 text-white/45 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-40"
                 aria-label="Cerrar"
@@ -166,11 +259,11 @@ const UpdateButton = () => {
             </div>
 
             <div className="mt-4 grid grid-cols-2 gap-2">
-              <div className="rounded-2xl border border-white/5 bg-white/[0.04] p-3">
+              <div className="rounded-2xl border border-white/5 bg-[var(--surface)] p-3">
                 <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">Descarga</p>
                 <p className="mt-1 text-sm font-semibold text-white">~{mb(result?.downloadBytes)}</p>
               </div>
-              <div className="rounded-2xl border border-white/5 bg-white/[0.04] p-3">
+              <div className="rounded-2xl border border-white/5 bg-[var(--surface)] p-3">
                 <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">Paquete</p>
                 <p className="mt-1 text-sm font-semibold text-white">
                   {result?.nativeUpdate ? 'APK completo' : 'Solo cambios'}
@@ -179,7 +272,7 @@ const UpdateButton = () => {
             </div>
 
             {notes && (
-              <div className="mt-4 max-h-24 overflow-hidden rounded-2xl bg-black/25 p-3 text-xs leading-relaxed text-white/60 whitespace-pre-line">
+              <div className="mt-4 max-h-24 overflow-hidden rounded-2xl bg-[var(--surface-strong)] p-3 text-xs leading-relaxed text-white/60 whitespace-pre-line">
                 {notes}
               </div>
             )}

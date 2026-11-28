@@ -56,7 +56,7 @@ const Modal = ({ children, onClose }) => (
       animate={{ y: 0, opacity: 1, scale: 1 }}
       exit={{ y: 20, opacity: 0, scale: 0.98 }}
       transition={{ type: 'spring', stiffness: 260, damping: 26 }}
-      className="max-h-[93vh] w-full max-w-3xl overflow-y-auto rounded-t-[30px] border border-white/10 bg-[#0d1528] p-5 shadow-2xl sm:rounded-[30px] sm:p-6"
+      className="max-h-[93vh] w-full max-w-3xl overflow-y-auto rounded-t-[30px] border border-white/10 bg-[var(--surface-strong)] p-5 shadow-2xl sm:rounded-[30px] sm:p-6"
       style={{ paddingBottom: 'calc(20px + env(safe-area-inset-bottom))' }}
     >
       {children}
@@ -245,7 +245,7 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
   const pendingStats = pending ? calculateStats(pending.pokemon, pending.level) : null;
 
   return (
-    <div className="min-h-screen bg-[#080d1a] pb-[calc(env(safe-area-inset-bottom)+32px)]">
+    <div className="min-h-screen bg-[var(--app-bg)] pb-[calc(env(safe-area-inset-bottom)+32px)]">
       <div className="mx-auto max-w-6xl px-4 pb-10" style={safeTop(24)}>
         <header className="mb-6">
           <div className="flex items-center gap-3">
@@ -362,8 +362,8 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
                 transition={{ delay: Math.min(index * 0.03, 0.2) }}
                 className={`relative overflow-hidden rounded-[24px] border p-4 ${
                   pokemon
-                    ? 'border-white/[0.08] bg-white/[0.035]'
-                    : 'border-dashed border-white/15 bg-white/[0.02]'
+                    ? 'border-white/[0.08] bg-[var(--surface)]'
+                    : 'border-dashed border-white/15 bg-[var(--surface-strong)]'
                 }`}
               >
                 <p className="absolute right-4 top-3 text-[10px] font-bold tracking-[0.14em] text-white/25">
@@ -538,7 +538,7 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
                   key={pokemon.id}
                   type="button"
                   onClick={() => choosePokemon(pokemon)}
-                  className="flex flex-col items-center rounded-2xl border border-white/[0.07] bg-white/[0.035] p-2 transition hover:border-violet-300/40 hover:bg-violet-500/15"
+                  className="flex flex-col items-center rounded-2xl border border-white/[0.07] bg-[var(--surface)] p-2 transition hover:border-violet-300/40 hover:bg-violet-500/15"
                 >
                   <Sprite
                     pokemon={pokemon}
@@ -627,7 +627,7 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
             </div>
 
             {/* Nivel */}
-            <div className="mb-4 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-4">
+            <div className="mb-4 rounded-2xl border border-white/[0.07] bg-[var(--surface)] p-4">
               <div className="mb-2 flex items-center justify-between">
                 <label htmlFor="team-level" className="text-xs font-bold uppercase tracking-[0.1em] text-white/55">
                   Nivel
@@ -657,7 +657,7 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
             </div>
 
             {/* Shiny */}
-            <div className="mb-4 flex items-center justify-between rounded-2xl border border-white/[0.07] bg-white/[0.03] p-4">
+            <div className="mb-4 flex items-center justify-between rounded-2xl border border-white/[0.07] bg-[var(--surface)] p-4">
               <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-white/55">
                 <Sparkles size={15} className="text-yellow-300" /> Shiny
               </span>
@@ -686,7 +686,7 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
                 <select
                   value={pending.ability || ''}
                   onChange={(event) => setPending((p) => ({ ...p, ability: event.target.value || null }))}
-                  className="h-11 w-full rounded-xl border border-white/10 bg-[#131d33] px-3 text-sm text-white outline-none focus:border-violet-300/40"
+                  className="h-11 w-full rounded-xl border border-white/10 bg-[var(--surface)] px-3 text-sm text-white outline-none focus:border-violet-300/40"
                 >
                   {(pending.pokemon.abilities || []).map((ability) => (
                     <option key={ability.name} value={ability.name}>
@@ -699,7 +699,7 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
                 <span className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.1em] text-white/50">
                   Objeto equipado · {allItems.length} objetos
                 </span>
-                <div className="flex h-11 items-center gap-2 rounded-xl border border-white/10 bg-[#131d33] px-3 focus-within:border-violet-300/40">
+                <div className="flex h-11 items-center gap-2 rounded-xl border border-white/10 bg-[var(--surface)] px-3 focus-within:border-violet-300/40">
                   <Search size={15} className="shrink-0 text-white/40" />
                   <input
                     id="team-item"
@@ -733,7 +733,7 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
                   )}
                 </div>
                 {itemListOpen && (
-                  <div className="absolute left-0 right-0 top-full z-20 mt-1 max-h-60 overflow-y-auto rounded-xl border border-white/10 bg-[#101a30] p-1 shadow-2xl">
+                  <div className="absolute left-0 right-0 top-full z-20 mt-1 max-h-60 overflow-y-auto rounded-xl border border-white/10 bg-[var(--surface)] p-1 shadow-2xl">
                     <button
                       type="button"
                       onClick={() => selectItem(null)}
@@ -763,7 +763,7 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
             </div>
 
             {/* Estadísticas calculadas */}
-            <div className="mb-5 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-4">
+            <div className="mb-5 rounded-2xl border border-white/[0.07] bg-[var(--surface)] p-4">
               <div className="mb-3 flex items-center justify-between">
                 <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/50">
                   Estadísticas en combate
