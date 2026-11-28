@@ -437,7 +437,7 @@ export default function EvolutionTree({ pokemon, prevEvolution, onNavigate }) {
         style={{ WebkitOverflowScrolling: 'touch' }}
       >
         <div className="relative mx-auto flex w-max items-center gap-3 px-1 py-2">
-          <LineageBranch node={line.root} childMap={childMap} onNavigate={onNavigate} />
+          <BranchNode node={line.root} childMap={childMap} onNavigate={onNavigate} />
         </div>
       </div>
     </section>

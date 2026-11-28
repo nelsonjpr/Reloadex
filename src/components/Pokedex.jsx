@@ -189,7 +189,7 @@ export default function Pokedex({ onBack, onSelect }) {
               </button>
             )}
             <div className="flex items-center gap-3 flex-1 min-w-0">
-              <img src="/logo-ui.png" alt="Reloadex" className="h-9 w-9 rounded-xl object-cover ring-1 ring-white/15" />
+              <img src="/logo-ui.png?v=2" alt="Reloadex" className="h-9 w-9 rounded-xl object-cover ring-1 ring-white/15" />
               <div className="min-w-0">
                 <h1 className="truncate text-xl font-semibold tracking-[-0.035em] sm:text-2xl">Reloadex</h1>
                 <p className="truncate text-[11px] font-normal tracking-[0.08em] text-white/50">Pokédex de Pokémon Reloaded</p>

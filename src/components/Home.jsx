@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Users, Zap, Sparkles, Crown, Map, MapPin, ScrollText, Smile } from 'lucide-react';
+import { Search, Users, Zap, Sparkles, Crown, Map, MapPin, ScrollText, Smile, ChevronRight } from 'lucide-react';
 import { APP_VERSION } from '../data/appInfo';
 import { safeTop } from '../utils/safeArea';
 import UpdateButton from './UpdateButton';
@@ -8,173 +8,244 @@ const Home = ({ onNavigate, onOpenPalette }) => {
   const menuItems = [
     {
       id: 'pokedex',
-      title: 'Pokédex',
-      description: 'Explora todos los Pokémon',
+      title: 'POKÉDEX',
+      description: 'BASE DE DATOS COMPLETA',
       icon: Search,
-      gradient: 'from-blue-500 to-cyan-500',
-      bgPattern: 'bg-blue-500/10',
-      accent: '#38bdf8'
+      color: '#DC143C'
     },
     {
       id: 'team',
-      title: 'Equipo',
-      description: 'Crea tu equipo perfecto',
+      title: 'EQUIPO',
+      description: 'CONSTRUYE TU EQUIPO',
       icon: Users,
-      gradient: 'from-purple-500 to-pink-500',
-      bgPattern: 'bg-purple-500/10',
-      accent: '#c084fc'
+      color: '#C0C0C0'
     },
     {
       id: 'moves',
-      title: 'Movimientos',
-      description: 'MTs, MOs, DTs y Tutores',
+      title: 'MOVIMIENTOS',
+      description: 'MTs · MOs · DTs · TUTORES',
       icon: Zap,
-      gradient: 'from-yellow-500 to-orange-500',
-      bgPattern: 'bg-yellow-500/10',
-      accent: '#fbbf24'
+      color: '#DC143C'
     },
     {
       id: 'abilities',
-      title: 'Habilidades',
-      description: 'Todas las habilidades',
+      title: 'HABILIDADES',
+      description: 'CATÁLOGO COMPLETO',
       icon: Sparkles,
-      gradient: 'from-green-500 to-emerald-500',
-      bgPattern: 'bg-green-500/10',
-      accent: '#34d399'
+      color: '#808080'
     },
     {
       id: 'guia',
-      title: 'Guía',
-      description: 'Recorrido completo por regiones',
+      title: 'GUÍA',
+      description: 'RECORRIDO POR REGIONES',
       icon: Map,
-      gradient: 'from-teal-500 to-emerald-500',
-      bgPattern: 'bg-teal-500/10',
-      accent: '#2dd4bf'
+      color: '#DC143C'
     },
     {
       id: 'misiones',
-      title: 'Misiones',
-      description: 'Las 144 misiones del juego',
+      title: 'MISIONES',
+      description: '144 MISIONES ACTIVAS',
       icon: ScrollText,
-      gradient: 'from-fuchsia-500 to-violet-500',
-      bgPattern: 'bg-fuchsia-500/10',
-      accent: '#e879f9'
+      color: '#C0C0C0'
     },
     {
       id: 'caras',
-      title: 'Caras',
-      description: '361 personajes y sus sprites',
+      title: 'PERSONAJES',
+      description: '361 SPRITES FACIALES',
       icon: Smile,
-      gradient: 'from-rose-500 to-orange-500',
-      bgPattern: 'bg-rose-500/10',
-      accent: '#fb7185'
+      color: '#DC143C'
     },
     {
       id: 'legendaries',
-      title: 'Legendarios',
-      description: 'Ubicaciones y capturas',
+      title: 'LEGENDARIOS',
+      description: 'CAPTURAS ESPECIALES',
       icon: Crown,
-      gradient: 'from-amber-500 to-yellow-500',
-      bgPattern: 'bg-amber-500/10',
-      accent: '#fcd34d'
+      color: '#808080'
     },
     {
       id: 'objetos',
-      title: 'Localización de objetos',
-      description: 'Todos los objetos y sus rutas',
+      title: 'OBJETOS',
+      description: 'LOCALIZACIÓN Y RUTAS',
       icon: MapPin,
-      gradient: 'from-indigo-500 to-blue-500',
-      bgPattern: 'bg-indigo-500/10',
-      accent: '#818cf8'
+      color: '#DC143C'
     }
   ];
 
   return (
     <div className="min-h-screen bg-[var(--app-bg)]">
-      {/* Header */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent" />
+      {/* Header Cyberpunk */}
+      <div className="relative overflow-hidden border-b" style={{ borderColor: 'var(--crimson-dark)' }}>
+        {/* Líneas de fondo decorativas */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'repeating-linear-gradient(90deg, var(--crimson) 0px, transparent 1px, transparent 20px)',
+          }} />
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, var(--crimson) 0px, transparent 1px, transparent 20px)',
+          }} />
+        </div>
+        
         <div className="relative z-10 px-4 pb-8 sm:pb-12" style={safeTop(32)}>
           <div className="text-center">
-            <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
-              <img
-                src="/logo-ui.png"
-                alt="Reloadex"
-                className="h-14 w-14 rounded-2xl object-cover ring-2 ring-white/20 sm:h-20 sm:w-20"
-                style={{ boxShadow: '0 18px 38px -18px rgba(56, 189, 248, 0.8), inset 0 1px 0 rgba(255,255,255,0.2)' }}
-              />
-              <h1 className="text-3xl sm:text-5xl font-semibold tracking-[-0.04em] text-white">
-                <span className="bg-gradient-to-r from-sky-300 via-cyan-300 to-indigo-300 bg-clip-text text-transparent">Reloadex</span>
-              </h1>
+            {/* Logo + Título */}
+            <div className="flex items-center justify-center gap-4 mb-4 sm:mb-6">
+              <div className="relative tech-corner">
+                <img
+                  src="/logo-ui.png?v=2"
+                  alt="Reloadex"
+                  className="h-16 w-16 object-cover sm:h-24 sm:w-24"
+                  style={{ 
+                    clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)',
+                    boxShadow: '0 0 30px var(--crimson-glow), 0 10px 40px rgba(0, 0, 0, 0.9)',
+                    border: '2px solid var(--crimson)'
+                  }}
+                />
+              </div>
+              <div className="text-left">
+                <h1 className="text-4xl sm:text-6xl font-bold tracking-[0.12em] text-white">
+                  RELOADEX
+                </h1>
+                <div className="h-[2px] w-full mt-1 mb-1" style={{
+                  background: 'linear-gradient(90deg, var(--crimson) 0%, transparent 100%)',
+                  boxShadow: '0 0 10px var(--crimson-glow)'
+                }} />
+                <p className="eyebrow text-xs sm:text-sm">
+                  SISTEMA POKÉDEX v{APP_VERSION}
+                </p>
+              </div>
             </div>
-            <p className="text-sm sm:text-lg font-normal tracking-[0.01em] text-white/70">
-              Tu Pokédex definitiva de <span className="font-semibold text-white">Pokémon Reloaded</span>
+            
+            <p className="text-xs sm:text-base font-medium tracking-[0.08em] uppercase" style={{ color: 'var(--silver)' }}>
+              BASE DE DATOS · POKÉMON RELOADED
             </p>
           </div>
         </div>
+
+        {/* Línea de escaneo animada */}
+        <div className="scan-line absolute bottom-0 w-full h-[2px]" />
       </div>
 
-      {/* Menu Grid */}
-      <div className="px-4 pb-12 max-w-6xl mx-auto">
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-          {menuItems.map((item) => {
+      {/* Menu Grid - Estilo Paneles Tech */}
+      <div className="px-4 py-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          {menuItems.map((item, index) => {
             const Icon = item.icon;
             return (
               <button
                 type="button"
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
-                className="premium-card group relative overflow-hidden rounded-2xl border border-white/[0.06] p-4 text-left active:scale-[0.98] sm:rounded-3xl sm:p-6"
+                className="premium-card tech-corner group relative overflow-hidden p-6 text-left transition-all duration-200"
                 style={{
-                  '--card-shadow': `0 18px 44px -22px ${item.accent}66, 0 12px 30px -18px rgba(3, 8, 20, 0.85)`,
-                  '--card-shadow-hover': `0 26px 58px -20px ${item.accent}99, 0 16px 34px -16px rgba(3, 8, 20, 0.9)`,
+                  borderColor: item.color === '#DC143C' ? 'var(--crimson-dark)' : 'var(--silver-dark)',
+                  animationDelay: `${index * 50}ms`
                 }}
               >
-                {/* Sin backdrop-blur: la tarjeta ya es opaca y evitar capas de
-                    desenfoque mejora mucho el scroll en móvil. */}
-                <div className={`absolute inset-0 ${item.bgPattern} opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
+                {/* Esquina cortada superior izquierda */}
+                <div className="absolute top-0 left-0 w-4 h-4 bg-[var(--app-bg)]" style={{
+                  clipPath: 'polygon(0 0, 100% 0, 0 100%)'
+                }} />
                 
+                {/* Esquina cortada inferior derecha */}
+                <div className="absolute bottom-0 right-0 w-4 h-4 bg-[var(--app-bg)]" style={{
+                  clipPath: 'polygon(100% 0, 100% 100%, 0 100%)'
+                }} />
+
+                {/* Borde superior con glow */}
+                <div className="absolute top-0 left-0 right-0 h-[1px]" style={{
+                  background: `linear-gradient(90deg, transparent 0%, ${item.color} 50%, transparent 100%)`,
+                  opacity: 0.6
+                }} />
+
                 {/* Contenido */}
-                <div className="relative z-10">
+                <div className="relative z-10 flex items-start gap-4">
+                  {/* Icono */}
                   <div
-                    className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 sm:mb-4 sm:h-16 sm:w-16 sm:rounded-2xl"
+                    className="flex h-14 w-14 shrink-0 items-center justify-center transition-all duration-300 group-hover:scale-110"
                     style={{
-                      background: `radial-gradient(circle at 30% 24%, ${item.accent}f2 0%, ${item.accent}99 42%, ${item.accent}1f 100%)`,
-                      boxShadow: `inset 0 0 0 1px rgba(255,255,255,0.16), inset 0 1px 0 rgba(255,255,255,0.2), 0 12px 26px -12px ${item.accent}aa`,
+                      background: `${item.color}1a`,
+                      border: `1px solid ${item.color}`,
+                      clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                      boxShadow: `0 0 20px ${item.color}40, inset 0 0 15px ${item.color}1a`
                     }}
                   >
-                    <Icon size={24} className="text-white sm:h-8 sm:w-8" />
+                    <Icon size={28} style={{ color: item.color, filter: `drop-shadow(0 0 8px ${item.color}80)` }} />
                   </div>
-                  <h2 className="mb-1 text-lg font-semibold tracking-[-0.03em] text-white sm:mb-2 sm:text-2xl">
-                    {item.title}
-                  </h2>
-                  <p className="text-xs font-normal tracking-[0.01em] text-white/60 sm:text-sm line-clamp-2">
-                    {item.description}
-                  </p>
+
+                  {/* Texto */}
+                  <div className="flex-1 min-w-0">
+                    <h2 className="mb-2 text-lg sm:text-xl font-bold tracking-[0.1em] text-white" style={{
+                      textShadow: `0 0 10px ${item.color}60`
+                    }}>
+                      {item.title}
+                    </h2>
+                    <p className="text-[10px] sm:text-xs font-semibold tracking-[0.12em] uppercase" style={{ 
+                      color: 'var(--silver-dark)'
+                    }}>
+                      {item.description}
+                    </p>
+                  </div>
+
+                  {/* Flecha */}
+                  <ChevronRight 
+                    size={20} 
+                    className="shrink-0 opacity-50 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1"
+                    style={{ color: item.color }}
+                  />
                 </div>
 
-                {/* Brillo en hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-10`} />
-                </div>
+                {/* Efecto hover glow */}
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{
+                    background: `radial-gradient(circle at center, ${item.color}15 0%, transparent 70%)`,
+                    boxShadow: `inset 0 0 40px ${item.color}20`
+                  }}
+                />
+
+                {/* Línea inferior decorativa */}
+                <div className="absolute bottom-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{
+                  background: `linear-gradient(90deg, transparent 0%, ${item.color} 50%, transparent 100%)`,
+                  boxShadow: `0 0 10px ${item.color}80`
+                }} />
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Footer info */}
-      <div className="px-4 pb-8 text-center">
-        <div className="glass-effect rounded-2xl p-6 max-w-2xl mx-auto">
-          <p className="text-sm font-normal tracking-[0.01em] text-white/60">
-            <span className="font-semibold text-white">Reloadex</span> · Pokédex de Pokémon Reloaded
+      {/* Footer Tech */}
+      <div className="px-4 pb-8">
+        <div className="app-card relative max-w-3xl mx-auto p-6 text-center">
+          {/* Esquinas cortadas */}
+          <div className="absolute top-0 left-0 w-3 h-3 bg-[var(--app-bg)]" style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }} />
+          <div className="absolute bottom-0 right-0 w-3 h-3 bg-[var(--app-bg)]" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 100%)' }} />
+          
+          <p className="text-sm font-bold tracking-[0.12em] uppercase text-white mb-3">
+            RELOADEX · POKÉDEX SYSTEM
           </p>
-          <p className="mt-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs font-normal tracking-[0.06em] text-white/40">
-            <span className="pill bg-white/10 px-2 py-0.5 font-semibold tracking-normal text-white/75">
-              Versión {APP_VERSION}
+          <p className="text-xs font-medium tracking-[0.08em] uppercase mb-4" style={{ color: 'var(--silver-dark)' }}>
+            POKÉMON RELOADED DATABASE
+          </p>
+          
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <span className="pill" style={{ 
+              background: 'var(--crimson)',
+              color: '#fff',
+              boxShadow: '0 0 15px var(--crimson-glow)'
+            }}>
+              v{APP_VERSION}
             </span>
             <UpdateButton />
-            <span>{new Date().getFullYear()} · Hecho con ❤️ para entrenadores</span>
+          </div>
+          
+          <div className="mt-4 h-[1px]" style={{
+            background: 'linear-gradient(90deg, transparent 0%, var(--crimson) 50%, transparent 100%)',
+            opacity: 0.3
+          }} />
+          
+          <p className="mt-4 text-[10px] font-semibold tracking-[0.15em] uppercase" style={{ color: 'var(--silver-dark)' }}>
+            {new Date().getFullYear()} · SISTEMA ACTIVO · ENTRENADORES CONECTADOS
           </p>
         </div>
       </div>

@@ -68,7 +68,7 @@ function Loading() {
           className="relative"
         >
           <motion.img
-            src="/logo-ui.png"
+            src="/logo-ui.png?v=2"
             alt=""
             className="relative h-28 w-28 rounded-[32px] object-cover ring-1 ring-white/25 sm:h-36 sm:w-36"
             animate={{ y: [0, -6, 0] }}
