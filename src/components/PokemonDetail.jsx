@@ -98,6 +98,9 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
     setExpandedAbility(null);
     setShowMoves(false);
     setShowVariants(false);
+    
+    // 🔴 SCROLL AUTOMÁTICO AL TOP cuando cambias de Pokémon
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [id]);
   const types = Array.isArray(pokemon?.types) ? pokemon.types : [];
   const hasTypes = types.length > 0;
