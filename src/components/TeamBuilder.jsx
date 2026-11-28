@@ -379,7 +379,10 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
                       />
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-[15px] font-semibold text-white">{pokemon.name}</p>
-                        <p className="font-mono text-[11px] text-white/40">
+                        <p className="font-mono text-[11px] font-bold" style={{
+                          color: '#C0C0C0',
+                          textShadow: '0 0 6px rgba(192, 192, 192, 0.5)'
+                        }}>
                           #{String(pokemon.id).padStart(4, '0')}
                         </p>
                         <div className="mt-1.5 flex flex-wrap gap-1">
@@ -548,7 +551,10 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
                   <span className="mt-1 w-full truncate text-center text-[11px] font-semibold text-white/90">
                     {pokemon.name}
                   </span>
-                  <span className="font-mono text-[9px] text-white/35">
+                  <span className="font-mono text-[9px] font-bold" style={{
+                    color: '#C0C0C0',
+                    textShadow: '0 0 5px rgba(192, 192, 192, 0.5)'
+                  }}>
                     #{String(pokemon.id).padStart(4, '0')}
                   </span>
                 </button>
@@ -601,7 +607,10 @@ export function TeamBuilder({ onBack, onRegisterOverlayBack }) {
                 <h2 className="truncate text-xl font-semibold tracking-[-0.03em] text-white">
                   {pending.pokemon.name}
                 </h2>
-                <p className="font-mono text-[11px] text-white/40">
+                <p className="font-mono text-[11px] font-bold" style={{
+                  color: '#C0C0C0',
+                  textShadow: '0 0 6px rgba(192, 192, 192, 0.5)'
+                }}>
                   #{String(pending.pokemon.id).padStart(4, '0')} · Puesto {configSlot + 1}
                 </p>
                 <div className="mt-2 flex flex-wrap gap-1">

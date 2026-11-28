@@ -25,7 +25,10 @@ const PokemonCard = ({ pokemon, onClick }) => {
           }}
         >
           <div className="flex justify-between items-center">
-            <span className="text-xs font-bold text-white/70">#{String(pokemon.id).padStart(3, '0')}</span>
+            <span className="text-xs font-bold" style={{
+              color: '#C0C0C0',
+              textShadow: '0 0 6px rgba(192, 192, 192, 0.6)'
+            }}>#{String(pokemon.id).padStart(3, '0')}</span>
             <div className="flex gap-1">
               {pokemon.types.map((type) => (
                 <div

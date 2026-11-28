@@ -205,7 +205,10 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
               >
                 <ArrowLeft size={20} />
               </button>
-              <span className="pill bg-black/25 px-3.5 py-1.5 font-mono text-xs font-bold tabular-nums text-white/90 ring-1 ring-white/20">
+              <span className="pill bg-black/40 px-3.5 py-1.5 font-mono text-sm font-bold tabular-nums text-white ring-2 ring-white/20" style={{
+                textShadow: '0 0 10px rgba(192, 192, 192, 0.8), 0 2px 4px rgba(0, 0, 0, 0.9)',
+                color: '#C0C0C0'
+              }}>
                 {formatId(id)}
               </span>
               <img
@@ -443,8 +446,12 @@ const PokemonDetail = ({ pokemon, onClose, onNavigate, onRegisterOverlayBack }) 
                             >
                               {abilityNameEs(isObject ? ability : rawName)}
                               {hidden && (
-                                <span className="pill bg-gradient-to-r from-amber-300 to-pink-400 px-2 py-0.5 text-[10px] font-extrabold text-slate-900">
-                                  Oculta
+                                <span className="pill px-2 py-0.5 text-[10px] font-extrabold text-white" style={{
+                                  background: 'linear-gradient(135deg, #DC143C 0%, #8B0000 100%)',
+                                  boxShadow: '0 0 15px rgba(220, 20, 60, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.2)',
+                                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.8), 0 0 8px rgba(255, 255, 255, 0.5)'
+                                }}>
+                                  OCULTA
                                 </span>
                               )}
                               <ChevronDown

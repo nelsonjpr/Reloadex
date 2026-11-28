@@ -44,7 +44,10 @@ const FaceCard = memo(function FaceCard({ face }) {
         <span className="pill bg-rose-400/10 px-2 py-0.5 font-mono text-[11px] font-bold text-rose-200 ring-1 ring-rose-300/20">
           {numero}
         </span>
-        <span className="font-mono text-[10px] text-white/35">#{face.id}</span>
+        <span className="font-mono text-[10px] font-bold" style={{
+          color: '#C0C0C0',
+          textShadow: '0 0 5px rgba(192, 192, 192, 0.5)'
+        }}>#{face.id}</span>
       </div>
       <p className="mt-1 truncate text-[12px] font-semibold text-white/90" title={face.nombre}>
         {face.nombre}

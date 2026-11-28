@@ -437,7 +437,10 @@ function PokemonRow({ pokemon, isFavorite, onToggleFavorite, onClick }) {
         </div>
 
         <div className="min-w-0 flex-1">
-          <div className="eyebrow font-mono text-white/60">
+          <div className="font-mono text-xs font-bold tracking-wider" style={{
+            color: '#C0C0C0',
+            textShadow: '0 0 8px rgba(192, 192, 192, 0.6), 0 1px 2px rgba(0, 0, 0, 0.8)'
+          }}>
             {formatId(pokemon.id)}
           </div>
           <div className="mt-0.5 flex items-center gap-2">

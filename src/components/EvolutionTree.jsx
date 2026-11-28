@@ -255,7 +255,10 @@ function EvolutionNode({ node, onNavigate, compact = false, branchColor = null }
         {node.name}
       </span>
       {!compact && (
-        <span className="mt-0.5 font-mono text-[9px] text-white/40">{formatId(node.id)}</span>
+        <span className="mt-0.5 font-mono text-[9px] font-bold" style={{
+          color: '#C0C0C0',
+          textShadow: '0 0 5px rgba(192, 192, 192, 0.5)'
+        }}>{formatId(node.id)}</span>
       )}
     </div>
   );

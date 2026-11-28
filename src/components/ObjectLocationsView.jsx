@@ -46,7 +46,10 @@ const ObjectCard = memo(function ObjectCard({ item, gifts }) {
               <h2 className="truncate text-[15px] font-semibold tracking-[-0.02em] text-white">
                 {item.name}
               </h2>
-              <p className="mt-0.5 font-mono text-[11px] text-white/40">#{String(item.id).padStart(4, '0')}</p>
+              <p className="mt-0.5 font-mono text-[11px] font-bold" style={{
+                color: '#C0C0C0',
+                textShadow: '0 0 6px rgba(192, 192, 192, 0.5)'
+              }}>#{String(item.id).padStart(4, '0')}</p>
             </div>
             <span className="pill shrink-0 bg-white/[0.07] px-2.5 py-1 text-[10px] font-bold text-white/65 ring-1 ring-white/10">
               {item.category || 'Objeto'}
